@@ -1,7 +1,62 @@
-doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+<!DOCTYPE html>
+<head> 
+
+    <%- include('config/styles.ejs')%>
+  
+ </head>
+<body>
+  <p style="position: absolute; color:red;top:2%;left:2%">current env: <%=config.env%></p>
+  <%if (config.env=="dev"){%>
+  <div id="dev_info">
+    
+  index.ejs
+  <h1>ROYAL CARDS PROJECT</h1>
+  <h2>by: theLab and W2 Marketing</h2>
+  <p>  building:
+    webapp allows our users to land here, and shop which style business card they'd like to add with their logo and info</p>
+
+    <h2>the build</h2>
+<h3>mongo db</h3>
+<h3>node.js</h3>
+<h3>express ejs view</h3>
+<h3>vanilla js</h3>
+
+<h2>the deploy</h2>
+<h3>ubuntu vm</h3>
+<h3>apache</h3>
+<h3>ssl certbot</h3>
+
+
+
+    <p>needs npm packages</p>
+  <ul>
+    <li>auth: passport.js</li>
+    <li>payment: stripe.js</li>
+    <li>dynamic dashboard</li>
+    <li>dynamic viewer for biz cards</li>
+    <li>db : mongodb</li>
+  </ul>
+</div>
+<%}else{%>
+
+
+<div id="prod">
+
+  <div id="menu">menu</div>
+  <div id="payment">payment</div>
+  <div id="admin">admin</div>
+  <div id="user">user</div>
+  
+
+</div>
+<%}%>
+
+  <script></script>
+</body>
+</html>
+
+
+
+
+
+

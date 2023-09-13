@@ -1,8 +1,32 @@
+/***fonts**/
+@font-face {
+  font-family: "mayphylla";
+  src: url("/fonts/maphylla.otf");
+}
+@font-face {
+  font-family: "sunday";
+  src: url("/fonts/weatherSunday.otf");
+}
+@font-face {
+  font-family: "aquarelle";
+  src: url("/fonts/aquarelle.ttf");
+}
+@font-face {
+  font-family: "backlash";
+  src: url("/fonts/backlash.otf");
+}
+/*fonts END*/
+#menu, #payment, #admin, #user {
+  display: none;
+}
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "backlash";
 }
 
 a {
   color: #00B7FF;
 }
+
+/*# sourceMappingURL=style.css.map */

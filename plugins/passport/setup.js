@@ -3,6 +3,7 @@ const config = require('../../config/config')
 const passport = require('./passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const flash = require('connect-flash');
 
 module.exports = function(app, process) {
     app.use(session({
@@ -19,6 +20,7 @@ module.exports = function(app, process) {
         }),
   
     }));
+    app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
 };

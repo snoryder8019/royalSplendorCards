@@ -16,10 +16,6 @@
   src: url("/fonts/backlash.otf");
 }
 /*fonts END*/
-#payment, #admin, #user {
-  display: none;
-}
-
 body {
   padding: 50px;
   font-family: "backlash";

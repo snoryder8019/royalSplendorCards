@@ -1,12 +1,39 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
+const bodyParser = require('body-parser');
 
+router.use(bodyParser.urlencoded({ extended: true }));
 // Create a route to handle the login request
-router.post('/checkCreds',
+// router.post('/auth/local', (req, res, next) => { 
+//   console.log("body "+req.body)
+//   passport.authenticate('local', (err, user, info) => {
+//       if (err) {
+//           req.flash('error', 'An error occurred.');
+//           return res.redirect('/');
+//       }
+//       if (!user) {
+//         console.log(info)
+//         req.flash('error', 'Invalid email or password.');
+//         return res.send(info,err,user);
+//       }      
+//       req.logIn(user, (err) => {
+//         if (err) {
+//             console.log('some other login error occured')         
+//             req.flash('error', 'An error occurred.');
+//             return res.redirect('/');
+//           }
+          
+//           req.flash('success', 'Successfully logged in!');
+//           console.log('loggin in holmes')
+//           return res.redirect('/');
+//       });
+//   })(req, res, next);
+// });
+router.post('/auth/local',
   passport.authenticate('local',{
-    successReturnToOrRedirect:'/market',
-    failureRedirect: '/login',
+    successReturnToOrRedirect:'/',
+    failureRedirect: '/',
     keepSessionInfo:true 
    }
  ),  
@@ -15,11 +42,11 @@ router.post('/checkCreds',
 router.get('/auth/google', 
 passport.authenticate('google',
   {scope:['profile','email','openid'], callbackURL: "http://localhost:3000/auth/google/callback"},
-  {failureRedirect:'login'}));
+  {failureRedirect:'/'}));
 
 router.get('/auth/google/callback', 
 passport.authenticate('google',
-   {failureRedirect:'login'}),
+   {failureRedirect:'/'}),
   (req,res)=>{
    res.redirect('/')});
 
@@ -36,17 +63,12 @@ passport.authenticate('google',
   router.get('/logout', function(req, res, next) {
     const user=req.user
     console.log(user)
-    const sessionUser = req.session.user
-    console.log(sessionUser)
-    if(user)
+   
     req.logout(function(err){
       if(err){return next(err)}
      }
     )  
-   if(sessionUser){
-        req.session.destroy(function(err){
-          if(err){return next(err)}})
-    }              
+       
         return  res.redirect('/'); 
    }
  )      

@@ -3,29 +3,33 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
+
 const config = require('./config/config');
 var indexRouter = require('./routes/index');
 const { connect } = require('./plugins/mongo/mongo');
-
+const createError = require('http-errors');
+const flash = require('express-flash');
 var app = express();
 
 async function startApp() {
   // Connect to MongoDB first
   await connect();
-
+  
   // Initialize Passport
   const { setupPassport, authRoutes } = require('./plugins/passport');
   setupPassport(app, process);
-
+  
   // Use auth routes
   app.use(authRoutes);
-
+  
   global.config = config;
-
+  
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'ejs');
-
+  
+  app.use(bodyParser.urlencoded({ extended: true }));
   app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));

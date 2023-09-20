@@ -1,28 +1,64 @@
 
 <!-- Inside ./partials/login.ejs -->
-<% if (session && session.loggedIn) { %>
-    Welcome back, <%= session.username %>!
-<% } else { %>
 
-    <a href="./auth/google">Login with Google</a>
-    <a href="./auth/facebook">Login with Facebook</a>
 
-    ~~~~~~
-    <form action="/auth/local" method="post">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
+<%if(typeof user=="object" && user){%>
+    welcome <%=user.firstName%>
+
+    <a href="/logout">logout</a>
+    <%}else{%>
+        <a href="./auth/google">Login with Google</a>
+        <br>
     
+        <a href="./auth/facebook">Login with Facebook</a>
     
-<% } %>
+        <form action="/auth/local" method="post">
+            <div>
+                <label for="email">email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <button type="submit">Login</button>
+            </div>
+        </form>
+      
 
-
+        <div id="localRegister" class="">
+            <h2>
+              Register Email:
+            </h2>
+          
+            <form action="/regUser" method="post">
+              <div>
+                <label>Fisrt Name</label>
+                <input id="firstname" name="firstName" type="text" autocomplete="firstname" required />
+              </div>
+              <div>
+                <label>Last Name</label>
+                <input id="lastname" name="lastName" type="text" autocomplete="lastname" required />
+              </div>
+              <div>
+                <label >Email</label>
+                <input  name="email" type="email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="valid email characters not recognized" required />
+              </div>
+              <div>
+                <label >Password</label>
+                <input oninput="checkPasswords" id="password1" name="password" type="password" pattern="(?=.{8}" title="format: " required />
+              </div>
+              
+            <div>
+                <label >Confirm Password</label>
+                <input id="password2" type="password"  required />
+                <h4>**passwords must be 8 charachters long**</h4>
+              </div>
+              <div>
+                <button onclick="loading('Thank you for registering your cart! Please Login')" type="submit">Register</button>
+              </div>
+            </form>
+          </div>
+        <%}%>
+  

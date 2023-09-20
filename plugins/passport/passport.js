@@ -15,22 +15,29 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: 'email',
+      passReqToCallback: true, // Enables the request object in the callback
     },
-    async (email, password, done) => {
+    async (req, email, password, done) => {
       try {
         const db = getDb();
         const users = db.collection('users');
+        console.log('awaiting email')
         const user = await users.findOne({ email });
 
         if (!user) {
-          return done(null, false, { message: 'Invalid email or password.' });
+          console.log('bad email');
+          req.flash('error', 'Invalid email.');
+          return done(null, false);
         }
-
+        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-          return done(null, false, { message: 'Invalid email or password.' });
+          console.log('bad password');
+          req.flash('error', 'Invalid password.');
+          return done(null, false);
         }
 
+        req.flash('success', 'Logged in successfully.');
         return done(null, user);
       } catch (error) {
         done(error);
@@ -38,6 +45,7 @@ passport.use(
     }
   )
 );
+
 passport.use(
   new FacebookStrategy(
     {
@@ -114,15 +122,17 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
+  console.log('serialize')
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
+    console.log('deserialize`')
     const db = getDb();
     const users = db.collection('users');
     const user = await users.findOne({ _id: new ObjectId(id)});
-
+console.log(user)
     done(null, user);
   } catch (err) {
     done(err);

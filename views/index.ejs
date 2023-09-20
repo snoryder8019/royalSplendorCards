@@ -41,15 +41,37 @@
 
 
 <div id="prod">
+  <h1>ROYAL CARDS PROJECT</h1>
+  <div id="menu">menu
 
-  <div id="menu">menu</div>
-  <div id="payment">payment</div>
-  <div id="admin">admin</div>
-  <div id="user">user</div>
-  <div id="login"><%- include('./partials/login',{session:session})%></div>
-<div id="register"><%- include('./partials/register',{session:session})%></div>
+  </div>
+
+  <div id="user">
+    user details:
+    <%if(user){%>
+      <%=user.displayName%>
+      <%=user.email%>
+      <%}%>
+    </div>
+  <div id="login"><%- include('./partials/login',user)%></div>
+
  
+<% if (locals.error) { %>
+    <div class="alert alert-danger">
+        <%= error %>
+    </div>
+<% } %>
 
+<% if (locals.success) { %>
+    <div class="alert alert-success">
+        <%= success %>
+    </div>
+<% } %>
+<% if (message) { %>
+    <div class="alert alert-success">
+        <%= message %>
+    </div>
+<% } %>
 
 
 

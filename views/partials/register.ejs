@@ -1,0 +1,29 @@
+<div id="localRegister" class="">
+    <h2>
+      Register Email:
+    </h2>
+  
+    <form action="/regUser" method="post">
+      <div>
+        <label>Name</label>
+        <input id="username" name="name" type="text" autocomplete="username" required />
+      </div>
+      <div>
+        <label >Email</label>
+        <input  name="email" type="email"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="valid email characters not recognized" required />
+      </div>
+      <div>
+        <label >Password</label>
+        <input oninput="checkPasswords" id="password1" name="password" type="password" pattern="(?=.{8}" title="format: " required />
+      </div>
+      
+    <div>
+        <label >Confirm Password</label>
+        <input id="password2" type="password"  required />
+        <h4>**passwords must be 8 charachters long**</h4>
+      </div>
+      <div>
+        <button onclick="loading('Thank you for registering your cart! Please Login')" type="submit">Register</button>
+      </div>
+    </form>
+  </div>

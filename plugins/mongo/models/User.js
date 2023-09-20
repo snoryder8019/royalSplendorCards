@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('../../../config/config')
+
 const UserSchema = new mongoose.Schema({
     googleId:{
         type: String,
@@ -33,10 +33,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required : false,
             },
-    image:{
-        type: String,
-                    },
-      isAdmin:{
+     isAdmin:{
         type:Boolean,
         default:false,
         required:true,
@@ -45,14 +42,9 @@ const UserSchema = new mongoose.Schema({
             default:"n/a"
         }
     },
-    referral:{type:String,value:config.COLLECTION_SUBPATH},
-
-    cart:{
-        type:Array
-    },
-     createdAt:{
+       createdAt:{
          type:Date,
          default:Date.now
             }
 })
-module.exports =  mongoose.model('User',UserSchema, config.COLLECTION_SUBPATH+'_users')
+module.exports =  mongoose.model('User',UserSchema,'_users')

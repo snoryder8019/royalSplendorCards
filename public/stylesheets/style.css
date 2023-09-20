@@ -16,7 +16,7 @@
   src: url("/fonts/backlash.otf");
 }
 /*fonts END*/
-#menu, #payment, #admin, #user {
+#payment, #admin, #user {
   display: none;
 }
 

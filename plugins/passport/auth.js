@@ -11,29 +11,28 @@ router.post('/checkCreds',
    }
  ),  
 );
-//////////
-router.get('/google', 
+//////////console.log('findOne(): ')
+router.get('/auth/google', 
 passport.authenticate('google',
-  {scope:['profile','email','openid']},
+  {scope:['profile','email','openid'], callbackURL: "http://localhost:3000/auth/google/callback"},
   {failureRedirect:'login'}));
 
-router.get('/google/callback', 
+router.get('/auth/google/callback', 
 passport.authenticate('google',
    {failureRedirect:'login'}),
   (req,res)=>{
-   res.redirect('/market')});
+   res.redirect('/')});
 
-router.get('/facebook',
-  passport.authenticate('facebook',
-{scope:['email', 'id']},
- // {successRedirect:'/'},
-  {failureRedirect:'/login'}));
+   router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
-router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', 
-  {successRedirect:'/'},
-  {failureRedirect: '/login' }));  
-
+   router.get('/auth/facebook/callback',
+     passport.authenticate('facebook', { failureRedirect: '/' }),
+     function(req, res) {
+       // Successful authentication, redirect home.
+       res.redirect('/');
+     }
+   );
+   
   router.get('/logout', function(req, res, next) {
     const user=req.user
     console.log(user)

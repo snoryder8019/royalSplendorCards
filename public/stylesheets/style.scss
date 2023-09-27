@@ -92,7 +92,7 @@ font-size: 2rem;
   display:none;
 
   transform: translateY(5%);
-@include divBorder
+@include divBorder;
     //animation depenancies
     transition-timing-function: ease-in-out;
     transform-style: preserve-3d;

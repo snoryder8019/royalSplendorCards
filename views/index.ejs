@@ -2,14 +2,14 @@
 
 <head> 
   <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Be Royal!</title>
+    <title><%=config.title%></title>
   </head>
 
   <body>      
     <div id="main">
       ROYAL CARDS PROJECT
+    <div id="cards">  <%- include('./partials/cards',{user:user,message:message})%></div>
     
-      
       <!--MENU IS CONSTANT FOOTER-->
       <div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
       <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   

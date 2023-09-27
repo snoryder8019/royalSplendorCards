@@ -51,6 +51,12 @@ $purpleShadow:rgb(61, 0, 61);
 @mixin main(){
   color:black; 
 }
+@mixin divBorder{
+  border: 6px solid $purple;
+  border-radius: 50px;
+  background-color: $white;
+  padding: 3%;
+}
 /*MIXINS END*/
 
 
@@ -79,15 +85,14 @@ font-size: 2rem;
   left:0%;
   width:100%
 }
+#cards{
 
+}
 #login, #register{
   display:none;
-  border: 6px solid $purple;
-  transform: translateY(5%);
-  border-radius: 50px;
-  background-color: $white;
-  padding: 2%;
 
+  transform: translateY(5%);
+@include divBorder
     //animation depenancies
     transition-timing-function: ease-in-out;
     transform-style: preserve-3d;
@@ -104,6 +109,7 @@ font-size: 2rem;
 }
 .loginForm{
   border:1px solid black;
+  box-shadow: 5px 5px 5px $purpleShadow;
 }
 #menu {
   position: fixed;

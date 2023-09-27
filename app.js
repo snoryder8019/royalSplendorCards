@@ -4,18 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const bodyParser = require('body-parser');
-
+const flash = require('connect-flash');
 const config = require('./config/config');
 var indexRouter = require('./routes/index');
 const { connect } = require('./plugins/mongo/mongo');
 const createError = require('http-errors');
-const flash = require('express-flash');
+
 var app = express();
 
 async function startApp() {
   // Connect to MongoDB first
   await connect();
-  
+  app.use(flash());
   // Initialize Passport
   const { setupPassport, authRoutes } = require('./plugins/passport');
   setupPassport(app, process);

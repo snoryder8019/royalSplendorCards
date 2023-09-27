@@ -1,88 +1,27 @@
 <!DOCTYPE html>
+
 <head> 
+  <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Be Royal!</title>
+  </head>
 
-    <%- include('config/styles.ejs')%>
-  
- </head>
-<body>
-  <p style="position: absolute; color:red;top:2%;left:2%">current env: <%=config.env%></p>
-  <%if (config.env=="dev"){%>
-  <div id="dev_info">
+  <body>      
+    <div id="main">
+      ROYAL CARDS PROJECT
     
-  index.ejs
-  <h1>ROYAL CARDS PROJECT</h1>
-  <h2>by: theLab and W2 Marketing</h2>
-  <p>  building:
-    webapp allows our users to land here, and shop which style business card they'd like to add with their logo and info</p>
+      
+      <!--MENU IS CONSTANT FOOTER-->
+      <div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
+      <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
+      <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
+      <div id="flashErrors"><%- include('./partials/FlashErrors',{user:user,message:message})%></div>          
+    </div>    
+       
+  <script src="/javascripts/loader.js"></script>
+  </body>
 
-    <h2>the build</h2>
-<h3>mongo db</h3>
-<h3>node.js</h3>
-<h3>express ejs view</h3>
-<h3>vanilla js</h3>
-
-<h2>the deploy</h2>
-<h3>ubuntu vm</h3>
-<h3>apache</h3>
-<h3>ssl certbot</h3> 
-
-
-
-    <p>needs npm packages</p>
-  <ul>
-    <li>auth: passport.js :DONE</li>
-    <li>payment: stripe.js</li>
-    <li>dynamic dashboard</li>
-    <li>dynamic viewer for biz cards</li>
-    <li>db : mongodb : CONNECTED</li>
-  </ul>
-</div>
-<%}else{%>
-
-
-<div id="prod">
-  <h1>ROYAL CARDS PROJECT</h1>
-  <div id="menu">menu
-
-  </div>
-
-  <div id="user">
-    user details:
-    <%if(user){%>
-      <%=user.displayName%>
-      <%=user.email%>
-      <%}%>
-    </div>
-  <div id="login"><%- include('./partials/login',user)%></div>
-
- 
-<% if (locals.error) { %>
-    <div class="alert alert-danger">
-        <%= error %>
-    </div>
-<% } %>
-
-<% if (locals.success) { %>
-    <div class="alert alert-success">
-        <%= success %>
-    </div>
-<% } %>
-<% if (message) { %>
-    <div class="alert alert-success">
-        <%= message %>
-    </div>
-<% } %>
-
-
-
-
-</div>
-
-<%}%>
- 
-  <script></script>
-</body>
 </html>
+
 
 
 

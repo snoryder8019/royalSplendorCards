@@ -1,4 +1,9 @@
 /***fonts**/
+html {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
 @font-face {
   font-family: "mayphylla";
   src: url("/fonts/maphylla.otf");
@@ -16,13 +21,117 @@
   src: url("/fonts/backlash.otf");
 }
 /*fonts END*/
+/*COLORS*/
+/*COLORS END*/
+/*KEFRAMES*/
+@keyframes slideUpAvatar {
+  0% {
+    transform: translateY(200%);
+    opacity: 0%;
+  }
+  100% {
+    transform: translateY(50%);
+    opacity: 100%;
+  }
+}
+@keyframes slideUpLogin {
+  0% {
+    transform: translateY(200%);
+    opacity: 0%;
+  }
+  100% {
+    transform: translateY(5%);
+    opacity: 100%;
+  }
+}
+/*KEYFRAMES END*/
+/*mixins*/
+/*MIXINS END*/
 body {
   padding: 50px;
   font-family: "backlash";
+  overflow: hidden;
 }
 
 a {
   color: #00B7FF;
+}
+
+button {
+  border: 1px solid black;
+  width: 96%;
+  margin: 2%;
+  color: purple;
+  font-size: 2rem;
+}
+
+.flashMessage {
+  position: fixed;
+  bottom: 10%;
+  left: 0%;
+  width: 100%;
+}
+
+#login, #register {
+  display: none;
+  border: 6px solid purple;
+  transform: translateY(5%);
+  border-radius: 50px;
+  background-color: white;
+  padding: 2%;
+  transition-timing-function: ease-in-out;
+  transform-style: preserve-3d;
+  box-shadow: 2px 2px rgb(61, 0, 61);
+  animation: 2s 0s 1 slideUpLogin;
+}
+
+.oneTouchLogin {
+  border: 2px solid black;
+}
+.oneTouchLogin img {
+  width: 85px;
+  border: none;
+}
+
+.loginForm {
+  border: 1px solid black;
+}
+
+#menu {
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+  min-height: 12%;
+  width: 100%;
+  background-color: purple;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#avatar {
+  position: absolute;
+  border-radius: 50%;
+  border: 6px solid purple;
+  background-color: white;
+  max-height: 175px;
+  max-width: 175px;
+  bottom: 50%;
+  transform: translateY(50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 18px;
+  word-wrap: break-word;
+  transition-timing-function: ease-in-out;
+  transform-style: preserve-3d;
+  box-shadow: 2px 2px rgb(61, 0, 61);
+  animation: 2s 0s 1 slideUpAvatar;
+}
+
+.menuInitials {
+  font-size: 3rem;
 }
 
 /*# sourceMappingURL=style.css.map */

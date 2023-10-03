@@ -72,6 +72,20 @@ button {
   width: 100%;
 }
 
+#cards {
+  border: 6px solid purple;
+  border-radius: 50px;
+  background-color: white;
+  padding: 3%;
+}
+
+#cardBkgrd {
+  width: 100%;
+  background-image: url("../images/svgs/blob.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 #login, #register {
   display: none;
   transform: translateY(5%);

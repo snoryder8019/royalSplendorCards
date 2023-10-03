@@ -6,11 +6,22 @@
   </head>
 
   <body>      
-    
     <div id="main">
-      ROYAL CARDS PROJECT
-    <div id="cards">  <%- include('./partials/cards',{user:user,message:message})%></div>
+    ADMIN PAGE
+
+    <form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
+        <label>Card Front:</label>
+        <input type="file" name="cardFront">
+        <label>Card Back:</label>
+        <input type="file" name="cardBack">
+        <input type="submit" value="Upload">
+    </form>
     
+
+
+<br><img id="cardFrontPreview" src="<%= cardFront %>" alt="Card Front Preview" width="300">
+<br><img id="cardBackPreview" src="<%= cardBack %>" alt="Card Back Preview" width="300">
+
       <!--MENU IS CONSTANT FOOTER-->
       <div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
       <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
@@ -18,15 +29,13 @@
       <div id="flashErrors"><%- include('./partials/FlashErrors',{user:user,message:message})%></div>          
     </div>    
        
+
+
+
+
   <script src="/javascripts/loader.js"></script>
   
   </body>
 
 </html>
-
-
-
-
-
-
 

@@ -1,1 +1,14 @@
-cards.ejs
+<%if (typeof user == 'object' && user){%>
+Welcome, <%=user.firstName%>
+<%}else{%>
+    <p>Welcome to your trading card selector.</p>
+   <p> To select yours,  <a id="tinyLogin">sign in</a> or <a onclick="registerLarge()">register</a> to begin.</p>
+    <%}%>
+
+
+
+
+   <div id="cardBkgrd"></div>
+   <script>
+    
+   </script>

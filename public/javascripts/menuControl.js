@@ -1,11 +1,12 @@
 console.log('menuControl is listeners activated');
 const loginClose = document.getElementById('loginClose')
 const login = document.getElementById('login');
+const tinyLogin = document.getElementById('tinyLogin')
 const avatar = document.getElementById('avatar');
 const register = document.getElementById('register')
 const registerButton = document.getElementById('registerButton')
 const menuGroup = [login];
-const enlargeButtons = [avatar,loginClose]
+const enlargeButtons = [avatar,loginClose, tinyLogin]
 
 function shrinkGroup(group) {
   for (let i = 0; i < group.length; i++) {
@@ -17,8 +18,9 @@ function shrinkGroup(group) {
 function enlarge() {
     shrinkGroup(menuGroup);
     for (let i=0;i<enlargeButtons.length;i++){
+      console.log('enlarge acitvated on :'+ i)
   enlargeButtons[i].addEventListener('click', () => {
-    if (login.style.display === "block"||register.style.display==="block"){
+    if (login.style.display === "block"){
       shrinkGroup(menuGroup);
     } else {
         console.log('enlarge else');

@@ -132,7 +132,7 @@ passport.deserializeUser(async (id, done) => {
     const db = getDb();
     const users = db.collection('users');
     const user = await users.findOne({ _id: new ObjectId(id)});
-console.log(user)
+
     done(null, user);
   } catch (err) {
     done(err);

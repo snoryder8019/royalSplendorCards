@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const config = require('./config/config');
 var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
 const { connect } = require('./plugins/mongo/mongo');
 const createError = require('http-errors');
 
@@ -40,6 +41,7 @@ async function startApp() {
   app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
   app.use('/', indexRouter);
+  app.use('/admin', adminRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

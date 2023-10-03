@@ -86,8 +86,19 @@ font-size: 2rem;
   width:100%
 }
 #cards{
+@include divBorder();
 
 }
+
+#cardBkgrd {
+  width: 100%; // test dimension
+  //height: 200px; // test dimension
+  background-image: url('../images/svgs/blob.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
 #login, #register{
   display:none;
 

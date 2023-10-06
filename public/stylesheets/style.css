@@ -50,7 +50,8 @@ html {
 body {
   padding: 50px;
   font-family: "backlash";
-  overflow: hidden;
+  margin-bottom: 14%;
+  -ms-grid-column-align: center;
 }
 
 a {
@@ -79,11 +80,41 @@ button {
   padding: 3%;
 }
 
+.cardDate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 6px solid purple;
+  border-radius: 50px;
+  background-color: white;
+  padding: 3%;
+  padding: 2%;
+}
+
+#cardUploadDiv {
+  border: 6px solid purple;
+  border-radius: 50px;
+  background-color: white;
+  padding: 3%;
+  background-color: rgb(255, 247, 237);
+  transition-timing-function: ease-in-out;
+  transform-style: preserve-3d;
+  box-shadow: 2px 2px rgb(61, 0, 61);
+  animation: 1.1s 0s 1 slideUpLogin;
+}
+
 #cardBkgrd {
   width: 100%;
   background-image: url("../images/svgs/blob.svg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.sampleFace {
+  max-width: 12%;
+  position: absolute;
+  z-index: -1;
+  top: 30%;
+  left: 30%;
 }
 
 #login, #register {
@@ -147,6 +178,10 @@ button {
 
 .menuInitials {
   font-size: 3rem;
+}
+
+#cardUploadDiv {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

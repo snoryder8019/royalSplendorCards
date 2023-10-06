@@ -63,7 +63,9 @@ $purpleShadow:rgb(61, 0, 61);
 body {
   padding: 50px;
   font-family: $back;
-  overflow: hidden;
+  //overflow: hidden;
+  margin-bottom: 14%;
+  -ms-grid-column-align: center;
 }
 h1{
 
@@ -89,7 +91,21 @@ font-size: 2rem;
 @include divBorder();
 
 }
-
+.cardDate{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @include divBorder();
+  padding: 2%
+}
+#cardUploadDiv{
+  @include divBorder();
+  background-color: rgb(255, 247, 237);
+  transition-timing-function: ease-in-out;
+  transform-style: preserve-3d;
+  box-shadow: 2px 2px $purpleShadow;
+  animation: 1.1s 0s 1 slideUpLogin;
+  
+}
 #cardBkgrd {
   width: 100%; // test dimension
   //height: 200px; // test dimension
@@ -97,7 +113,14 @@ font-size: 2rem;
   background-repeat: no-repeat;
   background-size: cover;
 }
+.sampleFace{
+  max-width: 12%;
+  position: absolute;
+  z-index: -1;
+  top:30% ;
+  left: 30%;
 
+}
 
 #login, #register{
   display:none;
@@ -159,4 +182,8 @@ font-size: 2rem;
 }
 .menuInitials{
   font-size: 3rem;
+}
+
+#cardUploadDiv {
+  display: none;
 }

@@ -29,9 +29,23 @@ router.get('/', isAdmin, (req, res) => {
       cardBack: req.query.back 
   });
 });
+function clearUploadsDirectory() {
+    const directory = path.join(__dirname, '../public/uploads');
 
+    fs.readdir(directory, (err, files) => {
+        if (err) throw err;
+
+        for (const file of files) {
+            fs.unlink(path.join(directory, file), err => {
+                if (err) throw err;
+            });
+        }
+    });
+}
 // POST route
 router.post('/uploadCard', isAdmin, upload, (req, res) => {
+
+
   if (!req.files.cardFront || !req.files.cardBack) {
       req.flash('message', 'Both front and back files are required.');
       res.redirect('/admin');
@@ -41,15 +55,26 @@ router.post('/uploadCard', isAdmin, upload, (req, res) => {
   console.log(cardFrontPath)
   let cardBackPath = req.files.cardBack[0].path.replace('public\\', '');
   console.log(cardBackPath)
+  let facePreview = '/images/sampleFace.jpg';
 
   const dataToStore = {
       cardFront: cardFrontPath,
-      cardBack: cardBackPath
-  };
-
-  fs.writeFile('cardData.json', JSON.stringify(dataToStore), err => {
+      cardBack: cardBackPath,
+      facePreview : facePreview,
+      cardData: {
+        "chapter":"req.body.chapter",
+        "address":"req.body.address",
+        "email":"req.body.email",
+        "phone":"req.body.phone",
+        "birthday":"req.body.birthday",
+        "upClose":"req.body.upClose",
+      }
+    };
+    
+    fs.writeFile('cardData.json', JSON.stringify(dataToStore), err => {
+      //remove all images in upload folder before upload
       if (err) throw err;
-      res.redirect('/admin?front=' + cardFrontPath + '&back=' + cardBackPath);
+      res.redirect('/admin?front=' + cardFrontPath + '&back=' + cardBackPath + '&facePreview='+ facePreview);
   });
 });
 

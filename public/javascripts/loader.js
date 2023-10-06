@@ -2,7 +2,8 @@
 window.onload = function() {
     // List of other JS files to load
     const scriptsToLoad = [
-      '/javascripts/menuControl.js'
+      '/javascripts/menuControl.js',
+      '/javascripts/logPos.js'
       // Add more script files here
     ];
   

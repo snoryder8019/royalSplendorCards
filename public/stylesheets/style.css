@@ -109,12 +109,34 @@ button {
   background-size: cover;
 }
 
-.sampleFace {
-  max-width: 12%;
-  position: absolute;
+#sampleFace {
   z-index: -1;
-  top: 30%;
-  left: 30%;
+}
+
+#cardFrontPreview {
+  z-index: 1;
+}
+
+.formData {
+  width: 30%;
+  margin-left: 35%;
+}
+
+.arrowControl {
+  width: 30%;
+  margin-left: 35%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.arrowButton {
+  width: 30%;
+  height: 30%;
+}
+
+.sampleFace {
+  max-width: 30%;
+  z-index: 0;
 }
 
 #login, #register {

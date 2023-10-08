@@ -7,37 +7,45 @@
 
   <body>      
     <div id="main">
+
+
     ADMIN PAGE <a href="/">home</a>
 <button id="newCard">add new card design</button>
 <div id="cardUploadDiv">
   <h3>upload card front and back:</h3>
   <form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
-  <div class="cardDate">
-   
+ <!-- Add these inside your form or wherever appropriate -->
+<input type="range" id="scaleSlider" min="1" max="3" step="0.1" value="1">
+<input type="text" id="livePos" name="livePos">
+
+ 
+    <div class="cardDate">   
     <input type="file" name="cardFront"> 
     <input type="file" name="cardBack">
-    <img id="cardFrontPreview" src="<%= cardFront %>" alt="upload to preview" width="300">
-    <img id="cardBackPreview" src="<%= cardBack %>" alt="upload to preview" width="300">
-   
-    <div id="sampleFace">  
+
+    <div id="cardFrontContainer" style="position: relative;">
+      <img id="cardFrontPreview" src="<%= cardFront %>" alt="upload to preview" width="300">
+      <div id="sampleFace" style="position: absolute; top: 0; left: 0;">  
         <img class="sampleFace" src="/images/sampleFace.jpg"> 
       </div>
+    </div>
+    
+    
+    <img id="cardBackPreview" src="<%= cardBack %>" alt="upload to preview" width="300">
+   
+   
     </div>
     <input type="submit" value="Upload">
         </form>
    <h3>input default data:</h3>
-   <div class="cardDate">
+
     <%if(typeof cardFront === 'object' && cardFront){%>
 <%= cardFront%>
 <%= cardBack%>
     <%}%>
-     <label>chapter</label><input type="text" name="chapter" id="cardchapter">
-     <label>address</label><input type="text" name="address" id="cardaddress">
-     <label>email</label><input type="text" name="email" id="cardemail">
-     <label>phone</label><input type="text" name="phone" id="cardphone">
-     <label>birthday</label><input type="text" name="birthday" id="cardbirthday">
-     <label>up close</label><input type="text" name="upClose" id="cardupClose">
-    </div>
+    
+   
+
 
     
 

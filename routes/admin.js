@@ -61,14 +61,7 @@ router.post('/uploadCard', isAdmin, upload, (req, res) => {
       cardFront: cardFrontPath,
       cardBack: cardBackPath,
       facePreview : facePreview,
-      cardData: {
-        "chapter":"req.body.chapter",
-        "address":"req.body.address",
-        "email":"req.body.email",
-        "phone":"req.body.phone",
-        "birthday":"req.body.birthday",
-        "upClose":"req.body.upClose",
-      }
+     
     };
     
     fs.writeFile('cardData.json', JSON.stringify(dataToStore), err => {

@@ -1,0 +1,32 @@
+
+<%if(typeof user.userData == 'object' && user.userData){%>
+    <div id="cardBkgrd">
+        your data here
+        
+        <%}else{%>
+            <h3>hmmm seems you need to add some info for your trading card.</h3>
+        <form action="/userDataUpload"method="post">
+        <div class="formData">
+          <label>chapter</label><input type="text" name="chapter" id="cardchapter"><br>
+          <label>address</label><input type="text" name="address" id="cardaddress"><br>
+          <label>email</label><input type="text" name="email" id="cardemail"><br>
+          <label>phone</label><input type="text" name="phone" id="cardphone"><br>
+          <label>birthday</label><input type="text" name="birthday" id="cardbirthday"><br>
+          <label>up close</label><input type="text" name="upClose" id="cardupClose"><br>
+      </div>
+      <button type="submit">submit</button>
+    </form>
+    <%}%>
+    <%if(typeof user.userImg == 'object' && user.userImg){%>
+        your headshot
+        <img src="<%= user.userImg%>">
+        <%}else{%>
+            <div class="headshot">
+                <form action="/userImgUpload"method="post"enctype="multipart/form-data">
+                    headshot upload here
+                    <input type="file" name="cardFront"> 
+                    <button type="submit">submit</button>
+        </form>
+        </div>
+        </div>
+    <%}%>

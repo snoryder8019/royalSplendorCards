@@ -18,7 +18,7 @@ html {
 }
 @font-face {
   font-family: "backlash";
-  src: url("/fonts/backlash.otf");
+  src: url("/fonts/backslash.otf");
 }
 /*fonts END*/
 /*COLORS*/
@@ -60,10 +60,9 @@ a {
 
 button {
   border: 1px solid black;
-  width: 96%;
-  margin: 2%;
-  color: purple;
-  font-size: 2rem;
+  width: 50%;
+  color: rgb(234, 20, 20);
+  font-size: 1rem;
 }
 
 .flashMessage {
@@ -74,16 +73,27 @@ button {
 }
 
 #cards {
-  border: 6px solid purple;
+  border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
   background-color: white;
   padding: 3%;
 }
 
+.card-container {
+  border: 6px solid rgb(234, 20, 20);
+  border-radius: 50px;
+  background-color: white;
+  padding: 3%;
+}
+
+img.card {
+  width: 100%;
+}
+
 .cardDate {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 6px solid purple;
+  border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
   background-color: white;
   padding: 3%;
@@ -91,14 +101,14 @@ button {
 }
 
 #cardUploadDiv {
-  border: 6px solid purple;
+  border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
   background-color: white;
   padding: 3%;
   background-color: rgb(255, 247, 237);
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
-  box-shadow: 2px 2px rgb(61, 0, 61);
+  box-shadow: 2px 2px rgb(234, 20, 20);
   animation: 1.1s 0s 1 slideUpLogin;
 }
 
@@ -117,9 +127,11 @@ button {
   z-index: 1;
 }
 
-.formData {
-  width: 30%;
-  margin-left: 35%;
+.formData, .headshot {
+  border: 6px solid rgb(234, 20, 20);
+  border-radius: 50px;
+  background-color: white;
+  padding: 3%;
 }
 
 .arrowControl {
@@ -142,13 +154,13 @@ button {
 #login, #register {
   display: none;
   transform: translateY(5%);
-  border: 6px solid purple;
+  border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
   background-color: white;
   padding: 3%;
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
-  box-shadow: 2px 2px rgb(61, 0, 61);
+  box-shadow: 2px 2px rgb(234, 20, 20);
   animation: 2s 0s 1 slideUpLogin;
 }
 
@@ -162,7 +174,7 @@ button {
 
 .loginForm {
   border: 1px solid black;
-  box-shadow: 5px 5px 5px rgb(61, 0, 61);
+  box-shadow: 5px 5px 5px rgb(234, 20, 20);
 }
 
 #menu {
@@ -171,7 +183,7 @@ button {
   left: 0%;
   min-height: 12%;
   width: 100%;
-  background-color: purple;
+  background-color: rgb(234, 20, 20);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,7 +192,7 @@ button {
 #avatar {
   position: absolute;
   border-radius: 50%;
-  border: 6px solid purple;
+  border: 6px solid rgb(234, 20, 20);
   background-color: white;
   max-height: 175px;
   max-width: 175px;
@@ -194,7 +206,7 @@ button {
   word-wrap: break-word;
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
-  box-shadow: 2px 2px rgb(61, 0, 61);
+  box-shadow: 2px 2px rgb(234, 20, 20);
   animation: 2s 0s 1 slideUpAvatar;
 }
 

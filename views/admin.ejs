@@ -10,45 +10,86 @@
 
 
     ADMIN PAGE <a href="/">home</a>
+
+
+
 <button id="newCard">add new card design</button>
+
+
 <div id="cardUploadDiv">
   <h3>upload card front and back:</h3>
   <form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
- <!-- Add these inside your form or wherever appropriate -->
-<input type="range" id="scaleSlider" min="1" max="3" step="0.1" value="1">
-<input type="text" id="livePos" name="livePos">
-
- 
-    <div class="cardDate">   
-    <input type="file" name="cardFront"> 
-    <input type="file" name="cardBack">
-
-    <div id="cardFrontContainer" style="position: relative;">
-      <img id="cardFrontPreview" src="<%= cardFront %>" alt="upload to preview" width="300">
-      <div id="sampleFace" style="position: absolute; top: 0; left: 0;">  
-        <img class="sampleFace" src="/images/sampleFace.jpg"> 
-      </div>
+    <div class="cardDate">  
+      <label for="">imgPOS</label> 
+      <label for="">orientation</label> 
+      <select name="vertical" id="">
+        <option value="true">vertical</option>
+        <option value="false">horizontal</option>
+      </select>
+      <select name="imgPOS">
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="left">Left</option>
+        <option value="right">Right</option>
+        <option value="center">Center</option>
+        <option value="top-left">Top-Left</option>
+        <option value="top-right">Top-Right</option>
+      </select>
+      <label for="">card front</label> 
+      <input type="file" name="cardFront"> 
+      <label for="">card back</label> 
+      <input type="file" name="cardBack">
+      <label for="">dataPOS</label> 
+      <select name="dataPOS">
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+        <option value="left">Left</option>
+        <option value="right">Right</option>
+        <option value="center">Center</option>
+        <option value="top-left">Top-Left</option>
+        <option value="top-right">Top-Right</option>
+      </select>
+      <label for="">mainFont</label> 
+      <input type="file" name="fontName1">
+      <label for="">secondaryFont</label> 
+      <input type="file" name="fontName2">
+     
     </div>
-    
-    
-    <img id="cardBackPreview" src="<%= cardBack %>" alt="upload to preview" width="300">
-   
-   
-    </div>
-    <input type="submit" value="Upload">
-        </form>
-   <h3>input default data:</h3>
+    <button type="submit" value="Upload">add to drafts</button>
+  </form>
+  
 
     <%if(typeof cardFront === 'object' && cardFront){%>
 <%= cardFront%>
 <%= cardBack%>
     <%}%>
-    
    
+</div>
+
+<div class="currentCards">
+current cards
 
 
-    
-
+<% if (allCards && allCards.length > 0) { %>
+  <div class="card-container">
+    <% allCards.forEach(function(card) { %>
+      <div class="card">
+        <p>dataPOS: <%= card.dataPOS%> <br>
+          imgPOS: <%= card.imgPOS %> <br>
+          font1:  <%= card.fontName1%><br>
+           font2:  <%= card.fontName2 %><br>
+            uploaded by:  <%= card.uploadedBy %></p><br>
+        <p>front:</p>
+        <img class="card" src="<%= card.cardFront %>" alt="Card Front">
+       <p>back</p>
+        <img class="card" src="<%= card.cardBack %>" alt="Card Back">
+      </div>
+      </div>
+    <% }) %>
+  </div>
+<% } else { %>
+  <p>No cards available.</p>
+<% } %>
 
 </div>
       <!--MENU IS CONSTANT FOOTER-->

@@ -8,7 +8,7 @@
   <body>      
     
     <div id="main">
-      ROYAL CARDS PROJECT <%if(typeof user =='object' && user.isAdmin){%><a href="/admin">admin</a><%}%>
+     <%= config.headline%> <%if(typeof user =='object' && user.isAdmin){%><a href="/admin">admin</a><%}%>
     <div id="cards">  <%- include('./partials/cards',{user:user,message:message})%></div>
     
       <!----MENU IS CONSTANT FOOTER-->

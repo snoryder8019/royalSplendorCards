@@ -1,16 +1,29 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
-    destination: './public/uploads/',
-    filename: function(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  destination: function (req, file, cb) {
+    let dest = './public/cards/';
+    if (file.fieldname.startsWith('fontName')) {
+      dest = './public/fonts/';
     }
+    cb(null, dest);
+  },
+  filename: function (req, file, cb) {
+    // No need to check for file existence, it will overwrite if exists
+    cb(null, file.originalname);
+  }
 });
 
 const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 }, // 1MB
-}).fields([{ name: 'cardFront', maxCount: 1 }, { name: 'cardBack', maxCount: 1 }]);
+  storage: storage,
+  limits: { fileSize: 1000000 }, // 1MB
+}).fields([
+  { name: 'cardFront', maxCount: 1 },
+  { name: 'cardBack', maxCount: 1 },
+  { name: 'fontName1', maxCount: 1 },
+  { name: 'fontName2', maxCount: 1 }
+]);
 
 module.exports = upload;

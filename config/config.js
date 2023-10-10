@@ -2,12 +2,12 @@ const config =
 {
     //breaking changes below
     "env":"dev",
-    "app_name":"royalCards",
-    "DB_NAME":"royalCards",
-    "COLECTION_SUBPATH":"royalSplendor",
+    "app_name":"rhsCards",
+    "DB_NAME":"rhsCards", 
     //end breakiung changes
     //**********
     //custom changes below
-    "title":"Be Royal!!",
+    "title":"RHS - TRADING CARDS",
+    "headline":"Red Hats Society ~ Trading Cards"
 }
 module.exports = config

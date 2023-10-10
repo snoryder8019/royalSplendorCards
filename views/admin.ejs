@@ -20,12 +20,12 @@
   <h3>upload card front and back:</h3>
   <form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
     <div class="cardDate">  
-      <label for="">imgPOS</label> 
       <label for="">orientation</label> 
       <select name="vertical" id="">
         <option value="true">vertical</option>
         <option value="false">horizontal</option>
       </select>
+      <label for="">imgPOS</label> 
       <select name="imgPOS">
         <option value="top">Top</option>
         <option value="bottom">Bottom</option>
@@ -66,25 +66,77 @@
    
 </div>
 
-<div class="currentCards">
-current cards
+<div class="draftCards">
+CARD DRAFTS
 
 
 <% if (allCards && allCards.length > 0) { %>
   <div class="card-container">
     <% allCards.forEach(function(card) { %>
-      <div class="card">
-        <p>dataPOS: <%= card.dataPOS%> <br>
-          imgPOS: <%= card.imgPOS %> <br>
-          font1:  <%= card.fontName1%><br>
-           font2:  <%= card.fontName2 %><br>
-            uploaded by:  <%= card.uploadedBy %></p><br>
-        <p>front:</p>
-        <img class="card" src="<%= card.cardFront %>" alt="Card Front">
-       <p>back</p>
-        <img class="card" src="<%= card.cardBack %>" alt="Card Back">
+      <%if(card.preview === 'true'){%> 
+        <div class="card">
+
+          <label for="cardFront">Front:</label>          
+          <div class="cardFrontFrame">
+            <div class="cardImg">
+              <img class="" src="<%= card.cardFront %>" alt="Card Front">
+            </div>
+           <img  style="bottom:<%=card.cardBottom%>;left:<%=card.cardLeft%>" class="headshot" src="images/sampleFace.jpg">
+          </div>
+          <input type="file" name="cardFrontFile"><br>
+      
+          <label for="cardBack">Back:</label>
+          <div class="cardBackFrame">
+            <div class="cardImg">
+          <img class="" src="<%= card.cardBack %>" alt="Card Back">
+          </div>
+        </div>
+          <input type="file" name="cardBackFile"><br>
+
+        <form action="updateCard" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="cardId" value="<%= card._id %>">
+        
+          <label for="dataPOS">dataPOS:</label>
+          <input type="text" id="dataPOS" name="dataPOS" value="<%= card.dataPOS %>"><br>
+        
+          <label for="imgPOS">imgPOS:</label>
+          <input type="text" id="imgPOS" name="imgPOS" value="<%= card.imgPOS %>"><br>
+        
+          <label for="fontName1">Font 1:</label>
+          <input type="text" id="fontName1" name="fontName1" value="<%= card.fontName1 %>">
+          <input type="file" name="fontName1File"><br>
+        
+          <label for="fontName2">Font 2:</label>
+          <input type="text" id="fontName2" name="fontName2" value="<%= card.fontName2 %>">
+          <input type="file" name="fontName2File"><br>
+        
+          <label for="uploadedBy">Uploaded By:</label>
+          <input type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
+        
+          <input type="submit" value="Update Card">
+        </form>
+        
+        
+        
+      <form action="/publishCard" method="post">
+        <button>publish</button>
+      </form>
+        
+      <button id="deleteCardButton">delete card</button>
+      <div class="deleteCardWarning" style="display: none;">
+        <form action="/admin/deleteCard" method="post">
+          <input type="hidden" name="_id" value="<%= card._id %>">
+          <input type="submit" value="delete">
+          <input type="button" value="cancel">
+        </form>
       </div>
+      
+
+          </div>
+
       </div>
+      <%}%>
+   
     <% }) %>
   </div>
 <% } else { %>
@@ -108,6 +160,19 @@ current cards
     } else {
         div.style.display = "none";
     }
+});
+document.addEventListener("DOMContentLoaded", function() {
+  const deleteCardButton = document.getElementById("deleteCardButton");
+  const deleteCardWarning = document.querySelector(".deleteCardWarning");
+
+  deleteCardButton.addEventListener("click", function() {
+    deleteCardWarning.style.display = "block";
+  });
+
+  const cancelButton = deleteCardWarning.querySelector("input[type='button']");
+  cancelButton.addEventListener("click", function() {
+    deleteCardWarning.style.display = "none";
+  });
 });
 
 </script>

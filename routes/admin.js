@@ -7,7 +7,7 @@ const { getDb } = require('../plugins/mongo/mongo');
 const path = require('path');
 const fs = require('fs');
 const upload = require('../plugins/multer/setup')
-const {isAdmin,uploadCard} = require('./adminFunctions/adminFunctions')
+const {isAdmin,uploadCard, deleteCard} = require('./adminFunctions/adminFunctions')
 //THIS IS AN ADMIN PANEL REQUIRING A DB TAG OF isAdmin == "true"
 
 
@@ -29,4 +29,5 @@ router.get('/', isAdmin, async (req, res) => {
 });
 
 router.post('/uploadCard',isAdmin,upload, uploadCard)
+router.post('/deleteCard',isAdmin, deleteCard)
 module.exports = router;

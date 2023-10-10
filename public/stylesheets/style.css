@@ -24,6 +24,20 @@ html {
 /*COLORS*/
 /*COLORS END*/
 /*KEFRAMES*/
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 @keyframes slideUpAvatar {
   0% {
     transform: translateY(200%);
@@ -60,16 +74,18 @@ a {
 
 button {
   border: 1px solid black;
-  width: 50%;
   color: rgb(234, 20, 20);
   font-size: 1rem;
 }
 
 .flashMessage {
+  background-color: white;
+  padding: 4%;
   position: fixed;
   bottom: 10%;
   left: 0%;
   width: 100%;
+  animation: flash 3s ease-in-out 0 4;
 }
 
 #cards {
@@ -80,14 +96,103 @@ button {
 }
 
 .card-container {
-  border: 6px solid rgb(234, 20, 20);
-  border-radius: 50px;
-  background-color: white;
-  padding: 3%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px 0;
 }
 
-img.card {
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+}
+
+.card label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card input[type=text],
+.card input[type=file] {
   width: 100%;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.card input[type=submit] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card input[type=submit]:hover {
+  background-color: #0056b3;
+}
+
+.cardFrontFrame {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+}
+
+.cardBackFrame {
+  width: 100%;
+  max-width: 350px;
+}
+
+.cardImg {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.cardImg img {
+  width: 100%;
+}
+
+.headshot {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  max-width: 100px; /* Adjust as needed */
+}
+
+.deleteCardWarning {
+  display: none;
+  background-color: #f44336; /* Red background */
+  color: white;
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+}
+
+input[type=submit],
+input[type=button] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+input[type=button] {
+  background-color: red;
 }
 
 .cardDate {
@@ -127,7 +232,7 @@ img.card {
   z-index: 1;
 }
 
-.formData, .headshot {
+.formData {
   border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
   background-color: white;

@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
+const path = require('path')
 const upload = require('../../plugins/multer/setup');
 const { getDb } = require('../../plugins/mongo/mongo');
 const config = require('../../config/config'); // Import config if you're using it
+const lib = require('../logFunctions/logFunctions')
+const { ObjectId } = require('mongodb');
 
 // isAdmin Middleware
 function isAdmin(req, res, next) {
@@ -38,26 +41,64 @@ const uploadCard = async (req, res) => {
     const cardData = {
       cardFront: cardFrontPath,
       cardBack: cardBackPath,
-      dataPOS: req.body.dataPOS,
-      imgPOS: req.body.imgPOS,
+      imgBottom:0,
+      imgLeft:0,
+      dataBottom:0,
+      dataLeft:0,
       vertical: req.body.vertical === "true",
       uploadedBy: req.user.displayName,
       fontName1: fontName1Path,
-      fontName2: fontName2Path
+      fontName2: fontName2Path,
+      preview:"true",
+      views:0,
+      likes:0,
+      purchased:0
     };
 
     await collection.insertOne(cardData);
+
     req.flash('message', 'Card uploaded successfully.');
+    lib('new card made:','no errors',cardData, 'cards.txt')
     res.redirect('/admin');
   } catch (err) {
     console.error(err);
+    lib('error making a card:','error from lib():'+err,cardData, 'cards.txt')
     req.flash('message', 'An error occurred while uploading.');
     res.redirect('/admin');
   }
 };
+ 
 
+const deleteCard = async (req, res) => {
+  try {
+    const db = getDb();
+    const collection = db.collection('_cards');
+    const cardID = req.body._id;
+    const userName = req.user.displayName
+    const id = new ObjectId(cardID);
+
+    const result = await collection.deleteOne({ "_id": id });
+
+    if (result.deletedCount === 1) {
+      lib('card deleted:', 'no errors', { cardID, userName }, 'cards.txt');
+      req.flash('message', 'Card deleted successfully.');
+      res.redirect('/admin');
+    } else {
+      lib('card not found:', 'no errors', { cardID, userName }, 'cards.txt');
+      req.flash('message', 'Card not found.');
+      res.redirect('/admin');
+    }
+  } catch (err) {
+    console.error(err);
+    lib('error deleting a card:', 'error from lib():' + err, { cardID,userName }, 'cards.txt');
+    req.flash('message', 'An error occurred while deleting.');
+    res.redirect('/admin');
+  }
+};
 
   
   router.post('/uploadCard', upload, uploadCard);
+  router.post('/deleteCard', deleteCard);
+
   
-module.exports = { isAdmin, uploadCard };
+module.exports = { isAdmin, uploadCard, deleteCard };

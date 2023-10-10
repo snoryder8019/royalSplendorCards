@@ -125,6 +125,7 @@ CARD DRAFTS
       <button id="deleteCardButton">delete card</button>
       <div class="deleteCardWarning" style="display: none;">
         <form action="/admin/deleteCard" method="post">
+          are you SURE? this cannot be undone.
           <input type="hidden" name="_id" value="<%= card._id %>">
           <input type="submit" value="delete">
           <input type="button" value="cancel">

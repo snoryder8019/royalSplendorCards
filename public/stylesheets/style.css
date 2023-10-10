@@ -176,13 +176,13 @@ button {
   color: white;
   text-align: center;
   border: 1px solid #ccc;
+  bottom: 5%;
   padding: 10px;
-  position: absolute;
-  z-index: 1;
+  position: fixed;
+  z-index: 4;
 }
-
-input[type=submit],
-input[type=button] {
+.deleteCardWarning input[type=submit],
+.deleteCardWarning input[type=button] {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -190,8 +190,7 @@ input[type=button] {
   border: none;
   cursor: pointer;
 }
-
-input[type=button] {
+.deleteCardWarning input[type=button] {
   background-color: red;
 }
 

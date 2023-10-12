@@ -19,7 +19,7 @@
 <div id="cardUploadDiv">
   <h3>upload card front and back:</h3>
   <form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
-    <div class="cardDate">  
+    <div class="">  
       <label for="">orientation</label> 
       <select name="vertical" id="">
         <option value="true">vertical</option>
@@ -96,12 +96,6 @@ CARD DRAFTS
         <form action="updateCard" method="post" enctype="multipart/form-data">
           <input type="hidden" name="cardId" value="<%= card._id %>">
         
-          <label for="dataPOS">dataPOS:</label>
-          <input type="text" id="dataPOS" name="dataPOS" value="<%= card.dataPOS %>"><br>
-        
-          <label for="imgPOS">imgPOS:</label>
-          <input type="text" id="imgPOS" name="imgPOS" value="<%= card.imgPOS %>"><br>
-        
           <label for="fontName1">Font 1:</label>
           <input type="text" id="fontName1" name="fontName1" value="<%= card.fontName1 %>">
           <input type="file" name="fontName1File"><br>
@@ -110,8 +104,11 @@ CARD DRAFTS
           <input type="text" id="fontName2" name="fontName2" value="<%= card.fontName2 %>">
           <input type="file" name="fontName2File"><br>
         
-          <label for="uploadedBy">Uploaded By:</label>
-          <input type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
+          <p>Uploaded By:<%= card.uploadedBy %></p>
+          <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
+        
+          <label for="uploadedBy">Update Session by:<%= card.uploadedBy %></label>
+          <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= user.displayName %>"><br>
         
           <input type="submit" value="Update Card">
         </form>

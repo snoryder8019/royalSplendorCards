@@ -69,6 +69,12 @@ const uploadCard = async (req, res) => {
 };
  
 
+// const updateCard = async (req,res)=>{
+//   try{}
+//   catch{}
+// }
+
+
 const deleteCard = async (req, res) => {
   try {
     const db = getDb();

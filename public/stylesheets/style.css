@@ -1,9 +1,3 @@
-/***fonts**/
-html {
-  font-size: 2.5rem;
-  text-align: center;
-}
-
 @font-face {
   font-family: "mayphylla";
   src: url("/fonts/maphylla.otf");
@@ -20,56 +14,15 @@ html {
   font-family: "backlash";
   src: url("/fonts/backslash.otf");
 }
-/*fonts END*/
-/*COLORS*/
-/*COLORS END*/
-/*KEFRAMES*/
-@keyframes flash {
-  0% {
-    opacity: 1;
-    display: block;
-  }
-  33% {
-    opacity: 0;
-    display: block;
-  }
-  66% {
-    opacity: 1;
-    display: block;
-  }
-  100% {
-    opacity: 0;
-    display: none;
-  }
+html {
+  font-size: 2.5rem;
+  text-align: center;
 }
-@keyframes slideUpAvatar {
-  0% {
-    transform: translateY(200%);
-    opacity: 0%;
-  }
-  100% {
-    transform: translateY(50%);
-    opacity: 100%;
-  }
-}
-@keyframes slideUpLogin {
-  0% {
-    transform: translateY(200%);
-    opacity: 0%;
-  }
-  100% {
-    transform: translateY(5%);
-    opacity: 100%;
-  }
-}
-/*KEYFRAMES END*/
-/*mixins*/
-/*MIXINS END*/
+
 body {
   padding: 50px;
   font-family: "backlash";
   margin-bottom: 14%;
-  -ms-grid-column-align: center;
 }
 
 a {
@@ -79,9 +32,28 @@ a {
 button {
   border: 1px solid black;
   color: rgb(234, 20, 20);
-  font-size: 1rem;
 }
 
+@keyframes flash {
+  0%, 66%, 100% {
+    opacity: 0;
+    display: none;
+  }
+  33% {
+    opacity: 1;
+    display: block;
+  }
+}
+@keyframes slideUp {
+  0% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .flashMessage {
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
@@ -90,7 +62,7 @@ button {
   padding: 4%;
   position: fixed;
   bottom: 10%;
-  left: 0%;
+  left: 0;
   width: 100%;
   animation: flash 3s ease-in-out 0 4;
 }
@@ -115,20 +87,13 @@ button {
   padding: 20px;
 }
 
-.card label {
-  font-weight: bold;
+.card label, input[type=text] {
   margin-top: 10px;
-}
-
-.card input[type=text],
-.card input[type=file] {
   width: 100%;
-  margin-top: 5px;
-  margin-bottom: 15px;
 }
 
-.card input[type=submit] {
-  background-color: #007bff;
+input[type=submit], select, input[type=file] {
+  background-color: blue;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -136,8 +101,8 @@ button {
   cursor: pointer;
 }
 
-.card input[type=submit]:hover {
-  background-color: #0056b3;
+input[type=submit]:hover {
+  background-color: rgb(0, 0, 165);
 }
 
 .cardFrontFrame {
@@ -185,24 +150,12 @@ button {
   position: fixed;
   z-index: 4;
 }
-.deleteCardWarning input[type=submit],
-.deleteCardWarning input[type=button] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-}
-.deleteCardWarning input[type=button] {
-  background-color: red;
-}
 
 .cardDate {
   padding: 2%;
 }
 
-#cardUploadDiv {
+#cardUploadDiv, #uploadFonts {
   border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
   background-color: white;
@@ -314,7 +267,7 @@ button {
   font-size: 3rem;
 }
 
-#cardUploadDiv {
+#cardUploadDiv, #draftCards, #uploadFonts {
   display: none;
 }
 

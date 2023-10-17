@@ -14,7 +14,8 @@ const loadScript = (src) => {
 // Load all scripts
 const scriptsToLoad = [
   '/javascripts/menuControl.js',
-  '/javascripts/logPos.js'
+  '/javascripts/buttonControl.js',
+  '/javascripts/nudge.js' 
   // Add more script files here
 ];
 

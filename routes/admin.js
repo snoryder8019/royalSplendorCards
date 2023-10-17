@@ -7,7 +7,7 @@ const { getDb } = require('../plugins/mongo/mongo');
 const path = require('path');
 const fs = require('fs');
 const upload = require('../plugins/multer/setup')
-const {isAdmin,uploadCard, deleteCard} = require('./adminFunctions/adminFunctions')
+const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //THIS IS AN ADMIN PANEL REQUIRING A DB TAG OF isAdmin == "true"
 
 
@@ -17,6 +17,7 @@ router.get('/', isAdmin, async (req, res) => {
   let user = req.user;
   
   // Fetch all cards from the database
+  const fonts = getFonts();
   const db = getDb();
   const collection = db.collection('_cards');
   const allCards = await collection.find({}).toArray();
@@ -24,10 +25,12 @@ router.get('/', isAdmin, async (req, res) => {
   res.render('admin', { 
       user: user, 
       message: req.flash('message'),
-      allCards: allCards  // Pass allCards to your EJS template
+      allCards: allCards,  // Pass allCards to your EJS template
+      fonts:fonts 
   });
 });
-
+router.post('/updateCard', upload, updateCard);
+router.post('/uploadFonts', isAdmin, upload, uploadFonts);
 router.post('/uploadCard',isAdmin,upload, uploadCard)
 router.post('/deleteCard',isAdmin, deleteCard)
 module.exports = router;

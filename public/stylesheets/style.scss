@@ -1,118 +1,106 @@
+$may: "mayphylla";
+$sun: "sunday";
+$aqua: "aquarelle";
+$back: "backlash";
+$white: white;
+$purple: purple;
+$purpleShadow: rgb(61, 0, 61);
+$red: rgb(234, 20, 20);
+$redShadow: rgb(234, 20, 20);
+$blue:blue;
+$blueShadow:rgb(0, 0, 165);
 
-/***fonts**/
-html{
-  font-size:2.5rem;
-  text-align: center;
-}
+// Fonts
 @font-face {
-  font-family:"mayphylla" ;
+  font-family: $may;
   src: url('/fonts/maphylla.otf');
 }
-$may:"mayphylla";
-
 @font-face {
-  font-family:"sunday" ;
+  font-family: $sun;
   src: url('/fonts/weatherSunday.otf');
 }
-$sun:"sunday";
-
 @font-face {
-  font-family:"aquarelle" ;
+  font-family: $aqua;
   src: url('/fonts/aquarelle.ttf');
 }
-$aqua:"aquarelle";
-
 @font-face {
-  font-family:"backlash" ;
+  font-family: $back;
   src: url('/fonts/backslash.otf');
 }
-$back:"backlash";
-/*fonts END*/
 
-
-/*COLORS*/
-$white:white;
-$purple:purple;
-$purpleShadow:rgb(61, 0, 61);
-$red:rgb(234, 20, 20);
-$redShadow:rgb(234, 20, 20);
-
-/*COLORS END*/
-
-/*KEFRAMES*/
-@keyframes flash {
-  0%{opacity: 1;display: block;}
-  33%{opacity: 0;display: block;}
-    66%{opacity: 1;display: block;}
-      100%{opacity: 0;display: none;}
-    }
-  
-@keyframes slideUpAvatar{
-0%{transform: translateY(200%); opacity:0%;}
-100%{transform: translateY(50%); opacity:100%;}
+// Mixins
+@mixin main() {
+  color: black;
 }
-@keyframes slideUpLogin{
-0%{transform: translateY(200%); opacity:0%;}
-100%{transform: translateY(5%); opacity:100%;}
-}
-/*KEYFRAMES END*/
-
-/*mixins*/
-@mixin main(){
-  color:black; 
-}
-@mixin divBorder{
+@mixin divBorder() {
   border: 6px solid $red;
   border-radius: 50px;
   background-color: $white;
   padding: 3%;
 }
-@mixin transistionProps{
+@mixin transistionProps() {
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
 }
-/*MIXINS END*/
 
+// Mixins
+@mixin main() {
+  color: black;
+}
+@mixin divBorder() {
+  border: 6px solid $red;
+  border-radius: 50px;
+  background-color: $white;
+  padding: 3%;
+}
+@mixin transistionProps() {
+  transition-timing-function: ease-in-out;
+  transform-style: preserve-3d;
+}
 
+// Global Styles
+html {
+  font-size: 2.5rem;
+  text-align: center;
+}
 body {
   padding: 50px;
   font-family: $back;
-  //overflow: hidden;
   margin-bottom: 14%;
-  -ms-grid-column-align: center;
-}
-h1{
-
 }
 a {
   color: #00B7FF;
 }
-button{
-border: 1px solid black;
-//width:50%;
-//margin-left: 25%;
-color:$red;
-font-size: 1rem;
+button {
+  border: 1px solid black;
+  color: $red;
+  //font-size: 1rem;
 }
 
-.flashMessage{
+// Keyframes
+@keyframes flash {
+  0%, 66%, 100% { opacity: 0; display: none; }
+  33% { opacity: 1; display: block; }
+}
+@keyframes slideUp {
+  0% { transform: translateY(200%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+// Flash Message
+.flashMessage {
   @include transistionProps();
   display: none;
-background-color: white;
-padding: 4%;
+  background-color: $white;
+  padding: 4%;
   position: fixed;
-  bottom:10%;
-  left:0%;
-  width:100%;
-  animation: flash 3s ease-in-out 0 4 
-
+  bottom: 10%;
+  left: 0;
+  width: 100%;
+  animation: flash 3s ease-in-out 0 4;
 }
 
-
-//////card stuff
-/// 
-/// 
-/// 
+// Card Styles
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -120,7 +108,6 @@ padding: 4%;
   align-items: flex-start;
   margin: 20px 0;
 }
-
 .card {
   display: flex;
   flex-direction: column;
@@ -132,36 +119,20 @@ padding: 4%;
   margin: 10px;
   padding: 20px;
 }
-
-// .card img {
-//   max-width: 80%;
-//   border-radius: 5px;
-//   margin-bottom: 15px;
-// }
-
-.card label {
-  font-weight: bold;
+.card label, input[type="text"] {
   margin-top: 10px;
-}
-
-.card input[type="text"],
-.card input[type="file"] {
   width: 100%;
-  margin-top: 5px;
-  margin-bottom: 15px;
 }
-
-.card input[type="submit"] {
-  background-color: #007bff;
-  color: white;
+input[type="submit"], select , input[type="file"] {
+  background-color: $blue;
+  color: $white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-
-.card input[type="submit"]:hover {
-  background-color: #0056b3;
+input[type="submit"]:hover {
+  background-color: $blueShadow;
 }
 .cardFrontFrame {
   position: relative;
@@ -206,30 +177,15 @@ padding: 4%;
   z-index: 4;
 
 
-input[type="submit"],
-input[type="button"] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
 }
-
-input[type="button"] {
-  background-color: red;
-}
-}
-
 .cardDate{
  
 
   padding: 2%
 }
-#cardUploadDiv{
+#cardUploadDiv, #uploadFonts{
   @include divBorder();
   background-color: rgb(255, 247, 237);
-
   box-shadow: 2px 2px $redShadow;
   animation: 1.1s 0s 1 slideUpLogin;
   }
@@ -329,6 +285,6 @@ width: 30%;
   font-size: 3rem;
 }
 //MENU STUFF
-#cardUploadDiv {
+#cardUploadDiv, #draftCards, #uploadFonts {
   display: none;
 }

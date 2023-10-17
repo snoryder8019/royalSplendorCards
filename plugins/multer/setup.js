@@ -5,7 +5,7 @@ const fs = require('fs');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     let dest = './public/cards/';
-    if (file.fieldname.startsWith('fontName')) {
+    if (file.fieldname.startsWith('fonts')) {
       dest = './public/fonts/';
     }
     cb(null, dest);
@@ -23,7 +23,7 @@ const upload = multer({
   { name: 'cardFront', maxCount: 1 },
   { name: 'cardBack', maxCount: 1 },
   { name: 'fontName1', maxCount: 1 },
-  { name: 'fontName2', maxCount: 1 }
+  { name: 'fontName2', maxCount: 1 },
+  { name: 'fonts', maxCount: 10 }  // Allow up to 10 font files
 ]);
-
 module.exports = upload;

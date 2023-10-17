@@ -8,80 +8,55 @@
   <body>      
     <div id="main">
 
+<div>
+ ADMIN PAGE ~  <a href="/">go HOME</a> 
+  </div>
+  <div>
+    <button id="toggleCard" value="add new card design">newCard</button>
+    <button id="toggleFont" value="Toggle Font Upload">fontUpload</button>
+    <button id="toggleDraft" value="Toggle Draft Cards">draftCards</button>
 
-    ADMIN PAGE <a href="/">home</a>
-
-
-
-<button id="newCard">add new card design</button>
-
-
+  </div>
 <div id="cardUploadDiv">
   <h3>upload card front and back:</h3>
   <form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
-    <div class="">  
-      <label for="">orientation</label> 
-      <select name="vertical" id="">
-        <option value="true">vertical</option>
-        <option value="false">horizontal</option>
-      </select>
-      <label for="">imgPOS</label> 
-      <select name="imgPOS">
-        <option value="top">Top</option>
-        <option value="bottom">Bottom</option>
-        <option value="left">Left</option>
-        <option value="right">Right</option>
-        <option value="center">Center</option>
-        <option value="top-left">Top-Left</option>
-        <option value="top-right">Top-Right</option>
-      </select>
+    <div class="">       
       <label for="">card front</label> 
       <input type="file" name="cardFront"> 
       <label for="">card back</label> 
       <input type="file" name="cardBack">
-      <label for="">dataPOS</label> 
-      <select name="dataPOS">
-        <option value="top">Top</option>
-        <option value="bottom">Bottom</option>
-        <option value="left">Left</option>
-        <option value="right">Right</option>
-        <option value="center">Center</option>
-        <option value="top-left">Top-Left</option>
-        <option value="top-right">Top-Right</option>
+      <label for="fontName1">Main Font:</label>
+      <select name="fontName1" id="fontName1">
+        <% fonts.forEach(function(font) { %>
+          <option value="<%= font %>"><%= font %></option>
+        <% });%>
+      </select>      
+      <label for="fontName2">Secondary Font:</label>
+      <select name="fontName2" id="fontName2">
+        <% fonts.forEach(function(font) { %>
+          <option value="<%= font %>"><%= font %></option>
+        <% }); %>
       </select>
-      <label for="">mainFont</label> 
-      <input type="file" name="fontName1">
-      <label for="">secondaryFont</label> 
-      <input type="file" name="fontName2">
-     
     </div>
-    <button type="submit" value="Upload">add to drafts</button>
+    <input type="submit" value="add to drafts">
   </form>
-  
-
-    <%if(typeof cardFront === 'object' && cardFront){%>
-<%= cardFront%>
-<%= cardBack%>
-    <%}%>
-   
 </div>
 
-<div class="draftCards">
+<div id="draftCards">
 CARD DRAFTS
-
-
 <% if (allCards && allCards.length > 0) { %>
   <div class="card-container">
     <% allCards.forEach(function(card) { %>
       <%if(card.preview === 'true'){%> 
         <div class="card">
+          <%- include('partials/controlArrows') %>
 
           <label for="cardFront">Front:</label>          
           <div class="cardFrontFrame">
             <div class="cardImg">
               <img class="" src="<%= card.cardFront %>" alt="Card Front">
             </div>
-           <img  style="bottom:<%=card.cardBottom%>;left:<%=card.cardLeft%>" class="headshot" src="images/sampleFace.jpg">
+           <img  style="bottom:<%=card.imgBottom%>;left:<%=card.imgLeft%>" class="headshot" src="images/sampleFace.jpg">
           </div>
           <input type="file" name="cardFrontFile"><br>
       
@@ -90,25 +65,41 @@ CARD DRAFTS
             <div class="cardImg">
           <img class="" src="<%= card.cardBack %>" alt="Card Back">
           </div>
+          <div  style="bottom:<%=card.dataBottom%>;left:<%=card.dataLeft%>" class="cardData">
+            card data here
+          </div>
         </div>
           <input type="file" name="cardBackFile"><br>
 
-        <form action="updateCard" method="post" enctype="multipart/form-data">
+        <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
+
           <input type="hidden" name="cardId" value="<%= card._id %>">
         
-          <label for="fontName1">Font 1:</label>
-          <input type="text" id="fontName1" name="fontName1" value="<%= card.fontName1 %>">
-          <input type="file" name="fontName1File"><br>
-        
-          <label for="fontName2">Font 2:</label>
-          <input type="text" id="fontName2" name="fontName2" value="<%= card.fontName2 %>">
-          <input type="file" name="fontName2File"><br>
-        
+          <input type="hidden" id="hiddenInput" name="imgPosition" value="">
+
+
+          <label for="fontName1">Main Font:</label>
+          <select name="fontName1" id="fontName1">
+            <% fonts.forEach(function(font) { %>
+              <option value="<%= font %>" <%= font === card.fontName1 ? 'selected' : '' %>><%= font %></option>
+            <% }); %>
+          </select>
+          <label for="fontName2">Main Font:</label>
+          <select name="fontName2" id="fontName2">
+            <% fonts.forEach(function(font) { %>
+              <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
+            <% }); %>
+          </select>
+              
+           
+
+
+
+
+
+
           <p>Uploaded By:<%= card.uploadedBy %></p>
           <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
-        
-          <label for="uploadedBy">Update Session by:<%= card.uploadedBy %></label>
-          <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= user.displayName %>"><br>
         
           <input type="submit" value="Update Card">
         </form>
@@ -116,11 +107,12 @@ CARD DRAFTS
         
         
       <form action="/publishCard" method="post">
-        <button>publish</button>
+     <input type="submit" value="publish">
       </form>
         
-      <button id="deleteCardButton">delete card</button>
+      <input type="submit" id="deleteCardButton" value="delete card">
       <div class="deleteCardWarning" style="display: none;">
+      
         <form action="/admin/deleteCard" method="post">
           are you SURE? this cannot be undone.
           <input type="hidden" name="_id" value="<%= card._id %>">
@@ -136,11 +128,23 @@ CARD DRAFTS
       <%}%>
    
     <% }) %>
-  </div>
-<% } else { %>
-  <p>No cards available.</p>
-<% } %>
+    <% } else { %>
+      <p>No cards available.</p>
+      <% } %>
+    </div>
 
+
+<div id="uploadFonts">
+  <div class="uploadFonts">
+    <h3>Upload Fonts:</h3>
+    <form action="/admin/uploadFonts" method="post" enctype="multipart/form-data">
+      <input type="file" name="fonts" multiple>
+      <input type="submit" value="Upload Fonts">
+    </form>
+  </div>
+  
+
+</div>
 </div>
       <!--MENU IS CONSTANT FOOTER-->
       <div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
@@ -149,31 +153,7 @@ CARD DRAFTS
       <div id="flashErrors"><%- include('./partials/FlashErrors',{user:user,message:message})%></div>          
     </div>    
        
-<script>
-  document.getElementById("newCard").addEventListener("click", function() {
-    var div = document.getElementById("cardUploadDiv");
-    
-    if (div.style.display === "none" || div.style.display === "") {
-        div.style.display = "block";
-    } else {
-        div.style.display = "none";
-    }
-});
-document.addEventListener("DOMContentLoaded", function() {
-  const deleteCardButton = document.getElementById("deleteCardButton");
-  const deleteCardWarning = document.querySelector(".deleteCardWarning");
 
-  deleteCardButton.addEventListener("click", function() {
-    deleteCardWarning.style.display = "block";
-  });
-
-  const cancelButton = deleteCardWarning.querySelector("input[type='button']");
-  cancelButton.addEventListener("click", function() {
-    deleteCardWarning.style.display = "none";
-  });
-});
-
-</script>
 
   <script src="/javascripts/loader.js"></script>
   

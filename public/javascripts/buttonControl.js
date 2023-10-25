@@ -10,6 +10,11 @@ const buttonCtlGroups = [
   { button: toggleFont, div: uploadFonts },
   { button: toggleDraft, div: draftCards }
 ];
+function autoClose(){
+  for(let i =0;i<buttonCtlGroups.length;i++){
+    buttonCtlGroups[i].div.style.display="none"
+  }
+}
 
 function buttonControl() {
   console.log('buttonControl() ran');
@@ -18,9 +23,12 @@ function buttonControl() {
     const div = buttonCtlGroups[i].div;
     btn.addEventListener('click', function () {
       if (div.style.display === "block") {
-        div.style.display = 'none';
+                div.style.display = 'none';
       } else {
-        div.style.display = 'block';
+        for(let i =0;i<buttonCtlGroups.length;i++){
+          buttonCtlGroups[i].div.style.display='none'
+        }
+                div.style.display = 'block';
       }
     });
   }

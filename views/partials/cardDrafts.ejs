@@ -1,0 +1,93 @@
+CARD DRAFTS
+<% if (allCards && allCards.length > 0) { %>
+  <div class="card-container">
+  <% allCards.forEach(function(card) { %>
+    <%if(card.preview === 'true'){%> 
+     
+        <div class="card"> 
+          <label for="cardFront">Front:</label>     
+          <h6>imgpos</h6>
+<input type="text" id="scale_<%= card._id %>" name="imgScale" value="1">
+<input type="text" id="positionX_<%= card._id %>" name="imgPositionX" value="<%= card.imgPositionX %>">
+<input type="text" id="positionY_<%= card._id %>" name="imgPositionY" value="<%= card.imgPositionY %>">
+          <div class="cardFrontFrame">
+            <div class="cardImg" >
+              <img class="" src="<%= card.cardFront %>" alt="Card Front">
+              <div id="headshot_<%= card._id %>" class="headshot">
+                <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>) translateX(<%= card.imgPositionX %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
+              </div>
+            </div>
+            
+          </div>
+      
+          <input type="file" name="cardFrontFile"><br>
+          <%- include('controlArrows.ejs', { cardId: card._id }) %>
+          
+          <label for="cardBack">Back:</label>
+          
+<h6>textpos</h6>
+<input type="text" id="font0Size_<%= card._id %>" name="font0Size" value="<%=card.font0Size%>">
+<input type="text" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
+<input type="text" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
+          
+          <div class="cardBackFrame">
+            <div class="cardImg">
+              <img class="" src="<%= card.cardBack %>" alt="Card Back">
+              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>) translateX(<%= card.text0PositionX %>);" class="textBox" id="textBox_<%=card._id%>">
+                <div style="font-size:<%= card.font0Size%>px;" class="textTitles">
+                  CHAPTER<br>
+                  ADDRESS<br>
+                  EMAIL<br>
+                  PHONE<br>
+                  BIRTHDAY<br>
+                  UP CLOSE<br>
+                </div>
+            <div class="dynoData">
+              dummydata for later
+            </div>
+           </div>
+
+          
+            </div>
+          </div>
+          <input type="file" name="cardBackFile"><br>
+
+        <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="cardId" value="<%= card._id %>">
+        
+          <!-- Add inputs for scale and positioning -->
+
+          <label for="fontName1">Main Font:</label>
+          <select name="fontName1" id="fontName1">
+            <% fonts.forEach(function(font) { %>
+              <option value="<%= font %>" <%= font === card.fontName1 ? 'selected' : '' %>><%= font %></option>
+            <% }); %>
+          </select>
+          <label for="fontName2">Secondary Font:</label>
+          <select name="fontName2" id="fontName2">
+            <% fonts.forEach(function(font) { %>
+              <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
+            <% }); %>
+          </select> 
+          <p>Uploaded By:<%= card.uploadedBy %></p>
+          <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
+        
+          <input type="submit" value="Update Card">
+        </form>
+        
+        <input type="submit" class="deleteCardButton" value="delete card">
+        <div  class="deleteCardWarning" style="display: none;">
+          <form action="/admin/deleteCard" method="post">
+            are you SURE? this cannot be undone.
+            <input type="hidden" name="_id" value="<%= card._id %>">
+            <input type="submit" value="delete">
+            <input type="button" class="cancelDelete" value="cancel">
+          </form>
+        </div>
+      </div>
+    <%}%>
+  <% }) %>
+</div>
+<% } else { %>
+  <p>No cards available.</p>
+<% } %>

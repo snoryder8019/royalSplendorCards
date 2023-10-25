@@ -20,6 +20,7 @@ function isAdmin(req, res, next) {
     res.redirect('/');
   }
 }
+
 const getFonts = () => {
   const fontDir = path.join(__dirname, '../../public/fonts');
   return fs.readdirSync(fontDir);
@@ -53,11 +54,12 @@ const uploadCard = async (req, res) => {
     const cardData = {
       cardFront: cardFrontPath,
       cardBack: cardBackPath,
-      imgBottom: 0,
-      imgLeft: 0,
-      dataBottom: 0,
-      dataLeft: 0,
-      vertical: req.body.vertical === "true",
+      imgScale:1,
+      imgPositionX: 0,
+      imgPositionY: 0,
+      font0Size: 12,
+      text0PositionX: 0,
+      text0PositionY: 0,
       uploadedBy: req.user.displayName,
       fontName1: fontName1Path,
       fontName2: fontName2Path,
@@ -79,13 +81,13 @@ const uploadCard = async (req, res) => {
     res.redirect('/admin');
   }
 };
-
+//THIS IS NOT BUILT YET
 const publishCard = async (req,res)=>{
   try{}
   catch{}
 }
 
-
+//THIS WORKS!!
 const deleteCard = async (req, res) => {
   try {
     const db = getDb();

@@ -1,10 +1,22 @@
-<!-- controlArrows.ejs -->
-<div id="controlArrows">
-    <button id="upArrow">Up</button>
-    <button id="downArrow">Down</button>
-    <button id="leftArrow">Left</button>
-    <button id="rightArrow">Right</button>
-    <button id="scaleUpButton" >scaleUp</button>
-    <button id="scaleDownButton" >scaleDown</button>
+<!-- Add controls for font0Size, text0PositionX, and text0PositionY -->
+<div id="controlArrows_<%= cardId %>" class="control-arrow" data-card-id="<%= cardId %>">
+  <h6>img controls</h6>
+  <div class="imgControls">
+    <button class="imgUpArrow">Up</button>
+    <button class="imgDownArrow">Down</button>
+    <button class="imgLeftArrow">Left</button>
+    <button class="imgRightArrow">Right</button>
+    <button class="imgScaleUpButton">Scale +</button>
+    <button class="imgScaleDownButton">Scale -</button>
   </div>
-  
+  <h6>text controls</h6>
+  <div class="textControls">
+    <button class="textUpArrow">Up</button>
+    <button class="textDownArrow">Down</button>
+    <button class="textLeftArrow">Left</button>
+    <button class="textRightArrow">Right</button>
+    <button class="fontUpButton">Font +</button>
+    <button class="fontDownButton">Font -</button>
+  </div>
+</div>
+

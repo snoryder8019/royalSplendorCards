@@ -1,0 +1,22 @@
+<h3>upload card front and back:</h3>
+<form action="/admin/uploadCard" method="post" enctype="multipart/form-data">
+  <div class="">       
+    <label for="">card front</label> 
+    <input type="file" name="cardFront"> 
+    <label for="">card back</label> 
+    <input type="file" name="cardBack">
+    <label for="fontName1">Main Font:</label>
+    <select name="fontName1" id="fontName1">
+      <% fonts.forEach(function(font) { %>
+        <option value="<%= font %>"><%= font %></option>
+      <% });%>
+    </select>      
+    <label for="fontName2">Secondary Font:</label>
+    <select name="fontName2" id="fontName2">
+      <% fonts.forEach(function(font) { %>
+        <option value="<%= font %>"><%= font %></option>
+      <% }); %>
+    </select>
+  </div>
+  <input type="submit" value="add to drafts">
+</form>

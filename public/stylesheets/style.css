@@ -68,18 +68,15 @@ button {
 }
 
 .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   margin: 20px 0;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  max-width: 350px;
+  min-width: 300px;
+  max-width: 300px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -89,11 +86,10 @@ button {
 
 .card label, input[type=text] {
   margin-top: 10px;
-  width: 100%;
 }
 
 input[type=submit], select, input[type=file] {
-  background-color: blue;
+  background-color: purple;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -102,17 +98,15 @@ input[type=submit], select, input[type=file] {
 }
 
 input[type=submit]:hover {
-  background-color: rgb(0, 0, 165);
+  background-color: rgb(61, 0, 61);
 }
 
 .cardFrontFrame {
   position: relative;
-  width: 100%;
   max-width: 350px;
 }
 
 .cardBackFrame {
-  width: 100%;
   max-width: 350px;
 }
 
@@ -127,12 +121,18 @@ input[type=submit]:hover {
 }
 
 .headshot {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
+  z-index: -1;
   max-width: 100px; /* Adjust as needed */
+}
+
+.textTitles {
+  width: 30%;
+  z-index: -1;
+}
+
+.textBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 #userSetup {
@@ -240,6 +240,7 @@ input[type=submit]:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 }
 
 #avatar {
@@ -269,6 +270,21 @@ input[type=submit]:hover {
 
 #cardUploadDiv, #draftCards, #uploadFonts {
   display: none;
+}
+
+#canvas0 {
+  /* Add styles for your canvas here */
+  background-color: lightgray;
+}
+
+#overlay0 {
+  /* Add styles for your overlay div here */
+  position: absolute;
+  max-width: 232px;
+  top: 360px;
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.5); /* Change the background color and opacity as needed */
+  pointer-events: none; /* This allows interactions with the canvas below */
 }
 
 /*# sourceMappingURL=style.css.map */

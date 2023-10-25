@@ -15,7 +15,7 @@ const loadScript = (src) => {
 const scriptsToLoad = [
   '/javascripts/menuControl.js',
   '/javascripts/buttonControl.js',
-  '/javascripts/nudge.js' 
+   '/javascripts/warnings.js'
   // Add more script files here
 ];
 
@@ -24,6 +24,11 @@ Promise.all(scriptsToLoad.map(loadScript))
     console.log('All scripts loaded');
     if (typeof logPos === 'function') {
       logPos();  // Call your function here
+    }
+    if (typeof warningLoader === 'function') {
+      warningLoader();
+     
+  ;  // Call your function here
     }
   })
   .catch((error) => {

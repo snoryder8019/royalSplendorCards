@@ -1,93 +1,85 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Function to update the headshot's transform
-    const updateHeadshotTransform = (headshot, translateX, translateY, scale) => {
-      headshot.style.transform = `translate(${translateX}%, ${translateY}%) scale(${scale})`;
+    // Function to update the transform of an element
+    const updateElementTransform = (element, positionX, positionY) => {
+      element.style.transform = `translateX(${positionX}px) translateY(${positionY}px)`;
     };
   
     // Function to handle nudge actions
-    const nudge = (direction, cardId) => {
-      const headshot = document.querySelector(`#headshot_${cardId} img`);
-      let translateX = parseFloat(headshot.dataset.translateX || 0);
-      let translateY = parseFloat(headshot.dataset.translateY || 0);
-      let scale = parseFloat(headshot.dataset.scale || 1);
+    const nudge = (elementType, direction, cardId) => {
+      let element;
+      let positionXKey, positionYKey, fontSizeKey;
+  
+      if (elementType === 'headshot') {
+        element = document.querySelector(`#headshot_${cardId} img`);
+        positionXKey = 'imgPositionX';
+        positionYKey = 'imgPositionY';
+      } else if (elementType === 'textBox') {
+        element = document.querySelector(`#textBox_${cardId}`);
+        positionXKey = 'text0PositionX';
+        positionYKey = 'text0PositionY';
+        fontSizeKey = 'font0Size';
+      }
+  
+      if (!element) {
+        return; // Exit if the element is not found
+      }
+  
+      let positionX = parseFloat(element.style.transform.match(/translateX\(([^)]+)\)/)[1]);
+      let positionY = parseFloat(element.style.transform.match(/translateY\(([^)]+)\)/)[1]);
+      let fontSize = parseFloat(getComputedStyle(document.querySelector(`#textTitles_${cardId}`)).fontSize);
   
       switch (direction) {
         case 'up':
-          translateY -= 5;
+          positionY -= 5;
           break;
         case 'down':
-          translateY += 5;
+          positionY += 5;
           break;
         case 'left':
-          translateX -= 5;
+          positionX -= 5;
           break;
         case 'right':
-          translateX += 5;
+          positionX += 5;
           break;
-        case 'scaleUp':
-          scale += 0.1;
+        case 'fontSizeUp':
+          fontSize += 1;
           break;
-        case 'scaleDown':
-          scale -= 0.1;
+        case 'fontSizeDown':
+          fontSize -= 1;
           break;
-        case 'fontUp':
-          // Increase font size (adjust the value as needed)
-          headshot.dataset.font0Size = parseFloat(headshot.dataset.font0Size || 0) + 1;
-          break;
-        case 'fontDown':
-          // Decrease font size (adjust the value as needed)
-          headshot.dataset.font0Size = parseFloat(headshot.dataset.font0Size || 0) - 1;
-          break;
-        case 'textLeft':
-          // Move text left (adjust the value as needed)
-          headshot.dataset.text0PositionX = parseFloat(headshot.dataset.text0PositionX || 0) - 5;
-          break;
-        case 'textRight':
-          // Move text right (adjust the value as needed)
-          headshot.dataset.text0PositionX = parseFloat(headshot.dataset.text0PositionX || 0) + 5;
-          break;
-        case 'textUp':
-          // Move text up (adjust the value as needed)
-          headshot.dataset.text0PositionY = parseFloat(headshot.dataset.text0PositionY || 0) - 5;
-          break;
-        case 'textDown':
-          // Move text down (adjust the value as needed)
-          headshot.dataset.text0PositionY = parseFloat(headshot.dataset.text0PositionY || 0) + 5;
-          break;
+        // Add more cases for other directions as needed
       }
   
-      // Update and save positioning, scale, font0Size, text0PositionX, and text0PositionY data in hidden input fields
-      document.querySelector(`#positionX_${cardId}`).value = translateX;
-      document.querySelector(`#positionY_${cardId}`).value = translateY;
-      document.querySelector(`#scale_${cardId}`).value = scale;
-      document.querySelector(`#font0Size_${cardId}`).value = headshot.dataset.font0Size || 0;
-      document.querySelector(`#text0PositionX_${cardId}`).value = headshot.dataset.text0PositionX || 0;
-      document.querySelector(`#text0PositionY_${cardId}`).value = headshot.dataset.text0PositionY || 0;
+      // Update the transform property of the element
+      updateElementTransform(element, positionX, positionY);
   
-      // Update the dataset attributes for the headshot element
-      headshot.dataset.translateX = translateX;
-      headshot.dataset.translateY = translateY;
-      headshot.dataset.scale = scale;
-  
-      // Update the headshot's transform
-      updateHeadshotTransform(headshot, translateX, translateY, scale);
+      // Update and save positioning and font size data in hidden input fields
+      document.querySelector(`#${positionXKey}_${cardId}`).value = positionX;
+      document.querySelector(`#${positionYKey}_${cardId}`).value = positionY;
+      if (fontSizeKey) {
+        document.querySelector(`#${fontSizeKey}_${cardId}`).value = fontSize;
+        document.querySelector(`#textTitles_${cardId}`).style.fontSize = `${fontSize}px`;
+      }
     };
   
-    // Add event listeners for the nudge buttons within the loop
+    // Add event listeners for nudge buttons for headshot
     document.querySelectorAll('.control-arrow').forEach((arrow) => {
       const cardId = arrow.dataset.cardId;
-      arrow.querySelector('.imgUpArrow').addEventListener('click', () => nudge('up', cardId));
-      arrow.querySelector('.imgDownArrow').addEventListener('click', () => nudge('down', cardId));
-      arrow.querySelector('.imgLeftArrow').addEventListener('click', () => nudge('left', cardId));
-      arrow.querySelector('.imgRightArrow').addEventListener('click', () => nudge('right', cardId));
-      arrow.querySelector('.imgScaleUpButton').addEventListener('click', () => nudge('scaleUp', cardId));
-      arrow.querySelector('.imgScaleDownButton').addEventListener('click', () => nudge('scaleDown', cardId));
-      arrow.querySelector('.fontUpButton').addEventListener('click', () => nudge('fontUp', cardId));
-      arrow.querySelector('.fontDownButton').addEventListener('click', () => nudge('fontDown', cardId));
-      arrow.querySelector('.textLeftArrow').addEventListener('click', () => nudge('textLeft', cardId));
-      arrow.querySelector('.textRightArrow').addEventListener('click', () => nudge('textRight', cardId));
-      arrow.querySelector('.textUpArrow').addEventListener('click', () => nudge('textUp', cardId));
-      arrow.querySelector('.textDownArrow').addEventListener('click', () => nudge('textDown', cardId));
+      arrow.querySelector('.imgUpArrow').addEventListener('click', () => nudge('headshot', 'up', cardId));
+      arrow.querySelector('.imgDownArrow').addEventListener('click', () => nudge('headshot', 'down', cardId));
+      arrow.querySelector('.imgLeftArrow').addEventListener('click', () => nudge('headshot', 'left', cardId));
+      arrow.querySelector('.imgRightArrow').addEventListener('click', () => nudge('headshot', 'right', cardId));
+    });
+  
+    // Add event listeners for nudge buttons for textBox
+    document.querySelectorAll('.control-arrow').forEach((arrow) => {
+      const cardId = arrow.dataset.cardId;
+      arrow.querySelector('.textUpArrow').addEventListener('click', () => nudge('textBox', 'up', cardId));
+      arrow.querySelector('.textDownArrow').addEventListener('click', () => nudge('textBox', 'down', cardId));
+      arrow.querySelector('.textLeftArrow').addEventListener('click', () => nudge('textBox', 'left', cardId));
+      arrow.querySelector('.textRightArrow').addEventListener('click', () => nudge('textBox', 'right', cardId));
+      arrow.querySelector('.fontUpButton').addEventListener('click', () => nudge('textBox', 'fontSizeUp', cardId));
+      arrow.querySelector('.fontDownButton').addEventListener('click', () => nudge('textBox', 'fontSizeDown', cardId));
     });
   });
   

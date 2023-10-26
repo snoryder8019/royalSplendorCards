@@ -34,17 +34,16 @@ CARD DRAFTS
             <div class="cardImg">
               <img class="" src="<%= card.cardBack %>" alt="Card Back">
               <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>) translateX(<%= card.text0PositionX %>);" class="textBox" id="textBox_<%=card._id%>">
-                <div style="font-size:<%= card.font0Size%>px;" class="textTitles">
-                  CHAPTER<br>
-                  ADDRESS<br>
-                  EMAIL<br>
-                  PHONE<br>
-                  BIRTHDAY<br>
-                  UP CLOSE<br>
+                <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size%>px;" class="textTitles">
+                  <table></table>
+                  CHAPTER : Greeley RHS<br>
+                  ADDRESS : Colorado, USA<br>
+                  EMAIL : scott@w2marketing.biz<br>
+                  PHONE : 333-456-7890<br>
+                  BIRTHDAY :Januaray 1, 2001<br>
+                  UP CLOSE: I like to Code Things<br>
                 </div>
-            <div class="dynoData">
-              dummydata for later
-            </div>
+          
            </div>
 
           

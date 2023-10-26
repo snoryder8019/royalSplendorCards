@@ -130,11 +130,6 @@ input[type=submit]:hover {
   z-index: -1;
 }
 
-.textBox {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 #userSetup {
   display: none;
 }

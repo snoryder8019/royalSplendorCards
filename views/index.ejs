@@ -18,7 +18,7 @@
     
     
       <div id="userSetup"><%- include('./partials/userSetup',{user:user,message:message})%></div>   
-      <div id="flashErrors"><%- include('./partials/FlashErrors',{user:user,message:message})%></div>          
+             
     </div>    
     <%if(typeof user =='object' && user.isAdmin){%> <div>go to <a href="/admin">admin</a> panel </div><%}%>
   <script src="/javascripts/loader.js"></script>

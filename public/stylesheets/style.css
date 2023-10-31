@@ -165,7 +165,7 @@ input[type=submit]:hover {
   background-color: white;
   padding: 3%;
   background-color: rgb(255, 247, 237);
-  box-shadow: 2px 2px rgb(234, 20, 20);
+  box-shadow: 2px 2px rgba(234, 20, 20, 0.326);
   animation: 1.1s 0s 1 slideUpLogin;
 }
 
@@ -210,6 +210,7 @@ input[type=submit]:hover {
 
 #login, #register {
   display: none;
+  margin-bottom: 12%;
   transform: translateY(5%);
   border: 6px solid rgb(234, 20, 20);
   border-radius: 50px;
@@ -217,12 +218,13 @@ input[type=submit]:hover {
   padding: 3%;
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
-  box-shadow: 2px 2px rgb(234, 20, 20);
+  box-shadow: 2px 2px rgba(234, 20, 20, 0.326);
   animation: 2s 0s 1 slideUpLogin;
 }
 
 .oneTouchLogin {
   border: 2px solid black;
+  margin: 2%;
 }
 .oneTouchLogin img {
   width: 85px;
@@ -230,8 +232,7 @@ input[type=submit]:hover {
 }
 
 .loginForm {
-  border: 1px solid black;
-  box-shadow: 5px 5px 5px rgb(234, 20, 20);
+  box-shadow: 5px 5px 25px rgba(234, 20, 20, 0.326);
 }
 
 #menu {
@@ -262,7 +263,7 @@ input[type=submit]:hover {
   text-align: center;
   padding: 18px;
   word-wrap: break-word;
-  box-shadow: 2px 2px rgb(234, 20, 20);
+  box-shadow: 2px 2px rgba(234, 20, 20, 0.326);
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
   animation: 2s 0s 1 slideUpAvatar;

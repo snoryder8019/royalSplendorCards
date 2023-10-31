@@ -10,17 +10,19 @@
  
   <button id="loginClose">close</button>
   <%}else{%>
-  <p>   Hi, Please login or register to design your cards  </p>
+
  
      
       <%}%>
 
 <%if(typeof user=="object" && user){%>
-
-
-
+    
+    
     <%}else{%>
+        <h2>   sign in options:  </h2>
     <div class="loginForm">
+        <p>option #1: email and password</p>
+    
         <form action="/auth/local" method="post">
             <div>
                 <label for="email">email:</label><br>
@@ -30,19 +32,28 @@
                 <label for="password">Password:</label><br>
                 <input type="password" id="password" name="password" required>
             </div>
-        </div>
             <div>
                 <button type="submit">Login</button>
             </div>
         </form>
+     
+            <p>have you registered an email yet? <a onclick="registerLarge()">register email here</a>  </p>
+          
+  
+    </div>
     
-      <button onclick="registerLarge()" id="registerButton">register w/ email</button>
-<h4>-or-</h4>
-        <h3>one touch sign-in/register with:</h3>
+   
+    
+    <div class="loginForm">
+    <p>option #2: google emails one touch:</p>
   
-        <a href="./auth/google"> <div class="oneTouchLogin">  <img class="oneTouchLogin" src="/images/google.png"></div></a>
-
-
-
-        <%}%>
-  
+    
+    <a href="./auth/google">
+        <div class="oneTouchLogin">  
+            <img class="oneTouchLogin" src="/images/google.png">   </div></a>
+    
+ 
+    </div>
+ 
+    
+    <%}%>

@@ -6,7 +6,7 @@ $white: white;
 $purple: purple;
 $purpleShadow: rgb(61, 0, 61);
 $red: rgb(234, 20, 20);
-$redShadow: rgb(234, 20, 20);
+$redShadow: rgba(234, 20, 20, 0.326);
 $blue:blue;
 $blueShadow:rgb(0, 0, 165);
 
@@ -236,7 +236,7 @@ width: 30%;
 
 #login, #register{
   display:none;
-
+margin-bottom:12%;
   transform: translateY(5%);
 @include divBorder;
     //animation depenancies
@@ -248,14 +248,15 @@ width: 30%;
 }
 .oneTouchLogin{
   border:2px solid black;
+  margin: 2%;
   img{
     width: 85px;
     border: none;
   }
 }
 .loginForm{
-  border:1px solid black;
-  box-shadow: 5px 5px 5px $redShadow;
+ // border:1px solid black;
+  box-shadow: 5px 5px 25px $redShadow;
 }
 #menu {
   position: fixed;

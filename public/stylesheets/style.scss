@@ -121,6 +121,10 @@ button {
   margin-top: 10px;
  // width: 100%;
 }
+.card-container p,.card-container input, label,{
+  font-size: .3rem;
+  font-family: 'Courier New', Courier, monospace;
+}
 input[type="submit"], select , input[type="file"] {
   background-color: $purple;
   color: $white;
@@ -158,7 +162,7 @@ input[type="submit"]:hover {
   max-width: 100px; /* Adjust as needed */
 }
 .textTitles{
-width: 30%;
+width: 100%;
 z-index: -1;
 }
 .textBox{
@@ -166,6 +170,9 @@ z-index: -1;
 }
 .dynoData{
 
+}
+.imgControlArrows{
+  z-index: 25;
 }
 #userSetup{display:none}
 //////card stuff

@@ -88,6 +88,11 @@ button {
   margin-top: 10px;
 }
 
+.card-container p, .card-container input, label {
+  font-size: 0.3rem;
+  font-family: "Courier New", Courier, monospace;
+}
+
 input[type=submit], select, input[type=file] {
   background-color: purple;
   color: white;
@@ -126,8 +131,12 @@ input[type=submit]:hover {
 }
 
 .textTitles {
-  width: 30%;
+  width: 100%;
   z-index: -1;
+}
+
+.imgControlArrows {
+  z-index: 25;
 }
 
 #userSetup {

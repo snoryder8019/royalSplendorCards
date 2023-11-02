@@ -86,7 +86,32 @@ button {
   0% { transform: translateY(200%); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
-
+//cell 300X425px 
+//desk 250X850px 
+//header
+$headerCellHeight:300px;
+$headerDeskHeight:250px;
+#header{
+  min-height: $headerCellHeight;
+ max-height:$headerCellHeight;
+ width: 100%;
+ @media (min-width:768px){
+   min-height: $headerDeskHeight;
+   max-height:$headerDeskHeight;
+   
+  }
+}
+#headerContainer{
+  min-height: $headerCellHeight;
+  max-height:$headerCellHeight;
+  width: 100%;
+  background-color: #f44336;
+  @media (min-width:768px){
+    min-height: $headerDeskHeight;
+    max-height:$headerDeskHeight;
+    
+  }
+}
 // Flash Message
 .flashMessage {
   @include transistionProps();

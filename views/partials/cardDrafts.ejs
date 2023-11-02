@@ -5,31 +5,23 @@ CARD DRAFTS
     <%if(card.preview === 'true'){%> 
      
         <div class="card">         
-          <input type="hidden" id="imgScale_<%= card._id %>" name="imgScale" value="<%= card.imgScale %>">
-          <input type="hidden" id="positionX_<%= card._id %>" name="imgPositionX" value="<%= card.imgPositionX %>">
-          <input type="hidden" id="positionY_<%= card._id %>" name="imgPositionY" value="<%= card.imgPositionY %>">
+        
        
           <%- include('controls_img.ejs', { cardId: card._id }) %>            
           <div class="cardFrontFrame">
             <div class="cardImg" >
               <img class="" src="<%= card.cardFront %>" alt="Card Front">
               <div id="headshot_<%= card._id %>" class="headshot">
-                <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>) translateX(<%= card.imgPositionX %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
+                <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
               </div>
             </div>
           </div>      
-          <input type="file" name="cardFrontFile"><br>
-           
-       
-          <input type="hidden" id="font0Size_<%= card._id %>" name="font0Size" value="<%=card.font0Size%>">
-          <input type="hidden" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
-          <input type="hidden" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
-          
+          <input type="file" name="cardFrontFile"><br>        
           <%- include('controls_text.ejs', { cardId: card._id }) %>
           <div class="cardBackFrame">
             <div class="cardImg">
               <img class="" src="<%= card.cardBack %>" alt="Card Back">
-              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>) translateX(<%= card.text0PositionX %>);" class="textBox" id="textBox_<%=card._id%>">
+              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%=card._id%>">
                 <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size%>px;" class="textTitles">
                   CHAPTER : Greeley RHS<br>
                   ADDRESS : Colorado, USA<br>
@@ -47,9 +39,15 @@ CARD DRAFTS
           <input type="file" name="cardBackFile"><br>
 
         <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="cardId" value="<%= card._id %>">
-        
-          <!-- Add inputs for scale and positioning -->
+          <input type="text" name="cardId" value="<%= card._id %>">
+          <input type="text" id="imgScale_<%= card._id %>" name="imgScale" value="<%= card.imgScale %>">
+          <input type="text" id="imgPositionX_<%= card._id %>" name="imgPositionX" value="<%= card.imgPositionX %>">
+          <input type="text" id="imgPositionY_<%= card._id %>" name="imgPositionY" value="<%= card.imgPositionY %>">
+          <input type="text" id="font0Size_<%= card._id %>" name="font0Size" value="<%=card.font0Size%>">
+          <input type="text" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
+          <input type="text" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
+          
+      
 
           <label for="fontName1">Main Font:</label>
           <select name="fontName1" id="fontName1">
@@ -69,6 +67,13 @@ CARD DRAFTS
           <input type="submit" value="Update Card">
         </form>
         
+        <form action="/admin/publishCard" method="post">
+          <input type="hidden" name="cardId" value="<%= card._id %>">
+          <input type="submit" value="Publish Card">
+        </form>
+        
+
+
         <input type="submit" class="deleteCardButton" value="delete card">
         <div  class="deleteCardWarning" style="display: none;">
           <form action="/admin/deleteCard" method="post">

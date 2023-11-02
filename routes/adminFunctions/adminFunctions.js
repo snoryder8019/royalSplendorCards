@@ -164,6 +164,15 @@ const updateCard = async (req, res) => {
     updatedCardData.fontName1 = req.body.fontName1;
     updatedCardData.fontName2 = req.body.fontName2;
     updatedCardData.uploadedBy = req.body.uploadedBy;
+    updatedCardData.imgScale = req.body.imgScale;
+    updatedCardData.imgPositionX = req.body.imgPositionX;
+    updatedCardData.imgPositionY = req.body.imgPositionY;
+    updatedCardData.text0PositionX = req.body.text0PositionX;
+    updatedCardData.text0PositionY = req.body.text0PositionY;
+    updatedCardData.font0Size = req.body.font0Size;
+
+    // Log the updated card data
+    console.log('Updated Card Data:', updatedCardData);
 
     // Update the document
     await collection.updateOne({ "_id": id }, { $set: updatedCardData });
@@ -177,8 +186,8 @@ const updateCard = async (req, res) => {
   }
 };
 
+router.post('/updateCard', upload, updateCard);
 
-  router.post('/updateCard', upload, updateCard);
   router.post('/uploadCard', upload, uploadCard);
   router.post('/deleteCard', deleteCard);
 

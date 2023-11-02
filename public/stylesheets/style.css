@@ -54,6 +54,31 @@ button {
     opacity: 1;
   }
 }
+#header {
+  min-height: 300px;
+  max-height: 300px;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  #header {
+    min-height: 250px;
+    max-height: 250px;
+  }
+}
+
+#headerContainer {
+  min-height: 300px;
+  max-height: 300px;
+  width: 100%;
+  background-color: #f44336;
+}
+@media (min-width: 768px) {
+  #headerContainer {
+    min-height: 250px;
+    max-height: 250px;
+  }
+}
+
 .flashMessage {
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;

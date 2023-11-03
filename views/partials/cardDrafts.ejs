@@ -68,7 +68,7 @@ CARD DRAFTS
         </form>
         
         <form action="/admin/publishCard" method="post">
-          <input type="hidden" name="cardId" value="<%= card._id %>">
+          <input type="hidden" name="_id" value="<%= card._id %>">
           <input type="submit" value="Publish Card">
         </form>
         
@@ -76,11 +76,12 @@ CARD DRAFTS
 
         <input type="submit" class="deleteCardButton" value="delete card">
         <div  class="deleteCardWarning" style="display: none;">
+          are you SURE? this cannot be undone.
           <form action="/admin/deleteCard" method="post">
-            are you SURE? this cannot be undone.
             <input type="hidden" name="_id" value="<%= card._id %>">
             <input type="submit" value="delete">
             <input type="button" class="cancelDelete" value="cancel">
+          </div>
           </form>
         </div>
       </div>

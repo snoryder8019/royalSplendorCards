@@ -82,10 +82,32 @@ const uploadCard = async (req, res) => {
   }
 };
 //THIS IS NOT BUILT YET
-const publishCard = async (req,res)=>{
-  try{}
-  catch{}
-}
+const publishCard = async (req, res) => {
+  try {
+    const db = getDb();
+    const collection = db.collection('_cards');
+    const cardID = req.body._id;
+    
+    // Assuming you have a 'preview' field in your card documents
+    const updateResult = await collection.updateOne(
+      { "_id": new ObjectId(cardID) },
+      { $set: { "preview": false } }
+    );
+
+    if (updateResult.modifiedCount === 1) {
+      console.log('message', 'Card published successfully.');
+      res.redirect('/admin');
+    } else {
+      console.log('message', 'Card not found or already published.');
+      res.redirect('/admin');
+    }
+  } catch (err) {
+    console.error(err);
+    req.flash('message', 'An error occurred while publishing.');
+    res.redirect('/admin');
+  }
+};
+
 
 //THIS WORKS!!
 const deleteCard = async (req, res) => {
@@ -187,9 +209,9 @@ const updateCard = async (req, res) => {
 };
 
 router.post('/updateCard', upload, updateCard);
-
+router.post('/publishCard', isAdmin, publishCard)
   router.post('/uploadCard', upload, uploadCard);
   router.post('/deleteCard', deleteCard);
 
   
-module.exports = { isAdmin, uploadCard, deleteCard, getFonts, uploadFonts, updateCard };
+module.exports = { isAdmin, uploadCard, deleteCard, getFonts, uploadFonts, updateCard, publishCard };

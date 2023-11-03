@@ -1,36 +1,44 @@
 <% if (allCards && allCards.length > 0) { %>
   <div class="card-container">
   <% allCards.forEach(function(card) { %>
-    <%if(card.preview === 'true'){%> 
-     
-        <div class="card"> 
-          <div class="cardFrontFrame">
-            <div class="cardImg" >
-              <img class="" src="<%= card.cardFront %>" alt="Card Front">
-              <div id="headshot_<%= card._id %>" class="headshot">
-                <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
-              </div>
+    <% if (card.preview === false) { %>
+      <div class="card">
+        <div class="cardFrontFrame">
+          <div class="cardImg">
+            <img class="" src="<%= card.cardFront %>" alt="Card Front">
+            <div id="headshot_<%= card._id %>" class="headshot">
+              <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
             </div>
-          </div>  
-          <div class="cardBackFrame">
-            <div class="cardImg">
-              <img class="" src="<%= card.cardBack %>" alt="Card Back">
-              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%=card._id%>">
-                <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size%>px;" class="textTitles">
+          </div>
+        </div>
+        <div class="cardBackFrame">
+          <div class="cardImg">
+            <img class="" src="<%= card.cardBack %>" alt="Card Back">
+            <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%= card._id %>">
+              <% if (user.chapter) { %>
+                <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px;" class="textTitles">
+                CHAPTER: <%= user.chapter %><br>
+                ADDRESS: <%= user.address %><br>
+                EMAIL:<%=user.email%><br>
+                PHONE: <%=user.phone%><br>
+                BIRTHDAY : <%=user.birthday%><br>
+                UP CLOSE : <%=user.upClose%>
+                </div>
+              <% } else { %>
+                <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px;" class="textTitles">
                   CHAPTER : Greeley RHS<br>
                   ADDRESS : Colorado, USA<br>
                   EMAIL : scott@w2marketing.biz<br>
                   PHONE : 333-456-7890<br>
-                  BIRTHDAY :Januaray 1, 2001<br>
-                  UP CLOSE: I like to Code Thinks<br>
+                  BIRTHDAY : Januaray 1, 2001<br>
+                  UP CLOSE: I like to Code Things<br>
                 </div>
-                
-              </div>
-              
-              
+              <% } %>
             </div>
           </div>
-          </div>        
-        <%}%>
-        <%});%>
-        <%}%>
+        </div>
+      </div>
+    <% } %>
+  <% }); %>
+  </div>
+<% } %>

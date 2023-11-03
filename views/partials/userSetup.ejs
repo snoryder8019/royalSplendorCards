@@ -1,19 +1,18 @@
 
-<%if(typeof user == 'object' && user.userData){%>
-    <div id="cardBkgrd">
-        your data here
+<%if(typeof user == 'object' && user){%>
+    <div id="">
+       <h3>personalize your info to view your custom preview</h3>
         
-        <%}else{%>
-        
-                <h3>hmmm seems you need to add some info for your trading card.</h3>
-                <form action="/userDataUpload"method="post">
-                    <div class="formData">
-                        <label>chapter</label><input type="text" name="chapter" id="cardchapter"><br>
-                        <label>address</label><input type="text" name="address" id="cardaddress"><br>
-                        <label>email</label><input type="text" name="email" id="cardemail"><br>
-                        <label>phone</label><input type="text" name="phone" id="cardphone"><br>
-                        <label>birthday</label><input type="text" name="birthday" id="cardbirthday"><br>
-                        <label>up close</label><input type="text" name="upClose" id="cardupClose"><br>
+            <form action="/userDataUpload"method="post">
+                <div class="formData">
+                        <h3> add/update your info for your trading card.</h3>
+                        <label>chapter</label><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
+                        <label>address</label><input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
+                        <label>email</label><input type="text" name="email" id="cardemail" value="<%= user.email %>"><br>
+                        <label>phone</label><input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
+                        <label>birthday</label><input type="text" name="birthday" id="cardbirthday" value="<%= user.birthday ? user.birthday : 'add your birthday' %>"><br>
+                        <label>up close</label><input type="text" name="upClose" id="cardupClose" value="<%= user.upClose || 'add your upClose' %>"><br>
+                        
                         <button type="submit">submit</button>
                     </div>
                 </form>
@@ -21,10 +20,10 @@
                 <%}%>
                 <%if(typeof user == 'object' && user.userImg){%>
               
-                        your headshot
+                    <h3>   add/update your headshot</h3>
                         <img src="<%= user.userImg%>">
                         <%}else{%>
-                            <div class="headshot">
+                            <div class="formData">
                                 <form action="/userImgUpload"method="post"enctype="multipart/form-data">
                                     headshot upload here
                                     <input type="file" name="cardFront"> 

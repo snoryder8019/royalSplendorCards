@@ -1,0 +1,15 @@
+<%if(typeof allCards =='object' && allCards){%>
+   <%for (let i=0;i<allCards.length;i++){%>
+    <div>
+        <form action="/admin/deleteCard" method="post">
+            <img  style="width:225px; "class="" src="<%= allCards[i].cardFront %>" alt="Card Front">
+                <input type="hidden" name="_id" value="<%= allCards[i]._id %>">
+                <input type="submit" value="delete">
+
+       
+              </form>
+        </div>
+          <%}%>
+    <%}else{%>
+        no cards!!
+        <%}%>

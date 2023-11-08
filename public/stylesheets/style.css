@@ -15,23 +15,25 @@
   src: url("/fonts/backslash.otf");
 }
 html {
-  font-size: 2.5rem;
   text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  padding: 50px;
   font-family: "backlash";
-  margin-bottom: 14%;
+  background-color: rgb(255, 252, 244);
+  margin: 0;
+  padding: 0;
 }
 
 a {
-  color: #00B7FF;
+  color: rgb(26, 26, 164);
 }
 
 button {
   border: 1px solid black;
-  color: rgb(234, 20, 20);
+  color: white;
 }
 
 @keyframes flash {
@@ -54,9 +56,33 @@ button {
     opacity: 1;
   }
 }
+@keyframes slideUpLogin {
+  0% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(5%);
+    opacity: 1;
+  }
+}
+@keyframes slideUpAvatar {
+  0% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(50%);
+    opacity: 1;
+  }
+}
+.header {
+  width: 100%;
+}
+
 #header {
-  min-height: 300px;
-  max-height: 300px;
+  min-height: 400px;
+  max-height: 400px;
   width: 100%;
 }
 @media (min-width: 768px) {
@@ -67,10 +93,9 @@ button {
 }
 
 #headerContainer {
-  min-height: 300px;
-  max-height: 300px;
+  min-height: 400px;
+  max-height: 400px;
   width: 100%;
-  background-color: #f44336;
 }
 @media (min-width: 768px) {
   #headerContainer {
@@ -93,61 +118,58 @@ button {
 }
 
 .card-container {
-  display: flex;
+  display: block;
   height: 60%;
-  margin: 0;
-}
-@media (max-width: 768px) {
-  .card-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
-
-#cards {
-  overflow-x: scroll;
+  margin: 2%;
+  padding: 2%;
 }
 
 .card {
   align-items: center;
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 600px;
+  max-width: 600px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin: 10px;
-  padding: 20px;
+  margin-left: 100%;
+  margin-top: 2%;
+  transform: translateX(-108%);
 }
 
 .card label, input[type=text] {
   margin-top: 10px;
+  width: 80%;
+  height: 65px;
+  font-size: 1rem;
+  padding: 1%;
 }
 
 .card-container p, .card-container input, label {
-  font-size: 0.3rem;
+  font-size: 1rem;
   font-family: "Courier New", Courier, monospace;
 }
 
 input[type=submit], select, input[type=file] {
-  background-color: purple;
+  background-color: rgb(76, 0, 76);
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 1rem;
 }
 
 input[type=submit]:hover {
-  background-color: rgb(61, 0, 61);
+  background-color: black;
 }
 
 .cardFrontFrame {
   position: relative;
-  max-width: 350px;
+  max-width: 600px;
 }
 
 .cardBackFrame {
-  max-width: 350px;
+  max-width: 600px;
 }
 
 .cardImg {
@@ -176,7 +198,7 @@ input[type=submit]:hover {
 
 .deleteCardWarning {
   display: none;
-  background-color: #f44336; /* Red background */
+  background-color: rgb(130, 39, 39); /* Red background */
   color: white;
   text-align: center;
   border: 1px solid #ccc;
@@ -191,12 +213,12 @@ input[type=submit]:hover {
 }
 
 #cardUploadDiv, #uploadFonts {
-  border: 6px solid rgb(234, 20, 20);
+  border: 6px solid rgb(130, 39, 39);
   border-radius: 50px;
-  background-color: white;
+  background-color: rgb(255, 252, 244);
   padding: 3%;
-  background-color: rgb(255, 247, 237);
-  box-shadow: 2px 2px rgba(234, 20, 20, 0.326);
+  background-color: white;
+  box-shadow: 2px 2px rgba(234, 20, 20, 0.701);
   animation: 1.1s 0s 1 slideUpLogin;
 }
 
@@ -216,9 +238,9 @@ input[type=submit]:hover {
 }
 
 .formData {
-  border: 6px solid rgb(234, 20, 20);
+  border: 6px solid rgb(130, 39, 39);
   border-radius: 50px;
-  background-color: white;
+  background-color: rgb(255, 252, 244);
   padding: 3%;
 }
 
@@ -241,15 +263,18 @@ input[type=submit]:hover {
 
 #login, #register {
   display: none;
+  position: fixed;
+  top: 12%;
   margin-bottom: 12%;
+  z-index: 100;
   transform: translateY(5%);
-  border: 6px solid rgb(234, 20, 20);
+  border: 6px solid rgb(130, 39, 39);
   border-radius: 50px;
-  background-color: white;
+  background-color: rgb(255, 252, 244);
   padding: 3%;
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
-  box-shadow: 2px 2px rgba(234, 20, 20, 0.326);
+  box-shadow: 2px 2px rgba(234, 20, 20, 0.701);
   animation: 2s 0s 1 slideUpLogin;
 }
 
@@ -263,7 +288,7 @@ input[type=submit]:hover {
 }
 
 .loginForm {
-  box-shadow: 5px 5px 25px rgba(234, 20, 20, 0.326);
+  box-shadow: 5px 5px 25px rgba(234, 20, 20, 0.701);
 }
 
 #menu {
@@ -272,7 +297,7 @@ input[type=submit]:hover {
   left: 0%;
   min-height: 12%;
   width: 100%;
-  background-color: rgb(234, 20, 20);
+  background-color: rgb(76, 0, 76);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -281,11 +306,13 @@ input[type=submit]:hover {
 
 #avatar {
   position: absolute;
+  font-family: "mayphylla";
+  font-size: 2rem;
   border-radius: 50%;
-  border: 6px solid rgb(234, 20, 20);
-  background-color: white;
-  max-height: 175px;
-  max-width: 175px;
+  border: 6px solid rgb(130, 39, 39);
+  background-color: rgb(255, 252, 244);
+  height: 175px;
+  width: 175px;
   bottom: 50%;
   transform: translateY(50%);
   display: flex;
@@ -294,7 +321,7 @@ input[type=submit]:hover {
   text-align: center;
   padding: 18px;
   word-wrap: break-word;
-  box-shadow: 2px 2px rgba(234, 20, 20, 0.326);
+  box-shadow: 2px 2px rgba(234, 20, 20, 0.701);
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
   animation: 2s 0s 1 slideUpAvatar;
@@ -321,6 +348,10 @@ input[type=submit]:hover {
   width: 100%;
   background-color: rgba(255, 0, 0, 0.5); /* Change the background color and opacity as needed */
   pointer-events: none; /* This allows interactions with the canvas below */
+}
+
+#filler {
+  min-height: 400px;
 }
 
 /*# sourceMappingURL=style.css.map */

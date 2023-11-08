@@ -21,17 +21,16 @@
     <%}else{%>
         <h2>   sign in options:  </h2>
     <div class="loginForm">
-        <p>option #1: email and password</p>
+        <p><span class="accent">option #1:</span> email and password</p>
     
         <form action="/auth/local" method="post">
-            <div>
-                <label for="email">email:</label><br>
+          
+                <label for="email"> email:</label><br>
                 <input type="text" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="password">Password:</label><br>
+         <br>
+                <label for="password"> Password:</label><br>
                 <input type="password" id="password" name="password" required>
-            </div>
+   
             <div>
                 <button type="submit">Login</button>
             </div>
@@ -45,7 +44,7 @@
    
     
     <div class="loginForm">
-    <p>option #2: google emails one touch:</p>
+    <p><span class="accent">option #2:</span> register and login with your google account:</p>
   
     
     <a href="./auth/google">

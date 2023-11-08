@@ -14,11 +14,11 @@
   </div>
   
   <div>
-    <button id="toggleCard" value="add new card design">newCard</button>
-    <button id="toggleFont" value="Toggle Font Upload">fontUpload</button>
-    <button id="toggleDraft" value="Toggle Draft Cards">draftCards</button>
+    <button id="toggleDraft" value="Toggle Draft Cards">Manage Cards</button>
+    <button id="toggleCard" value="add new card design">Add a Card</button>
+    <button id="toggleFont" value="Toggle Font Upload">Upload Fonts</button>
   </div>
-
+<div id="thumbnails"><%- include('./partials/cardThumbs',{user:user,message:message})%></div>
 <div id="cardUploadDiv"><%- include('./partials/cardUploads')%></div>
 <div id="draftCards"><%- include('./partials/cardDrafts',{user:user,message:message})%> </div>
 <div id="uploadFonts"><%- include('./partials/fontUploads')%></div>
@@ -30,7 +30,7 @@
       <div id="flashErrors"><%- include('./partials/FlashErrors',{user:user,message:message})%></div>          
     </div>    
        
-
+    <div id="filler"></div>
 
   <script src="/javascripts/loader.js"></script>
   <script src="/javascripts/nudge.js"></script>

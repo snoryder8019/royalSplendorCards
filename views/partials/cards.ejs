@@ -15,7 +15,7 @@
           <div class="cardImg">
             <img class="" src="<%= card.cardBack %>" alt="Card Back">
             <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%= card._id %>">
-              <% if (user.chapter) { %>
+              <% if (typeof user && user) { %>
                 <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px;" class="textTitles">
                 CHAPTER: <%= user.chapter %><br>
                 ADDRESS: <%= user.address %><br>
@@ -37,6 +37,7 @@
             </div>
           </div>
         </div>
+        <div><form action="/addToCart"><button type="submit">add to cart</button></form></div>
       </div>
     <% } %>
   <% }); %>

@@ -15,12 +15,18 @@ const loadScript = (src) => {
 const scriptsToLoad = [
   '/javascripts/menuControl.js',
   '/javascripts/buttonControl.js',
-   '/javascripts/warnings.js'
+   '/javascripts/warnings.js',
+   '/javascripts/cssColors.js'
   // Add more script files here
 ];
 
 Promise.all(scriptsToLoad.map(loadScript))
   .then(() => {
+
+    window.addEventListener('load', function() {
+      document.body.style.display = 'block';
+    });
+
     console.log('All scripts loaded');
     if (typeof logPos === 'function') {
       logPos();  // Call your function here

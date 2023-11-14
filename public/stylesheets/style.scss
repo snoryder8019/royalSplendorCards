@@ -2,10 +2,10 @@
 /////COLORS/////
 ////////////////
 //PURPLES
-$purple: rgb(76, 0, 76);
-$purpleShadow: rgb(61, 0, 61);
+$purple: #450b5a;
+$purpleShadow: rgba(61, 0, 61, 0.481);
 //RED
-$red: rgb(130, 39, 39);
+$red: #ff0000;
 $redShadow: rgba(234, 20, 20, 0.701);
 //BLUE
 $blue:rgb(26, 26, 164);
@@ -57,9 +57,12 @@ $linkFontColor:$blue;
   font-family: $back;
   src: url('/fonts/backslash.otf');
 }
+$primaryFontFamily:$back;
+$mediumFontSize:2rem;
+$largeFontSize:3rem;
 $inputFontSize:1rem;
-$inputSubmitFontSize:1rem;
-$inputLabelFontSize:1rem;
+$inputSubmitFontSize:2.5rem;
+$inputLabelFontSize:2.5rem;
 $avatarFontSize:2rem;
 // Mixins
 @mixin main() {
@@ -98,17 +101,32 @@ html {
   padding: 0;
 }
 body {
-  font-family: $back;
-  background-color: $primaryBackgroundColor;
+  display: none;
+  font-family: $primaryFontFamily;
+// background-image: url('../images/logoHat.png');
+// background-repeat: repeat;
+// background-blend-mode:lighten;
+// background-size: 200px;
+
+ // background-color: $primaryBackgroundColor;
   margin: 0;
   padding: 0;
 }
 a {
   color: $linkFontColor;
 }
+h2{
+  font-size: $largeFontSize;
+}
+p{
+  font-size: $largeFontSize;
+}
 button {
+  width: 84%;
+ margin:1%;
   border: 1px solid $primaryBorderColor;
-  color: $secondaryFontColor;
+  font-size: $mediumFontSize;
+  color: $primaryFontColor;
   //font-size: 1rem;
 }
 
@@ -175,12 +193,23 @@ $headerDeskHeight:250px;
 .card-container {
   display: block;  
   height: 60%;
-margin: 2%;
-padding: 2%;
+//margin: 2%;
+//padding: 2%;
 
 }
+.stats{
+  padding: 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.stat{
+  font-size: $mediumFontSize;
+  border: 2px dotted $primaryBorderColor;
+}
 #cards{
-
+display: block;
+margin: 0;
+padding: 0;
 }
 $cardDimention:600px;
 .card {
@@ -190,10 +219,11 @@ $cardDimention:600px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- margin-left:100%;
+ margin-left:99%;
   margin-top: 2%;
  transform: translateX(-108%);
-  //padding: 20px;
+
+  padding: 20px;
 }
 .card label, input[type="text"] {
   margin-top: 10px;
@@ -205,19 +235,21 @@ $cardDimention:600px;
   padding: 1%;
 }
 .card-container p,.card-container input, label,{
-  font-size: $inputLabelFontSize;
+  font-size: $inputFontSize;
   font-family: 'Courier New', Courier, monospace;
 }
 input[type="submit"], select , input[type="file"] {
   background-color: $secondaryBackgroundColor;
   color: $secondaryFontColor;
   padding: 10px 20px;
+  margin: 2%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: $inputSubmitFontSize;
 }
 input[type="submit"]:hover {
+  margin: 2%;
   background-color: $primaryShadowColor;
 }
 .cardFrontFrame {
@@ -319,6 +351,9 @@ width: 30%;
  }
 
 #login, #register{
+  font-size: $largeFontSize;
+  width: 84%;
+  margin-left: 8%;
   display:none;
   position: fixed;
   top: 12%;
@@ -382,7 +417,7 @@ z-index: 100;
 
 }
 .menuInitials{
-  font-size: 3rem;
+  font-size: 10rem;
 }
 //MENU STUFF
 #cardUploadDiv, #draftCards, #uploadFonts {
@@ -412,4 +447,20 @@ z-index: 100;
 
 #filler{
   min-height: 400px;
+}
+.colorsContainer{
+  margin-bottom: 300px;
+}
+
+
+  #cart{
+    display: none;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: pink;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 20;
+    
 }

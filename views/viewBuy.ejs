@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<head> 
+  <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>view and buy</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  </head>
+  <body>      
+    
+    <div id="main">
+ 
+     <div id="header">
+      <div id="headerContainer">
+        <img class="header"src="/images/banner_cell.png" alt="">
+      </div>
+<%=card._id%>
+
+<div class="card">
+  <div class="cardFrontFrame">
+    <div class="cardImg">
+      <img class="" src="<%= card.cardFront %>" alt="Card Front">
+      <div id="headshot_<%= card._id %>" class="headshot">
+        <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
+      </div>
+    </div>
+  </div>
+  <div class="cardBackFrame">
+    <div class="cardImg">
+      <img class="" src="<%= card.cardBack %>" alt="Card Back">
+      <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%= card._id %>">
+        <% if (typeof user && user) { %>
+          <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px;" class="textTitles">
+          CHAPTER: <%= user.chapter %><br>
+          ADDRESS: <%= user.address %><br>
+          EMAIL:<%=user.email%><br>
+          PHONE: <%=user.phone%><br>
+          BIRTHDAY : <%=user.birthday%><br>
+          UP CLOSE : <%=user.upClose%>
+          </div>
+        <% } else { %>
+          <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px;" class="textTitles">
+            CHAPTER : Greeley RHS<br>
+            ADDRESS : Colorado, USA<br>
+            EMAIL : scott@w2marketing.biz<br>
+            PHONE : 333-456-7890<br>
+            BIRTHDAY : Januaray 1, 2001<br>
+            UP CLOSE: I like to Code Things<br>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+  <div class="stat">views <%=card.views%></div>
+  <div class="stat">likes <%=card.likes%></div>
+  <div class="stat">purchases <%=card.purchased%></div>
+</div>
+  <!--i need to make a viewer-->
+  <div><form action="/addToCart" method="get"><input type="hidden" name="_id" value="<%=card._id%>"><button type="submit">Add To Cart</button></form></div>
+  <div><form action="/" method="get"><button type="submit">Browse More</button></form></div>
+  <button onclick="exportFrontFrameToPDF()">Export Front Frame as PDF</button>
+  <button onclick="exportBackFrameToPDF()">Export Back Frame as PDF</button>
+  
+
+</div>
+
+
+</div>
+<div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
+<div id="cart">  <%- include('./partials/cart',{user:user,message:message})%></div>
+<div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
+</div>
+</body>
+
+<script>
+  function exportFrontFrameToPDF() {
+      const element = document.querySelector('.cardFrontFrame');
+      html2pdf(element, {
+        margin: 10,
+        filename: 'front_frame.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      });
+  }
+  
+  function exportBackFrameToPDF() {
+      const element = document.querySelector('.cardBackFrame');
+      html2pdf(element, {
+        margin: 10,
+        filename: 'back_frame.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      });
+  }
+  </script>
+  
+
+    <script src="/javascripts/loader.js"></script>

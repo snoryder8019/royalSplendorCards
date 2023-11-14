@@ -21,8 +21,8 @@ html {
 }
 
 body {
+  display: none;
   font-family: "backlash";
-  background-color: rgb(255, 252, 244);
   margin: 0;
   padding: 0;
 }
@@ -31,9 +31,20 @@ a {
   color: rgb(26, 26, 164);
 }
 
+h2 {
+  font-size: 3rem;
+}
+
+p {
+  font-size: 3rem;
+}
+
 button {
+  width: 84%;
+  margin: 1%;
   border: 1px solid black;
-  color: white;
+  font-size: 2rem;
+  color: black;
 }
 
 @keyframes flash {
@@ -120,8 +131,23 @@ button {
 .card-container {
   display: block;
   height: 60%;
-  margin: 2%;
+}
+
+.stats {
   padding: 2%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.stat {
+  font-size: 2rem;
+  border: 2px dotted black;
+}
+
+#cards {
+  display: block;
+  margin: 0;
+  padding: 0;
 }
 
 .card {
@@ -131,9 +157,10 @@ button {
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-left: 100%;
+  margin-left: 99%;
   margin-top: 2%;
   transform: translateX(-108%);
+  padding: 20px;
 }
 
 .card label, input[type=text] {
@@ -150,16 +177,18 @@ button {
 }
 
 input[type=submit], select, input[type=file] {
-  background-color: rgb(76, 0, 76);
+  background-color: #450b5a;
   color: white;
   padding: 10px 20px;
+  margin: 2%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 2.5rem;
 }
 
 input[type=submit]:hover {
+  margin: 2%;
   background-color: black;
 }
 
@@ -198,7 +227,7 @@ input[type=submit]:hover {
 
 .deleteCardWarning {
   display: none;
-  background-color: rgb(130, 39, 39); /* Red background */
+  background-color: #ff0000; /* Red background */
   color: white;
   text-align: center;
   border: 1px solid #ccc;
@@ -213,7 +242,7 @@ input[type=submit]:hover {
 }
 
 #cardUploadDiv, #uploadFonts {
-  border: 6px solid rgb(130, 39, 39);
+  border: 6px solid #ff0000;
   border-radius: 50px;
   background-color: rgb(255, 252, 244);
   padding: 3%;
@@ -238,7 +267,7 @@ input[type=submit]:hover {
 }
 
 .formData {
-  border: 6px solid rgb(130, 39, 39);
+  border: 6px solid #ff0000;
   border-radius: 50px;
   background-color: rgb(255, 252, 244);
   padding: 3%;
@@ -262,13 +291,16 @@ input[type=submit]:hover {
 }
 
 #login, #register {
+  font-size: 3rem;
+  width: 84%;
+  margin-left: 8%;
   display: none;
   position: fixed;
   top: 12%;
   margin-bottom: 12%;
   z-index: 100;
   transform: translateY(5%);
-  border: 6px solid rgb(130, 39, 39);
+  border: 6px solid #ff0000;
   border-radius: 50px;
   background-color: rgb(255, 252, 244);
   padding: 3%;
@@ -297,7 +329,7 @@ input[type=submit]:hover {
   left: 0%;
   min-height: 12%;
   width: 100%;
-  background-color: rgb(76, 0, 76);
+  background-color: #450b5a;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -309,7 +341,7 @@ input[type=submit]:hover {
   font-family: "mayphylla";
   font-size: 2rem;
   border-radius: 50%;
-  border: 6px solid rgb(130, 39, 39);
+  border: 6px solid #ff0000;
   background-color: rgb(255, 252, 244);
   height: 175px;
   width: 175px;
@@ -328,7 +360,7 @@ input[type=submit]:hover {
 }
 
 .menuInitials {
-  font-size: 3rem;
+  font-size: 10rem;
 }
 
 #cardUploadDiv, #draftCards, #uploadFonts {
@@ -352,6 +384,21 @@ input[type=submit]:hover {
 
 #filler {
   min-height: 400px;
+}
+
+.colorsContainer {
+  margin-bottom: 300px;
+}
+
+#cart {
+  display: none;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: pink;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
 }
 
 /*# sourceMappingURL=style.css.map */

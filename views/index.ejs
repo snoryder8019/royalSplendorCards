@@ -3,6 +3,7 @@
 <head> 
   <link rel="stylesheet" href="/stylesheets/style.css">
     <title><%=config.title%></title>
+
   </head>
 
   <body>      
@@ -13,11 +14,12 @@
       <div id="headerContainer">
         <img class="header"src="/images/banner_cell.png" alt="">
       </div>
-
-     </div>
+    </div>
+    <div id="welcome"><%- include('./partials/welcome')%></div>
      <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
      <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
     <div id="cards">  <%- include('./partials/cards',{user:user,message:message})%></div>
+    <div id="cart">  <%- include('./partials/cart',{user:user,message:message})%></div>
     
       <!----MENU IS CONSTANT FOOTER-->
       <div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
@@ -26,7 +28,7 @@
       <div id="userSetup"><%- include('./partials/userSetup',{user:user,message:message})%></div>   
              
     </div>    
-    <%if(typeof user =='object' && user.isAdmin){%> <div>go to <a href="/admin">admin</a> panel </div><%}%>
+    <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
     <div id="filler"></div>
   <script src="/javascripts/loader.js"></script>
   

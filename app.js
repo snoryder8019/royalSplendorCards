@@ -8,6 +8,7 @@ const flash = require('connect-flash');
 const config = require('./config/config');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
+var viewBuyRouter = require('./routes/viewBuy');
 const { connect } = require('./plugins/mongo/mongo');
 const createError = require('http-errors');
 
@@ -42,6 +43,7 @@ async function startApp() {
 
   app.use('/', indexRouter);
   app.use('/admin', adminRouter);
+  app.use('/viewBuy', viewBuyRouter);
 
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {

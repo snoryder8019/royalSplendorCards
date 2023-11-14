@@ -1,1 +1,27 @@
 cart.ejs\
+
+
+
+
+
+
+
+
+
+<div id="cartClose">CLOSE CART</div>
+
+
+<script>function addToCart(itemId) {
+    $.ajax({
+        url: '/cart/add',
+        type: 'POST',
+        data: { itemId: itemId },
+        success: function(response) {
+            // Handle success - update cart UI, show message, etc.
+        },
+        error: function(error) {
+            // Handle error
+        }
+    });
+}
+</script>

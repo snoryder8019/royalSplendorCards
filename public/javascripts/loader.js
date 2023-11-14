@@ -16,7 +16,8 @@ const scriptsToLoad = [
   '/javascripts/menuControl.js',
   '/javascripts/buttonControl.js',
    '/javascripts/warnings.js',
-   '/javascripts/cssColors.js'
+   '/javascripts/cssColors.js',
+   '/javascripts/cartControl.js'
   // Add more script files here
 ];
 

@@ -56,7 +56,7 @@
   <div class="stat">purchases <%=card.purchased%></div>
 </div>
   <!--i need to make a viewer-->
-  <div><form action="/addToCart" method="get"><input type="hidden" name="_id" value="<%=card._id%>"><button type="submit">Add To Cart</button></form></div>
+  <div><form action="/viewBuy/addToCart" method="post"><input type="hidden" name="_id" value="<%=card._id%>"><button type="submit">Add To Cart</button></form></div>
   <div><form action="/" method="get"><button type="submit">Browse More</button></form></div>
   <button onclick="exportFrontFrameToPDF()">Export Front Frame as PDF</button>
   <button onclick="exportBackFrameToPDF()">Export Back Frame as PDF</button>

@@ -401,4 +401,16 @@ input[type=submit]:hover {
   z-index: 20;
 }
 
+#cartButtonDiv {
+  transform: translateX(-150%);
+}
+
+.cartButton {
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+  width: 50%;
+  filter: hue-rotate(320deg);
+}
+
 /*# sourceMappingURL=style.css.map */

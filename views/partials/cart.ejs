@@ -45,6 +45,7 @@
 </div>
 
 <!-- Inside your cartDiv -->
+<%if(typeof cart == 'object' && cart){%>
 <div class="cart-items">
     <h3>Your Cart</h3>
     <ul class="cart-items-list"></ul> <!-- This is where cart items will be listed -->
@@ -67,6 +68,8 @@
     <%}else{%>
         why no items? 
         <%}%>
+        <%}%>
+
 </div>
 
 

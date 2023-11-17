@@ -40,7 +40,7 @@ function enlarge() {
 }
 
 function registerLarge() {
-  if (register && login && registerButton) {
+ // if (register && login && registerButton) {
     if (register.style.display === "block") {
       register.style.display = "none";
       login.style.display = "block";
@@ -50,7 +50,7 @@ function registerLarge() {
       login.style.display = "none";
       registerButton.style.display = "none";
     }
-  }
+ // }
 }
 
 enlarge();

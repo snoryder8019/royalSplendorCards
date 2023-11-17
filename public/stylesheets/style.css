@@ -35,6 +35,10 @@ h2 {
   font-size: 3rem;
 }
 
+li {
+  font-size: 1.4rem;
+}
+
 p {
   font-size: 3rem;
 }
@@ -87,6 +91,12 @@ button {
     opacity: 1;
   }
 }
+.span_branded {
+  color: black;
+  font-family: "backlash";
+  font-size: 2rem;
+}
+
 .header {
   width: 100%;
 }
@@ -167,19 +177,20 @@ button {
   margin-top: 10px;
   width: 80%;
   height: 65px;
-  font-size: 1rem;
+  font-size: 1.4rem;
+  font-weight: 900;
   padding: 1%;
 }
 
 .card-container p, .card-container input, label {
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-family: "Courier New", Courier, monospace;
 }
 
 input[type=submit], select, input[type=file] {
   background-color: #450b5a;
   color: white;
-  padding: 10px 20px;
+  width: 90%;
   margin: 2%;
   border: none;
   border-radius: 5px;
@@ -273,6 +284,16 @@ input[type=submit]:hover {
   padding: 3%;
 }
 
+.userData {
+  width: 80%;
+  margin-left: 5%;
+  border: 6px solid #ff0000;
+  border-radius: 50px;
+  background-color: rgb(255, 252, 244);
+  padding: 3%;
+  margin-top: 2%;
+}
+
 .arrowControl {
   width: 30%;
   margin-left: 35%;
@@ -293,7 +314,7 @@ input[type=submit]:hover {
 #login, #register {
   font-size: 3rem;
   width: 84%;
-  margin-left: 8%;
+  margin-left: 3%;
   display: none;
   position: fixed;
   top: 12%;
@@ -392,15 +413,18 @@ input[type=submit]:hover {
 
 .cartDiv {
   width: 80%;
-  margin-left: 10%;
-  border: 1px solid black;
+  margin-left: 5%;
+  border: 6px solid #ff0000;
+  border-radius: 50px;
+  background-color: rgb(255, 252, 244);
+  padding: 3%;
 }
 
 #cart {
   display: none;
   min-height: 100%;
   min-width: 100%;
-  background-color: pink;
+  background-color: rgb(255, 252, 244);
   position: fixed;
   top: 0;
   left: 0;

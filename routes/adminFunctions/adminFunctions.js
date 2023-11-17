@@ -29,7 +29,7 @@ const getFonts = () => {
 
 // ... (existing imports and middleware)
 const uploadCard = async (req, res) => {
-  try {
+  try { 
     const db = getDb();
     const collection = db.collection(`_cards`);
 

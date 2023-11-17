@@ -220,7 +220,7 @@ $cardDimention:600px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
  margin-left:99%;
-  margin-top: 2%;
+  margin-top: 10%;
  transform: translateX(-108%);
 
   padding: 20px;
@@ -452,7 +452,11 @@ z-index: 100;
   margin-bottom: 300px;
 }
 
-
+.cartDiv{
+  width: 80%;
+  margin-left: 10%;
+  border:1px solid $black;
+}
   #cart{
     display: none;
     min-height: 100%;
@@ -464,8 +468,7 @@ z-index: 100;
     z-index: 20;
     
   }
-  #cartButtonDiv{
-    
+  #cartButtonDiv{    
     transform: translateX(-150%);
   }
   .cartButton{

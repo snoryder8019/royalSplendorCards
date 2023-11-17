@@ -1,4 +1,77 @@
-cart.ejs\
+<div class="cartDiv">
+    <h1>Purchase your Cards here!</h1>
+<!-- cart-partial.ejs -->
+
+<div class="card-details">
+    <h3>Card Details</h3>
+    <ul>
+        <li>Size: 2” x 3.5” Rectangle</li>
+        <li>Stock thickness: 16PT</li>
+        <li>Full-color back and front</li>
+        <li>UV Coating</li>
+    </ul>
+</div>
+
+<div class="pricing">
+    <h3>Pricing</h3>
+    <table>
+        <tr>
+            <th>Qty</th>
+            <th>Retail</th>
+            <th>10% Off</th>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>$38.49</td>
+            <td>$34.99</td>
+        </tr>
+        <tr>
+            <td>250</td>
+            <td>$54.99</td>
+            <td>$49.99</td>
+        </tr>
+        <!-- Additional rows for other quantities -->
+    </table>
+</div>
+
+<div class="shipping">
+    <p>Flat Rate Shipping within the USA: $9.00</p>
+    <p>No international shipping: $25.00 per box</p>
+</div>
+
+<div class="discount">
+    <p>10% off all orders for Supporting Members</p>
+    <p>Use Code: 10RedHats</p>
+</div>
+
+<!-- Inside your cartDiv -->
+<div class="cart-items">
+    <h3>Your Cart</h3>
+    <ul class="cart-items-list"></ul> <!-- This is where cart items will be listed -->
+<%if(user.cart.length>1){%>
+<div>
+    you have <%=user.cart.length-1%> items in your cart
+</div>
+  
+  
+    <%for(let i=1;i<user.cart.length;i++){%>
+
+
+
+
+
+
+    <%=user.cart[i].cardId%>
+    <%}%>
+  
+    <%}else{%>
+        why no items? 
+        <%}%>
+</div>
+
+
+    <div id="cartClose"><h1> CLOSE CART</h1></div>
+</div>
 
 
 
@@ -8,20 +81,4 @@ cart.ejs\
 
 
 
-<div id="cartClose">CLOSE CART</div>
 
-
-<script>function addToCart(itemId) {
-    $.ajax({
-        url: '/cart/add',
-        type: 'POST',
-        data: { itemId: itemId },
-        success: function(response) {
-            // Handle success - update cart UI, show message, etc.
-        },
-        error: function(error) {
-            // Handle error
-        }
-    });
-}
-</script>

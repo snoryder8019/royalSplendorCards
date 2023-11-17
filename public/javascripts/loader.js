@@ -1,5 +1,5 @@
 // loader.js
-// Function to dynamically load a script
+// UI and other scripts managed here for simplicity wherever needed
 const loadScript = (src) => {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
@@ -11,23 +11,21 @@ const loadScript = (src) => {
   });
 };
 
-// Load all scripts
 const scriptsToLoad = [
-  '/javascripts/menuControl.js',
-  '/javascripts/buttonControl.js',
-   '/javascripts/warnings.js',
-   '/javascripts/cssColors.js',
-   '/javascripts/cartControl.js'
-  // Add more script files here
+  '/javascripts/controllers/menuControl.js',
+  '/javascripts/controllers/buttonControl.js',
+  '/javascripts/controllers/cartControl.js',
+  '/javascripts/fetch/cartFetch.js',
+  '/javascripts/warnings.js',
+  '/javascripts/exportPDF.js'
+  //'/javascripts/cssColors.js',
 ];
 
 Promise.all(scriptsToLoad.map(loadScript))
   .then(() => {
-
     window.addEventListener('load', function() {
       document.body.style.display = 'block';
     });
-
     console.log('All scripts loaded');
     if (typeof logPos === 'function') {
       logPos();  // Call your function here
@@ -40,4 +38,5 @@ Promise.all(scriptsToLoad.map(loadScript))
   })
   .catch((error) => {
     console.error('Error loading scripts:', error);
+  
   });

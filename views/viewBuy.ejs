@@ -56,8 +56,9 @@
   <div class="stat">purchases <%=card.purchased%></div>
 </div>
   <!--i need to make a viewer-->
-  <div><form action="/viewBuy/addToCart" method="post"><input type="hidden" name="_id" value="<%=card._id%>"><button type="submit">Add To Cart</button></form></div>
-  <div><form action="/" method="get"><button type="submit">Browse More</button></form></div>
+  <%let cardNo = card._id%>
+  <div><button onclick="addToCart('<%= cardNo%>')">add to cart</button> </div>
+  <div><button onclick="back()">Browse More</button></div>
   <button onclick="exportFrontFrameToPDF()">Export Front Frame as PDF</button>
   <button onclick="exportBackFrameToPDF()">Export Back Frame as PDF</button>
   
@@ -71,30 +72,5 @@
 <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
 </div>
 </body>
-
-<script>
-  function exportFrontFrameToPDF() {
-      const element = document.querySelector('.cardFrontFrame');
-      html2pdf(element, {
-        margin: 10,
-        filename: 'front_frame.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      });
-  }
-  
-  function exportBackFrameToPDF() {
-      const element = document.querySelector('.cardBackFrame');
-      html2pdf(element, {
-        margin: 10,
-        filename: 'back_frame.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      });
-  }
-  </script>
-  
 
     <script src="/javascripts/loader.js"></script>

@@ -31,6 +31,6 @@ router.get(('/'),async(req,res)=>{
 })
 
 
-router.post('/addToCart', addToCart);
+router.post('/cart/add', addToCart);
 
 module.exports = router;

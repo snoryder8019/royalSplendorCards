@@ -1,23 +1,42 @@
 const express = require('express');
 const router = express.Router();
+
+const config = require('../../config/config'); // Import config if you're using it
 const { getDb } = require('../../plugins/mongo/mongo');
 const lib = require('../logFunctions/logFunctions');
-
+const { ObjectId } = require('mongodb');
+//////////////////////////
 const addToCart = async (req, res) => {
-    const db = getDb();
-    const userId = req.user._id; // or however you get the user's ID
-    const itemId = req.body._id;
-    // Logic to add item to the user's cart
-    // Respond with success or error message
-    console.log('added: ' + itemId);
-    console.log('added: ' + userId);
-    res.json(itemId)
-    // Here you should send a response back to the client
-    // e.g., res.json({ success: true, message: 'Item added to cart' });
+    try {
+        const db = getDb();
+        const users = db.collection(`users`);
+        const cards = db.collection(`_cards`);
+        const userId = req.user._id;
+        const userIdObj = new ObjectId(userId);
+        const itemId = req.body.itemId;
+        const cardIdObj = new ObjectId(itemId);
+
+        const result_user = await users.findOne({"_id": userIdObj});
+        const result_card = await cards.findOne({"_id": cardIdObj});
+
+    if(result_user &&result_card){
+        const cartItem={ 
+          cardId:itemId,
+          quantity:100,
+          dateCreated:new Date()
+                }
+const cartAddResult = await users.updateOne({"_id":userIdObj},{$push:{"cart":cartItem}},{upsert:false})
+    }
+
+        console.log('Added to cart:', itemId, 'for user:', userId);
+        res.json({ user: result_user, card: result_card });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error adding item to cart' });
+    }
 };
 
+//router.post('/cart/add', addToCart);
 
 
-router.post('/addToCart', addToCart);
-
-module.exports = router;
+module.exports = addToCart;

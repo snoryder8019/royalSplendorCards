@@ -9,19 +9,21 @@ async function userDataUpload(req, res) {
     const collection = db.collection('users'); // Adjust the collection name as needed
 
     // Retrieve user data from the request body
-    const { chapter, address, email, phone, birthday, upClose } = req.body;
+    const { firstName, lastName,chapter, address, email, phone, birthday } = req.body;
 
     // Update the user's data in the database
     await collection.updateOne(
       { _id: user._id }, // Assuming you have a user ID in your user model
       {
         $set: {
+          firstName,
+          lastName,
           chapter,
           address,
           email,
           phone,
           birthday,
-          upClose,
+      
         },
       }
     );

@@ -50,7 +50,9 @@ const uploadCard = async (req, res) => {
 
     const fontName1Path = availableFonts.includes(selectedFontName1) ? `/fonts/${selectedFontName1}` : null;
     const fontName2Path = availableFonts.includes(selectedFontName2) ? `/fonts/${selectedFontName2}` : null;
-
+    let fontName1Path4 = fontName1Path.substring(0, 4);
+    let fontName2Path4 = fontName2Path.substring(0, 4);
+    
     const cardData = {
       cardFront: cardFrontPath,
       cardBack: cardBackPath,
@@ -60,13 +62,16 @@ const uploadCard = async (req, res) => {
       font0Size: 12,
       text0PositionX: 0,
       text0PositionY: 0,
+      textColor:"rbg(0,0,0)",
       uploadedBy: req.user.displayName,
-      fontName1: fontName1Path,
-      fontName2: fontName2Path,
+      fontName1: fontName1Path4,
+      fontName2: fontName2Path4,
       preview: "true",
       views: 0,
       likes: 0,
-      purchased: 0
+      purchased: 0,
+      cardName:"no Name assigned"
+ 
     };
 
     await collection.insertOne(cardData);
@@ -181,17 +186,21 @@ const updateCard = async (req, res) => {
     if (req.files.cardBackFile) {
       updatedCardData.cardBack = removePublicFromPath(req.files.cardBackFile[0].path);
     }
-
+let fontName14 = req.body.fontName1.substring(0, 4);
+let fontName24 = req.body.fontName2.substring(0, 4);
     // Update other fields
-    updatedCardData.fontName1 = req.body.fontName1;
-    updatedCardData.fontName2 = req.body.fontName2;
+    updatedCardData.fontName1 = fontName14;
+    updatedCardData.fontName2 = fontName24;
     updatedCardData.uploadedBy = req.body.uploadedBy;
     updatedCardData.imgScale = req.body.imgScale;
     updatedCardData.imgPositionX = req.body.imgPositionX;
     updatedCardData.imgPositionY = req.body.imgPositionY;
     updatedCardData.text0PositionX = req.body.text0PositionX;
     updatedCardData.text0PositionY = req.body.text0PositionY;
-    updatedCardData.font0Size = req.body.font0Size;
+    updatedCardData.font0Size = req.body.font0Size; 
+    updatedCardData.textColor = req.body.textColor;
+    updatedCardData.cardName = req.body.cardName
+
 
     // Log the updated card data
     console.log('Updated Card Data:', updatedCardData);

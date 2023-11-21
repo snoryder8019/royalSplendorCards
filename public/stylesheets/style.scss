@@ -1,3 +1,10 @@
+//////////////
+//////////////
+/// Screen QUERY//
+//////////////
+//////////////
+$screenQueryReg:768px;
+
 /////////////////
 /////COLORS/////
 ////////////////
@@ -33,20 +40,21 @@ $primaryShadowColor:$black;
 $secondaryShadowColor:$redShadow;
 ////////////////////////
 //Font Variables
-$may: "mayphylla";
-$sun: "sunday";
+$maph: "mayphylla";
+$weat: "sunday";
 $aqua: "aquarelle";
 $back: "backlash";
 //TYPEFACES
 $primaryFontColor:$black;
 $secondaryFontColor:$white;
 $linkFontColor:$blue;
+$accentFontColor:$red;
 @font-face {
-  font-family: $may;
+  font-family: $maph;
   src: url('/fonts/maphylla.otf');
 }
 @font-face {
-  font-family: $sun;
+  font-family: $weat;
   src: url('/fonts/weatherSunday.otf');
 }
 @font-face {
@@ -64,6 +72,15 @@ $inputFontSize:1.4rem;
 $inputSubmitFontSize:2.5rem;
 $inputLabelFontSize:2.5rem;
 $avatarFontSize:2rem;
+$accentFontFamily:$aqua;
+
+//font DIVs
+.font{
+  &_aqua{font-family: $aqua;}
+  &_weat{font-family:$weat}
+  &_maph{font-family:$maph}
+  &_back{font-family:$back;}
+}
 // Mixins
 @mixin main() {
   color: $primaryFontColor;
@@ -92,6 +109,12 @@ $avatarFontSize:2rem;
 @mixin transistionProps() {
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
+}
+@mixin regMedia{
+  font-size: .5rem;
+  margin: 1%;
+  padding:0;
+  
 }
 
 // Global Styles
@@ -112,17 +135,35 @@ body {
   margin: 0;
   padding: 0;
 }
+#main{
+  @media (min-width:$screenQueryReg) {
+  width:50%;
+  margin-left:48%;
+  }
+}
 a {
   color: $linkFontColor;
+  @media (min-width:$screenQueryReg) {
+ // @include regMedia()
+  }
 }
 h2{
   font-size: $largeFontSize;
+  @media (min-width:$screenQueryReg) {
+  //  @include regMedia()
+    }
 }
 li{
   font-size: 1.4rem;
+  @media (min-width:$screenQueryReg) {
+  // @include regMedia()
+    }
 }
 p{
   font-size: $largeFontSize;
+  @media (min-width:$screenQueryReg) {
+  //  @include regMedia()
+    }
 }
 button {
   width: 84%;
@@ -131,6 +172,9 @@ button {
   font-size: $mediumFontSize;
   color: $primaryFontColor;
   //font-size: 1rem;
+  @media (min-width:$screenQueryReg) {
+    @include regMedia()
+    }
 }
 
 // Keyframes
@@ -156,9 +200,9 @@ button {
 $headerCellHeight:400px;
 $headerDeskHeight:250px;
 .span_branded{
-  color: $primaryFontColor;
-  font-family: $primaryFontFamily;
-  font-size: 2rem;
+  color: $accentFontColor;
+  font-family: $accentFontFamily;
+  font-size: 4rem;
 }
 .header{
   width: 100%;
@@ -288,11 +332,14 @@ input[type="submit"]:hover {
   max-width: 100px; /* Adjust as needed */
 }
 .textTitles{
-width: 100%;
+width: 111%;
 z-index: -1;
+display: grid;
+grid-template-columns: 1fr 2fr;
+text-align: left;
 }
 .textBox{
-
+//width:84%
 }
 .dynoData{
 
@@ -382,7 +429,10 @@ z-index: 100;
     transform-style: preserve-3d;
     box-shadow: 2px 2px $secondaryShadowColor;
     animation: 2s 0s 1 slideUpLogin;
-  
+ 
+  @media (min-width:$screenQueryReg) {
+ @include regMedia();
+  }
 }
 .oneTouchLogin{
   border:2px solid $primaryBorderColor;
@@ -395,6 +445,7 @@ z-index: 100;
 .loginForm{
  // border:1px solid black;
   box-shadow: 5px 5px 25px $secondaryShadowColor;
+  overflow-y: scroll;
 }
 #menu {
   position: fixed;
@@ -407,11 +458,16 @@ z-index: 100;
   align-items: center;
   justify-content: center;
   z-index: 2;
+  @media (min-width:$screenQueryReg) {
+    width:30%;
+    top:0;
+    left:0;
+  }
 }
 
 #avatar {
   position: absolute;
-  font-family: $may;
+  font-family: $maph;
   font-size: $avatarFontSize;
   border-radius: 50%;
   border: 6px solid $secondaryBorderColor;

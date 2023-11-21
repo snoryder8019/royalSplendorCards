@@ -4,8 +4,11 @@
         
         <form action="/userDataUpload"method="post">
             <div class="userData">
-                    <h2>Welcome back <span class="span_branded"> <%=user.firstName%></span> personalize your info to view your custom preview</h2>
+                    <h2>Welcome back <span class="span_branded"> <%=user.firstName%></span></h2>
+                    <h2> personalize your info to view your custom preview</h2>
                         <h2> add/update your info for your trading card.</h2>
+                        <label>first name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
+                        <label>last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
                         <label>chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
                      <label>address</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
                   <label>email</label>     <br> <input type="text" name="email" id="cardemail" value="<%= user.email %>"><br>
@@ -26,6 +29,6 @@
                     </form>
                 </div>
                 <%}else{%>
-                    <div class="userData"><h1> To Customize and Purchase you Cards, register or login</h1></div>
+                    <div class="userData"><h1> To Customize and Purchase you Cards, Register or Sign In</h1></div>
                     <%}%>
           

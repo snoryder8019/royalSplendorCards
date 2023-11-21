@@ -14,6 +14,19 @@
   font-family: "backlash";
   src: url("/fonts/backslash.otf");
 }
+.font_aqua {
+  font-family: "aquarelle";
+}
+.font_weat {
+  font-family: "sunday";
+}
+.font_maph {
+  font-family: "mayphylla";
+}
+.font_back {
+  font-family: "backlash";
+}
+
 html {
   text-align: center;
   margin: 0;
@@ -27,28 +40,38 @@ body {
   padding: 0;
 }
 
+@media (min-width: 768px) {
+  #main {
+    width: 50%;
+    margin-left: 48%;
+  }
+}
+
 a {
   color: rgb(26, 26, 164);
 }
-
 h2 {
   font-size: 3rem;
 }
-
 li {
   font-size: 1.4rem;
 }
-
 p {
   font-size: 3rem;
 }
-
 button {
   width: 84%;
   margin: 1%;
   border: 1px solid black;
   font-size: 2rem;
   color: black;
+}
+@media (min-width: 768px) {
+  button {
+    font-size: 0.5rem;
+    margin: 1%;
+    padding: 0;
+  }
 }
 
 @keyframes flash {
@@ -92,9 +115,9 @@ button {
   }
 }
 .span_branded {
-  color: black;
-  font-family: "backlash";
-  font-size: 2rem;
+  color: #ff0000;
+  font-family: "aquarelle";
+  font-size: 4rem;
 }
 
 .header {
@@ -228,8 +251,11 @@ input[type=submit]:hover {
 }
 
 .textTitles {
-  width: 100%;
+  width: 111%;
   z-index: -1;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  text-align: left;
 }
 
 .imgControlArrows {
@@ -330,6 +356,13 @@ input[type=submit]:hover {
   box-shadow: 2px 2px rgba(234, 20, 20, 0.701);
   animation: 2s 0s 1 slideUpLogin;
 }
+@media (min-width: 768px) {
+  #login, #register {
+    font-size: 0.5rem;
+    margin: 1%;
+    padding: 0;
+  }
+}
 
 .oneTouchLogin {
   border: 2px solid black;
@@ -342,6 +375,7 @@ input[type=submit]:hover {
 
 .loginForm {
   box-shadow: 5px 5px 25px rgba(234, 20, 20, 0.701);
+  overflow-y: scroll;
 }
 
 #menu {
@@ -355,6 +389,13 @@ input[type=submit]:hover {
   align-items: center;
   justify-content: center;
   z-index: 2;
+}
+@media (min-width: 768px) {
+  #menu {
+    width: 30%;
+    top: 0;
+    left: 0;
+  }
 }
 
 #avatar {

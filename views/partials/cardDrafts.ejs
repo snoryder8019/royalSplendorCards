@@ -1,11 +1,9 @@
 CARD DRAFTS
 <% if (allCards && allCards.length > 0) { %>
   <div class="card-container">
-  <% allCards.forEach(function(card) { %>
-  
-     
+  <% allCards.forEach(function(card) { %>     
         <div class="card">         
-        
+        CARD FROM CARD DRAFTS
        
           <%- include('controls_img.ejs', { cardId: card._id }) %>            
           <div class="cardFrontFrame">
@@ -22,13 +20,13 @@ CARD DRAFTS
             <div class="cardImg">
               <img class="" src="<%= card.cardBack %>" alt="Card Back">
               <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%=card._id%>">
-                <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size%>px;" class="textTitles">
-                  CHAPTER : Greeley RHS<br>
-                  ADDRESS : Colorado, USA<br>
-                  EMAIL : scott@w2marketing.biz<br>
-                  PHONE : 333-456-7890<br>
-                  BIRTHDAY :Januaray 1, 2001<br>
-                  UP CLOSE: I like to Code Thinks<br>
+                <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size%>px; color:<%=card.textColor%>" class="textTitles">
+                  <div class="font_<%=card.fontName1%>">Chapter:</div><div class="font_<%=card.fontName2%>">Greeley RHS</div>
+                  <div class="font_<%=card.fontName1%>">Address:</div><div class="font_<%=card.fontName2%>">Colorado, USA</div> 
+                  <div class="font_<%=card.fontName1%>">Email:</div><div class="font_<%=card.fontName2%>">scott@w2marketing.biz</div> 
+                  <div class="font_<%=card.fontName1%>">Phone:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
+                  <div class="font_<%=card.fontName1%>">Birthdate :</div><div class="font_<%=card.fontName2%>">Januaray 1, 2001</div> 
+                
                 </div>
                 
               </div>
@@ -40,6 +38,7 @@ CARD DRAFTS
 
         <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
           <input type="hidden" name="cardId" value="<%= card._id %>">
+          <input type="text" id="cardName_<%=card._id%>" name="cardName" value="<%=card.cardName%>">
           <input type="hidden" id="imgScale_<%= card._id %>" name="imgScale" value="<%= card.imgScale %>">
           <input type="hidden" id="imgPositionX_<%= card._id %>" name="imgPositionX" value="<%= card.imgPositionX %>">
           <input type="hidden" id="imgPositionY_<%= card._id %>" name="imgPositionY" value="<%= card.imgPositionY %>">
@@ -47,20 +46,24 @@ CARD DRAFTS
           <input type="hidden" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
           <input type="hidden" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
           
+          <label for="textColor">Text Color</label><input type="color" id="textColor<%= card._id %>" name="textColor" value="<%= card.textColor %>">
+          <br>
       
 
-          <label for="fontName1">Main Font:</label>
+          <label for="fontName1">Main Font:<%=card.fontName1%></label>
           <select name="fontName1" id="fontName1">
             <% fonts.forEach(function(font) { %>
               <option value="<%= font %>" <%= font === card.fontName1 ? 'selected' : '' %>><%= font %></option>
             <% }); %>
           </select>
-          <label for="fontName2">Secondary Font:</label>
+          <label for="fontName2">Secondary Font:<%=card.fontName2%></label>
           <select name="fontName2" id="fontName2">
             <% fonts.forEach(function(font) { %>
               <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
             <% }); %>
           </select> 
+      
+          
           <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
           
           <p>Original Upload By:<%= card.uploadedBy %></p>
@@ -98,4 +101,6 @@ CARD DRAFTS
     <% } else { %>
       <p>No cards available.</p>
       <% } %>
+
+   
       

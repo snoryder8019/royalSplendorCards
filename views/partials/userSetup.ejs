@@ -21,12 +21,14 @@
                 </form>
                
                 <div class="userData">
-                    <form action="/userImgUpload"method="post"enctype="multipart/form-data">
-                        <h2>headshot upload here </h2>
+                    <form action="/userImgUpload" method="post" enctype="multipart/form-data">
+                        <h2>Headshot Upload Here</h2>
                         <br>
-                        <input type="file" name="cardFront"> 
-                        <button type="submit">submit</button>
+                        <input type="hidden" name="_id" value="<%=user._id%>">
+                        <input type="file" name="userImg"> 
+                        <button type="submit">Submit</button>
                     </form>
+                    
                 </div>
                 <%}else{%>
                     <div class="userData"><h1> To Customize and Purchase you Cards, Register or Sign In</h1></div>

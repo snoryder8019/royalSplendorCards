@@ -15,43 +15,44 @@
 
 <div class="shipping">
     <p>Flat Rate Shipping within the USA: $9.00</p>
-    <p>No international shipping: $25.00 per box</p>
+<!-- <p>No international shipping: $25.00 per box</p>-->
 </div>
 
 <div class="discount">
+    <!--NEED TO CREATE EP!!!!!!-->
     <p>10% off all orders for Supporting Members</p>
-    <p>Use Code: 10RedHats</p>
+    <input type="text" value="enter code here">
+   <!-- <p>Use Code: 10RedHats</p>-->
 </div>
 
-<!-- Inside your cartDiv -->
-<%if(typeof cart == 'object' && cart){%>
-<div class="cart-items">
-    <h3>Your Cart</h3>
-    <ul class="cart-items-list"></ul> <!-- This is where cart items will be listed -->
-<%if(user.cart.length>1){%>
-<div>
-    you have <%=user.cart.length-1%> items in your cart
-</div>
-  
-  
-    <%for(let i=1;i<user.cart.length;i++){%>
+<!--INSIDE YOUR CART-->
+<% if (user.cart.length > 0) { %>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through each item in the cart -->
+            <% user.cart.forEach((item) => { %>
+                <tr>
+                    <td><%= item.productName %></td>
+                    <td><%= item.quantity %></td>
+                    <td>$<%= item.price%></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+<% } else { %>
+    <p>Your cart is empty.</p>
+<% } %>
 
-
-
-
-
-
-    <%=user.cart[i].cardId%>
-    <%}%>
-  
-    <%}else{%>
-        why no items? 
-        <%}%>
-        <%}%>
-
-</div>
-
-
+<!-- Add a button to proceed to checkout or continue shopping -->
+<a href="/checkout">Proceed to Checkout</a>
+<a href="/shop">Continue Shopping</a>
     <div id="cartClose"><h1> CLOSE CART</h1></div>
 </div>
 

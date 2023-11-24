@@ -1,6 +1,12 @@
+var express = require('express');
+var router = express.Router();
+const path = require('path')
+const upload = require('../../plugins/multer/setup');
 const { getDb } = require('../../plugins/mongo/mongo');
-const lib = require('../logFunctions/logFunctions');
-
+const config = require('../../config/config'); // Import config if you're using it
+const lib = require('../logFunctions/logFunctions')
+const { ObjectId } = require('mongodb');
+const fs = require('fs')
 // Function to handle user data upload
 async function userDataUpload(req, res) {
   try {
@@ -36,21 +42,27 @@ async function userDataUpload(req, res) {
     res.redirect('/'); // Redirect to the user setup page or any other appropriate page
   }
 }
-
 // Function to handle user headshot upload
-async function userImgUpload(req, res) {
+const userImgUpload= async(req, res)=> {
   try {
+    console.log('Starting user image upload process.');
+
     const db = getDb();
-    const user = req.user; // Assuming user data is available via passport authentication
-    const collection = db.collection('users'); // Adjust the collection name as needed
+    const user = req.user;
+    console.log('User data:', user.email,user._id);
+    //console.log(req.file.filename);
 
-    // Check if a file was uploaded
+    const collection = db.collection('users');
+
     if (req.file) {
-      const headshotPath = req.file.path.replace('public', '');
+     // console.log('File received:', req.file.filename);
 
-      // Update the user's headshot in the database
+      // The path relative to the 'public' directory
+      const headshotPath = `/images/userHeadshots/${user._id}`;
+      console.log('Headshot path:', headshotPath);
+
       await collection.updateOne(
-        { _id: user._id }, // Assuming you have a user ID in your user model
+        { _id: user._id },
         {
           $set: {
             userImg: headshotPath,
@@ -58,17 +70,22 @@ async function userImgUpload(req, res) {
         }
       );
 
+      console.log('Headshot updated successfully in the database.');
       req.flash('message', 'Headshot updated successfully.');
     } else {
+      console.log('No file uploaded.');
       req.flash('message', 'No file uploaded.');
     }
 
-    res.redirect('/'); // Redirect to the user setup page or any other appropriate page
+    res.redirect('/');
   } catch (err) {
-    console.error(err);
+    console.log('Error in user image upload:', err);
     req.flash('message', 'An error occurred while updating the headshot.');
-    res.redirect('/'); // Redirect to the user setup page or any other appropriate page
+    res.redirect('/');
   }
 }
+router.post('/userImgUpload', upload, userImgUpload);
+
+router.post('/userDataUpload', userDataUpload)
 
 module.exports = { userDataUpload, userImgUpload };

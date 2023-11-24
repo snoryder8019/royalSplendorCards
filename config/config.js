@@ -4,6 +4,7 @@ const config =
     "env":"dev",//test,prod
     "app_name":"rhsCards",
     "DB_NAME":"rhsCards", 
+    
     //end breakiung changes
     //**********
     //custom changes below

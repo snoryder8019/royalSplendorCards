@@ -8,10 +8,14 @@ const storage = multer.diskStorage({
     if (file.fieldname.startsWith('fonts')) {
       dest = './public/fonts/';
     }
+    // Add a new condition for user headshots
+    if (file.fieldname === 'userImg') {
+      console.log('userImg condition')
+      dest = './public/images/userHeadshots/';
+    }
     cb(null, dest);
   },
   filename: function (req, file, cb) {
-    // No need to check for file existence, it will overwrite if exists
     cb(null, file.originalname);
   }
 });
@@ -24,6 +28,8 @@ const upload = multer({
   { name: 'cardBack', maxCount: 1 },
   { name: 'fontName1', maxCount: 1 },
   { name: 'fontName2', maxCount: 1 },
-  { name: 'fonts', maxCount: 10 }  // Allow up to 10 font files
+  { name: 'fonts', maxCount: 10 }, // Allow up to 10 font files
+  { name: 'userImg', maxCount: 1 }  // User headshot
 ]);
+
 module.exports = upload;

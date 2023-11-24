@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const pluginsRouter = require('../plugins')
+const pluginsRouter = require('../plugins');
+const upload = require('../plugins/multer/setup');
 router.use(pluginsRouter)
 const { getDb } = require('../plugins/mongo/mongo');
 const flash = require('express-flash');
@@ -9,7 +10,8 @@ const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = requ
 const { userImgUpload, userDataUpload } = require('./userFunctions/userFunctions');
 
 // ... other app setup code ...
-router.post('/userImgUpload',userImgUpload)
+router.post('/userImgUpload', upload, userImgUpload);
+
 router.post('/userDataUpload', userDataUpload)
 /* GET home page. */
 router.get('/', async (req, res) => {

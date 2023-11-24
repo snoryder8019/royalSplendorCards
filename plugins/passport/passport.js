@@ -122,13 +122,13 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  console.log('serialize')
+ // console.log('serialize')
   done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-    console.log('deserialize`')
+   // console.log('deserialize`')
     const db = getDb();
     const users = db.collection('users');
     const user = await users.findOne({ _id: new ObjectId(id)});

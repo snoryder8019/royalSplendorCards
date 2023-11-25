@@ -21,16 +21,22 @@
 <div class="discount">
     <!--NEED TO CREATE EP!!!!!!-->
     <p>10% off all orders for Supporting Members</p>
-    <input type="text" value="enter code here">
+    <input id="promoInput" type="text" value="enter code here">
    <!-- <p>Use Code: 10RedHats</p>-->
+   <p id="promoMessage" style="display: none;"><span class="span_branded">Congrats!!</span> you've earned 10% when you checkout</p>
+   
 </div>
 
 <!--INSIDE YOUR CART-->
-<% if (user.cart.length > 0) { %>
-    <table>
+<%if(typeof user =='object'&& user){%>
+<% if ( user.cart.length > 0) { %>
+    <div class="cartTableDiv">
+    <table id="cartTable" class="cartTable">
         <thead>
             <tr>
                 <th>Product Name</th>
+                <th>Count</th>
+                <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Price</th>
             </tr>
@@ -40,15 +46,29 @@
             <% user.cart.forEach((item) => { %>
                 <tr>
                     <td><%= item.productName %></td>
-                    <td><%= item.quantity %></td>
-                    <td>$<%= item.price%></td>
+                    <td><%= item.count %></td>
+                    <td><%= item.unitPrice %></td>
+                    <td><%= item.quantity || 1 %></td>
+                    <td id="itemTotal_<%=item.cardId%>">$<%= item.itemTotal%></td>
                 </tr>
             <% }); %>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>total:</td>
+                <td id="cartTotaled">$</td>
+            </tr>
         </tbody>
     </table>
+</div>
 <% } else { %>
-    <p>Your cart is empty.</p>
-<% } %>
+    <p>you have no items in your cart</p>
+    <% } %>
+ 
+    <%}else{%>
+   <p> sign in to add to cart</p>
+    <%}%>
 
 <!-- Add a button to proceed to checkout or continue shopping -->
 <a href="/checkout">Proceed to Checkout</a>

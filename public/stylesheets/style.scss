@@ -12,7 +12,7 @@ $screenQueryReg:768px;
 $purple: #450b5a;
 $purpleShadow: rgba(61, 0, 61, 0.481);
 //RED
-$red: #ff0000;
+$red: #932432;
 $redShadow: rgba(234, 20, 20, 0.701);
 //BLUE
 $blue:rgb(26, 26, 164);
@@ -24,7 +24,7 @@ $blackShadow:rgba(0, 0, 0, 0.197);
 $white:white;
 $whiteShadow:rgba(255, 255, 255, 0.737);
 //OFFWHITES
-$offWhite:rgb(255, 252, 244);
+$offWhite:#e1dcd5;
 //LAYOUT COLORS
 $primaryColor:$purple;
 $secondaryColor:$red;
@@ -44,6 +44,7 @@ $maph: "mayphylla";
 $weat: "sunday";
 $aqua: "aquarelle";
 $back: "backlash";
+$mini: "MinonPro";
 //TYPEFACES
 $primaryFontColor:$black;
 $secondaryFontColor:$white;
@@ -65,22 +66,34 @@ $accentFontColor:$red;
   font-family: $back;
   src: url('/fonts/backslash.otf');
 }
-$primaryFontFamily:$back;
+@font-face {
+  font-family: $mini;
+  src: url('/fonts/Minionro-SemiBold.ttf');
+}
+
+$primaryFontFamily:$mini;
 $mediumFontSize:2rem;
 $largeFontSize:3rem;
-$inputFontSize:1.4rem;
+$inputFontSize:2rem;
+$labelFontSize:2.7rem;
 $inputSubmitFontSize:2.5rem;
 $inputLabelFontSize:2.5rem;
 $avatarFontSize:2rem;
-$accentFontFamily:$aqua;
+$accentFontFamily:$weat;
 
 //font DIVs
 .font{
   &_aqua{font-family: $aqua;}
   &_weat{font-family:$weat}
   &_maph{font-family:$maph}
-  &_back{font-family:$back;}
+  &_back{font-family:$mini;}
+  &_mini{font-family:$mini;}
 }
+.fontType::first-letter{
+    font-size: 5rem;
+    font-family: $accentFontFamily;
+  }
+
 // Mixins
 @mixin main() {
   color: $primaryFontColor;
@@ -167,10 +180,14 @@ p{
 }
 button {
   width: 84%;
- margin:1%;
-  border: 1px solid $primaryBorderColor;
-  font-size: $mediumFontSize;
+  height:75px;
+  border-radius: 5px;
+ margin:3%;
+ margin-top: 5%;
+  border: 5px solid $secondaryBorderColor;
+  font-size: $largeFontSize;
   color: $primaryFontColor;
+  font-family: $primaryFontFamily;
   //font-size: 1rem;
   @media (min-width:$screenQueryReg) {
     @include regMedia()
@@ -194,12 +211,24 @@ button {
   0% { transform: translateY(200%); opacity: 0; }
   100% { transform: translateY(50%); opacity: 1; }
 }
+@keyframes promoFlash {
+  0%{opacity: 1;}
+  44%{opacity: 1;}
+  45%{opacity: .3;}
+  49%{opacity: 1;}
+  51%{opacity: 1;}
+ 52%{opacity: .3;}
+ 54%{opacity: .3;}
+ 55%{opacity: 1;}
+  100%{opacity: 1;}
+}
 //cell 300X425px 
 //desk 250X850px 
 //header
 $headerCellHeight:400px;
 $headerDeskHeight:250px;
 .span_branded{
+  margin: 3%;
   color: $accentFontColor;
   font-family: $accentFontFamily;
   font-size: 4rem;
@@ -277,25 +306,30 @@ $cardDimention:600px;
 
   padding: 20px;
 }
+.cardHead::before{
+border-top: 5px solid $primaryBorderColor;
+}
 .card label, input[type="text"] {
   margin-top: 10px;
-  width: 80%;
+  width: 99%;
  // margin-left: 50%;
  // transform: translateX(-50%);
   height: 65px;
   font-size: $inputFontSize;
-  font-weight: 900;
+  font-weight: 200;
   padding: 1%;
+  margin-bottom:5%;
 }
 .card-container p,.card-container input, label,{
-  font-size: $inputFontSize;
-  font-family: 'Courier New', Courier, monospace;
+  font-size: $labelFontSize;
+  font-weight:800;
+  font-family:$primaryFontFamily;
 }
 input[type="submit"], select , input[type="file"] {
   background-color: $secondaryBackgroundColor;
   color: $secondaryFontColor;
   width: 90%;
- // padding: 10px 20px;
+  // padding: 10px 20px;
   margin: 2%;
   border: none;
   border-radius: 5px;
@@ -453,7 +487,7 @@ z-index: 100;
   left: 0%;
   min-height: 12%;
   width: 100%;
-  background-color: $secondaryBackgroundColor;
+  background-color: $red;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -543,10 +577,19 @@ z-index: 100;
   #cartButtonDiv{    
     transform: translateX(-150%);
   }
-  .cartButton{
+  #cartButton{
   z-index: 3;
   margin:0;
   padding:0;
-  width: 40%;
+  width: 10%;
   filter:hue-rotate(320deg)
+}
+#promoMessage{
+  animation:  promoFlash 6s ease-in-out 0s infinite;
+}
+.cartTableDiv{
+  width:100%;
+}
+.cartTable{
+  width:100%;
 }

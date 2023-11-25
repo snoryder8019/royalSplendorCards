@@ -14,6 +14,10 @@
   font-family: "backlash";
   src: url("/fonts/backslash.otf");
 }
+@font-face {
+  font-family: "MinonPro";
+  src: url("/fonts/Minionro-SemiBold.ttf");
+}
 .font_aqua {
   font-family: "aquarelle";
 }
@@ -24,7 +28,15 @@
   font-family: "mayphylla";
 }
 .font_back {
-  font-family: "backlash";
+  font-family: "MinonPro";
+}
+.font_mini {
+  font-family: "MinonPro";
+}
+
+.fontType::first-letter {
+  font-size: 5rem;
+  font-family: "sunday";
 }
 
 html {
@@ -35,7 +47,7 @@ html {
 
 body {
   display: none;
-  font-family: "backlash";
+  font-family: "MinonPro";
   margin: 0;
   padding: 0;
 }
@@ -61,10 +73,14 @@ p {
 }
 button {
   width: 84%;
-  margin: 1%;
-  border: 1px solid black;
-  font-size: 2rem;
+  height: 75px;
+  border-radius: 5px;
+  margin: 3%;
+  margin-top: 5%;
+  border: 5px solid #932432;
+  font-size: 3rem;
   color: black;
+  font-family: "MinonPro";
 }
 @media (min-width: 768px) {
   button {
@@ -114,9 +130,39 @@ button {
     opacity: 1;
   }
 }
+@keyframes promoFlash {
+  0% {
+    opacity: 1;
+  }
+  44% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.3;
+  }
+  49% {
+    opacity: 1;
+  }
+  51% {
+    opacity: 1;
+  }
+  52% {
+    opacity: 0.3;
+  }
+  54% {
+    opacity: 0.3;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .span_branded {
-  color: #ff0000;
-  font-family: "aquarelle";
+  margin: 3%;
+  color: #932432;
+  font-family: "sunday";
   font-size: 4rem;
 }
 
@@ -196,18 +242,24 @@ button {
   padding: 20px;
 }
 
+.cardHead::before {
+  border-top: 5px solid black;
+}
+
 .card label, input[type=text] {
   margin-top: 10px;
-  width: 80%;
+  width: 99%;
   height: 65px;
-  font-size: 1.4rem;
-  font-weight: 900;
+  font-size: 2rem;
+  font-weight: 200;
   padding: 1%;
+  margin-bottom: 5%;
 }
 
 .card-container p, .card-container input, label {
-  font-size: 1.4rem;
-  font-family: "Courier New", Courier, monospace;
+  font-size: 2.7rem;
+  font-weight: 800;
+  font-family: "MinonPro";
 }
 
 input[type=submit], select, input[type=file] {
@@ -264,7 +316,7 @@ input[type=submit]:hover {
 
 .deleteCardWarning {
   display: none;
-  background-color: #ff0000; /* Red background */
+  background-color: #932432; /* Red background */
   color: white;
   text-align: center;
   border: 1px solid #ccc;
@@ -279,9 +331,9 @@ input[type=submit]:hover {
 }
 
 #cardUploadDiv, #uploadFonts {
-  border: 6px solid #ff0000;
+  border: 6px solid #932432;
   border-radius: 50px;
-  background-color: rgb(255, 252, 244);
+  background-color: #e1dcd5;
   padding: 3%;
   background-color: white;
   box-shadow: 2px 2px rgba(234, 20, 20, 0.701);
@@ -304,18 +356,18 @@ input[type=submit]:hover {
 }
 
 .formData {
-  border: 6px solid #ff0000;
+  border: 6px solid #932432;
   border-radius: 50px;
-  background-color: rgb(255, 252, 244);
+  background-color: #e1dcd5;
   padding: 3%;
 }
 
 .userData {
   width: 80%;
   margin-left: 5%;
-  border: 6px solid #ff0000;
+  border: 6px solid #932432;
   border-radius: 50px;
-  background-color: rgb(255, 252, 244);
+  background-color: #e1dcd5;
   padding: 3%;
   margin-top: 2%;
 }
@@ -347,9 +399,9 @@ input[type=submit]:hover {
   margin-bottom: 12%;
   z-index: 100;
   transform: translateY(5%);
-  border: 6px solid #ff0000;
+  border: 6px solid #932432;
   border-radius: 50px;
-  background-color: rgb(255, 252, 244);
+  background-color: #e1dcd5;
   padding: 3%;
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
@@ -384,7 +436,7 @@ input[type=submit]:hover {
   left: 0%;
   min-height: 12%;
   width: 100%;
-  background-color: #450b5a;
+  background-color: #932432;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -403,8 +455,8 @@ input[type=submit]:hover {
   font-family: "mayphylla";
   font-size: 2rem;
   border-radius: 50%;
-  border: 6px solid #ff0000;
-  background-color: rgb(255, 252, 244);
+  border: 6px solid #932432;
+  background-color: #e1dcd5;
   height: 175px;
   width: 175px;
   bottom: 50%;
@@ -455,9 +507,9 @@ input[type=submit]:hover {
 .cartDiv {
   width: 80%;
   margin-left: 5%;
-  border: 6px solid #ff0000;
+  border: 6px solid #932432;
   border-radius: 50px;
-  background-color: rgb(255, 252, 244);
+  background-color: #e1dcd5;
   padding: 3%;
 }
 
@@ -465,7 +517,7 @@ input[type=submit]:hover {
   display: none;
   min-height: 100%;
   min-width: 100%;
-  background-color: rgb(255, 252, 244);
+  background-color: #e1dcd5;
   position: fixed;
   top: 0;
   left: 0;
@@ -476,12 +528,24 @@ input[type=submit]:hover {
   transform: translateX(-150%);
 }
 
-.cartButton {
+#cartButton {
   z-index: 3;
   margin: 0;
   padding: 0;
-  width: 40%;
+  width: 10%;
   filter: hue-rotate(320deg);
+}
+
+#promoMessage {
+  animation: promoFlash 6s ease-in-out 0s infinite;
+}
+
+.cartTableDiv {
+  width: 100%;
+}
+
+.cartTable {
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

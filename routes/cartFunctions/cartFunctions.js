@@ -22,8 +22,13 @@ const addToCart = async (req, res) => {
     if(result_user &&result_card){
         const cartItem={ 
           cardId:itemId,
-          quantity:100,
+          cardName:result_card.cardName,
+          count:100,
+          quantity:1,
+          unitPrice:35,
+          itemTotal:unitPrice*quantity,
           dateCreated:new Date()
+          //
                 }
 const cartAddResult = await users.updateOne({"_id":userIdObj},{$push:{"cart":cartItem}},{upsert:false})
     }

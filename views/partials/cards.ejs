@@ -1,10 +1,9 @@
 <% if (allCards && allCards.length > 0) { %>
-  <h1>Our Featured Trading Card Designs</h1>
-  <div class="card-container">
+<p class="cardHead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, ipsa expedita vero minus cupiditate sit fuae et optio i
   <% allCards.forEach(function(card) { %>
     <% if (card.preview === false) { %>
       <div class="card">
-        <h1><%=card.cardName%></h1>
+        <h1 style="text-align: left;" class="span_branded"><%=card.cardName%></h1>
         <div class="cardFrontFrame">
           <div class="cardImg">
             <img class="" src="<%= card.cardFront %>" alt="Card Front">

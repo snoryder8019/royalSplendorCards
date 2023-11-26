@@ -23,7 +23,7 @@
     <p>10% off all orders for Supporting Members</p>
     <input id="promoInput" type="text" value="enter code here">
    <!-- <p>Use Code: 10RedHats</p>-->
-   <p id="promoMessage" style="display: none;"><span class="span_branded">Congrats!!</span> you've earned 10% when you checkout</p>
+   <p id="promoMessage" style="display: none;"><span class="span_branded">Congrats!</span> you've earned an additional 10% off when you checkout</p>
    
 </div>
 
@@ -39,6 +39,7 @@
                 <th>Unit Price</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Remove</th>
             </tr>
         </thead>
         <tbody>
@@ -50,14 +51,17 @@
                     <td><%= item.unitPrice %></td>
                     <td><%= item.quantity || 1 %></td>
                     <td id="itemTotal_<%=item.cardId%>">$<%= item.itemTotal%></td>
+                    <td>remove item</td>
                 </tr>
             <% }); %>
             <tr>
                 <td></td>
+         
                 <td></td>
                 <td></td>
                 <td>total:</td>
                 <td id="cartTotaled">$</td>
+                <td></td>
             </tr>
         </tbody>
     </table>

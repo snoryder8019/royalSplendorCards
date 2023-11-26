@@ -68,15 +68,16 @@ $accentFontColor:$red;
 }
 @font-face {
   font-family: $mini;
-  src: url('/fonts/Minionro-SemiBold.ttf');
+  src: url('/fonts/MinionPro-SemiBold.otf');
 }
 
 $primaryFontFamily:$mini;
+$regularFontSize:1.8rem;
 $mediumFontSize:2rem;
 $largeFontSize:3rem;
 $inputFontSize:2rem;
-$labelFontSize:2.7rem;
-$inputSubmitFontSize:2.5rem;
+$labelFontSize:1.7rem;
+$inputSubmitFontSize:1.5rem;
 $inputLabelFontSize:2.5rem;
 $avatarFontSize:2rem;
 $accentFontFamily:$weat;
@@ -86,11 +87,11 @@ $accentFontFamily:$weat;
   &_aqua{font-family: $aqua;}
   &_weat{font-family:$weat}
   &_maph{font-family:$maph}
-  &_back{font-family:$mini;}
+  &_back{font-family:$back;}
   &_mini{font-family:$mini;}
 }
 .fontType::first-letter{
-    font-size: 5rem;
+    font-size: 3rem;
     font-family: $accentFontFamily;
   }
 
@@ -161,31 +162,31 @@ a {
   }
 }
 h2{
-  font-size: $largeFontSize;
+  font-size: $regularFontSize;
   @media (min-width:$screenQueryReg) {
   //  @include regMedia()
     }
 }
 li{
-  font-size: 1.4rem;
+  font-size: $mediumFontSize;
   @media (min-width:$screenQueryReg) {
   // @include regMedia()
     }
 }
 p{
-  font-size: $largeFontSize;
+  font-size: $regularFontSize;
   @media (min-width:$screenQueryReg) {
   //  @include regMedia()
     }
 }
 button {
   width: 84%;
-  height:75px;
+  height:55px;
   border-radius: 5px;
  margin:3%;
  margin-top: 5%;
   border: 5px solid $secondaryBorderColor;
-  font-size: $largeFontSize;
+  font-size: $regularFontSize;
   color: $primaryFontColor;
   font-family: $primaryFontFamily;
   //font-size: 1rem;
@@ -231,29 +232,24 @@ $headerDeskHeight:250px;
   margin: 3%;
   color: $accentFontColor;
   font-family: $accentFontFamily;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 .header{
   width: 100%;
 }
 #header{
-  min-height: $headerCellHeight;
- max-height:$headerCellHeight;
+
  width: 100%;
  @media (min-width:768px){
-   min-height: $headerDeskHeight;
-   max-height:$headerDeskHeight;
-   
+ 
   }
 }
 #headerContainer{
-  min-height: $headerCellHeight;
-  max-height:$headerCellHeight;
+ 
   width: 100%;
   
   @media (min-width:768px){
-    min-height: $headerDeskHeight;
-    max-height:$headerDeskHeight;
+
     
   }
 }
@@ -292,7 +288,7 @@ display: block;
 margin: 0;
 padding: 0;
 }
-$cardDimention:600px;
+$cardDimention:525px;
 .card {
   align-items: center;
   min-width: $cardDimention;
@@ -300,9 +296,9 @@ $cardDimention:600px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
- margin-left:99%;
+ margin-left:50%;
   margin-top: 10%;
- transform: translateX(-108%);
+ transform: translateX(-50%);
 
   padding: 20px;
 }
@@ -314,13 +310,13 @@ border-top: 5px solid $primaryBorderColor;
   width: 99%;
  // margin-left: 50%;
  // transform: translateX(-50%);
-  height: 65px;
+  height: 32px;
   font-size: $inputFontSize;
   font-weight: 200;
   padding: 1%;
   margin-bottom:5%;
 }
-.card-container p,.card-container input, label,{
+.card-container p,.card-container input, label{
   font-size: $labelFontSize;
   font-weight:800;
   font-family:$primaryFontFamily;
@@ -340,14 +336,19 @@ input[type="submit"]:hover {
   margin: 2%;
   background-color: $primaryShadowColor;
 }
+.textControls, .imgControls{
+  button{
+    width: 45px;
+  }
+}
 .cardFrontFrame {
   position: relative;
  // width: 100%;
-  max-width: 600px;
+  max-width: $cardDimention;
 }
 .cardBackFrame{
  // width: 100%;
-  max-width: 600px;
+  max-width: $cardDimention;
 
 }
 .cardImg  {
@@ -366,14 +367,15 @@ input[type="submit"]:hover {
   max-width: 100px; /* Adjust as needed */
 }
 .textTitles{
-width: 111%;
+max-width: 78%;
 z-index: -1;
 display: grid;
 grid-template-columns: 1fr 2fr;
 text-align: left;
+overflow-x:unset;
 }
 .textBox{
-//width:84%
+max-width:78%
 }
 .dynoData{
 
@@ -498,7 +500,7 @@ z-index: 100;
     left:0;
   }
 }
-
+$avatarDimention:124px;
 #avatar {
   position: absolute;
   font-family: $maph;
@@ -506,8 +508,8 @@ z-index: 100;
   border-radius: 50%;
   border: 6px solid $secondaryBorderColor;
   background-color: $primaryBackgroundColor;
-  height: 175px;
-  width: 175px;
+  height: $avatarDimention;
+  width: $avatarDimention;
   bottom: 50%;
   transform: translateY(50%);
   display: flex;
@@ -575,13 +577,13 @@ z-index: 100;
     
   }
   #cartButtonDiv{    
-    transform: translateX(-150%);
+    transform: translateX(-42%);
   }
   #cartButton{
   z-index: 3;
   margin:0;
   padding:0;
-  width: 10%;
+  width: 24%;
   filter:hue-rotate(320deg)
 }
 #promoMessage{

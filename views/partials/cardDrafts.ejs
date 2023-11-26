@@ -1,10 +1,9 @@
-CARD DRAFTS
+
 <% if (allCards && allCards.length > 0) { %>
   <div class="card-container">
   <% allCards.forEach(function(card) { %>     
         <div class="card">         
-        CARD FROM CARD DRAFTS
-       
+ 
           <%- include('controls_img.ejs', { cardId: card._id }) %>            
           <div class="cardFrontFrame">
             <div class="cardImg" >
@@ -20,7 +19,8 @@ CARD DRAFTS
             <div class="cardImg">
               <img class="" src="<%= card.cardBack %>" alt="Card Back">
               <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%=card._id%>">
-                <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size%>px; color:<%=card.textColor%>" class="textTitles">
+                <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                  <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px;" class="textTitles">
                   <div class="font_<%=card.fontName1%>">Chapter:</div><div class="font_<%=card.fontName2%>">Greeley RHS</div>
                   <div class="font_<%=card.fontName1%>">Address:</div><div class="font_<%=card.fontName2%>">Colorado, USA</div> 
                   <div class="font_<%=card.fontName1%>">Email:</div><div class="font_<%=card.fontName2%>">scott@w2marketing.biz</div> 

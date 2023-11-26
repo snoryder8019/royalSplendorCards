@@ -16,7 +16,7 @@
 }
 @font-face {
   font-family: "MinonPro";
-  src: url("/fonts/Minionro-SemiBold.ttf");
+  src: url("/fonts/MinionPro-SemiBold.otf");
 }
 .font_aqua {
   font-family: "aquarelle";
@@ -28,14 +28,14 @@
   font-family: "mayphylla";
 }
 .font_back {
-  font-family: "MinonPro";
+  font-family: "backlash";
 }
 .font_mini {
   font-family: "MinonPro";
 }
 
 .fontType::first-letter {
-  font-size: 5rem;
+  font-size: 3rem;
   font-family: "sunday";
 }
 
@@ -63,22 +63,22 @@ a {
   color: rgb(26, 26, 164);
 }
 h2 {
-  font-size: 3rem;
+  font-size: 1.8rem;
 }
 li {
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 p {
-  font-size: 3rem;
+  font-size: 1.8rem;
 }
 button {
   width: 84%;
-  height: 75px;
+  height: 55px;
   border-radius: 5px;
   margin: 3%;
   margin-top: 5%;
   border: 5px solid #932432;
-  font-size: 3rem;
+  font-size: 1.8rem;
   color: black;
   font-family: "MinonPro";
 }
@@ -163,7 +163,7 @@ button {
   margin: 3%;
   color: #932432;
   font-family: "sunday";
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .header {
@@ -171,29 +171,11 @@ button {
 }
 
 #header {
-  min-height: 400px;
-  max-height: 400px;
   width: 100%;
 }
-@media (min-width: 768px) {
-  #header {
-    min-height: 250px;
-    max-height: 250px;
-  }
-}
-
 #headerContainer {
-  min-height: 400px;
-  max-height: 400px;
   width: 100%;
 }
-@media (min-width: 768px) {
-  #headerContainer {
-    min-height: 250px;
-    max-height: 250px;
-  }
-}
-
 .flashMessage {
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
@@ -231,14 +213,14 @@ button {
 
 .card {
   align-items: center;
-  min-width: 600px;
-  max-width: 600px;
+  min-width: 525px;
+  max-width: 525px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-left: 99%;
+  margin-left: 50%;
   margin-top: 10%;
-  transform: translateX(-108%);
+  transform: translateX(-50%);
   padding: 20px;
 }
 
@@ -249,7 +231,7 @@ button {
 .card label, input[type=text] {
   margin-top: 10px;
   width: 99%;
-  height: 65px;
+  height: 32px;
   font-size: 2rem;
   font-weight: 200;
   padding: 1%;
@@ -257,7 +239,7 @@ button {
 }
 
 .card-container p, .card-container input, label {
-  font-size: 2.7rem;
+  font-size: 1.7rem;
   font-weight: 800;
   font-family: "MinonPro";
 }
@@ -270,7 +252,7 @@ input[type=submit], select, input[type=file] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 input[type=submit]:hover {
@@ -278,13 +260,17 @@ input[type=submit]:hover {
   background-color: black;
 }
 
+.textControls button, .imgControls button {
+  width: 45px;
+}
+
 .cardFrontFrame {
   position: relative;
-  max-width: 600px;
+  max-width: 525px;
 }
 
 .cardBackFrame {
-  max-width: 600px;
+  max-width: 525px;
 }
 
 .cardImg {
@@ -303,11 +289,16 @@ input[type=submit]:hover {
 }
 
 .textTitles {
-  width: 111%;
+  max-width: 78%;
   z-index: -1;
   display: grid;
   grid-template-columns: 1fr 2fr;
   text-align: left;
+  overflow-x: unset;
+}
+
+.textBox {
+  max-width: 78%;
 }
 
 .imgControlArrows {
@@ -457,8 +448,8 @@ input[type=submit]:hover {
   border-radius: 50%;
   border: 6px solid #932432;
   background-color: #e1dcd5;
-  height: 175px;
-  width: 175px;
+  height: 124px;
+  width: 124px;
   bottom: 50%;
   transform: translateY(50%);
   display: flex;
@@ -525,14 +516,14 @@ input[type=submit]:hover {
 }
 
 #cartButtonDiv {
-  transform: translateX(-150%);
+  transform: translateX(-42%);
 }
 
 #cartButton {
   z-index: 3;
   margin: 0;
   padding: 0;
-  width: 10%;
+  width: 24%;
   filter: hue-rotate(320deg);
 }
 

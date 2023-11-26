@@ -25,8 +25,7 @@ const addToCart = async (req, res) => {
           cardName:result_card.cardName,
           count:100,
           quantity:1,
-          unitPrice:35,
-          itemTotal:unitPrice*quantity,
+          
           dateCreated:new Date()
           //
                 }

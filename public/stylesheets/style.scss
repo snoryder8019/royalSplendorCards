@@ -73,9 +73,10 @@ $accentFontColor:$red;
 
 $primaryFontFamily:$mini;
 $regularFontSize:1.8rem;
+$buttonFontSize:1.4rem;
 $mediumFontSize:2rem;
 $largeFontSize:3rem;
-$inputFontSize:2rem;
+$inputFontSize:1.4rem;
 $labelFontSize:1.7rem;
 $inputSubmitFontSize:1.5rem;
 $inputLabelFontSize:2.5rem;
@@ -175,18 +176,19 @@ li{
 }
 p{
   font-size: $regularFontSize;
+  padding: 2%;
   @media (min-width:$screenQueryReg) {
   //  @include regMedia()
     }
 }
 button {
   width: 84%;
-  height:55px;
+  height:42px;
   border-radius: 5px;
  margin:3%;
  margin-top: 5%;
   border: 5px solid $secondaryBorderColor;
-  font-size: $regularFontSize;
+  font-size: $buttonFontSize;
   color: $primaryFontColor;
   font-family: $primaryFontFamily;
   //font-size: 1rem;
@@ -559,14 +561,21 @@ $avatarDimention:90px;
 .colorsContainer{
   margin-bottom: 300px;
 }
-
+.cartScroll{
+  max-height: 800px;
+  margin-top:5%;
+  margin-bottom: 5%;
+}
 .cartDiv{
+  max-height: 1000px;
   width: 80%;
+  overflow-y: auto;
+  overflow-x: hidden;
   margin-left: 5%;
+  margin-top: 5%;
   @include divBorder();
 }
 #cart{
-    overflow: scroll;
     display: none;
     min-height: 100%;
     min-width: 100%;

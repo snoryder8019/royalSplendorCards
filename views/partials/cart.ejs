@@ -1,4 +1,5 @@
 <div class="cartDiv">
+    <div class="cartScroll">
     <h1>Purchase your Cards here!</h1>
 <!-- cart-partial.ejs -->
 
@@ -44,6 +45,7 @@
         </thead>
         <tbody>
             <!-- Loop through each item in the cart -->
+            <%let itemCount =1%>
             <% user.cart.forEach((item) => { %>
                 <tr>
                     <td><%= item.productName %></td>
@@ -51,8 +53,9 @@
                     <td><%= item.unitPrice %></td>
                     <td><%= item.quantity || 1 %></td>
                     <td id="itemTotal_<%=item.cardId%>">$<%= item.itemTotal%></td>
-                    <td>remove item</td>
+                    <td onclick="deleteFromCart('<%=item.cardId%>')">remove item</td>
                 </tr>
+                <%itemCount++;%>
             <% }); %>
             <tr>
                 <td></td>
@@ -65,9 +68,16 @@
             </tr>
         </tbody>
     </table>
+    <a href="/checkout">Proceed to Checkout</a>
+    <a href="/shop">Continue Shopping</a>
+        <div id="cartClose"><h1> CLOSE CART</h1></div>
+</div>
+</div>
 </div>
 <% } else { %>
     <p>you have no items in your cart</p>
+    <a href="/shop">Continue Shopping</a>
+    <div id="cartClose"><h1> CLOSE CART</h1></div>
     <% } %>
  
     <%}else{%>
@@ -75,10 +85,6 @@
     <%}%>
 
 <!-- Add a button to proceed to checkout or continue shopping -->
-<a href="/checkout">Proceed to Checkout</a>
-<a href="/shop">Continue Shopping</a>
-    <div id="cartClose"><h1> CLOSE CART</h1></div>
-</div>
 
 
 

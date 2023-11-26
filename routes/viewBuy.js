@@ -9,7 +9,7 @@ const fs = require('fs');
 const upload = require('../plugins/multer/setup')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard, publishCard} = require('./adminFunctions/adminFunctions')
 const { ObjectId } = require('mongodb');
-const addToCart = require('./cartFunctions/cartFunctions')
+const {addToCart,deleteFromCart} = require('./cartFunctions/cartFunctions')
 
 router.get(('/'),async(req,res)=>{
     console.log(req.query._id)
@@ -32,5 +32,6 @@ router.get(('/'),async(req,res)=>{
 
 
 router.post('/cart/add', addToCart);
+router.post('/cart/delete', deleteFromCart);
 
 module.exports = router;

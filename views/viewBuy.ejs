@@ -55,6 +55,12 @@
 
   <!--i need to make a viewer-->
   <%let cardNo = card._id%>
+  <select name="package" id="cardPackage">
+    <option value="100|38.49|34.99">100|38.49|34.99</option>
+    <option value="250|54.99|49.99">250|54.99|49.99</option>
+    <option value="500|76.99|69.99">500|76.99|69.99</option>
+    <option value="1000|87.99|79.99">1000|87.99|79.99</option>
+  </select>
   <div><button onclick="addToCart('<%= cardNo%>')">add to cart</button> </div>
   <div><button onclick="back()">Browse More</button></div>
   <button onclick="exportFrontFrameToPDF()">Export Front Frame as PDF</button>

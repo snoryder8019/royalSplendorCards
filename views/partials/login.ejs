@@ -1,7 +1,7 @@
 
 <!-- Inside ./partials/login.ejs -->
-
-    <!---login button-->
+<!---login button-->
+<div class="loginBox">
     <%if(typeof user == 'object' && user){%>
       <p>     You are logged in as <%=user.firstName%> <%=user.lastName%></p>
       <p>     email <%=user.email%></p>
@@ -53,6 +53,6 @@
     
  
     </div>
- 
+</div>
     
     <%}%>

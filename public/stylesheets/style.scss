@@ -450,8 +450,12 @@ width: 30%;
   z-index: 0;
 
  }
-
+.loginBox{
+  
+}
 #login, #register{
+  overflow-y: auto;
+  max-height: 700px;
   font-size: $largeFontSize;
   width: 84%;
   margin-left: 3%;

@@ -102,6 +102,7 @@ passport.use(
         lastName: profile.name.familyName,
         password: '',
         isAdmin: false,
+        cart:[]
       };
 
       try {

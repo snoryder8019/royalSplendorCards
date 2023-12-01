@@ -39,7 +39,8 @@ router.post('/regUser', async (req, res) => {
             email: req.body.email,    
             password: req.body.password,
             isAdmin: false,      
-            createdAt: Date.now
+            createdAt: Date.now,
+            cart:[]
         });
 
         if(newUser && newUser._id) {

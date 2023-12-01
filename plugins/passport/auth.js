@@ -42,7 +42,7 @@ router.post('/auth/local',
 //////////console.log('findOne(): ')
 router.get('/auth/google', 
 passport.authenticate('google',
-  {scope:['profile','email','openid'], callbackURL: `${config.baseUrl}/auth/google/callback`},
+  {scope:['profile','email','openid'], callbackURL: `${config.baseUrl}auth/google/callback`},
   {failureRedirect:'/'}));
 
 router.get('/auth/google/callback', 

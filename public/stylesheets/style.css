@@ -52,13 +52,6 @@ body {
   padding: 0;
 }
 
-@media (min-width: 768px) {
-  #main {
-    width: 50%;
-    margin-left: 48%;
-  }
-}
-
 a {
   color: rgb(26, 26, 164);
 }
@@ -88,6 +81,7 @@ button {
     font-size: 0.5rem;
     margin: 1%;
     padding: 0;
+    font-size: 1.8rem;
   }
 }
 
@@ -174,9 +168,26 @@ button {
 #header {
   width: 100%;
 }
-#headerContainer {
+#headerContainer_cell {
   width: 100%;
+  display: block;
 }
+@media (min-width: 768px) {
+  #headerContainer_cell {
+    display: none;
+  }
+}
+
+#headerContainer_desk {
+  width: 100%;
+  display: none;
+}
+@media (min-width: 768px) {
+  #headerContainer_desk {
+    display: block;
+  }
+}
+
 .flashMessage {
   transition-timing-function: ease-in-out;
   transform-style: preserve-3d;
@@ -193,6 +204,15 @@ button {
 .card-container {
   display: block;
   height: 60%;
+}
+@media (min-width: 768px) {
+  .card-container {
+    font-size: 0.5rem;
+    margin: 1%;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 .stats {
@@ -363,6 +383,12 @@ input[type=submit]:hover {
   padding: 3%;
   margin-top: 2%;
 }
+@media (min-width: 768px) {
+  .userData {
+    width: 38%;
+    margin-left: 27%;
+  }
+}
 
 .arrowControl {
   width: 30%;
@@ -403,9 +429,8 @@ input[type=submit]:hover {
 }
 @media (min-width: 768px) {
   #login, #register {
-    font-size: 0.5rem;
-    margin: 1%;
-    padding: 0;
+    width: 50%;
+    left: 25%;
   }
 }
 
@@ -434,14 +459,6 @@ input[type=submit]:hover {
   justify-content: center;
   z-index: 2;
 }
-@media (min-width: 768px) {
-  #menu {
-    width: 30%;
-    top: 0;
-    left: 0;
-  }
-}
-
 #avatar {
   position: absolute;
   font-family: "mayphylla";
@@ -514,6 +531,16 @@ input[type=submit]:hover {
   background-color: #e1dcd5;
   padding: 3%;
 }
+@media (min-width: 768px) {
+  .cartDiv {
+    font-size: 0.5rem;
+    margin: 1%;
+    padding: 0;
+    width: 50%;
+    margin-left: 25%;
+    font-size: 1.8rem;
+  }
+}
 
 #cart {
   display: none;
@@ -551,6 +578,16 @@ input[type=submit]:hover {
   border: 3px solid black;
   border-radius: 15px;
 }
+@media (min-width: 768px) {
+  .cartTable {
+    font-size: 0.5rem;
+    margin: 1%;
+    padding: 0;
+    width: 96%;
+    margin: 2%;
+    font-size: 1.8rem;
+  }
+}
 .cartTable td {
   border: 1px dotted black;
 }
@@ -560,6 +597,14 @@ input[type=submit]:hover {
 }
 .cartTable tr:nth-of-type() {
   background-color: rgba(128, 128, 128, 0.141);
+}
+
+.garbageCan {
+  background-image: url("/images/icons/trash.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-width: 55px;
 }
 
 /*# sourceMappingURL=style.css.map */

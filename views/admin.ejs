@@ -30,6 +30,37 @@
       <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
    
     </div>    
+    <div id="emails">
+      <div class="cartDiv">
+      <div class="cartScroll">
+      <%if(typeof users == 'object'&& users){%>
+        <div class="cartTableDiv">
+        <table class="cartTable">
+          You have users!!
+          <thead>
+            <th>name</th>
+            <th>email</th>
+            <th>chapter</th>
+            <th>provider</th>
+          </thead>
+          <tbody>
+            <%for(let i=0;i<users.length;i++){%>
+              <tr>
+          <td> <%=users[i].lastName%>,<%=users[i].firstName%></td>
+          <td> <%=users[i].email%></td>
+          <td> <%=users[i].chapter%></td>
+          <td> <%=users[i].provider%></td>
+        </tr>
+        <%}%>
+      </tbody>
+      </table>
+    </div>
+        <%}else{%>
+          no users found
+          <%}%>
+        </div>
+      </div>
+    </div>
     <div class="colorsContainer" id="css-colors-container"></div>   
     <div id="filler"></div>
 

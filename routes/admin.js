@@ -21,12 +21,15 @@ router.get('/', isAdmin, async (req, res) => {
   const db = getDb();
   const collection = db.collection('_cards');
   const allCards = await collection.find({}).toArray();
-  
+  const collection2= db.collection('users')
+  const users = await collection2.find({}).toArray()
+  console.log(users)
   res.render('admin', { 
       user: user, 
       message: req.flash('message'),
       allCards: allCards,  // Pass allCards to your EJS template
-      fonts:fonts 
+      fonts:fonts,
+      users:users 
   });
 });
 router.post('/publishCard',isAdmin,publishCard)

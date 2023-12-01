@@ -153,8 +153,7 @@ body {
 }
 #main{
   @media (min-width:$screenQueryReg) {
-  width:50%;
-  margin-left:48%;
+
   }
 }
 a {
@@ -194,7 +193,8 @@ button {
   font-family: $primaryFontFamily;
   //font-size: 1rem;
   @media (min-width:$screenQueryReg) {
-    @include regMedia()
+    @include regMedia();
+    font-size:$regularFontSize;
     }
 }
 
@@ -247,13 +247,18 @@ $headerDeskHeight:250px;
  
   }
 }
-#headerContainer{
- 
-  width: 100%;
-  
+#headerContainer_cell{ 
+  width: 100%;  
+  display: block;    
   @media (min-width:768px){
-
-    
+display: none;    
+  }
+}
+#headerContainer_desk{ 
+  width: 100%;  
+  display: none;    
+  @media (min-width:768px){
+display: block;    
   }
 }
 // Flash Message
@@ -275,7 +280,11 @@ $headerDeskHeight:250px;
   height: 60%;
 //margin: 2%;
 //padding: 2%;
-
+@media (min-width:$screenQueryReg) {
+  @include regMedia();
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+}
 }
 .stats{
   padding: 2%;
@@ -434,6 +443,11 @@ max-width:78%
   margin-left:5%;
   @include divBorder();
   margin-top:2%;
+  @media (min-width:$screenQueryReg) {
+    width: 38%;
+    margin-left: 27%;
+    //@include regMedia();
+  }
 }
 .arrowControl{
 width: 30%;
@@ -474,7 +488,8 @@ z-index: 100;
     animation: 2s 0s 1 slideUpLogin;
  
   @media (min-width:$screenQueryReg) {
- @include regMedia();
+   width:50%;
+   left:25%
   }
 }
 .oneTouchLogin{
@@ -502,9 +517,7 @@ z-index: 100;
   justify-content: center;
   z-index: 2;
   @media (min-width:$screenQueryReg) {
-    width:30%;
-    top:0;
-    left:0;
+ 
   }
 }
 $avatarDimention:90px;
@@ -579,6 +592,12 @@ $avatarDimention:90px;
   margin-left: 5%;
   margin-top: 5%;
   @include divBorder();
+  @media (min-width:$screenQueryReg) {
+    @include regMedia();
+    width: 50%;
+    margin-left: 25%;;
+    font-size:$regularFontSize;
+    }
 }
 #cart{
     display: none;
@@ -611,6 +630,13 @@ $avatarDimention:90px;
   width:100%;
   border: 3px solid $black;
   border-radius: 15px;
+  @media (min-width:$screenQueryReg) {
+    @include regMedia();
+
+    width:96%;
+    margin:2%;
+    font-size:$regularFontSize;
+    }
   td{
     border: 1px dotted $black;
   }
@@ -624,4 +650,11 @@ $avatarDimention:90px;
   }
 .cardDetails{
 
+}
+.garbageCan{
+  background-image: url('/images/icons/trash.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-width: 55px;
 }

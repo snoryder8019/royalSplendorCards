@@ -2,13 +2,14 @@ console.log('menuControl is listeners activated');
 
 const loginClose = document.getElementById('loginClose');
 const login = document.getElementById('login');
+const loginButton = document.getElementById('loginButton');
 const tinyLogin = document.getElementById('tinyLogin');
 const avatar = document.getElementById('avatar');
 const register = document.getElementById('register');
 const registerButton = document.getElementById('registerButton');
 
 const menuGroup = [login];
-const enlargeButtons = [avatar, loginClose];
+const enlargeButtons = [avatar, loginClose, loginButton];
 
 function shrinkGroup(group) {
   for (let i = 0; i < group.length; i++) {

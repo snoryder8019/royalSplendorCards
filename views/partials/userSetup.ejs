@@ -20,16 +20,23 @@
                     </div>
                 </form>
                <div class="span_branded">Smile like the queen you are!</div>
+             
                <div class="userData">
+                <%if(user.userImg){%>
+                        <h2>Hooray! You've added your headshot.</h2>
+                        <h4 style="margin-bottom: 1px;">your current headshot</h4>
+                        <img style="position:absolute;width: 125px; " class="headshot" src="<%=user.userImg%>.jpg" alt="Headshot">
+                        <%}else{%>
+                            <h2>Add your Headhot to view your custom cards.</h2>
+
+                <%}%>
                    <form action="/userImgUpload" method="post" enctype="multipart/form-data">
-                       <h2>Headshot Upload Here</h2>
-                       <br>
+                       <h4 style="margin-bottom: 1px;">Add or Update your headshot here</h4>
                        <input type="hidden" name="_id" value="<%=user._id%>">
                        <input type="file" name="userImg"> 
                        <button type="submit">Submit</button>
                     </form>
-                    
-                </div>
+              </div>
                 <div class="span_branded">Get ready to choose your favorite trading card</div>
                 <%}else{%>
                     <div class="userData"><h1> To Customize and Purchase you Cards, Register or Sign In</h1></div>

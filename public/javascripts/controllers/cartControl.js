@@ -103,7 +103,9 @@ document.addEventListener('DOMContentLoaded', updateTotalDisplay);
 
 // Ensure to call cartTotaller after any cart update (like item addition or deletion)
 // For example: After deleteFromCart or addToCart functions, call cartTotall
-
-promoDisplay();
+document.addEventListener('DOMContentLoaded', function(){
+    promoDisplay()
+})
+//promoDisplay();
 cartDisplay();
 cartTotaller();

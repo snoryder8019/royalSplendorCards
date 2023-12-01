@@ -66,7 +66,7 @@ h2 {
   font-size: 1.8rem;
 }
 li {
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 p {
   font-size: 1.8rem;
@@ -412,10 +412,9 @@ input[type=submit]:hover {
 
 .oneTouchLogin {
   border: 2px solid black;
-  margin: 2%;
 }
 .oneTouchLogin img {
-  width: 85px;
+  width: 70px;
   border: none;
 }
 
@@ -550,10 +549,18 @@ input[type=submit]:hover {
 
 .cartTable {
   width: 100%;
+  border: 3px solid black;
+  border-radius: 15px;
 }
-
-.cartTable tr:last-child {
-  font-weight: 900;
+.cartTable td {
+  border: 1px dotted black;
+}
+.cartTable th {
+  font-size: 1.2rem;
+  text-align: center;
+}
+.cartTable tr:nth-of-type() {
+  background-color: rgba(128, 128, 128, 0.141);
 }
 
 /*# sourceMappingURL=style.css.map */

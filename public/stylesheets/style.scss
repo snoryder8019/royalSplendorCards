@@ -72,6 +72,7 @@ $accentFontColor:$red;
 }
 
 $primaryFontFamily:$mini;
+$smallFontSize:1.2rem;
 $regularFontSize:1.8rem;
 $buttonFontSize:1.4rem;
 $mediumFontSize:2rem;
@@ -169,7 +170,7 @@ h2{
     }
 }
 li{
-  font-size: $mediumFontSize;
+  font-size: $smallFontSize;
   @media (min-width:$screenQueryReg) {
   // @include regMedia()
     }
@@ -478,9 +479,9 @@ z-index: 100;
 }
 .oneTouchLogin{
   border:2px solid $primaryBorderColor;
-  margin: 2%;
+  //margin: 2%;
   img{
-    width: 85px;
+    width: 70px;
     border: none;
   }
 }
@@ -608,10 +609,19 @@ $avatarDimention:90px;
 }
 .cartTable{
   width:100%;
+  border: 3px solid $black;
+  border-radius: 15px;
+  td{
+    border: 1px dotted $black;
   }
- .cartTable{  
-   tr:last-child{
-  
-font-weight: 900;
+  th{
+    font-size: 1.2rem;
+    text-align: center;
+  }
+ tr:nth-of-type(){
+    background-color: rgba(128, 128, 128, 0.141);
+  }
+  }
+.cardDetails{
+
 }
-  }

@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const config = require('../../config/config')
 
 router.use(bodyParser.urlencoded({ extended: true }));
 // Create a route to handle the login request
@@ -41,7 +42,7 @@ router.post('/auth/local',
 //////////console.log('findOne(): ')
 router.get('/auth/google', 
 passport.authenticate('google',
-  {scope:['profile','email','openid'], callbackURL: "http://localhost:3000/auth/google/callback"},
+  {scope:['profile','email','openid'], callbackURL: config.BASE_URL+"/auth/google/callback"},
   {failureRedirect:'/'}));
 
 router.get('/auth/google/callback', 

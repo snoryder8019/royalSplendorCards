@@ -8,9 +8,19 @@
         <div class="cardFrontFrame">
           <div class="cardImg">
             <img class="" src="<%= card.cardFront %>" alt="Card Front">
+         
+         <%if(typeof user =="object" && user.userImg){%>
+
+          <div id="headshot_<%= card._id %>" class="headshot">
+            
+                 <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="<%=user.userImg%>.jpg" alt="Headshot">
+               </div>
+          <%}else{%>
             <div id="headshot_<%= card._id %>" class="headshot">
-              <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
-            </div>
+              
+                   <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
+                 </div>
+         <%}%>
           </div>
         </div>
         <div class="cardBackFrame">

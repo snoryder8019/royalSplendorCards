@@ -34,7 +34,8 @@ console.log(new Date().now)
 const cartAddResult = await users.updateOne({"_id":userIdObj},{$push:{"cart":cartItem}},{upsert:false})
     }
         console.log('Added to cart:', itemId, 'for user:', userId);
-        res.json({ user: result_user, card: result_card });
+       res.redirect('/')
+        // res.json({ user: result_user, card: result_card });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error adding item to cart' });
@@ -92,16 +93,30 @@ const fetchCart = async (req, res) => {
         }
 
         // Generate HTML for the cart
-        let cartHtml = result_user.cart.map(item => `
-            <tr>
-            <td><img style="width:45px" src="${item.cardFront}"></td>
-                <td>${item.count}</td>
-               
-                <td id="itemTotal_${item.cardId}">$${item.price}</td>
-                <td onclick="deleteFromCart('${item.cartItemId}')">Remove Item</td>
-            </tr>
-        `).join('');
+        let total = 0;
 
+        let cartHtml = result_user.cart.map((item, index) => {
+            total += parseFloat(item.price); // Calculate the total
+        
+            return `
+                <tr>
+                    <td><img style="width:45px" src="${item.cardFront}"></td>
+                    <td>${item.count}</td>
+                    <td id="itemTotal_${item.cardId}">$${item.price}</td>
+                    <td onclick="deleteFromCart('${item.cartItemId}')">Remove Item</td>
+                    <input type="hidden" name="cart[${index}][cardName]" value="${item.cardName}">
+                    <input type="hidden" name="cart[${index}][count]" value="${item.count}">
+                    <input type="hidden" name="cart[${index}][price]" value="${item.price}">
+                    <input type="hidden" name="cart[${index}][cartItemId]" value="${item.cartItemId}">
+                </tr>
+                </tbody>
+            `;
+        }).join('');
+        
+        // Add the total to the cart HTML
+        cartHtml += `<p id="cartTotal">Total: $${total.toFixed(2)}</p>`;
+        
+//add:     <h2 id="cartTotal">Total: $<%= total.toFixed(2) %></h2> to this template
         // Send HTML back to the front end
         res.send(cartHtml);
     } catch (err) {

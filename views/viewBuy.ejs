@@ -64,13 +64,11 @@
 <div><button onclick="addToCart('<%= cardNo %>', '<%= cardNo %>')">Add to Cart</button></div>
 
  
-  <div><button onclick="back()">Browse More</button></div>
-  <button onclick="exportFrontFrameToPDF()">Export Front Frame as PDF</button>
-  <button onclick="exportBackFrameToPDF()">Export Back Frame as PDF</button>
-  
-
+  <div><form action="/"method="get"><button type="submit">Browse More</button></form></div>
+ <button id="vbCartButton">view cart</button>
 </div>
 
+<div id="filler"></div>  
 
 </div>
 <div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      

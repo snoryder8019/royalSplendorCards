@@ -45,23 +45,17 @@ async function userDataUpload(req, res) {
 // Function to handle user headshot upload
 const userImgUpload= async(req, res)=> {
   try {
-    console.log('Starting user image upload process.');
+    console.log('Starting user image upload process.', req.file);
 
     const db = getDb();
-    const user = req.user;
-    console.log('User data:', user.email,user._id);
-    //console.log(req.file.filename);
-
+    const user = req.user;  
     const collection = db.collection('users');
 
-    if (req.file) {
-     // console.log('File received:', req.file.filename);
-
-      // The path relative to the 'public' directory
+    if (req.files) { 
       const headshotPath = `/images/userHeadshots/${user._id}`;
       console.log('Headshot path:', headshotPath);
 
-      await collection.updateOne(
+     const result =  await collection.updateOne(
         { _id: user._id },
         {
           $set: {
@@ -69,7 +63,7 @@ const userImgUpload= async(req, res)=> {
           },
         }
       );
-
+console.log(result)
       console.log('Headshot updated successfully in the database.');
       req.flash('message', 'Headshot updated successfully.');
     } else {

@@ -2,21 +2,29 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     let dest = './public/cards/';
     if (file.fieldname.startsWith('fonts')) {
       dest = './public/fonts/';
     }
-    // Add a new condition for user headshots
     if (file.fieldname === 'userImg') {
-      console.log('userImg condition')
+      console.log('userImg condition');
       dest = './public/images/userHeadshots/';
     }
     cb(null, dest);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname);
+    if (file.fieldname === 'userImg' && req.user && req.user._id) {
+      console.log(file)
+      // Use user ID as filename for user image uploads
+      const fileExtension = path.extname(file.originalname);
+      cb(null, req.user._id + fileExtension);
+    } else {
+      // For other files, use the original filename
+      cb(null, file.originalname);
+    }
   }
 });
 

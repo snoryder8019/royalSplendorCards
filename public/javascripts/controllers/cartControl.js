@@ -2,9 +2,12 @@ function cartDisplay(){
 const cart = document.getElementById('cart')
 const cartButton = document.getElementById('cartButton')
 const cartClose = document.getElementById('cartClose')
+const vbCartButton = document.getElementById('vbCartButton')
 const cartGroup = [
-    {btn:cartButton,div:cart},
-    {btn:cartClose,div:cart}
+  //  {btn:cartButton,div:cart},
+    {btn:cartClose,div:cart},
+    {btn:vbCartButton,div:cart}
+
 ];
 for(let i=0;i<cartGroup.length;i++){
 cartGroup[i].btn.addEventListener('click',function(){
@@ -31,17 +34,34 @@ function promoDisplay(){
 
 function cartTotaller() {
     const cartTable = document.getElementById('cartTable');
+    if (!cartTable) {
+        console.error("Cart table not found");
+        return;
+    }
+
     let total = 0;
-
     const rows = cartTable.tBodies[0].rows;
-    console.log("Number of rows: " + (rows.length - 1)); // Log number of rows processed
+    console.log("Number of rows: " + rows.length);
 
-    for (let i = 0; i < rows.length - 1; i++) {
-        const priceText = rows[i].cells[2].textContent.substring(1).replace(/,/g, ''); // Remove $ and commas
-        const price = parseFloat(priceText);
+    for (let i = 0; i < rows.length; i++) {
+        let priceCell = rows[i].cells[2];
+        if (!priceCell) {
+            console.error(`Price cell not found in row ${i}`);
+            continue; // Skip this row if the price cell is not found
+        }
 
-        console.log(`Row ${i}: Price - ${priceText} (parsed: ${price})`);
+        let priceText = priceCell.textContent.trim();
+        if (priceText.startsWith('$')) {
+            priceText = priceText.substring(1);
+        }
 
+        const price = parseFloat(priceText.replace(/,/g, ''));
+        if (isNaN(price)) {
+            console.error(`Invalid price in row ${i}: ${priceText}`);
+            continue; // Skip this row if the price is not a valid number
+        }
+
+        console.log(`Row ${i}: Price - ${price}`);
         total += price;
     }
 
@@ -68,11 +88,11 @@ function updateTotalDisplay(formattedTotal) {
     // Update the 'cartTotaled' element with the calculated total
     const cartTotalElement = document.getElementById('cartTotal');
     if (cartTotalElement) {
-        cartTotalElement.textContent = formattedTotal;
+        cartTotalElement.textContent = `Total: ${formattedTotal}`;
     }
 
     // Also update the 'totalledInput' input element with the calculated total
-    const totalInput = document.getElementById('totalledInput');
+    const totalInput = document.getElementById('total');
     if (totalInput && cartTotalElement) {
         totalInput.value = cartTotalElement.textContent.substring(1); // Remove the '$'
     }

@@ -58,14 +58,11 @@
                                <% total += parseFloat(item.price) ; %>
                             </tr>
                         <% }); %>
-                        <tr>
-                            <td></td>
-                            <td>Total:</td>
-                            <td id="cartTotal">$<%= total.toFixed(2) %></td>
-                            <td></td>
-                        </tr>
+                                         
+                        
                     </tbody>
                 </table>
+                <p id="cartTotal">Total: $<%= total.toFixed(2) %></p>
                 <input type="hidden" name="total" value="<%= total.toFixed(2) %>">
                 <button type="submit">Checkout</button>
             </form>
@@ -77,4 +74,5 @@
         <a href="/">Continue Shopping</a>
     <% } %>
     <% } %>
+    <script>window.onload(cartTotaller())</script>
     

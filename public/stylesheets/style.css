@@ -552,4 +552,8 @@ input[type=submit]:hover {
   width: 100%;
 }
 
+.cartTable tr:last-child {
+  font-weight: 900;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>view and buy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+<body>     
+  
+  <div><% -include('./partials/cards',{user:user,card:card})%></div>
+
+  <div class="cardContainer">
+    <h1>Thank You <%=user.firstName%></h1>
+    <h1>Order Details</h1>
+    
+    <% if (orderDetails) { %>
+        <h2>Session Order ID: <%= orderDetails.id %></h2>
+        <!-- Session Order Details -->
+        <!-- Add any other session order details you want to display here -->
+
+        <% if (orderDetails.paypalDetails) { %>
+            <h2>PayPal Order Details</h2>
+            <p>Status: <%= orderDetails.paypalDetails.status %></p>
+            <p>Total Amount: <%= orderDetails.paypalDetails.purchase_units[0].amount.value %> <%= orderDetails.paypalDetails.purchase_units[0].amount.currency_code %></p>
+            <p>Buyer Name: <%= orderDetails.paypalDetails.payer.name.given_name %> <%= orderDetails.paypalDetails.payer.name.surname %></p>
+            <!-- Add more PayPal details as necessary -->
+        <% } %>
+    <% } else { %>
+        <p>Order details not available.</p>
+    <% } %>
+    <a href="/">Go to Home</a>
+  </div>
+  <script src="/javascripts/loader.js"></script>
+</body>
+</html>

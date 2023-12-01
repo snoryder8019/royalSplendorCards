@@ -9,7 +9,9 @@ const fs = require('fs');
 const upload = require('../plugins/multer/setup')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard, publishCard} = require('./adminFunctions/adminFunctions')
 const { ObjectId } = require('mongodb');
-const {addToCart,deleteFromCart} = require('./cartFunctions/cartFunctions')
+const {addToCart,deleteFromCart,fetchCart} = require('./cartFunctions/cartFunctions')
+const {createOrder, getOrderDetails, returnPaypalSuccess, getCheckoutAwaiting} = require('../plugins/paypal/paypalFunctions');
+
 
 router.get(('/'),async(req,res)=>{
     console.log(req.query._id)
@@ -20,7 +22,7 @@ router.get(('/'),async(req,res)=>{
     const card = await collection.findOne({"_id":id});
    
     const user = req.user
-    await collection.updateOne({"_id": id}, {$inc: {"views": 1}});
+    //await collection.updateOne({"_id": id}, {$inc: {"views": 1}});
 
     res.render('viewBuy',{
     user: user, 
@@ -30,7 +32,18 @@ router.get(('/'),async(req,res)=>{
 })
 })
 
+//router.get('/orderDetails',getOrderDetails)
+//paypal EPs
+router.get('/checkout-awaiting', getCheckoutAwaiting);
+router.post('/createOrder', createOrder);
+router.get('/order-details/:orderId', getOrderDetails); 
+router.get('/return', async (req, res) => {
+    console.log('return viewbuylayer')
+    await returnPaypalSuccess(req, res);
+});
 
+//Mongo user.cart EP's
+router.get('/cart/fetchCart', fetchCart);
 router.post('/cart/add', addToCart);
 router.post('/cart/delete', deleteFromCart);
 

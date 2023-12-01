@@ -1,61 +1,59 @@
-function updateCartUI(data) {
-    if (!data || !data.user || !data.user.cart) return;
-
+function renderEmptyCart() {
     const cartTableBody = document.querySelector("#cartTable tbody");
+
+    // Clear existing cart contents
     cartTableBody.innerHTML = '';
 
-    data.user.cart.forEach((item) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${item.productName}</td>
-            <td>${item.count}</td>
-            <td>${item.unitPrice}</td>
-            <td>${item.quantity || 1}</td>
-            <td id="itemTotal_${item.cardId}">$${item.itemTotal}</td>
-            <td><button onclick="deleteFromCart('${item.cardId}')">Remove Item</button></td>
-        `;
+    // Create a row for the empty cart message
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 4; // Span across all columns
+    cell.textContent = 'Your cart is empty';
+    cell.style.textAlign = 'center';
 
-        cartTableBody.appendChild(row);
-    });
+    // Append the cell to the row, and the row to the tbody
+    row.appendChild(cell);
+    cartTableBody.appendChild(row);
 
-    // Update other elements like cart total here
+    // Optionally, handle the total display
+    const cartTotalElement = document.getElementById('cartTotaled');
+    if (cartTotalElement) {
+        cartTotalElement.textContent = '$0';
+    }
 }
 
-function addToCart(itemId) {
-    fetch('/viewBuy/cart/add', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ itemId: itemId })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Handle success
-        console.log('Success:', data);
-        
-        // Update the cart UI to reflect the added item
-        updateCartUI(data);
-
-        // Display a success message to the user
-        displayMessage('Item added to cart successfully', 'success');
-        cartTotaller()
-    })
-    .catch(error => {
-        // Handle error
-        console.error('Error:', error);
-        displayMessage('Failed to add item to cart', 'error');
-    });
-}
+// Call this function when you need to display an empty cart
 
 function updateCartUI(data) {
-    // Implementation as discussed in previous responses
+    if (!data) {
+        renderEmptyCart()
+        return;
+    }
+
+    const cartTableBody = document.querySelector("#cartTable tbody");
+    cartTableBody.innerHTML = data; // data is now HTML string
 }
+function updateCart() {
+    fetchAndShowCart()
+        .catch(error => {
+            console.error('Error updating cart:', error);
+            displayMessage('Failed to update cart', 'error');
+        });
+}
+
+
+// Fetch cart will now be a request for HTML
+async function fetchAndShowCart() {
+    try {
+        const response = await fetch('/viewBuy/cart/fetchCart', { /* ... */ });
+        if (!response.ok) throw new Error('Failed to fetch cart');
+        const cartHtml = await response.text();
+        updateCartUI(cartHtml);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 
 function displayMessage(message, type) {
     // Create and show a message to the user
@@ -69,14 +67,17 @@ function displayMessage(message, type) {
         messageElement.remove();
     }, 3000);
 }
+//
+function addToCart(itemId, cardNo) {
+    const packageSelect = document.getElementById(`cardPackage_${cardNo}`);
+    const selectedPackage = packageSelect.value;
 
-function deleteFromCart(cardId) {
-    fetch('/viewBuy/cart/delete', {
+    fetch('/viewBuy/cart/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ cardId: cardId })
+        body: JSON.stringify({ itemId: itemId, package: selectedPackage })
     })
     .then(response => {
         if (!response.ok) {
@@ -87,35 +88,41 @@ function deleteFromCart(cardId) {
     .then(data => {
         // Handle success
         console.log('Success:', data);
-        
-        function updateCartUIAfterDeletion(cardId) {
-            const rowToDelete = document.querySelector(`#itemTotal_${cardId}`).parentNode;
-            if (rowToDelete) {
-                rowToDelete.remove();
-            }
-        
-            // Re-fetch cart data or manually update the cart total and other elements
-        }
-        
-        // Display a success message to the user
-        displayMessage('Item removed from cart successfully', 'success');
+        updateCart() 
+        displayMessage('Item added to cart successfully', 'success');
         cartTotaller(); // Update cart total if needed
+        cartDisplay()
     })
     .catch(error => {
         // Handle error
+        console.error('Error:', error);
+        displayMessage('Failed to add item to cart', 'error');
+    });
+}
+function deleteFromCart(cartItemId, userId) {
+    console.log(cartItemId, " , ", userId)
+    fetch('/viewBuy/cart/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ cartItemId: cartItemId, userId:userId })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        updateCart(); // Fetch and show the updated cart, including recalculating the total
+        displayMessage('Item removed from cart successfully', 'success');
+    })
+    .catch(error => {
         console.error('Error:', error);
         displayMessage('Failed to remove item from cart', 'error');
     });
 }
 
-function updateCartUIAfterDeletion(cardId) {
-    // Find and remove the table row (or other UI element) corresponding to the cardId
-    const rowToDelete = document.querySelector(`#itemRow_${cardId}`);
-    if (rowToDelete) {
-        rowToDelete.remove();
-    }
 
-    // Additional UI updates can be made here if needed
-}
-
-// The rest of the functions (displayMessage, etc.) remain the same

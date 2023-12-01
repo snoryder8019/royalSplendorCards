@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>view and buy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+</head>
+     
+  <body>
+    <div class="main">
+      <div class="loginForm">
+        <h1>Processing Your Order Id: <%=orderId%>...</h1>
+        <p>Please wait while we confirm your order details.</p>
+        <p>If you are not redirected automatically, <a href="/viewBuy/order-details/<%=orderId%>">click here</a>.</p>
+    </div>
+  </div>
+    <script>
+window.onload = function() {
+    document.body.style.display = 'block';
+    // Redirect to the order details page after a short delay
+    setTimeout(function() {
+        window.location.href = "/viewBuy/order-details/<%=orderId%>";
+    }, 5000); // 5-second delay
+};
+
+    </script>
+</body>
+</html>

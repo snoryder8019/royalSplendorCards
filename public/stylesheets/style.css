@@ -383,14 +383,13 @@ input[type=submit]:hover {
 
 #login, #register {
   overflow-y: auto;
-  max-height: 700px;
-  font-size: 3rem;
+  max-height: 70%;
+  font-size: 1.8rem;
   width: 84%;
   margin-left: 3%;
   display: none;
   position: fixed;
-  top: 12%;
-  margin-bottom: 12%;
+  top: 2%;
   z-index: 100;
   transform: translateY(5%);
   border: 6px solid #932432;

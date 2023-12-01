@@ -456,14 +456,14 @@ width: 30%;
 }
 #login, #register{
   overflow-y: auto;
-  max-height: 700px;
-  font-size: $largeFontSize;
+  max-height: 70%;
+  font-size: $regularFontSize;
   width: 84%;
   margin-left: 3%;
   display:none;
   position: fixed;
-  top: 12%;
-margin-bottom:12%;
+  top: 2%;
+//margin-bottom:12%;
 z-index: 100;
   transform: translateY(5%);
 @include divBorder;

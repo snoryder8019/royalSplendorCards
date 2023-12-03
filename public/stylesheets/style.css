@@ -265,7 +265,7 @@ button {
   font-family: "MinonPro";
 }
 
-input[type=submit], select, input[type=file] {
+input[type=submit], select, input[type=file], input[type=email] {
   background-color: #450b5a;
   color: white;
   width: 90%;

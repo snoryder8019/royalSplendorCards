@@ -336,7 +336,7 @@ border-top: 5px solid $primaryBorderColor;
   font-weight:800;
   font-family:$primaryFontFamily;
 }
-input[type="submit"], select , input[type="file"] {
+input[type="submit"], select , input[type="file"],input[type="email"] {
   background-color: $secondaryBackgroundColor;
   color: $secondaryFontColor;
   width: 90%;

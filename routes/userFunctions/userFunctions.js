@@ -43,7 +43,7 @@ async function userDataUpload(req, res) {
   }
 }
 // Function to handle user headshot upload
-const userImgUpload= async(req, res)=> {
+const userImgUpload = async (req, res) => {
   try {
     console.log('Starting user image upload process.', req.file);
 
@@ -51,19 +51,17 @@ const userImgUpload= async(req, res)=> {
     const user = req.user;  
     const collection = db.collection('users');
 
-    if (req.files) { 
-      const headshotPath = `/images/userHeadshots/${user._id}`;
+    if (req.files && req.files.userImg) { 
+      const uploadedFile = req.files.userImg[0]; // Get the first file in the userImg array
+      const filenameWithExtension = uploadedFile.filename; // This should have the extension
+      const headshotPath = `/images/userHeadshots/${filenameWithExtension}`;
       console.log('Headshot path:', headshotPath);
 
-     const result =  await collection.updateOne(
+      const result = await collection.updateOne(
         { _id: user._id },
-        {
-          $set: {
-            userImg: headshotPath,
-          },
-        }
+        { $set: { userImg: headshotPath } }
       );
-console.log(result)
+      console.log(result);
       console.log('Headshot updated successfully in the database.');
       req.flash('message', 'Headshot updated successfully.');
     } else {
@@ -77,7 +75,8 @@ console.log(result)
     req.flash('message', 'An error occurred while updating the headshot.');
     res.redirect('/');
   }
-}
+};
+
 router.post('/userImgUpload', upload, userImgUpload);
 
 router.post('/userDataUpload', userDataUpload)

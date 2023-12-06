@@ -16,16 +16,29 @@
       </div>
       </div>
 
-
-<div class="card">
+      <div id="userSetup"><%- include('./partials/userSetup',{user:user,message:message})%></div>   
+<%if(typeof user=="object" && user){%>
+  <h2>Step 3: Review Your Deisgn</h2>
+  <%}%>
+  <div class="card">
+  <%=card.cardName%>
   <div class="cardFrontFrame">
     <div class="cardImg">
-      <img class="" src="<%= card.cardFront %>" alt="Card Front">
+      <%if(typeof user =='object'&& user.firstName){%>
+        <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+          <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
+        </div>
+        <%}else{%>
+          <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+          </div>
+          <%}%>
+          <img class="" src="<%= card.cardFront %>" alt="Card Front">
       <%if(typeof user =="object" && user.userImg){%>
 
         <div id="headshot_<%= card._id %>" class="headshot">
           
-               <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="<%=user.userImg%>.jpg" alt="Headshot">
+               <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="<%=user.userImg%>" alt="Headshot">
              </div>
         <%}else{%>
           <div id="headshot_<%= card._id %>" class="headshot">
@@ -41,49 +54,118 @@
       <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%= card._id %>">
         <% if (typeof user && user) { %>
           <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-            <div class="font_<%=card.fontName1%>">Chapter:</div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
-            <div class="font_<%=card.fontName1%>">Address:</div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
-            <div class="font_<%=card.fontName1%>">Email:</div><div class="font_<%=card.fontName2%>"><%=user.email%></div> 
-            <div class="font_<%=card.fontName1%>">Phone :</div><div class="font_<%=card.fontName2%>"><%=user.phone%></div> 
-            <div class="font_<%=card.fontName1%>">Birthday:</div><div class="font_<%=card.fontName2%>"><%=user.birthday%></div> 
+            <div class="font_<%=card.fontName1%>">Chapter:</div><div class="font_<%=card.fontName2%>"> <%=user.chapter%></div>
+            <div class="font_<%=card.fontName1%>">Address:</div><div class="font_<%=card.fontName2%>"> <%=user.address%></div> 
+            <div class="font_<%=card.fontName1%>">Email:</div><div class="font_<%=card.fontName2%>"> <%=user.email%></div> 
+            <div class="font_<%=card.fontName1%>">Phone :</div><div class="font_<%=card.fontName2%>"> <%=user.phone%></div> 
+            <div class="font_<%=card.fontName1%>">Birthday:</div><div class="font_<%=card.fontName2%>"> <%=user.birthday%></div> 
      
           </div>
-        <% } else { %>
+          <% } else { %>
           <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-            <div class="font_<%=card.fontName1%>">Chapter: </div><div class="font_<%=card.fontName2%>">Greeley RHS </div>
-            <div class="font_<%=card.fontName1%>"> Address : </div>   <div class="font_<%=card.fontName2%>">Colorado, USA</div> 
-            <div class="font_<%=card.fontName1%>"> Email : </div>  <div class="font_<%=card.fontName2%>">scott@w2marketing.biz</div> 
-            <div class="font_<%=card.fontName1%>"> Phone : </div>   <div class="font_<%=card.fontName2%>">333-456-7890</div> 
-            <div class="font_<%=card.fontName1%>"> Birthdate :</div>    <div class="font_<%=card.fontName2%>">Januaray 1, 2001</div> 
-          
+            <div class="font_<%=card.fontName1%>">Chapter: </div><div class="font_<%=card.fontName2%>"> Greeley RHS</div>
+            <div class="font_<%=card.fontName1%>">Address: </div><div class="font_<%=card.fontName2%>"> Colorado, USA</div> 
+            <div class="font_<%=card.fontName1%>">Email: </div><div class="font_<%=card.fontName2%>"> scott@w2marketing.biz</div> 
+            <div class="font_<%=card.fontName1%>">Phone: </div><div class="font_<%=card.fontName2%>"> 333-456-7890</div> 
+            <div class="font_<%=card.fontName1%>">Birthdate: </div><div class="font_<%=card.fontName2%>"> Januaray 1, 2001</div> 
+            
           </div>
         <% } %>
       </div>
     </div>
   </div>
-
-  <!--i need to make a viewer-->
-  <%let cardNo = card._id%>
-  <select name="package" id="cardPackage_<%= cardNo %>">
-    <option value="100|38.49|34.99">100 for $34.99 (original $38.49)</option>
-    <option value="250|54.99|49.99">250 for $49.99 (original $54.99)</option>
-    <option value="500|76.99|69.99">500 for $69.99 (original $76.99)</option>
-    <option value="1000|87.99|79.99">1000 for $79.99 (original $87.99)</option>
-</select>
-<div><button onclick="addToCart('<%= cardNo %>', '<%= cardNo %>')">Add to Cart</button></div>
-
- 
-  <div><form action="/"method="get"><button type="submit">Browse More</button></form></div>
- <button id="vbCartButton">view cart</button>
+  
 </div>
 
-<div id="filler"></div>  
+<!------------------->
 
-</div>
-<div id="menu"><%- include('./partials/menu',{user:user,message:message})%></div>      
-<div id="cart">  <%- include('./partials/cart',{user:user,message:message})%></div>
-<div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
-</div>
+<%if(typeof user == 'object' && user){%>
+  <h2>Step 4: Approve and Purchase</h2>
+        <button id="approve">Approve Design</button>
+        <!----------->
+        <div id="orderForm">
+            <h2>Next: Select your quantity</h2>
+            <!--i need to make a viewer-->
+            <%let cardNo = card._id%>
+            <div id="cardPackage_<%= cardNo %>" class="cardPackage">
+              <br>  <label>
+                <input type="radio" name="package" value="100|38.49|34.99">
+                100 for $34.99  <del>$38.49</del>
+              </label>
+              <br>   <label>
+              <input type="radio" name="package" value="250|54.99|49.99">
+              250 for $49.99  <del>$54.99</del>
+          </label>
+          <br>   <label>
+            <input type="radio" name="package" value="500|76.99|69.99">
+              500 for $69.99  <del>$76.99</del>
+          </label>
+          <br>   <label>
+              <input type="radio" name="package" value="1000|87.99|79.99">
+              1000 for $79.99  <del>$87.99</del>
+          </label>
+        </div>
+      
+       
+      <button id="checkout">Purchase Now!</button>
+      <button id="approvalCancel">cancel</button>
+      <div><form action="/logout"method="get"><button type="submit">Logout</button></form></div>
+      <!--------------------->
+      
+      <%}else{%>
+        <h2>Please Sign in to PURCHASE</h2>
+        <button id="viewBuyLogin">Sign in</button>
+        <%}%>
+      </div>
+      
+
+
+
+      </div>
+      
+      
+      <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
+      <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
+    </div>
+    <div><form action="/"method="get"><button type="submit">Browse More</button></form></div>
+
+
+<div class="filler"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const orderForm = document.getElementById('orderForm');
+    const approve = document.getElementById('approve');
+    const approvalCancel = document.getElementById('approvalCancel');
+    const approvalGrp = [approve, approvalCancel];
+
+    const handleAnimationEnd = () => {
+        if (orderForm.classList.contains('crunch')) {
+            orderForm.style.display = 'none';
+        }
+        orderForm.classList.remove('crunch', 'expand');
+    };
+
+    approvalGrp.forEach(button => {
+        button.addEventListener('click', function() {
+            if (orderForm.style.display === "block") {
+                orderForm.classList.add('crunch');
+                approve.style.display = "block";
+                approve.style.marginLeft = "8%";
+                approvalCancel.style.display = "none";
+            } else {
+                orderForm.style.display = "block";
+                orderForm.classList.add('expand');
+                approve.style.display = "none";
+                approvalCancel.style.display = "block";
+                approvalCancel.style.marginLeft = "8%";
+            }
+        });
+    });
+
+    orderForm.addEventListener('animationend', handleAnimationEnd);
+  });
+
+
+</script>
+<script src="/javascripts/loader.js"></script>
 </body>
-
-    <script src="/javascripts/loader.js"></script>

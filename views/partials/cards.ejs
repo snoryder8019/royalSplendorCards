@@ -7,13 +7,24 @@
       <%=card.cardName%>
         <div class="cardFrontFrame">
           <div class="cardImg">
-            <img class="" src="<%= card.cardFront %>" alt="Card Front">
-         
-         <%if(typeof user =="object" && user.userImg){%>
-
-          <div id="headshot_<%= card._id %>" class="headshot">
+            <!----------------------------->
+            <%if(typeof user =='object'&& user.firstName){%>
+              <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
+              </div>
+              <%}else{%>
+                <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                  <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+                </div>
+                <%}%>
+              <!----------------------------->
+              <img class="" src="<%= card.cardFront %>" alt="Card Front">
+              
+              <%if(typeof user =="object" && user.userImg){%>
+                
+                <div id="headshot_<%= card._id %>" class="headshot">
             
-                 <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="<%=user.userImg%>.jpg" alt="Headshot">
+                 <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="<%=user.userImg%>" alt="Headshot">
                </div>
           <%}else{%>
             <div id="headshot_<%= card._id %>" class="headshot">
@@ -54,12 +65,9 @@
           </div>
         </div>
    
-        <!--i need to make a viewer-->
-        <%if(typeof user =="object" && user){%>
-        <div><form action="/viewBuy" method="get"><input type="hidden" name="_id" value="<%=card._id%>"><button type="submit">View This Card</button></form></div>
-    <%}else{%>
-      <button id="loginButton">sign in to preview</button>
-      <%}%>
+ 
+        <div><form action="/viewBuy" method="get"><input type="hidden" name="_id" value="<%=card._id%>"><button type="submit">View and Buy</button></form></div>
+  
       
   </div>
     <% } %>

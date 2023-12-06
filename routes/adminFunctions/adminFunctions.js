@@ -63,6 +63,10 @@ const uploadCard = async (req, res) => {
       text0PositionX: 0,
       text0PositionY: 0,
       textColor:"rbg(0,0,0)",
+      font1Size: 12,
+      text1PositionX: 0,
+      text1PositionY: 0,
+      text1Color:"rbg(0,0,0)",
       uploadedBy: req.user.displayName,
       fontName1: fontName1Path4,
       fontName2: fontName2Path4,
@@ -195,10 +199,17 @@ let fontName24 = req.body.fontName2.substring(0, 4);
     updatedCardData.imgScale = req.body.imgScale;
     updatedCardData.imgPositionX = req.body.imgPositionX;
     updatedCardData.imgPositionY = req.body.imgPositionY;
+
     updatedCardData.text0PositionX = req.body.text0PositionX;
     updatedCardData.text0PositionY = req.body.text0PositionY;
     updatedCardData.font0Size = req.body.font0Size; 
     updatedCardData.textColor = req.body.textColor;
+
+    updatedCardData.text1PositionX = req.body.text1PositionX;
+    updatedCardData.text1PositionY = req.body.text1PositionY;
+    updatedCardData.font1Size = req.body.font1Size; 
+    updatedCardData.text1Color = req.body.text1Color;
+
     updatedCardData.cardName = req.body.cardName
 
 

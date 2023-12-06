@@ -107,5 +107,5 @@ document.addEventListener('DOMContentLoaded', function(){
     promoDisplay()
 })
 //promoDisplay();
-cartDisplay();
-cartTotaller();
+//cartDisplay();
+//cartTotaller();

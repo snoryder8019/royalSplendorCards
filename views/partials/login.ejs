@@ -20,11 +20,13 @@
     
     <%}else{%>
         <h2>   sign in options:  </h2>
-    <div class="loginForm">
-        <p><span class="accent">option #1:</span> email and password</p>
-    
-        <form action="/auth/local" method="post">
+        <div class="loginForm">
+            <p><span class="accent">option #1:</span> email and password</p>
+            
+            <form action="/auth/local" method="post">
+            <p>have you registered an email befor you have logged in? <a onclick="registerLarge()">register email here</a>  </p>
           
+            <h2>LOGIN</h2>
                 <label for="email"> email:</label><br>
                 <input type="text" id="email" name="email" required>
          <br>
@@ -36,7 +38,6 @@
             </div>
         </form>
      
-            <p>have you registered an email yet? <a onclick="registerLarge()">register email here</a>  </p>
           
   
     </div>

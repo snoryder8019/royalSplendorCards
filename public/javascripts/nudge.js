@@ -117,5 +117,4 @@ console.log(positionX)
     arrow.querySelector('.fontDownButton').addEventListener('click', () => nudge('textBox', 'fontSizeDown', cardId));
   });
 
-  // Rest of your code here...
 });

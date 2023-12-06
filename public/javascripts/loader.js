@@ -15,6 +15,7 @@ const scriptsToLoad = [
   '/javascripts/controllers/menuControl.js',
   '/javascripts/controllers/buttonControl.js',
   '/javascripts/controllers/cartControl.js',
+  '/javascripts/controllers/approvalFlow.js',
   '/javascripts/fetch/cartFetch.js',
   '/javascripts/warnings.js',
   '/javascripts/exportPDF.js'

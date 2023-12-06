@@ -78,14 +78,14 @@ $regularFontSize:1.8rem;
 $buttonFontSize:1.4rem;
 $mediumFontSize:2rem;
 $largeFontSize:3rem;
-$inputFontSize:1.4rem;
-$labelFontSize:1.7rem;
-$inputSubmitFontSize:1.5rem;
-$inputLabelFontSize:2.5rem;
 $avatarFontSize:1.5rem;
 $menuInitialsFontSize:2.8rem;
 $menuInitialsWeight:800;
 $accentFontFamily:$weat;
+$inputLabelFontSize:2.5rem;
+$inputSubmitFontSize:1.5rem;
+$inputFontSize:1.3rem;
+$labelFontSize:1.2rem;
 
 //font DIVs
 .font{
@@ -212,7 +212,7 @@ button {
 }
 @keyframes slideUpLogin {
   0% { transform: translateY(200%); opacity: 0; }
-  100% { transform: translateY(5%); opacity: 1; }
+  100% { transform: translateY(0%); opacity: 1; }
 }
 @keyframes slideUpAvatar {
   0% { transform: translateY(200%); opacity: 0; }
@@ -238,7 +238,7 @@ $headerDeskHeight:250px;
   margin: 3%;
   color: $accentFontColor;
   font-family: $accentFontFamily;
-  font-size: $largeFontSize;
+  font-size: $regularFontSize;
 }
 .header{
   width: 100%;
@@ -274,7 +274,7 @@ display: block;
   bottom: 10%;
   left: 0;
   width: 100%;
-  animation: flash 3s ease-in-out 0 4;
+  animation: flash 3s ease-in-out 4 1s;
 }
 
 // Card Styles
@@ -314,22 +314,24 @@ $cardDimention:308px;
  margin-left:50%;
   margin-top: 10%;
  transform: translateX(-50%);
-
+ transform-style: preserve-3d;
+ transition-timing-function: ease-out;
+ transition-duration: .6s;
   padding: 20px;
 }
 .cardHead::before{
 border-top: 5px solid $primaryBorderColor;
 }
 .card label, input[type="text"], input[type="password"] {
-  margin-top: 10px;
-  width: 99%;
- // margin-left: 50%;
+  margin-top: 2px;
+  width: 94%;
+  margin-left: 2%;
  // transform: translateX(-50%);
-  height: 32px;
+  height: 30px;
   font-size: $inputFontSize;
   font-weight: 200;
   padding: 1%;
-  margin-bottom:5%;
+  margin-bottom:2px;
 }
 .card-container p,.card-container input, label{
   font-size: $labelFontSize;
@@ -339,9 +341,9 @@ border-top: 5px solid $primaryBorderColor;
 input[type="submit"], select , input[type="file"],input[type="email"] {
   background-color: $secondaryBackgroundColor;
   color: $secondaryFontColor;
-  width: 90%;
+  width: 94%;
   // padding: 10px 20px;
-  margin: 2%;
+  margin-left: 2%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -473,21 +475,22 @@ width: 30%;
 }
 #login, #register{
   overflow-y: auto;
-  max-height: 70%;
+ height: 100%;
   font-size: $regularFontSize;
-  width: 84%;
-  margin-left: 3%;
+  width: 100%;
+ // margin-left: 3%;
   display:none;
   position: fixed;
-  top: 2%;
+  top: 0%;
 //margin-bottom:12%;
 z-index: 100;
-  transform: translateY(5%);
-@include divBorder;
+  transform: translateY(0%);
+background-color: white;
+border: 1px solid black;
     //animation depenancies
     transition-timing-function: ease-in-out;
     transform-style: preserve-3d;
-    box-shadow: 2px 2px $secondaryShadowColor;
+
     animation: 2s 0s 1 slideUpLogin;
  
   @media (min-width:$screenQueryReg) {
@@ -648,9 +651,7 @@ $avatarDimention:90px;
     font-size: 1.2rem;
     text-align: center;
   }
- tr:nth-of-type(){
-    background-color: rgba(128, 128, 128, 0.141);
-  }
+
   }
 .cardDetails{
 
@@ -661,4 +662,25 @@ $avatarDimention:90px;
   background-repeat: no-repeat;
   background-position: center;
   min-width: 55px;
+}
+@keyframes expand {
+  0%{transform:scale(0)}
+  100%{transform: scale(1);}
+}
+#orderForm, #approvalCancel{
+  display: none;
+ margin-left: 0%;
+}
+#orderForm{
+  border: 1px dotted $red;
+}
+.crunch{
+  transform-style: preserve-3d;
+  animation: expand .6s ease-in-out 0s 1 reverse;
+
+}
+.expand{
+  transform-style: preserve-3d;
+  animation: expand .6s ease-in-out 0s 1;
+
 }

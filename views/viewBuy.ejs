@@ -2,9 +2,10 @@
 
 <head> 
   <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>view and buy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <title>view and buy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=<%=config.companyPaypal%>&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
   </head>
   <body>      
     
@@ -81,7 +82,7 @@
 
 <%if(typeof user == 'object' && user){%>
   <h2>Step 4: Approve and Purchase</h2>
-        <button id="approve">Approve Design</button>
+        <button custom-type="approve" id="approve">Approve Design</button>
         <!----------->
         <div id="orderForm">
             <h2>Next: Select your quantity</h2>
@@ -89,46 +90,132 @@
             <%let cardNo = card._id%>
             <div id="cardPackage_<%= cardNo %>" class="cardPackage">
               <br>  <label>
-                <input type="radio" name="package" value="100|38.49|34.99">
+                <input type="radio" name="package" value="34.99">
                 100 for $34.99  <del>$38.49</del>
               </label>
               <br>   <label>
-              <input type="radio" name="package" value="250|54.99|49.99">
+              <input type="radio" name="package" value="49.99">
               250 for $49.99  <del>$54.99</del>
           </label>
           <br>   <label>
-            <input type="radio" name="package" value="500|76.99|69.99">
+            <input type="radio" name="package" value="69.99">
               500 for $69.99  <del>$76.99</del>
           </label>
           <br>   <label>
-              <input type="radio" name="package" value="1000|87.99|79.99">
+              <input type="radio" name="package" value="79.99">
               1000 for $79.99  <del>$87.99</del>
           </label>
         </div>
       
-       
-      <button id="checkout">Purchase Now!</button>
-      <button id="approvalCancel">cancel</button>
-      <div><form action="/logout"method="get"><button type="submit">Logout</button></form></div>
-      <!--------------------->
-      
+        
+        <button custom-type="approve" id="checkout">Complete Purchase</button>
+        
+        
+        <button custom-type="cancel" id="approvalCancel">Cancel Selection</button>
+        <!--------------------->
+        
+        
+        
+      </div>
       <%}else{%>
         <h2>Please Sign in to PURCHASE</h2>
         <button id="viewBuyLogin">Sign in</button>
-        <%}%>
       </div>
-      
-
-
-
-      </div>
+      <%}%>
       
       
-      <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
-      <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
+      
+      
     </div>
-    <div><form action="/"method="get"><button type="submit">Browse More</button></form></div>
+    
+    
+    <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
+    <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
+  </div>
+  
+  <div id="ppalSDK">
+    <%let baseShipping = config.baseShipping%>
+    <%let baseTransaction = config.baseTransaction%>
+    <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
+    <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="<%=baseTransaction%>">
+    
+    <input id="ppalSDKTotal" type="hidden" name="ppalSDKTotal">
+    <h3>Payment Summary:</h3>
+    <h4 id="paypalFinalPrice">
+      
+      
+      
+    </h4>
+    <h2>Pay with any of the four options:</h2>
+    <div id="paypal-button-container"></div>
+    <button custom-type="cancel" id="paypalCancel">Cancel Purchase</button>
+  </div>
+  <!-- Sample PayPal credentials (client-id) are included -->
+  <script>
+    const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');
+const warningButtons = document.querySelectorAll('[custom-type="warning"]');
 
+
+    let purchaseTotal=0
+    const paypalButtonsComponent = paypal.Buttons({
+      // optional styling for buttons
+      // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
+      style: {
+        color: "white",
+        shape: "rect",
+        layout: "vertical"
+      },
+      
+      // set up the transaction
+      createOrder: (data, actions) => {
+        // pass in any options from the v2 orders create call:
+        // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
+        const createOrderPayload = {
+          purchase_units: [
+            {
+              amount: {
+                value: purchaseTotal
+              }
+                          }
+                        ]
+                      };
+                      
+                      return actions.order.create(createOrderPayload);
+                    },
+                    
+                    // finalize the transaction
+                    onApprove: (data, actions) => {
+                      const captureOrderHandler = (details) => {
+                    //    const payerName = details.payer.name.given_name;
+                        const confirmationId = details.id; 
+
+// Payer's Full Name
+const payerName = `${details.payer.name.given_name} ${details.payer.name.surname}`;
+
+// Shipping Address
+const shippingAddress = details.purchase_units[0].shipping.address;
+
+                        console.log(`Transaction completed: ${payerName}, ${JSON.stringify(shippingAddress)}`);
+                      };
+                      
+                        return actions.order.capture().then(captureOrderHandler);
+                      },
+                      
+                      // handle unrecoverable errors
+                      onError: (err) => {
+                        console.error('An error prevented the buyer from checking out with PayPal');
+                      }
+                    });
+                    
+                    paypalButtonsComponent
+                    .render("#paypal-button-container")
+                    .catch((err) => {
+                      console.error('PayPal Buttons failed to render');
+                    });
+                    </script>
+<!--SOME NAV BUTTONS-->
+<div><form action="/"method="get"><button type="submit">Browse More</button></form></div>
+<div><form action="/logout"method="get"><button type="submit">Logout</button></form></div>
 
 <div class="filler"></div>
 <script>
@@ -137,35 +224,87 @@
     const approve = document.getElementById('approve');
     const approvalCancel = document.getElementById('approvalCancel');
     const approvalGrp = [approve, approvalCancel];
-
+    
     const handleAnimationEnd = () => {
-        if (orderForm.classList.contains('crunch')) {
-            orderForm.style.display = 'none';
-        }
-        orderForm.classList.remove('crunch', 'expand');
+      if (orderForm.classList.contains('crunch')) {
+        orderForm.style.display = 'none';
+      }
+      orderForm.classList.remove('crunch', 'expand');
     };
 
+    const completeTotal = ()=>{
+      const paypalFinalPrice = document.getElementById('paypalFinalPrice')
+      const ppalSDKShipping= document.getElementById('ppalSDKShipping');
+      const ppalSDKTransFee= document.getElementById('ppalSDKTransFee');
+      const ppallSDKTotal = document.getElementById('ppalSDKTotal')
+      var selectedRadio = document.querySelector('input[type="radio"]:checked');
+
+      const baseShipping = parseFloat(ppalSDKShipping.value);
+      const baseTransaction = parseFloat(ppalSDKTransFee.value);
+      const itemTotal = parseFloat(selectedRadio.value);
+      const totalTransaction = baseShipping + baseTransaction + itemTotal;
+      console.log(`totals for, baseShipping: ${baseShipping}, baseTransaction: ${baseTransaction}, itemTotal: ${itemTotal} final: ${totalTransaction}`)
+    paypalFinalPrice.innerHTML=`<table><thead><th>Item Total</th><th>Shipping</th><th>Transaction Fee</th></thead><tbody><tr><td>$${itemTotal}</td><td>$${baseShipping}</td><td>$${baseTransaction}</td></tr><tr><td></td><td>Total:</td><td><str>$${totalTransaction}</str></td></tr></tbody></table>`;
+    paypalFinalPrice.classList.add('paymentDiv')
+    ppalSDKTotal.value=totalTransaction;
+    purchaseTotal=totalTransaction;
+    }
+
+
+
     approvalGrp.forEach(button => {
-        button.addEventListener('click', function() {
-            if (orderForm.style.display === "block") {
-                orderForm.classList.add('crunch');
-                approve.style.display = "block";
-                approve.style.marginLeft = "8%";
-                approvalCancel.style.display = "none";
-            } else {
-                orderForm.style.display = "block";
-                orderForm.classList.add('expand');
-                approve.style.display = "none";
-                approvalCancel.style.display = "block";
-                approvalCancel.style.marginLeft = "8%";
-            }
-        });
+      button.addEventListener('click', function() {
+        if (orderForm.style.display === "block") {
+          orderForm.classList.add('crunch');
+          approve.style.display = "block";
+          approve.classList.add('expand');
+          approve.style.marginLeft = "8%";
+          approvalCancel.style.display = "none";
+        } else {
+          orderForm.style.display = "block";
+          orderForm.classList.add('expand');
+          approve.style.display = "none";
+          approvalCancel.style.display = "block";
+          approvalCancel.style.marginLeft = "8%";
+        }
+      });
     });
-
     orderForm.addEventListener('animationend', handleAnimationEnd);
-  });
-
-
+    
+    
+    
+    
+    const ppalDiv = document.getElementById('ppalSDK');
+    const checkoutFinal= document.getElementById('checkout');
+    const paypalCancel= document.getElementById('paypalCancel');
+    const checkoutGrp = [checkoutFinal,paypalCancel]
+    checkoutGrp.forEach(button => {
+      button.addEventListener('click',function(){
+        if(ppalDiv.style.display=='block'){
+          ppalDiv.style.display='none';
+          ppalDiv.classList.add('crunch');
+          paypalCancel.style.display="none"
+          orderForm.style.display = "block";
+          orderForm.classList.add('expand');
+          approve.style.display = "none";
+          approvalCancel.style.display = "block";
+          approvalCancel.style.marginLeft = "8%";
+          
+        }else{
+          completeTotal()
+          ppalDiv.style.display='block';
+          orderForm.style.display='none';
+          ppalDiv.classList.add('expand');
+          paypalCancel.style.marginLeft = "8%";
+          paypalCancel.style.display="block"
+        }
+        orderForm.classList.add('expand');
+        console.log('hey....check me out!!')
+      })
+    })
+  })
+  ppalDiv.addEventListener('animationend', handleAnimationEnd);
+  
 </script>
 <script src="/javascripts/loader.js"></script>
 </body>

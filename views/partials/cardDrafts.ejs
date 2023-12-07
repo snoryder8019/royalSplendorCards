@@ -33,11 +33,11 @@
               <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%=card._id%>">
                 <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
               
-                  <div class="font_<%=card.fontName1%>">Chapter:</div><div class="font_<%=card.fontName2%>">Greeley RHS</div>
-                  <div class="font_<%=card.fontName1%>">Address:</div><div class="font_<%=card.fontName2%>">Colorado, USA</div> 
-                  <div class="font_<%=card.fontName1%>">Email:</div><div class="font_<%=card.fontName2%>">scott@w2marketing.biz</div> 
-                  <div class="font_<%=card.fontName1%>">Phone:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
-                  <div class="font_<%=card.fontName1%>">Birthdate:</div><div class="font_<%=card.fontName2%>">Januaray 1, 2001</div> 
+                  <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Greeley RHS</div>
+                  <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>">Colorado, USA</div> 
+                  <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>">scott@w2marketing.biz</div> 
+                  <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
+                  <div class="font_<%=card.fontName1%>">Birth</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1, 2001</div> 
                 
                 </div>                
               </div>              
@@ -69,17 +69,22 @@
       
 
           <label for="fontName1">Main Font:<%=card.fontName1%></label>
-          <select name="fontName1" id="fontName1">
-            <% fonts.forEach(function(font) { %>
-              <option value="<%= font %>" <%= font === card.fontName1 ? 'selected' : '' %>><%= font %></option>
-            <% }); %>
-          </select>
-          <label for="fontName2">Secondary Font:<%=card.fontName2%></label>
-          <select name="fontName2" id="fontName2">
-            <% fonts.forEach(function(font) { %>
-              <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
-            <% }); %>
-          </select> 
+      <!-- Primary Font Select -->
+<label for="fontName1">Primary Font: <%= card.fontName1 %></label>
+<select name="fontName1" id="fontName1">
+  <% fonts.forEach(function(font) { %>
+    <option value="<%= font %>" <%= font === card.fontName1 ? 'selected' : '' %>><%= font %></option>
+  <% }); %>
+</select>
+
+<!-- Secondary Font Select -->
+<label for="fontName2">Secondary Font: <%= card.fontName2 %></label>
+<select name="fontName2" id="fontName2">
+  <% fonts.forEach(function(font) { %>
+    <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
+  <% }); %>
+</select>
+
       
           
           <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>

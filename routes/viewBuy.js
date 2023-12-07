@@ -11,7 +11,7 @@ const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard, publis
 const { ObjectId } = require('mongodb');
 const {addToCart,deleteFromCart,fetchCart} = require('./cartFunctions/cartFunctions')
 const {createOrder, getOrderDetails, returnPaypalSuccess, getCheckoutAwaiting} = require('../plugins/paypal/paypalFunctions');
-
+const config = require('../config/config')
 
 router.get(('/'),async(req,res)=>{
     console.log(req.query._id)
@@ -23,12 +23,15 @@ router.get(('/'),async(req,res)=>{
    
     const user = req.user
     //await collection.updateOne({"_id": id}, {$inc: {"views": 1}});
+////////////////////
 
+////////////////////
     res.render('viewBuy',{
     user: user, 
     message: req.flash('message'),
     card:card,  // Pass allCards to your EJS template
-    fonts:fonts 
+    fonts:fonts ,
+    config:config
 })
 })
 

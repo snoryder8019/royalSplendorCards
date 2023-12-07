@@ -13,10 +13,13 @@ $purple: #450b5a;
 $purpleShadow: rgba(61, 0, 61, 0.481);
 //RED
 $red: #932432;
-$redShadow: rgba(234, 20, 20, 0.701);
+$redShadow: rgba(234, 20, 20, 0.276);
 //BLUE
 $blue:rgb(26, 26, 164);
 $blueShadow:rgb(0, 0, 165);
+//GREEN
+$green:green;
+$greenShadow:rgba(0, 128, 0, 0.183);
 //BLACKS
 $black:black;
 $blackShadow:rgba(0, 0, 0, 0.197);
@@ -39,12 +42,25 @@ $secondaryBorderColor:$red;
 $primaryShadowColor:$black;
 $secondaryShadowColor:$redShadow;
 ////////////////////////
+$warningBkgrd:$redShadow;
+$warningText:$redShadow;
+$approveBkgrd:$greenShadow;
+$approveText:lightGreen;
+/// 
+/// 
+///
+/// 
+/// 
 //Font Variables
 $maph: "mayphylla";
 $weat: "sunday";
 $aqua: "aquarelle";
 $back: "backlash";
-$mini: "MinonPro";
+$mini: "minonPro";
+$mont:"montserrat";
+$sati:"satisfy";
+$time:"times";
+$dark:"darker";
 //TYPEFACES
 $primaryFontColor:$black;
 $secondaryFontColor:$white;
@@ -70,6 +86,23 @@ $accentFontColor:$red;
   font-family: $mini;
   src: url('/fonts/MinionPro-SemiBold.otf');
 }
+@font-face {
+  font-family: $mont;
+  src: url('/fonts/Montserrat-Medium.ttf');
+}
+@font-face {
+  font-family: $sati;
+  src: url('/fonts/Satify-Regular.ttf');
+}
+@font-face {
+  font-family: $time;
+  src: url('/fonts/Times New Roman.ttf');
+}
+@font-face {
+  font-family: $dark;
+  src: url('/fonts/DarkerGrotesque-Light.ttf');
+}
+
 
 $primaryFontFamily:$mini;
 $smallFontSize:1.2rem;
@@ -94,6 +127,8 @@ $labelFontSize:1.2rem;
   &_maph{font-family:$maph}
   &_back{font-family:$back;}
   &_mini{font-family:$mini;}
+  &_mont{font-family:$mont;}
+  &_sati{font-family:$sati;}
 }
 .fontType::first-letter{
     font-size: 3rem;
@@ -155,6 +190,9 @@ body {
   padding: 0;
 }
 #main{
+//   transform-style: preserve-3d;
+// transition-timing-function: ease-in-out;
+// transition-duration: .4s;
   @media (min-width:$screenQueryReg) {
 
   }
@@ -188,8 +226,8 @@ button {
   width: 84%;
   height:42px;
   border-radius: 5px;
- margin:3%;
- margin-top: 5%;
+ margin:1%;
+
   border: 5px solid $secondaryBorderColor;
   font-size: $buttonFontSize;
   color: $primaryFontColor;
@@ -387,12 +425,15 @@ input[type="submit"]:hover {
 max-width: 78%;
 z-index: -1;
 display: grid;
-grid-template-columns: 1fr 2fr;
+grid-template-columns: 2fr 1fr 3fr;
 text-align: left;
+align-items: center;
 overflow-x:unset;
+
 }
 .textBox{
-max-width:78%
+max-width:78%;
+
 }
 .dynoData{
 
@@ -683,4 +724,29 @@ $avatarDimention:90px;
   transform-style: preserve-3d;
   animation: expand .6s ease-in-out 0s 1;
 
+}
+#ppalSDK{
+  display: none;
+  width: 96%;
+  margin-left: 2%;
+}
+.paymentDiv{
+  width:100%;
+  border:3px solid $red;
+  table{
+    width: 100%;
+  }
+}
+
+button[custom-type="cancel"]:hover{
+  transform-style: preserve-3d;
+  transition-duration: .4s;
+  transition-timing-function: ease-in-out;
+background-color: $warningBkgrd;
+}
+button[custom-type="approve"]:hover{
+  transform-style: preserve-3d;
+  transition-duration: .4s;
+  transition-timing-function: ease-in-out;
+background-color: $approveBkgrd;
 }

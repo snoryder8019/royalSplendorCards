@@ -13,7 +13,7 @@
                     <input type="hidden" name="email" id="cardemail" value="<%= user.email %>">
                    <label>phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
                      <label>birthday</label>  <br> <input type="text" name="birthday" id="cardbirthday" value="<%= user.birthday ? user.birthday : 'add your birthday' %>"><br>
-                    <label>up close</label>   <br> <input type="text" name="upClose" id="cardupClose" value="<%= user.upClose || 'add your upClose' %>"><br>
+              
                         
                         <button type="submit">submit</button>
                     </div>
@@ -24,7 +24,7 @@
                 <%if(user.userImg){%>
                     <h2>Step 2: Complete!</h2>
                       
-                        <h4 style="margin-bottom: 1px;">your current headshot. You may add anew one if you'd like.</h4>
+                        <h4 style="margin-bottom: 1px;">You may replace your image with a different one if you'd like.</h4>
                         <img style="width: 125px; " class="headshot" src="<%=user.userImg%>" alt="Headshot">
                         <%}else{%>
                             <h2>Step 2: Add your Headshot to view your custom cards.</h2>

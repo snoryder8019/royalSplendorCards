@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { connect } = require('./mongo/mongo');  // MongoDB connection logic
-// Establish MongoDB connection
-connect().catch(err => console.error("Failed to connect to MongoDB:", err));
 
-// Other plugin logic...
+connect().catch(err => console.error("Failed to connect to MongoDB:", err));
+const checkouts = require('./paypal/webhooks/orders')
 
 
 const stripeRoutes = require('./stripe');
-
+router.post('/checkouts', checkouts);
 router.use('/stripe', stripeRoutes);
 
 

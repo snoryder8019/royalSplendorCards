@@ -10,6 +10,9 @@ const config =
     //**********
     //custom changes below
     "title":"RHS - TRADING CARDS",
-    "headline":"Red Hats Society ~ Trading Cards"
+    "headline":"Red Hats Society ~ Trading Cards",
+    "companyPaypal":process.env.PPAL_CID,
+    "baseShipping":"9.00",
+    "baseTransaction":"1.00"
 }
 module.exports = config

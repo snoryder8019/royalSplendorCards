@@ -180,7 +180,7 @@ const warningButtons = document.querySelectorAll('[custom-type="warning"]');
                 value: purchaseTotal
               },
               custom_id:userId,
-              package:selectedRadio.innerHTML
+              package:package
                           }
                         ]
                       };
@@ -254,6 +254,7 @@ const shippingAddress = details.purchase_units[0].shipping.address;
     paypalFinalPrice.classList.add('paymentDiv')
     ppalSDKTotal.value=totalTransaction;
     purchaseTotal=totalTransaction;
+    package=selectedRadio.innerHTML
     }
 
 

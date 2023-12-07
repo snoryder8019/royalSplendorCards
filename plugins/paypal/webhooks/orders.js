@@ -9,7 +9,7 @@ const checkouts = async (req, res) => {
         console.log('Webhook event received:', req.body);
         const customId = req.body.resource.purchase_units[0].custom_id;
     
-        const status = req.body.resourse.status;
+        const status = req.body.resource.status;
         const package = req.body.resource.purchase_units[0].package
         console.log('Webhook event parsed by scott:', 'custom id: ',customId,'package: ',package, 'status:', status);
 

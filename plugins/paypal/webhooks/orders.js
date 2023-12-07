@@ -8,7 +8,7 @@ const checkouts = async (req, res) => {
         // Handle the webhook event here
         console.log('Webhook event received:', req.body);
         const customId = req.body.resource.purchase_units[0].custom_id;
-        console.log('Webhook event parsed by scott:', 'custom id: ',custom_id);
+        console.log('Webhook event parsed by scott:', 'custom id: ',customId);
 
         // Process the received data
         // For example, updating a database, sending notifications, etc.

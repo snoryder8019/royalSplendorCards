@@ -138,6 +138,7 @@
     <%let baseTransaction = config.baseTransaction%>
     <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
     <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="<%=baseTransaction%>">
+    <input id="ppalUserId" type="hidden" name="userId" value="<%=user._id%>">
     
     <input id="ppalSDKTotal" type="hidden" name="ppalSDKTotal">
     <h3>Payment Summary:</h3>
@@ -156,7 +157,9 @@
 const warningButtons = document.querySelectorAll('[custom-type="warning"]');
 
 
-    let purchaseTotal=0
+    let purchaseTotal=0;
+    let userId;
+    let package;
     const paypalButtonsComponent = paypal.Buttons({
       // optional styling for buttons
       // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
@@ -176,8 +179,8 @@ const warningButtons = document.querySelectorAll('[custom-type="warning"]');
               amount: {
                 value: purchaseTotal
               },
-              custom_id:"0002scotty",
-              custom_id2:"0004scotty"
+              custom_id:userId,
+              package:selectedRadio.innerHTML
                           }
                         ]
                       };
@@ -239,8 +242,9 @@ const shippingAddress = details.purchase_units[0].shipping.address;
       const ppalSDKShipping= document.getElementById('ppalSDKShipping');
       const ppalSDKTransFee= document.getElementById('ppalSDKTransFee');
       const ppallSDKTotal = document.getElementById('ppalSDKTotal')
+      const ppalUserId = document.getElementById('ppalUserId')
       var selectedRadio = document.querySelector('input[type="radio"]:checked');
-
+      const userId = ppalUserId.value;
       const baseShipping = parseFloat(ppalSDKShipping.value);
       const baseTransaction = parseFloat(ppalSDKTransFee.value);
       const itemTotal = parseFloat(selectedRadio.value);

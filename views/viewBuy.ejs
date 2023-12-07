@@ -244,17 +244,18 @@ const shippingAddress = details.purchase_units[0].shipping.address;
       const ppallSDKTotal = document.getElementById('ppalSDKTotal')
       const ppalUserId = document.getElementById('ppalUserId')
       var selectedRadio = document.querySelector('input[type="radio"]:checked');
-      const userId = ppalUserId.value;
       const baseShipping = parseFloat(ppalSDKShipping.value);
       const baseTransaction = parseFloat(ppalSDKTransFee.value);
       const itemTotal = parseFloat(selectedRadio.value);
       const totalTransaction = baseShipping + baseTransaction + itemTotal;
       console.log(`totals for, baseShipping: ${baseShipping}, baseTransaction: ${baseTransaction}, itemTotal: ${itemTotal} final: ${totalTransaction}`)
-    paypalFinalPrice.innerHTML=`<table><thead><th>Item Total</th><th>Shipping</th><th>Transaction Fee</th></thead><tbody><tr><td>$${itemTotal}</td><td>$${baseShipping}</td><td>$${baseTransaction}</td></tr><tr><td></td><td>Total:</td><td><str>$${totalTransaction}</str></td></tr></tbody></table>`;
-    paypalFinalPrice.classList.add('paymentDiv')
-    ppalSDKTotal.value=totalTransaction;
-    purchaseTotal=totalTransaction;
-    package=selectedRadio.innerHTML
+      paypalFinalPrice.innerHTML=`<table><thead><th>Item Total</th><th>Shipping</th><th>Transaction Fee</th></thead><tbody><tr><td>$${itemTotal}</td><td>$${baseShipping}</td><td>$${baseTransaction}</td></tr><tr><td></td><td>Total:</td><td><str>$${totalTransaction}</str></td></tr></tbody></table>`;
+      paypalFinalPrice.classList.add('paymentDiv')
+      ppalSDKTotal.value=totalTransaction;
+      purchaseTotal=totalTransaction;
+      package=selectedRadio.innerHTML;
+      userId = ppalUserId.value;
+    
     }
 
 

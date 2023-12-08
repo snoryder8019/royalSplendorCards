@@ -297,7 +297,7 @@ input[type=submit], select, input[type=file], input[type=email] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
 }
 
 input[type=submit]:hover {

@@ -205,7 +205,7 @@ const payerName = `${details.payer.name.given_name} ${details.payer.name.surname
 const shippingAddress = details.purchase_units[0].shipping.address;
 
                         console.log(`Transaction completed: ${payerName}, ${JSON.stringify(shippingAddress)}`);
-                   capturePendingOrder(details.id)
+                //   capturePendingOrder(confirmationId)
                       };
                       
                         return actions.order.capture().then(captureOrderHandler);
@@ -254,7 +254,7 @@ const shippingAddress = details.purchase_units[0].shipping.address;
       const itemTotal = parseFloat(selectedRadio.value);
       const totalTransaction = baseShipping + baseTransaction + itemTotal;
       console.log(`totals for, baseShipping: ${baseShipping}, baseTransaction: ${baseTransaction}, itemTotal: ${itemTotal} final: ${totalTransaction}`)
-      paypalFinalPrice.innerHTML=`<table><thead><th>Item Total</th><th>Shipping</th><th>Transaction Fee</th></thead><tbody><tr><td>$${itemTotal}</td><td>$${baseShipping}</td><td>$${baseTransaction}</td></tr><tr><td></td><td>Total:</td><td><str>$${totalTransaction}</str></td></tr></tbody></table>`;
+      paypalFinalPrice.innerHTML=`<table><thead><th>Item Total</th><th>Shipping</th><th>Transaction Fee</th></thead><tbody><tr><td>$${itemTotal}</td><td>$${baseShipping}.00</td><td>$${baseTransaction}.00</td></tr><tr><td></td><td>Total:</td><td><str>$${totalTransaction}</str></td></tr></tbody></table>`;
       paypalFinalPrice.classList.add('paymentDiv')
       ppalSDKTotal.value=totalTransaction;
       purchaseTotal=totalTransaction;

@@ -10,8 +10,9 @@ const checkouts = async (req, res) => {
         const customId = req.body.resource.purchase_units[0].custom_id;
     
         const status = req.body.resource.status;
+        const eventId = req.body.resource.id;
         const package = req.body.resource.purchase_units[0].package
-        console.log('Webhook event parsed by scott:', 'custom id: ',customId,'package: ',package, 'status:', status);
+        console.log('Webhook event parsed by scott:', 'custom id: ',customId,'package: ',package, 'status:', status, 'eventId:', eventId);
 
         // Process the received data
         // For example, updating a database, sending notifications, etc.
@@ -24,6 +25,8 @@ const checkouts = async (req, res) => {
     }
 };
 
-
-
-module.exports = checkouts;
+const pendingOrders = async (req,res) =>{
+console.log(details)
+res.status(200)
+}
+module.exports = {checkouts, pendingOrders};

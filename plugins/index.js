@@ -3,11 +3,11 @@ const router = express.Router();
 const { connect } = require('./mongo/mongo');  // MongoDB connection logic
 
 connect().catch(err => console.error("Failed to connect to MongoDB:", err));
-const checkouts = require('./paypal/webhooks/orders')
+//const checkouts = require('./paypal/webhooks/orders')
 
 
 const stripeRoutes = require('./stripe');
-router.post('/checkouts', checkouts);
+//router.post('/checkouts', checkouts);
 router.use('/stripe', stripeRoutes);
 
 

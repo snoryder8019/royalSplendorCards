@@ -1,9 +1,11 @@
 const express = require('express');
-const checkouts = require('/webhooks/orders');
+const router = express.Router();
+const {checkouts,pendingOrders} = require('./webhooks/orders');
 
 
 router.post('/checkouts', checkouts);
+router.get('/pendingOrders', pendingOrders);
 //  PayPal Webhooks
-router.use('/checkouts', checkouts);
+
 
 module.exports = router;

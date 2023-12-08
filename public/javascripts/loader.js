@@ -17,6 +17,7 @@ const scriptsToLoad = [
   '/javascripts/controllers/cartControl.js',
   '/javascripts/controllers/approvalFlow.js',
   '/javascripts/fetch/cartFetch.js',
+  '/javascripts/fetch/paypalFetch.js',
   '/javascripts/warnings.js',
   '/javascripts/exportPDF.js'
   //'/javascripts/cssColors.js',

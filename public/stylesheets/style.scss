@@ -84,7 +84,7 @@ $accentFontColor:$red;
 }
 @font-face {
   font-family: $mini;
-  src: url('/fonts/MinionPro-SemiBold.otf');
+  src: url('/fonts/MinionPro-Semibold.otf');
 }
 @font-face {
   font-family: $mont;
@@ -217,7 +217,7 @@ li{
 }
 p{
   font-size: $smallFontSize;
-  padding: 2%;
+  //padding: 2%;
   @media (min-width:$screenQueryReg) {
   //  @include regMedia()
     }
@@ -225,10 +225,10 @@ p{
 button {
   width: 84%;
   height:42px;
+  margin:1%;
   border-radius: 5px;
- margin:1%;
-
   border: 5px solid $secondaryBorderColor;
+  
   font-size: $buttonFontSize;
   color: $primaryFontColor;
   font-family: $primaryFontFamily;
@@ -517,7 +517,7 @@ width: 30%;
 #login, #register{
   overflow-y: auto;
  height: 100%;
-  font-size: $regularFontSize;
+  font-size: $smallFontSize;
   width: 100%;
  // margin-left: 3%;
   display:none;
@@ -540,17 +540,26 @@ border: 1px solid black;
   }
 }
 .oneTouchLogin{
-  border:2px solid $primaryBorderColor;
-  //margin: 2%;
+  width: 84%;
+  height:37px;
+  //margin:1%;
+  border-radius: 5px;
+  border: 5px solid $secondaryBorderColor;
+  margin-left: 6%;
+ 
   img{
-    width: 70px;
+    width: 40px;
     border: none;
   }
 }
 .loginForm{
- // border:1px solid black;
+  border-radius: 5px;
+ border:3px solid $red;
   box-shadow: 5px 5px 25px $secondaryShadowColor;
   overflow-y: scroll;
+  width: 92%;
+  margin: 4%;
+  padding: 2px;
 }
 #menu {
   position: fixed;

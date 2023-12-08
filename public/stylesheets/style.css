@@ -16,7 +16,7 @@
 }
 @font-face {
   font-family: "minonPro";
-  src: url("/fonts/MinionPro-SemiBold.otf");
+  src: url("/fonts/MinionPro-Semibold.otf");
 }
 @font-face {
   font-family: "montserrat";
@@ -85,13 +85,12 @@ li {
 }
 p {
   font-size: 1.2rem;
-  padding: 2%;
 }
 button {
   width: 84%;
   height: 42px;
-  border-radius: 5px;
   margin: 1%;
+  border-radius: 5px;
   border: 5px solid #932432;
   font-size: 1.4rem;
   color: black;
@@ -436,7 +435,7 @@ input[type=submit]:hover {
 #login, #register {
   overflow-y: auto;
   height: 100%;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   width: 100%;
   display: none;
   position: fixed;
@@ -457,16 +456,25 @@ input[type=submit]:hover {
 }
 
 .oneTouchLogin {
-  border: 2px solid black;
+  width: 84%;
+  height: 37px;
+  border-radius: 5px;
+  border: 5px solid #932432;
+  margin-left: 6%;
 }
 .oneTouchLogin img {
-  width: 70px;
+  width: 40px;
   border: none;
 }
 
 .loginForm {
+  border-radius: 5px;
+  border: 3px solid #932432;
   box-shadow: 5px 5px 25px rgba(234, 20, 20, 0.276);
   overflow-y: scroll;
+  width: 92%;
+  margin: 4%;
+  padding: 2px;
 }
 
 #menu {

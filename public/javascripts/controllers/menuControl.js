@@ -1,62 +1,44 @@
-console.log('menuControl is listeners activated');
+console.log('menuControl listeners activated');
 
-const loginClose = document.getElementById('loginClose');
 const login = document.getElementById('login');
-const loginButton = document.getElementById('loginButton');
-const tinyLogin = document.getElementById('tinyLogin');
-const viewBuyLogin = document.getElementById('viewBuyLogin');
-const avatar = document.getElementById('avatar');
-const loginLink = document.getElementById('loginLink');
 const register = document.getElementById('register');
-const registerButton = document.getElementById('registerButton');
 
-const menuGroup = [login, register];
-const enlargeButtons = [avatar, loginClose, loginButton, viewBuyLogin, loginLink];
+const regClose = document.getElementById('regClose');
 
-function shrinkGroup(group) {
-  for (let i = 0; i < group.length; i++) {
-    if (group[i]) { // Null check
-      console.log('shrink ' + group[i].id);
-      group[i].style.display = "none";
-    }
-  }
-}
+const loginLink = document.getElementById('loginLink');
+const loginViewBuy = document.getElementById('loginViewBuy');
+const regLink = document.getElementById('regLink');
+const regLastLink = document.getElementById('regLastLink');
+const loginClose = document.getElementById('loginClose');
+const loginCloseTiny = document.getElementById('loginCloseTiny');
 
-function enlarge() {
-  shrinkGroup(menuGroup);
-  for (let i = 0; i < enlargeButtons.length; i++) {
-    if (enlargeButtons[i]) { // Null check
-      console.log('enlarge activated on :' + i);
-      enlargeButtons[i].addEventListener('click', () => {
-        if (login && login.style.display === "block") {
-          shrinkGroup(menuGroup[i]);
-        } else {
-          console.log('enlarge else');
-          shrinkGroup(menuGroup[i]);
-          if (login) {
-            login.style.display = 'block';
-          }
-          if(register){
-            register.style.display="block";
-          }
-        }
+// Define a mapping of buttons to their corresponding elements
+const btnGrp = [
+  { button: regClose, element: register },
+  { button: regLastLink, element: register },
+  { button: loginLink, element: login },
+  { button: loginViewBuy, element: login },
+  { button: regLink, element: register },
+  { button: loginClose, element: login },
+  { button: loginCloseTiny, element: login }
+];
+function btnGrouping(){
+  console.log('btnGrpnext')
+
+  console.log('pushypushy1')
+  btnGrp.forEach(pair => {
+    if (pair.button && pair.element) { // Check if elements exist
+      console.log('pushypushy2')
+      pair.button.addEventListener('click', () => {
+        // Toggle the display of the associated element
+      if(pair.element.style.display=="block"){
+        pair.element.style.display="none"
+      }else{
+        pair.element.style.display="block"
+      }
       });
     }
-  }
-}
+  });
 
-function registerLarge() {
- // if (register && login && registerButton) {
-    if (register.style.display === "block") {
-      register.style.display = "none";
-      login.style.display = "block";
-      registerButton.style.display = "block";
-    } else {
-      register.style.display = "block";
-      login.style.display = "none";
-      registerButton.style.display = "none";
-    }
- // }
 }
-
-enlarge();
+btnGrouping()

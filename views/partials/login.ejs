@@ -1,8 +1,8 @@
 
 <!-- Inside ./partials/login.ejs -->
 <!---login button-->
+<%if(typeof user == 'object' && user){%>
 <div class="loginBox">
-    <%if(typeof user == 'object' && user){%>
       <p>     You are logged in as <%=user.firstName%> <%=user.lastName%></p>
       <p>     email <%=user.email%></p>
  
@@ -19,15 +19,15 @@
     
     
     <%}else{%>
-        <h2>   sign in options:  </h2>
+        <h2>   Sign in options:  </h2>
+        <h6 style="margin: 0;padding: 0;transform: translateY(-50%);" id="loginCloseTiny"><a>Close this window</a></h6>
         <div class="loginForm">
-            <p><span class="accent">option #1:</span> email and password</p>
+            <p><span class="accent">Option #1:</span> email and password</p>
             
             <form action="/auth/local" method="post">
-            <p>have you registered an email befor you have logged in? <a onclick="registerLarge()">register email here</a>  </p>
-          
-            <h2>LOGIN</h2>
-                <label for="email"> email:</label><br>
+            <p>*You must register before you login with option #1*</p> <a id="regLastLink">Register email here.</a> 
+        <br>
+                <label for="email"> Email:</label><br>
                 <input type="text" id="email" name="email" required>
          <br>
                 <label for="password"> Password:</label><br>
@@ -45,7 +45,7 @@
    
     
     <div class="loginForm">
-    <p><span class="accent">option #2:</span> register and login with your google account:</p>
+    <p><span class="accent">Option #2:</span> Register and login with your Google account:</p>
   
     
     <a href="./auth/google">

@@ -306,7 +306,9 @@ input[type=submit]:hover {
 }
 
 .textControls button, .imgControls button {
-  width: 45px;
+  width: 30px;
+  height: auto;
+  font-size: 0.6rem;
 }
 
 .cardFrontFrame {
@@ -326,6 +328,10 @@ input[type=submit]:hover {
 
 .cardImg img {
   width: 99%;
+}
+
+.cardImg_vertical img {
+  width: 55%;
 }
 
 .headshot {
@@ -519,6 +525,20 @@ input[type=submit]:hover {
 
 #cardUploadDiv, #draftCards, #uploadFonts {
   display: none;
+}
+
+#draftCards input[type=color] {
+  padding: 0%;
+  margin: 1%;
+  height: 25px;
+  border: 2px solid grey;
+}
+
+#draftCards input[type=text], #draftCards label, #draftCards input[type=file] {
+  font-size: 0.8rem;
+  padding: 0;
+  margin: 1%;
+  height: auto;
 }
 
 #canvas0 {

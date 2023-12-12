@@ -25,47 +25,47 @@ const getFonts = () => {
   const fontDir = path.join(__dirname, '../../public/fonts');
   return fs.readdirSync(fontDir);
 };
-
-
 // ... (existing imports and middleware)
 const uploadCard = async (req, res) => {
   try { 
     const db = getDb();
     const collection = db.collection(`_cards`);
-
     const removePublicFromPath = (filePath) => {
       const newPath = filePath.replace('public', '');
       return newPath;
     };
-
     let cardFrontPath = removePublicFromPath(req.files.cardFront[0].path);
     let cardBackPath = removePublicFromPath(req.files.cardBack[0].path);
-
     // Get the list of available fonts
     const availableFonts = getFonts();
-
     // Match the selected font names with available fonts
     const selectedFontName1 = req.body.fontName1;
     const selectedFontName2 = req.body.fontName2;
-
     const fontName1Path = availableFonts.includes(selectedFontName1) ? `/fonts/${selectedFontName1}` : null;
     const fontName2Path = availableFonts.includes(selectedFontName2) ? `/fonts/${selectedFontName2}` : null;
-    let fontName1Path4 = fontName1Path.substring(0, 4);
-    let fontName2Path4 = fontName2Path.substring(0, 4);
-    
+    let fontName1Path4 = fontName1Path.substring(0, 4).toLowerCase();
+    let fontName2Path4 = fontName2Path.substring(0, 4).toLowerCase();
+    let initiatePos= -100;
     const cardData = {
       cardFront: cardFrontPath,
       cardBack: cardBackPath,
+      //orientation key based on original horizontal design 
+      vertical:false,
       imgScale:1,
-      imgPositionX: 0,
-      imgPositionY: 0,
+      imgPositionX: initiatePos,
+      imgPositionY: initiatePos,
+      imgRotation:0,
       font0Size: 12,
-      text0PositionX: 0,
-      text0PositionY: 0,
+      text0PositionX: initiatePos,
+      text0PositionY: initiatePos,
+      text0Rotation:0,
+   
       textColor:"rbg(0,0,0)",
       font1Size: 12,
-      text1PositionX: 0,
-      text1PositionY: 0,
+      nameStack:false,
+      text1PositionX: initiatePos,
+      text1PositionY: initiatePos,
+      text1Rotation:0,
       text1Color:"rbg(0,0,0)",
       uploadedBy: req.user.displayName,
       fontName1: fontName1Path4,
@@ -74,10 +74,9 @@ const uploadCard = async (req, res) => {
       views: 0,
       likes: 0,
       purchased: 0,
-      cardName:"no Name assigned"
- 
-    };
+      cardName:"no Name assigned",
 
+    };
     await collection.insertOne(cardData);
 
     req.flash('message', 'Card uploaded successfully.');
@@ -209,8 +208,15 @@ let fontName24 = req.body.fontName2.substring(0, 4);
     updatedCardData.text1PositionY = req.body.text1PositionY;
     updatedCardData.font1Size = req.body.font1Size; 
     updatedCardData.text1Color = req.body.text1Color;
+    updatedCardData.cardName = req.body.cardName;
 
-    updatedCardData.cardName = req.body.cardName
+    //newest implimenttaioins
+  
+   updatedCardData.text0Rotation = req.body.text0Rotation;
+   updatedCardData.text1Rotation = req.body.text1Rotation;
+
+    updatedCardData.vertical = req.body.vertical;
+    updatedCardData.nameStack = req.body.nameStack;
 
 
     // Log the updated card data

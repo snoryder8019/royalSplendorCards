@@ -4,12 +4,22 @@
   <% allCards.forEach(function(card) { %>     
         <div class="card">         
           <%=card.cardName%>
-          <p>----------image controls----------</p>      
-          <%- include('controls_img.ejs', { cardId: card._id }) %>      
-          <p>----------name controls----------</p>      
-          <%- include('controls_text2.ejs', { cardId: card._id }) %>      
+          <%- include('controls_img.ejs', { cardId: card._id }) %>    
+          
           <div id="frontFrame_<%card._id%>" class="cardFrontFrame">
-            <div class="cardImg" >
+
+
+            <%if(card.vertical=="false"){%>
+            <div class="cardImg">
+              <%}else{%>
+                <div class="cardImg_vertical">
+              <%}%>
+          
+              
+              
+
+
+              <%if(card.nameStack=="false"){%>
               <%if(typeof user =='object'&& user.firstName){%>
                 <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                   <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
@@ -19,26 +29,56 @@
                     <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
                   </div>
                   <%}%>
-              <img class="" src="<%= card.cardFront %>" alt="Card Front">
-              <div id="headshot_<%= card._id %>" class="headshot">
-                <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
-              </div>
-            </div>
-          </div>      
-          <input type="file" name="cardFrontFile"><br>        
-          <%- include('controls_text.ejs', { cardId: card._id }) %>
+                  <%}%>
+                  
+                  <%if(card.nameStack=="true"){%>
+                    <%if(typeof user =='object'&& user.firstName){%>
+                      <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                        <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
+                      </div>
+                      <%}else{%>
+                        <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                          <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
+                        </div>
+                        <%}%>
+                        
+                        <%}%>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <img class="" src="<%= card.cardFront %>" alt="Card Front">
+                        <div id="headshot_<%= card._id %>" class="headshot">
+                          <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
+                        </div>
+                      </div>
+                    </div>      
+                    <%- include('controls_text2.ejs', { cardId: card._id }) %> 
+                    <input type="file" name="cardFrontFile"><br>        
+                    <%- include('controls_text.ejs', { cardId: card._id }) %>
           <div class="cardBackFrame">
-            <div class="cardImg">
-              <img class="" src="<%= card.cardBack %>" alt="Card Back">
-              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%=card._id%>">
-                <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+
+            <%if(card.vertical=="false"){%>
+              <div class="cardImg">
+                <%}else{%>
+                  <div class="cardImg_vertical">
+                <%}%>
               
+              <img class="" src="<%= card.cardBack %>" alt="Card Back">
+              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%= card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%=card._id%>">
+                <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                  
                   <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Greeley RHS</div>
                   <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>">Colorado, USA</div> 
                   <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>">scott@w2marketing.biz</div> 
                   <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
                   <div class="font_<%=card.fontName1%>">Birth</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1, 2001</div> 
-                
+                  
                 </div>                
               </div>              
               
@@ -46,66 +86,85 @@
           </div>
           <input type="file" name="cardBackFile"><br>
 
-        <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
+          <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
           <input type="hidden" name="cardId" value="<%= card._id %>">
           <input type="text" id="cardName_<%=card._id%>" name="cardName" value="<%=card.cardName%>">
-          <input type="hidden" id="imgScale_<%= card._id %>" name="imgScale" value="<%= card.imgScale %>">
-          <input type="hidden" id="imgPositionX_<%= card._id %>" name="imgPositionX" value="<%= card.imgPositionX %>">
-          <input type="hidden" id="imgPositionY_<%= card._id %>" name="imgPositionY" value="<%= card.imgPositionY %>">
-          <input type="hidden" id="font0Size_<%= card._id %>" name="font0Size" value="<%=card.font0Size%>">
-          <input type="hidden" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
-          <input type="hidden" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
+         <label for="vertical">is vertical</label>
+         <select type="text" id="vertical_<%=card._id%>" name="vertical">
+          <option value="<%=card.vertical%>"><%=card.vertical%></option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <label for="nameStack">is nameStack</label>
+        <select type="text" id="nameStack_<%=card._id%>" name="nameStack">
+          <option value="<%=card.nameStack%>"><%=card.nameStack%></option>
+          <option value="true">true</option>
+          <option value="false">false</option>
+        </select>
+        <label for="text0Rotation">text0Rotation</label>
+          <input type="text" id="text0Rotation_<%= card._id %>" name="text0Rotation" value="<%= card.text0Rotation %>">
+        <label for="text1Rotation">text1Rotation</label>
+        <input type="text" id="text1Rotation_<%= card._id %>" name="text1Rotation" value="<%= card.text1Rotation %>">
+        <input type="hidden" id="imgScale_<%= card._id %>" name="imgScale" value="<%= card.imgScale %>">
+        <input type="hidden" id="imgPositionX_<%= card._id %>" name="imgPositionX" value="<%= card.imgPositionX %>">
+        <input type="hidden" id="imgPositionY_<%= card._id %>" name="imgPositionY" value="<%= card.imgPositionY %>">
+        <input type="hidden" id="imgPositionY_<%= card._id %>" name="imgRotation" value="<%= card.imgRotation %>">
+        <input type="hidden" id="font0Size_<%= card._id %>" name="font0Size" value="<%=card.font0Size%>">
+        <input type="hidden" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
+        <input type="hidden" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
+        
           <label for="textColor">Text Color Info</label>
           <input type="color" id="textColor<%= card._id %>" name="textColor" value="<%= card.textColor %>">
           
           <input type="hidden" id="font1Size_<%= card._id %>" name="font1Size" value="<%=card.font1Size%>">
           <input type="hidden" id="text1PositionX_<%= card._id %>" name="text1PositionX" value="<%= card.text1PositionX %>">
           <input type="hidden" id="text1PositionY_<%= card._id %>" name="text1PositionY" value="<%= card.text1PositionY %>">
+          
           <br>
           <label for="text1Color">Text Color Name</label>
           <input type="color" id="text1Color<%= card._id %>" name="text1Color" value="<%= card.text1Color %>">
           
           <br>
-      
+          
 
           <label for="fontName1">Main Font:<%=card.fontName1%></label>
-      <!-- Primary Font Select -->
-<label for="fontName1">Primary Font: <%= card.fontName1 %></label>
-<select name="fontName1" id="fontName1">
+          <!-- Primary Font Select -->
+          <label for="fontName1">Primary Font: <%= card.fontName1 %></label>
+          <select name="fontName1" id="fontName1">
   <% fonts.forEach(function(font) { %>
     <option value="<%= font %>" <%= font === card.fontName1 ? 'selected' : '' %>><%= font %></option>
-  <% }); %>
-</select>
-
-<!-- Secondary Font Select -->
-<label for="fontName2">Secondary Font: <%= card.fontName2 %></label>
-<select name="fontName2" id="fontName2">
-  <% fonts.forEach(function(font) { %>
-    <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
-  <% }); %>
-</select>
-
-      
-          
-          <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
-          
-          <p>Original Upload By:<%= card.uploadedBy %></p>
-          <input type="submit" value="Update Card">
-        </form>
-        <%if(card.preview=="true"){%>
-          <h3>card is not published</h3>
-          <form action="/admin/publishCard" method="post">
-            <input type="hidden" name="_id" value="<%= card._id %>">
-            <input type="submit" value="Publish Card">
-          </form>
-          <%}%>
-          <%if(card.preview=="false"){%>
-            <h3>card is actively published</h3>
-  <form action="/admin/publishCard" method="post">
-    <input type="hidden" name="_id" value="<%= card._id %>">
-    <input type="submit" value="Un-Publish Card">
+    <% }); %>
+  </select>
+  
+  <!-- Secondary Font Select -->
+  <label for="fontName2">Secondary Font: <%= card.fontName2 %></label>
+  <select name="fontName2" id="fontName2">
+    <% fonts.forEach(function(font) { %>
+      <option value="<%= font %>" <%= font === card.fontName2 ? 'selected' : '' %>><%= font %></option>
+      <% }); %>
+    </select>
+    
+    
+    
+    <input hidden type="text" id="uploadedBy" name="uploadedBy" value="<%= card.uploadedBy %>"><br>
+    
+    <p>Original Upload By:<%= card.uploadedBy %></p>
+    <input type="submit" value="Update Card">
   </form>
-  <%}%>
+  <%if(card.preview=="true"){%>
+    <h3>card is not published</h3>
+    <form action="/admin/publishCard" method="post">
+      <input type="hidden" name="_id" value="<%= card._id %>">
+      <input type="submit" value="Publish Card">
+    </form>
+    <%}%>
+    <%if(card.preview=="false"){%>
+      <h3>card is actively published</h3>
+      <form action="/admin/publishCard" method="post">
+        <input type="hidden" name="_id" value="<%= card._id %>">
+        <input type="submit" value="Un-Publish Card">
+      </form>
+      <%}%>
 
         <input type="submit" class="deleteCardButton" value="delete card">
         <div  class="deleteCardWarning" style="display: none;">

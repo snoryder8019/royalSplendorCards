@@ -4,21 +4,15 @@
   <% allCards.forEach(function(card) { %>     
         <div class="card">         
           <%=card.cardName%>
+
           <%- include('controls_img.ejs', { cardId: card._id }) %>    
           
           <div id="frontFrame_<%card._id%>" class="cardFrontFrame">
-
-
             <%if(card.vertical=="false"){%>
             <div class="cardImg">
               <%}else{%>
                 <div class="cardImg_vertical">
-              <%}%>
-          
-              
-              
-
-
+              <%}%>  
               <%if(card.nameStack=="false"){%>
               <%if(typeof user =='object'&& user.firstName){%>
                 <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
@@ -43,8 +37,7 @@
                         <%}%>
                         
                         <%}%>
-                        
-                        
+                                  
                         
                         
                         

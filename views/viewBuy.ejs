@@ -25,16 +25,35 @@
   <div class="card">
   <%=card.cardName%>
   <div class="cardFrontFrame">
-    <div class="cardImg">
-      <%if(typeof user =='object'&& user.firstName){%>
-        <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-          <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
-        </div>
+    <%if(card.vertical=="false"){%>
+      <div class="cardImg">
         <%}else{%>
+          <div class="cardImg_vertical">
+        <%}%>  
+        <%if(card.nameStack=="false"){%>
+        <%if(typeof user =='object'&& user.firstName){%>
           <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
           </div>
-          <%}%>
+          <%}else{%>
+            <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+              <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+            </div>
+            <%}%>
+            <%}%>
+            
+            <%if(card.nameStack=="true"){%>
+              <%if(typeof user =='object'&& user.firstName){%>
+                <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                  <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
+                </div>
+                <%}else{%>
+                  <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                    <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
+                  </div>
+                  <%}%>
+                  
+                  <%}%>
           <img class="" src="<%= card.cardFront %>" alt="Card Front">
       <%if(typeof user =="object" && user.userImg){%>
 
@@ -51,9 +70,14 @@
     </div>
   </div>
   <div class="cardBackFrame">
-    <div class="cardImg">
+    <%if(card.vertical=="false"){%>
+      <div class="cardImg">
+        <%}else{%>
+          <div class="cardImg_vertical">
+        <%}%>
+      
       <img class="" src="<%= card.cardBack %>" alt="Card Back">
-      <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px);" class="textBox" id="textBox_<%= card._id %>">
+      <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%=card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%= card._id %>">
         <% if (typeof user && user) { %>
           <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
             <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.chapter%></div>

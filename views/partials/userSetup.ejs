@@ -6,6 +6,7 @@
         
         <form action="/userDataUpload"method="post">
             <div class="userData">
+                        <label>title</label><br><input type="text" name="title" id="title" placeholder="<%= user.title || 'add your Title' %>" value="<%= user.title || 'add your title' %>"><br>
                         <label>first name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
                         <label>last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
                         <label>chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>

@@ -110,41 +110,42 @@
         <button custom-type="approve" id="approve">Approve Design</button>
         <!----------->
         <div id="orderForm">
-            <h2>Next: Select your quantity</h2>
-            <!--i need to make a viewer-->
-            <%let cardNo = card._id%>
-            <div id="cardPackage_<%= cardNo %>" class="cardPackage">
-              <br>  <label>
-                <input type="radio" name="package" value="34.99">
-                100 for $34.99  <del>$38.49</del>
-              </label>
-              <br>   <label>
-              <input type="radio" name="package" value="49.99">
-              250 for $49.99  <del>$54.99</del>
-          </label>
-          <br>   <label>
-            <input type="radio" name="package" value="69.99">
-              500 for $69.99  <del>$76.99</del>
-          </label>
-          <br>   <label>
-              <input type="radio" name="package" value="79.99">
-              1000 for $79.99  <del>$87.99</del>
-          </label>
-        </div>
-      
-        
-        <button custom-type="approve" id="checkout">Complete Purchase</button>
-        
-        
-        <button custom-type="cancel" id="approvalCancel">Cancel Selection</button>
-        <!--------------------->
-        
-        
-        
+          <h2>Next: Select your quantity</h2>
+          <%let cardNo = card._id%>
+          <div id="cardPackage_<%= cardNo %>" class="cardPackage">
+              <div class="radio-option">
+                  <label>
+                      <input type="radio" name="package" value="34.99">
+                      100 for $34.99 | <del>$38.49</del>
+                  </label>
+              </div>
+              <div class="radio-option">
+                  <label>
+                      <input type="radio" name="package" value="49.99">
+                      250 for $49.99 | <del>$54.99</del>
+                  </label>
+              </div>
+              <div class="radio-option">
+                  <label>
+                      <input type="radio" name="package" value="69.99">
+                      500 for $69.99 | <del>$76.99</del>
+                  </label>
+              </div>
+              <div class="radio-option">
+                  <label>
+                      <input type="radio" name="package" value="79.99">
+                      1000 for $79.99 | <del>$87.99</del>
+                  </label>
+              </div>
+          </div>
+          
+          <button custom-type="approve" id="checkout">Complete Purchase</button>
+          <button custom-type="cancel" id="approvalCancel">Cancel Selection</button>
       </div>
+      
       <%}else{%>
         <h2>Please Sign in to PURCHASE</h2>
-        <button id="loginViewBuy">Sign in</button>
+        <button custom-type="approve"   id="loginViewBuy">Sign in</button>
       </div>
       <%}%>
       
@@ -248,8 +249,8 @@ const shippingAddress = details.purchase_units[0].shipping.address;
                     });
                     </script>
 <!--SOME NAV BUTTONS-->
-<div><form action="/"method="get"><button type="submit">Browse More</button></form></div>
-<div><form action="/logout"method="get"><button type="submit">Logout</button></form></div>
+<div><form action="/"method="get"><button custom-type="approve"  type="submit">Browse More</button></form></div>
+<div><form action="/logout"method="get"><button custom-type="cancel"  type="submit">Logout</button></form></div>
 
 <div class="filler"></div>
 <script>

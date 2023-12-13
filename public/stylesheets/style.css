@@ -16,23 +16,23 @@
 }
 @font-face {
   font-family: "minonPro";
-  src: url("/fonts/MinionPro-Semibold.otf");
+  src: url("/fonts/minionPro-Semibold.otf");
 }
 @font-face {
   font-family: "montserrat";
-  src: url("/fonts/Montserrat-Medium.ttf");
+  src: url("/fonts/montserrat-Medium.ttf");
 }
 @font-face {
   font-family: "satisfy";
-  src: url("/fonts/Satify-Regular.ttf");
+  src: url("/fonts/satify-Regular.ttf");
 }
 @font-face {
   font-family: "times";
-  src: url("/fonts/Times New Roman.ttf");
+  src: url("/fonts/times New Roman.ttf");
 }
 @font-face {
   font-family: "darker";
-  src: url("/fonts/DarkerGrotesque-Light.ttf");
+  src: url("/fonts/darkerGrotesque-Light.ttf");
 }
 .font_aqua {
   font-family: "aquarelle";
@@ -221,6 +221,29 @@ button {
   animation: flash 3s ease-in-out 4 1s;
 }
 
+.cardPackage {
+  margin-bottom: 4%;
+  width: 100%;
+  align-items: center;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center; /* Aligns items vertically in the center */
+  margin-bottom: 10px; /* Adds some space between each option */
+}
+
+.radio-option label {
+  display: flex;
+  align-items: center; /* Ensures label text is aligned with the radio button */
+  font-size: 1.8rem;
+  margin-left: 15%;
+}
+
+.radio-option input[type=radio] {
+  margin-right: 10px; /* Adds space between the radio button and the label */
+}
+
 .card-container {
   display: block;
   height: 60%;
@@ -298,6 +321,12 @@ input[type=submit], select, input[type=file], input[type=email] {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+}
+
+input[type=file] {
+  font-size: 1.8rem;
+  margin: 2%;
+  border: 3px solid #932432;
 }
 
 input[type=submit]:hover {
@@ -707,7 +736,8 @@ button[custom-type=approve]:hover {
   transform-style: preserve-3d;
   transition-duration: 0.4s;
   transition-timing-function: ease-in-out;
-  background-color: rgba(0, 128, 0, 0.183);
+  background-color: rgba(61, 0, 61, 0.22);
+  color: #450b5a;
 }
 
 /*# sourceMappingURL=style.css.map */

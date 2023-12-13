@@ -6,7 +6,7 @@ const { getDb } = require('../../plugins/mongo/mongo');
 const config = require('../../config/config'); // Import config if you're using it
 const lib = require('../logFunctions/logFunctions')
 const { ObjectId } = require('mongodb');
-const fs = require('fs')
+const fs = require('fs').promises
 const { resizeAndCropImage } = require('../../plugins/sharp/sharp');
 // Function to handle user data upload
 async function userDataUpload(req, res) {
@@ -46,6 +46,8 @@ async function userDataUpload(req, res) {
   }
 }
 // Function to handle user headshot upload
+
+
 const userImgUpload = async (req, res) => {
   try {
     console.log('Starting user image upload process.', req.file);
@@ -54,17 +56,17 @@ const userImgUpload = async (req, res) => {
     const collection = db.collection('users');
 
     if (req.files && req.files.userImg) { 
-      const uploadedFile = req.files.userImg[0]; // Get the first file in the userImg array
-      const filenameWithExtension = uploadedFile.filename; // This should have the extension
-      const headshotPath = `/images/userHeadshots/${filenameWithExtension}`;
-     
-      const resizedImagePath = await resizeAndCropImage(
-        uploadedFile.path,
-        'path/to/resized', // Set the output directory
-        filenameWithExtension
-      );
-  
-      console.log('Headshot path:', headshotPath);
+      const uploadedFile = req.files.userImg[0];
+      const originalFilePath = uploadedFile.path;
+      const fileExtension = path.extname(uploadedFile.filename);
+      
+      // Create a new filename for the processed image
+      const newFilename = `${req.user._id}-resized${fileExtension}`;
+      const outputDirectory = path.join(__dirname, '../../public/images/userHeadshots');
+      const resizedImagePath = await resizeAndCropImage(originalFilePath, outputDirectory, newFilename);
+      await fs.unlink(originalFilePath);
+      // Save the path relative to the 'public' directory
+      const headshotPath = `/images/userHeadshots/${newFilename}`;
 
       const result = await collection.updateOne(
         { _id: user._id },
@@ -78,13 +80,14 @@ const userImgUpload = async (req, res) => {
       req.flash('message', 'No file uploaded.');
     }
 
-    res.redirect('/');
+    res.redirect('/viewBuy');
   } catch (err) {
     console.log('Error in user image upload:', err);
     req.flash('message', 'An error occurred while updating the headshot.');
-    res.redirect('/');
+    res.redirect('/viewBuy');
   }
 };
+
 
 router.post('/userImgUpload', upload, userImgUpload);
 

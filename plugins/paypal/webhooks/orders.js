@@ -15,8 +15,5 @@ const checkouts = async (req, res) => {
     }
 };
 
-const pendingOrders = async (req,res) =>{
-console.log(details)
 
-}
 module.exports = checkouts;

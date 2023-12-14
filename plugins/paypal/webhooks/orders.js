@@ -9,7 +9,7 @@ const checkouts = async (req, res) => {
         const status = req.body.resource.status;     
         const resourceType =  req.body.resource_type;     
         const eventType =  req.body.event_type;     
-        const status = req.body.resource.status;     
+    
 
 if (customId === null || customId === undefined) {
     // Custom ID is null or undefined, you can move on here

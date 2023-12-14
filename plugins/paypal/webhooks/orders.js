@@ -8,7 +8,7 @@ const checkouts = async (req, res) => {
     // const amount = req.body.resource.amount.value 
     const eventType =  req.body.event_type;   
     
-    if(eventType=="CHECKOUT.ORDER.APPROVED" || eventType=="CHECKOUT.ORDER.APPROVED"){
+    if(eventType=="CHECKOUT.ORDER.APPROVED" || eventType=="CHECKOUT.ORDER.COMPLETED"){
         const orderId = req.body.id
         const status = req.body.resource.status;     
         const payerId = req.body.resource.payer.payer_id;

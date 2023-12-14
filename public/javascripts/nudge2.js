@@ -34,48 +34,71 @@ function dragElement(element) {
       // Stop moving when mouse button is released
       document.onmouseup = null;
       document.onmousemove = null;
-      // Update input values
-      document.getElementById('text1PositionX_' + cardId).value = element.style.left.replace('px', '');
-      document.getElementById('text1PositionY_' + cardId).value = element.style.top.replace('px', '');
-      // Optionally, add AJAX call here to update the database
+
+      // Check if the element is 'realName' or 'royalTitle' and update corresponding inputs
+      if (element.classList.contains('realName')) {
+        document.getElementById('text1PositionX_' + cardId).value = element.style.left.replace('px', '');
+        document.getElementById('text1PositionY_' + cardId).value = element.style.top.replace('px', '');
+      } else if (element.classList.contains('royalTitle')) {
+        document.getElementById('text2PositionX_' + cardId).value = element.style.left.replace('px', '');
+        document.getElementById('text2PositionY_' + cardId).value = element.style.top.replace('px', '');
+      }
     }
   }
-
+  document.querySelectorAll('.realName, .royalTitle').forEach(dragElement);
 /// Function to adjust font size
-function adjustFontSize(cardId, increase = true) {
-    // Target the specific element for font size adjustment
-    let targetElement = document.getElementById('realNameText_' + cardId);
+function adjustFontSize(cardId, elementId, increase = true) {
+  let targetElement = document.getElementById(elementId + '_' + cardId);
+  let inputFieldId;
 
-    // Check if the target element exists
-    if (targetElement) {
-        let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
-        if (increase) {
-          currentSize += 1; // Increase font size by 1px
-        } else {
-          currentSize -= 1; // Decrease font size by 1px
-        }
-        targetElement.style.fontSize = `${currentSize}px`;
+  if (elementId === 'realNameText') {
+      inputFieldId = 'font1Size_';
+  } else if (elementId === 'royalTitleText') {
+      inputFieldId = 'font2Size_';
+  }
 
-        // Update input value
-        document.getElementById('font1Size_' + cardId).value = currentSize;
-    } else {
-        console.error('Element not found: realNameText_' + cardId);
-    }
+  if (targetElement) {
+      let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
+      currentSize = increase ? currentSize + 1 : currentSize - 1;
+      targetElement.style.fontSize = `${currentSize}px`;
+
+      // Update corresponding input field
+      document.getElementById(inputFieldId + cardId).value = currentSize;
+  } else {
+      console.error('Element not found:', elementId + '_' + cardId);
+  }
 }
 
+
 // Add event listeners to buttons
+// Event listeners for realName font size buttons
 document.querySelectorAll('[id^="increaseFont_"]').forEach(button => {
-    button.addEventListener('click', function() {
-        var cardId = this.id.split('_')[1]; // Extract card ID from button ID
-        adjustFontSize(cardId, true);
-    });
+  button.addEventListener('click', function() {
+      const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, 'realNameText', true);
+  });
 });
 
 document.querySelectorAll('[id^="decreaseFont_"]').forEach(button => {
-    button.addEventListener('click', function() {
-        var cardId = this.id.split('_')[1]; // Extract card ID from button ID
-        adjustFontSize(cardId, false);
-    });
+  button.addEventListener('click', function() {
+      const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, 'realNameText', false);
+  });
+});
+
+// Event listeners for royalTitle font size buttons
+document.querySelectorAll('[id^="increaseFontRoyal_"]').forEach(button => {
+  button.addEventListener('click', function() {
+      const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, 'royalTitleText', true);
+  });
+});
+
+document.querySelectorAll('[id^="decreaseFontRoyal_"]').forEach(button => {
+  button.addEventListener('click', function() {
+      const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, 'royalTitleText', false);
+  });
 });
 
 

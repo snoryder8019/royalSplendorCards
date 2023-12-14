@@ -16,10 +16,16 @@
                 <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                   <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
                 </div>
+                <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                  <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
+                   </div>
                 <%}else{%>
                   <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                     <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
                   </div>
+                  <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                    <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>">Royal Title Here</div>
+                     </div>
                   <%}%>
                   <%}%>
                   
@@ -28,14 +34,23 @@
                       <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                         <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
                       </div>
+                      <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                        <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
+                         </div>
                       <%}else{%>
                         <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                           <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
                         </div>
+                        <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                          <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> Royal Title Here</div>
+                           </div>
                         <%}%>
                         
                         <%}%>
               <!------------------------------>
+               
+                        
+          
               <img class="" src="<%= card.cardFront %>" alt="Card Front">              
               <%if(typeof user =="object" && user.userImg){%>                
                 <div id="headshot_<%= card._id %>" class="headshot">            

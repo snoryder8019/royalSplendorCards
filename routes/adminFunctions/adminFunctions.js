@@ -209,21 +209,25 @@ let fontName24 = req.body.fontName2.substring(0, 4);
     updatedCardData.font1Size = req.body.font1Size; 
     updatedCardData.text1Color = req.body.text1Color;
     updatedCardData.cardName = req.body.cardName;
-
+    
     //newest implimenttaioins
-  
-   updatedCardData.text0Rotation = req.body.text0Rotation;
-   updatedCardData.text1Rotation = req.body.text1Rotation;
-
+    
+    updatedCardData.text0Rotation = req.body.text0Rotation;
+    updatedCardData.text1Rotation = req.body.text1Rotation;
+    
     updatedCardData.vertical = req.body.vertical;
     updatedCardData.nameStack = req.body.nameStack;
-
-
+    
+    updatedCardData.text2PositionX = req.body.text2PositionX;
+    updatedCardData.text2PositionY = req.body.text2PositionY;
+    updatedCardData.font2Size = req.body.font2Size; 
+    
     // Log the updated card data
     console.log('Updated Card Data:', updatedCardData);
-
+    
     // Update the document
-    await collection.updateOne({ "_id": id }, { $set: updatedCardData });
+    const update = await collection.updateOne({ "_id": id }, { $set: updatedCardData });
+    console.log('Updated Card Data:', update);
 
     req.flash('message', 'Card updated successfully.');
     res.redirect('/admin');

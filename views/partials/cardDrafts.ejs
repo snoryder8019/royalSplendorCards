@@ -22,6 +22,7 @@
                   <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                     <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
                   </div>
+                
                   <%}%>
                   <%}%>
                   
@@ -30,19 +31,25 @@
                       <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                         <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
                       </div>
+                    
                       <%}else{%>
                         <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                           <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
                         </div>
+                     
                         <%}%>
                         
                         <%}%>
-                                  
                         
                         
                         
                         
                         
+                        
+                        <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                          <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
+                         
+                          </div>
                         
                         
                         <img class="" src="<%= card.cardFront %>" alt="Card Front">
@@ -52,41 +59,18 @@
                       </div>
                     </div>      
                     <%- include('controls_text2.ejs', { cardId: card._id }) %> 
+                    <%- include('controls_text3.ejs', { cardId: card._id }) %> 
                     <input type="file" name="cardFrontFile"><br>        
                     <%- include('controls_text.ejs', { cardId: card._id }) %>
-          <div class="cardBackFrame">
-
-            <%if(card.vertical=="false"){%>
-              <div class="cardImg">
+                    <div class="cardBackFrame">
+                      
+                      <%if(card.vertical=="false"){%>
+                        <div class="cardImg">
                 <%}else{%>
                   <div class="cardImg_vertical">
                 <%}%>
               
-                <%if(card.nameStack=="false"){%>
-                  <%if(typeof user =='object'&& user.firstName){%>
-                    <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                      <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
-                    </div>
-                    <%}else{%>
-                      <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                        <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
-                      </div>
-                      <%}%>
-                      <%}%>
-                      
-                      <%if(card.nameStack=="true"){%>
-                        <%if(typeof user =='object'&& user.firstName){%>
-                          <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
-                          </div>
-                          <%}else{%>
-                            <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                              <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
-                            </div>
-                            <%}%>
-                            
-                            <%}%>
-
+            
 
 
 
@@ -135,12 +119,15 @@
         <input type="hidden" id="text0PositionX_<%= card._id %>" name="text0PositionX" value="<%= card.text0PositionX %>">
         <input type="hidden" id="text0PositionY_<%= card._id %>" name="text0PositionY" value="<%= card.text0PositionY %>">
         
-          <label for="textColor">Text Color Info</label>
-          <input type="color" id="textColor<%= card._id %>" name="textColor" value="<%= card.textColor %>">
-          
-          <input type="hidden" id="font1Size_<%= card._id %>" name="font1Size" value="<%=card.font1Size%>">
-          <input type="hidden" id="text1PositionX_<%= card._id %>" name="text1PositionX" value="<%= card.text1PositionX %>">
-          <input type="hidden" id="text1PositionY_<%= card._id %>" name="text1PositionY" value="<%= card.text1PositionY %>">
+        <label for="textColor">Text Color Info</label>
+        <input type="color" id="textColor<%= card._id %>" name="textColor" value="<%= card.textColor %>">
+        
+        <input type="hidden" id="font1Size_<%= card._id %>" name="font1Size" value="<%=card.font1Size%>">
+        <input type="hidden" id="text1PositionX_<%= card._id %>" name="text1PositionX" value="<%= card.text1PositionX %>">
+        <input type="hidden" id="text1PositionY_<%= card._id %>" name="text1PositionY" value="<%= card.text1PositionY %>">
+        <input type="hidden" id="text2PositionX_<%= card._id %>" name="text2PositionX" value="<%= card.text2PositionX %>">
+        <input type="hidden" id="text2PositionY_<%= card._id %>" name="text2PositionY" value="<%= card.text2PositionY %>">
+        <input type="hidden" id="font2Size_<%= card._id %>" name="font2Size" value="<%=card.font2Size%>">
           
           <br>
           <label for="text1Color">Text Color Name</label>

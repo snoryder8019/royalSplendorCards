@@ -7,7 +7,9 @@ const checkouts = async (req, res) => {
     const resourceType =  req.body.resource_type;     
     // const amount = req.body.resource.amount.value 
     const eventType =  req.body.event_type;   
-    
+    if(eventType=="CHECKOUT.ORDER.COMPLETED"){
+        console.log(`fire finalization`)
+    }
     if(eventType=="CHECKOUT.ORDER.APPROVED" || eventType=="CHECKOUT.ORDER.COMPLETED"){
         const orderId = req.body.id
         const status = req.body.resource.status;     

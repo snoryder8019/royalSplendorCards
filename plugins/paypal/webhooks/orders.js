@@ -4,16 +4,23 @@ const router = express.Router();
 const checkouts = async (req, res) => {
     try {
     //mongo here
-    const orderId = req.body.id
-    const payerId = req.body.resource.payer.payer_id;
-    const payerEmail = req.body.resource.payer.email_address;
-    const status = req.body.resource.status;     
     const resourceType =  req.body.resource_type;     
+    // const amount = req.body.resource.amount.value 
     const eventType =  req.body.event_type;   
-   // const amount = req.body.resource.amount.value 
     
+    if(eventType=="CHECKOUT.ORDER.APPROVED" || eventType=="CHECKOUT.ORDER.APPROVED"){
+        const orderId = req.body.id
+        const status = req.body.resource.status;     
+        const payerId = req.body.resource.payer.payer_id;
+        const payerEmail = req.body.resource.payer.email_address;
     console.log(`event received:\nOrderId: ${orderId}\nEventType: ${eventType}\nStatus: ${status}`);
-console.log(`id: ${payerId}, email: ${payerEmail} `)
+    console.log(`id: ${payerId}, email: ${payerEmail} `)
+
+}else{
+    console.log(`other hooks`)
+}
+
+
         res.status(200).send('Event received');
     } catch (error) {
         console.error('Error processing the webhook event:', error);

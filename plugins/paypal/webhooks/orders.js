@@ -5,8 +5,8 @@ const checkouts = async (req, res) => {
     try {
     //mongo here
     const orderId = req.body.id
-    const payerId = req.body.payer.payer_id;
-    const payerEmail = req.body.payer.email_address;
+    const payerId = req.body.resource.payer.payer_id;
+    const payerEmail = req.body.resource.payer.email_address;
     const status = req.body.resource.status;     
     const resourceType =  req.body.resource_type;     
     const eventType =  req.body.event_type;   

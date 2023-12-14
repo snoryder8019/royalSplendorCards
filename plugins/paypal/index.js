@@ -3,7 +3,7 @@ const router = express.Router();
 const checkouts = require('./webhooks/orders');
 
 
-router.get('/checkouts', checkouts);
+router.post('/checkouts', checkouts);
 //router.get('/pendingOrders', pendingOrders);
 //  PayPal Webhooks
 

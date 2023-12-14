@@ -19,7 +19,8 @@ const checkouts = async (req, res) => {
     console.log(`id: ${payerId}, email: ${payerEmail} `)
 
 }else{
-    console.log(`other hooks: ${eventType}`)
+    const summary = req.body.summary;
+    console.log(`other hooks: ${eventType}\nsummary: ${summary}`)
 }
 
 

@@ -4,12 +4,12 @@ const router = express.Router();
 const checkouts = async (req, res) => {
     try {
     //mongo here
-        console.log('Webhook event received:',);
-      
-        const status = req.body.resource.status;     
-        const resourceType =  req.body.resource_type;     
-        const eventType =  req.body.event_type;     
     
+    const status = req.body.resource.status;     
+    const resourceType =  req.body.resource_type;     
+    const eventType =  req.body.event_type;     
+    
+    console.log(`event received:\n resource type: ${resourceType}\neventType: ${eventType}\nstatus: ${status}`);
 
         res.status(200).send('Event received');
     } catch (error) {

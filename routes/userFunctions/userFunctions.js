@@ -17,7 +17,7 @@ async function userDataUpload(req, res) {
     const referredBy= req.body.card_id
     
     // Retrieve user data from the request body
-    const { firstName, lastName,chapter, address, email, phone, birthday,title } = req.body;
+    const { firstName, lastName,chapter, address, email, phone, birthday_month,birthday_day,age,title } = req.body;
 
     // Update the user's data in the database
     await collection.updateOne(
@@ -31,7 +31,9 @@ async function userDataUpload(req, res) {
           address,
           email,
           phone,
-          birthday,
+          birthday_day,
+          birthday_month,
+          age
           
       
         },

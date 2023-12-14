@@ -13,7 +13,14 @@
             <label>home city</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
             <input type="hidden" name="email" id="cardemail" value="<%= user.email %>">
             <label>phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
-            <label>birthday</label>  <br> <input type="text" name="birthday" id="cardbirthday" value="<%= user.birthday ? user.birthday : 'add your birthday' %>"><br>
+          
+          
+            <label>birthday month</label>  <br><select name="birthday_month" id="birthday_month"><%- include('../forms/months')%></select><br>
+          
+            <label>birthday day</label>  <br> <select name="birthday_day" id="cardbirthday_day" value="<%= user.birthday_day ? user.birthday_day : 'add your birthday_day' %>"><%- include('../forms/days')%></select><br>
+          
+          
+            <label>age *not required*</label><br><input type="text" name="age" id="age" placeholder="<%= user.age || 'add your age *not required' %>" value="<%= user.age || 'What\'s age anyway?!' %>"><br>
             
             <!--CARD ID HELPS REDIRECT AT EP-->
             <input type="hidden" name="card_id" value="<%=card._id%>">

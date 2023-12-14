@@ -399,7 +399,7 @@ border-top: 5px solid $primaryBorderColor;
   font-weight:800;
   font-family:$primaryFontFamily;
 }
-input[type="submit"], select , input[type="file"],input[type="email"] {
+input[type="submit"], input[type="file"],input[type="email"] {
   background-color: $secondaryBackgroundColor;
   color: $secondaryFontColor;
   width: 94%;
@@ -409,6 +409,18 @@ input[type="submit"], select , input[type="file"],input[type="email"] {
   border-radius: 5px;
   cursor: pointer;
   font-size: $inputSubmitFontSize;
+}
+select{
+  margin-top: 2px;
+  background-color: $white;
+  width: 94%;
+  margin-left: 2%;
+ // transform: translateX(-50%);
+  height: auto;
+  font-size: $inputFontSize;
+  font-weight: 200;
+  padding: 1%;
+  margin-bottom:2px;
 }
 input[type="file"] {
 font-size: $regularFontSize;

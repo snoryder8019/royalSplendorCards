@@ -312,7 +312,7 @@ button {
   font-family: "minonPro";
 }
 
-input[type=submit], select, input[type=file], input[type=email] {
+input[type=submit], input[type=file], input[type=email] {
   background-color: #450b5a;
   color: white;
   width: 94%;
@@ -321,6 +321,18 @@ input[type=submit], select, input[type=file], input[type=email] {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+}
+
+select {
+  margin-top: 2px;
+  background-color: white;
+  width: 94%;
+  margin-left: 2%;
+  height: auto;
+  font-size: 1.3rem;
+  font-weight: 200;
+  padding: 1%;
+  margin-bottom: 2px;
 }
 
 input[type=file] {

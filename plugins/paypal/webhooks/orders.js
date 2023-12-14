@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const initiatePaypalOrder = require('../dbFunctions')
+
 
 const checkouts = async (req, res) => {
     try {
@@ -9,18 +11,25 @@ const checkouts = async (req, res) => {
     const eventType =  req.body.event_type;   
     if(eventType=="CHECKOUT.ORDER.COMPLETED"){
         console.log(`fire finalization`)
+        initiatePaypalOrder;
+        const orderId = req.body.id
+        const payerEmail = req.body.resource.payer.email_address;
+        const payerId = req.body.resource.payer.payer_id;
+    console.log(`email:${payerEmail} id:${payerId}\nOrder Id: ${orderId}`)
     }
-    if(eventType=="CHECKOUT.ORDER.APPROVED" || eventType=="CHECKOUT.ORDER.COMPLETED"){
+    if(eventType=="CHECKOUT.ORDER.APPROVED"){
+  
         const orderId = req.body.id
         const status = req.body.resource.status;     
         const payerId = req.body.resource.payer.payer_id;
         const payerEmail = req.body.resource.payer.email_address;
-    console.log(`event received:\nOrderId: ${orderId}\nEventType: ${eventType}\nStatus: ${status}`);
-    console.log(`id: ${payerId}, email: ${payerEmail} `)
-
-}else{
+        console.log(`event received:\nOrderId: ${orderId}\nEventType: ${eventType}\nStatus: ${status}`);
+        console.log(`id: ${payerId}, email: ${payerEmail} `)
+        
+    }else{
+    const orderId = req.body.id
     const summary = req.body.summary;
-    console.log(`other hooks: ${eventType}\nsummary: ${summary}`)
+    console.log(`other hooks: ${eventType}\nsummary: ${summary}, Order Id: ${orderId}`)
 }
 
 

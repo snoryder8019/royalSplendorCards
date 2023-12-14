@@ -2,28 +2,29 @@
 <%if(typeof user == 'object' && user){%>
     <h2>Welcome back <span class="span_branded"> <%=user.firstName%></span></h2>
     <h2>Step 1: Review your info to Print</h2>
-
-        
-        <form action="/userDataUpload"method="post">
-            <div class="userData">
-                        <label>title</label><br><input type="text" name="title" id="title" placeholder="<%= user.title || 'add your Title' %>" value="<%= user.title || 'add your title' %>"><br>
-                        <label>first name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
-                        <label>last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
-                        <label>chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
-                     <label>home city</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
-                    <input type="hidden" name="email" id="cardemail" value="<%= user.email %>">
-                   <label>phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
-                     <label>birthday</label>  <br> <input type="text" name="birthday" id="cardbirthday" value="<%= user.birthday ? user.birthday : 'add your birthday' %>"><br>
-              
-                        
-                        <button type="submit">submit</button>
-                    </div>
-                </form>
-               <div class="span_branded">Smile like the queen you are!</div>
-             
-               <div class="userData">
-                <%if(user.userImg){%>
-                    <h2>Step 2: Complete!</h2>
+    
+    
+    <form action="/userDataUpload"method="post">
+        <div class="userData">
+            <label>title</label><br><input type="text" name="title" id="title" placeholder="<%= user.title || 'add your Title' %>" value="<%= user.title || 'add your title' %>"><br>
+            <label>first name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
+            <label>last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
+            <label>chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
+            <label>home city</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
+            <input type="hidden" name="email" id="cardemail" value="<%= user.email %>">
+            <label>phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
+            <label>birthday</label>  <br> <input type="text" name="birthday" id="cardbirthday" value="<%= user.birthday ? user.birthday : 'add your birthday' %>"><br>
+            
+            <!--CARD ID HELPS REDIRECT AT EP-->
+            <input type="hidden" name="card_id" value="<%=card._id%>">
+            <button type="submit">submit</button>
+        </div>
+    </form>
+    <div class="span_branded">Smile like the queen you are!</div>
+    
+    <div class="userData">
+        <%if(user.userImg){%>
+            <h2>Step 2: Complete!</h2>
                       
                         <h4 style="margin-bottom: 1px;">You may replace your image with a different one if you'd like.</h4>
                         <img style="width: 125px; " class="headshot" src="<%=user.userImg%>" alt="Headshot">
@@ -34,6 +35,7 @@
                    <form action="/userImgUpload" method="post" enctype="multipart/form-data">
                        <h4 style="margin-bottom: 1px;">Add or Update your headshot here</h4>
                        <input type="hidden" name="_id" value="<%=user._id%>">
+                       <input type="hidden" name="card_id" value="<%=card._id%>">
                        <input type="file" name="userImg"> 
                        <button type="submit">Submit</button>
                     </form>

@@ -7,14 +7,15 @@ const config = require('../../config/config'); // Import config if you're using 
 const lib = require('../logFunctions/logFunctions')
 const { ObjectId } = require('mongodb');
 const fs = require('fs').promises
-const { resizeAndCropImage } = require('../../plugins/sharp/sharp');
+
 // Function to handle user data upload
 async function userDataUpload(req, res) {
   try {
     const db = getDb();
     const user = req.user; // Assuming user data is available via passport authentication
     const collection = db.collection('users'); // Adjust the collection name as needed
-
+    const referredBy= req.body.card_id
+    
     // Retrieve user data from the request body
     const { firstName, lastName,chapter, address, email, phone, birthday,title } = req.body;
 
@@ -38,11 +39,11 @@ async function userDataUpload(req, res) {
     );
 
     req.flash('message', 'User data updated successfully.');
-    res.redirect('/'); // Redirect to the user setup page or any other appropriate page
+    res.redirect(`/viewBuy/?_id=${referredBy}`); // Redirect to the user setup page or any other appropriate page
   } catch (err) {
     console.error(err);
     req.flash('message', 'An error occurred while updating user data.');
-    res.redirect('/'); // Redirect to the user setup page or any other appropriate page
+    res.redirect(`/viewBuy/?_id=${referredBy}`); // Redirect to the user setup page or any other appropriate page
   }
 }
 // Function to handle user headshot upload
@@ -52,21 +53,15 @@ const userImgUpload = async (req, res) => {
   try {
     console.log('Starting user image upload process.', req.file);
     const db = getDb();
-    const user = req.user;  
+    const user = req.user;
     const collection = db.collection('users');
+    const referredBy= req.body.card_id
+    console.log(`referred by: ${referredBy}`);
 
-    if (req.files && req.files.userImg) { 
+    if (req.files && req.files.userImg) {
       const uploadedFile = req.files.userImg[0];
-      const originalFilePath = uploadedFile.path;
-      const fileExtension = path.extname(uploadedFile.filename);
-      
-      // Create a new filename for the processed image
-      const newFilename = `${req.user._id}-resized${fileExtension}`;
-      const outputDirectory = path.join(__dirname, '../../public/images/userHeadshots');
-      const resizedImagePath = await resizeAndCropImage(originalFilePath, outputDirectory, newFilename);
-      await fs.unlink(originalFilePath);
-      // Save the path relative to the 'public' directory
-      const headshotPath = `/images/userHeadshots/${newFilename}`;
+      // Use the file path directly
+      const headshotPath = `/images/userHeadshots/${uploadedFile.filename}`;
 
       const result = await collection.updateOne(
         { _id: user._id },
@@ -80,11 +75,11 @@ const userImgUpload = async (req, res) => {
       req.flash('message', 'No file uploaded.');
     }
 
-    res.redirect('/viewBuy');
+    res.redirect(`/viewBuy/?_id=${referredBy}`);
   } catch (err) {
     console.log('Error in user image upload:', err);
     req.flash('message', 'An error occurred while updating the headshot.');
-    res.redirect('/viewBuy');
+    res.redirect(`/viewBuy/?_id=${referredBy}`);
   }
 };
 

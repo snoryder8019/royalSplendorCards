@@ -7,6 +7,19 @@ const bcrypt = require('bcrypt');
 const { connect, getDb } = require('../mongo/mongo');  // assuming you're using the db.js you mentioned before
 const env = require('dotenv').config();
 const { ObjectId } = require('mongodb');
+const YahooStrategy = require('passport-yahoo-oauth').Strategy;
+
+passport.use(new YahooStrategy({
+    consumerKey: process.env.YHO_CID,
+    consumerSecret: process.env.YHO_SEC,
+    callbackURL: "http://www.example.com/auth/yahoo/callback"
+  },
+  function(token, tokenSecret, profile, done) {
+    User.findOrCreate({ yahooId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 
 

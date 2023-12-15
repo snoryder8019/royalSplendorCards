@@ -31,6 +31,18 @@ router.use(bodyParser.urlencoded({ extended: true }));
 //       });
 //   })(req, res, next);
 // });
+
+router.get('/auth/yahoo',
+  passport.authenticate('yahoo'));
+
+router.get('/auth/yahoo/callback', 
+  passport.authenticate('yahoo', { failureRedirect: '/viewBuy' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+
+
 router.post('/auth/local',
   passport.authenticate('local',{
     successReturnToOrRedirect:'/',

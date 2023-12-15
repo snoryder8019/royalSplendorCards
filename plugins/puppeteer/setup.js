@@ -1,6 +1,6 @@
 var express = require('express');
 const config = require('../../config/config');
-const puppeteer = require('puppeteer');
+//const puppeteer = require('puppeteer');
 const { ObjectId } = require('mongodb');
 var router = express.Router();
 const generatePDF = async (url, elementId, outputPath) => {

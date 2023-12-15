@@ -135,25 +135,25 @@
           <div id="cardPackage_<%= cardNo %>" class="cardPackage">
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="34.99">
+                      <input type="radio" name="package" value="1">
                       100 for $34.99 | <del>$38.49</del>
                   </label>
               </div>
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="49.99">
+                      <input type="radio" name="package" value="1">
                       250 for $49.99 | <del>$54.99</del>
                   </label>
               </div>
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="69.99">
+                      <input type="radio" name="package" value="1">
                       500 for $69.99 | <del>$76.99</del>
                   </label>
               </div>
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="79.99">
+                      <input type="radio" name="package" value="1">
                       1000 for $79.99 | <del>$87.99</del>
                   </label>
               </div>
@@ -199,13 +199,17 @@
   </div>
   <!-- Sample PayPal credentials (client-id) are included -->
   <script>
+    var cardId = "<%= card._id %>"; 
+    </script>
+    <script>
+
     const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');
 const warningButtons = document.querySelectorAll('[custom-type="warning"]');
 
 
     let purchaseTotal=0;
-    let userId;
-    let package;
+    //let userId;
+    //let cardId;
 
 
     
@@ -249,9 +253,9 @@ const payerName = `${details.payer.name.given_name} ${details.payer.name.surname
 
 // Shipping Address
 const shippingAddress = details.purchase_units[0].shipping.address;
-
+console.log(`user:${userId} card:${cardId} trans:${confirmationId}`)
                         console.log(`Transaction completed: ${payerName}, ${JSON.stringify(shippingAddress)}`);
-            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&orderId=${confirmationId}`};
+            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&cardId=${cardId}&orderId=${confirmationId}`};
                       
                         return actions.order.capture().then(captureOrderHandler);
                       },

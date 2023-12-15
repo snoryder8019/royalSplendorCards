@@ -11,7 +11,7 @@ var adminRouter = require('./routes/admin');
 var viewBuyRouter = require('./routes/viewBuy');
 const { connect } = require('./plugins/mongo/mongo');
 const createError = require('http-errors');
-
+const {exporterRoute} = require('./plugins/puppeteer/setup')
 var app = express();
 
 async function startApp() {
@@ -44,7 +44,7 @@ async function startApp() {
   app.use('/', indexRouter);
   app.use('/admin', adminRouter);
   app.use('/viewBuy', viewBuyRouter);
-
+  app.use('/', exporterRoute);
   // catch 404 and forward to error handler
   app.use(function(req, res, next) {
     next(createError(404));

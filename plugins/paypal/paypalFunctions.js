@@ -4,6 +4,7 @@ const paypal = require('@paypal/checkout-server-sdk');
 const config = require('./config');
 const {getCardforPaypal, getUserforPaypal} = require('./dbFunctions')
 const { baseUrl } = require('../../config/config');
+const {exporterRoute} = require('../puppeteer/setup');
 // Helper function to create PayPal environment
 function environment() {
     let clientId = process.env.PPAL_CID;
@@ -170,7 +171,8 @@ router.get('/return', async (req, res) => {
 // }
 const getCheckoutAwaiting = async (req, res) => {
   const userId = req.query.userId;
-  const confirmationId = req.query.orderId;
+  const cardId = req.query.cardId;
+  const confirmationId = req.query.orderId; // Assuming this is your PayPal order ID
 
   if (!userId || !confirmationId) {
     return res.status(404).send('Order details not found. Please try again.');
@@ -178,18 +180,24 @@ const getCheckoutAwaiting = async (req, res) => {
 
   try {
     const user = await getUserforPaypal(userId);
-    const card = await getCardforPaypal(confirmationId);
+    // If your card ID is different from the PayPal order ID, you need to fetch it differently
+    const card = await getCardforPaypal(cardId);
 
     if (!user || !card) {
       return res.status(404).send('User or Card details not found.');
     }
 
-    res.render('checkout-awaiting', { user: user, card: card, confirmationId: confirmationId });
+    // Call the exporterRoute function with the necessary data
+   // await exporterRoute(req, res, userId, cardId, user, card, confirmationId);
+
+    // Render the checkout-awaiting view with the necessary data
+    res.render('checkout-awaiting', { user, card, confirmationId });
   } catch (error) {
     console.error('Error in getCheckoutAwaiting:', error);
     res.status(500).send('An error occurred while fetching details.');
   }
-}
+};
+
 
 
 

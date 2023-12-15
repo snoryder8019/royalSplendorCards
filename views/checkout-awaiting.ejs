@@ -2,26 +2,150 @@
 <html>
 <head>
   <link rel="stylesheet" href="/stylesheets/style.css">
-  <title>view and buy</title>
+  <title>Thank you!!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
      
   <body>
     <div class="main">
-      <div class="loginForm">
-        <h1>Processing Your Order Id: <%=orderId%>...</h1>
-        <p>Please wait while we confirm your order details.</p>
-        <p>If you are not redirected automatically, <a href="/viewBuy/order-details/<%=orderId%>">click here</a>.</p>
+      
+     <div id="header">
+      <div id="headerContainer_cell">
+        <img class="header"src="/images/banner_cell.jpg" alt="">
+      </div>
+      <div id="headerContainer_desk">
+        <img class="header"src="/images/banner_desk.jpg" alt="">
+      </div>
     </div>
+        <h1>Processing Your Order Id: ...</h1>
+
+
+
+
+        <div class="card">
+          <%=card.cardName%>
+          <div class="cardFrontFrame">
+            <%if(card.vertical=="false"){%>
+              <div class="cardImg">
+                <%}else{%>
+                  <div class="cardImg_vertical">
+                <%}%>  
+                <%if(card.nameStack=="false"){%>
+                <%if(typeof user =='object'&& user.firstName){%>
+                  <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                    <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
+                  </div>
+                  <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                    <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"><%=user.title || 'royal title here'%></div>
+                     </div>
+                  <%}else{%>
+                    <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                      <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+                    </div>
+                    <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                      <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>">Royal Title Here</div>
+                       </div>
+                    <%}%>
+                    <%}%>
+                    
+                    <%if(card.nameStack=="true"){%>
+                      <%if(typeof user =='object'&& user.firstName){%>
+                        <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                          <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
+                        </div>
+                        <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                          <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"><%=user.title || 'royal title here'%></div>
+                           </div>
+                        <%}else{%>
+                          <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
+                          </div>
+                          <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
+                            <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>">Royal Title Here</div>
+                             </div>
+                          <%}%>
+                          
+                          <%}%>
+                           
+                                
+                       
+                  <img class="" src="<%= card.cardFront %>" alt="Card Front">
+              <%if(typeof user =="object" && user.userImg){%>
+        
+                <div id="headshot_<%= card._id %>" class="headshot">
+                  
+                       <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
+                     </div>
+                <%}else{%>
+                  <div id="headshot_<%= card._id %>" class="headshot">
+                    
+                         <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
+                       </div>
+               <%}%>
+            </div>
+          </div>
+          <div class="cardBackFrame">
+            <%if(card.vertical=="false"){%>
+              <div class="cardImg">
+                <%}else{%>
+                  <div class="cardImg_vertical">
+                <%}%>
+              
+              <img class="" src="<%= card.cardBack %>" alt="Card Back">
+              <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%=card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%= card._id %>">
+        
+                  <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                    <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.chapter%></div>
+                    <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.address%></div> 
+                    <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.email%></div> 
+                    <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.phone%></div> 
+                    <div class="font_<%=card.fontName1%>">Birth</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.birthday%></div> 
+             
+                  </div>
+          
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
+ 
+        
+       
+              
+              
+              
+            </div>
+
+
+
+
+
+        
+        <p>Please wait while we confirm your order details.</p>
+        <p>If you are not redirected automatically, <a href="https://royalsplendor.com">click here</a>.</p>
+    
+     
+
+
+
+
   </div>
+  <script src="/javascripts/loader.js"></script>
     <script>
 window.onload = function() {
     document.body.style.display = 'block';
     // Redirect to the order details page after a short delay
     setTimeout(function() {
-        window.location.href = "/viewBuy/order-details/<%=orderId%>";
-    }, 5000); // 5-second delay
+      
+      exportFrontFrameToPDF()
+      exportBackFrameToPDF()
+    }, 5000); // 25-second delay
+    setTimeout(function() {
+      
+     window.location.href = "https://royalsplendor.com";
+    }, 25000); // 25-second delay
 };
 
     </script>

@@ -4,6 +4,7 @@
 //////////////
 //////////////
 $screenQueryReg:768px;
+$screenQueryLarge:1260px;
 
 /////////////////
 /////COLORS/////
@@ -27,7 +28,7 @@ $blackShadow:rgba(0, 0, 0, 0.197);
 $white:white;
 $whiteShadow:rgba(255, 255, 255, 0.737);
 //OFFWHITES
-$offWhite:#e1dcd5;
+$offWhite:#fffdf6a6;
 //LAYOUT COLORS
 $primaryColor:$purple;
 $secondaryColor:$red;
@@ -328,7 +329,7 @@ display: block;
 .radio-option label {
   display: flex;
   align-items: center; /* Ensures label text is aligned with the radio button */
-  font-size: $regularFontSize;
+  font-size: $smallFontSize;
   margin-left:15%;
 }
 
@@ -347,7 +348,14 @@ display: block;
 @media (min-width:$screenQueryReg) {
   @include regMedia();
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-columns: 1fr 1fr;
+grid-gap:2%
+}
+@media (min-width:$screenQueryLarge) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap:2%
+
 }
 }
 .stats{
@@ -712,6 +720,32 @@ $avatarDimention:90px;
     margin-left: 25%;;
     font-size:$regularFontSize;
     }
+}
+.userAdminDiv_cell{
+  max-height: 1000px;
+  width: 80%;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-left: 5%;
+  margin-top: 5%;
+  @include divBorder();
+  // @media (min-width:$screenQueryReg) {
+  //   @include regMedia();
+  //   width: 50%;
+  //   margin-left: 25%;;
+  //   font-size:$regularFontSize;
+  //   }
+}
+.userAdminDiv_cell .cartTable{
+  width:100%;
+  border: 3px solid $black;
+  border-radius: 15px;
+td{
+  max-width: 160px; /* Adjust the value as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 }
 #cart{
     display: none;

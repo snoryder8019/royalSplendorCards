@@ -17,6 +17,31 @@ const initiatePaypalOrder = async (req,res)=>{
         console.error(error)
     }
 }
+const getUserforPaypal = async (userId) => {
+    try {
+        const db = getDb();
+        const users = db.collection('users');
+        const user = await users.findOne({"_id": userId}); // Assuming '_id' is the correct field
+        console.log(`User fetched: ${user}`);
+        return user;
+    } catch (error) {
+        console.error(error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+}
+
+const getCardforPaypal = async (paypalOrderId) => {
+    try {
+        const db = getDb();
+        const cards = db.collection('_cards');
+        const card = await cards.findOne({"_id": paypalOrderId}); // Assuming '_id' is the correct field
+        console.log(`Card fetched: ${card}`);
+        return card;
+    } catch (error) {
+        console.error(error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+}
 
 
-module.exports = initiatePaypalOrder;
+module.exports = {initiatePaypalOrder, getCardforPaypal, getUserforPaypal};

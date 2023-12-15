@@ -11,16 +11,21 @@
   
   <div id="main">
     
+ 
     <div id="header">
-      <div id="headerContainer">
+      <div id="headerContainer_cell">
         <img class="header"src="/images/banner_cell.jpg" alt="">
+      </div>
+      <div id="headerContainer_desk">
+        <img class="header"src="/images/banner_desk.jpg" alt="">
       </div>
     </div>
     
     <div id="userSetup"><%- include('./partials/userSetup',{user:user,message:message})%></div>   
     <%if(typeof user=="object" && user){%>
       <input id="ppalUserId" type="hidden" name="userId" value="<%=user._id%>">
-  <h2>Step 3: Review Your Deisgn</h2>
+  <h2>Step 3: Review Your Deisign</h2>
+  <p>Having trouble? <a href="mailto:nancy@royalSplendor.com"> Email Nancy Here</a></p>
   <%}%>
   <div class="card">
   <%=card.cardName%>
@@ -99,7 +104,7 @@
             <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.address%></div> 
             <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.email%></div> 
             <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.phone%></div> 
-            <div class="font_<%=card.fontName1%>">Birth</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.birthday%></div> 
+            <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>"> <%=user.birthday_month+" "+user.birthday_day%></div> 
      
           </div>
           <% } else { %>
@@ -108,7 +113,7 @@
             <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"> Colorado, USA</div> 
             <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>"> scott@w2marketing.biz</div> 
             <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>"> 333-456-7890</div> 
-            <div class="font_<%=card.fontName1%>">Birth</div><div>:</div><div class="font_<%=card.fontName2%>"> Januaray 1, 2001</div> 
+            <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>"> Januaray 1</div> 
             
           </div>
         <% } %>
@@ -175,6 +180,7 @@
   </div>
   
   <div id="ppalSDK">
+    
     <%let baseShipping = config.baseShipping%>
     <%let baseTransaction = config.baseTransaction%>
     <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
@@ -245,8 +251,7 @@ const payerName = `${details.payer.name.given_name} ${details.payer.name.surname
 const shippingAddress = details.purchase_units[0].shipping.address;
 
                         console.log(`Transaction completed: ${payerName}, ${JSON.stringify(shippingAddress)}`);
-                //   capturePendingOrder(confirmationId)
-                      };
+            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&orderId=${confirmationId}`};
                       
                         return actions.order.capture().then(captureOrderHandler);
                       },

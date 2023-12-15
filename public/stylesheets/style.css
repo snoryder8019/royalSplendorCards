@@ -236,7 +236,7 @@ button {
 .radio-option label {
   display: flex;
   align-items: center; /* Ensures label text is aligned with the radio button */
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   margin-left: 15%;
 }
 
@@ -254,7 +254,15 @@ button {
     margin: 1%;
     padding: 0;
     display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2%;
+  }
+}
+@media (min-width: 1260px) {
+  .card-container {
+    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2%;
   }
 }
 
@@ -417,7 +425,7 @@ input[type=submit]:hover {
 #cardUploadDiv, #uploadFonts {
   border: 6px solid #932432;
   border-radius: 50px;
-  background-color: #e1dcd5;
+  background-color: rgba(255, 253, 246, 0.6509803922);
   padding: 3%;
   background-color: white;
   box-shadow: 2px 2px rgba(234, 20, 20, 0.276);
@@ -442,7 +450,7 @@ input[type=submit]:hover {
 .formData {
   border: 6px solid #932432;
   border-radius: 50px;
-  background-color: #e1dcd5;
+  background-color: rgba(255, 253, 246, 0.6509803922);
   padding: 3%;
 }
 
@@ -451,7 +459,7 @@ input[type=submit]:hover {
   margin-left: 5%;
   border: 6px solid #932432;
   border-radius: 50px;
-  background-color: #e1dcd5;
+  background-color: rgba(255, 253, 246, 0.6509803922);
   padding: 3%;
   margin-top: 2%;
 }
@@ -542,7 +550,7 @@ input[type=submit]:hover {
   font-size: 1.5rem;
   border-radius: 50%;
   border: 6px solid #932432;
-  background-color: #e1dcd5;
+  background-color: rgba(255, 253, 246, 0.6509803922);
   height: 90px;
   width: 90px;
   bottom: 50%;
@@ -620,7 +628,7 @@ input[type=submit]:hover {
   margin-top: 5%;
   border: 6px solid #932432;
   border-radius: 50px;
-  background-color: #e1dcd5;
+  background-color: rgba(255, 253, 246, 0.6509803922);
   padding: 3%;
 }
 @media (min-width: 768px) {
@@ -634,11 +642,36 @@ input[type=submit]:hover {
   }
 }
 
+.userAdminDiv_cell {
+  max-height: 1000px;
+  width: 80%;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-left: 5%;
+  margin-top: 5%;
+  border: 6px solid #932432;
+  border-radius: 50px;
+  background-color: rgba(255, 253, 246, 0.6509803922);
+  padding: 3%;
+}
+
+.userAdminDiv_cell .cartTable {
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+.userAdminDiv_cell .cartTable td {
+  max-width: 160px; /* Adjust the value as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 #cart {
   display: none;
   min-height: 100%;
   min-width: 100%;
-  background-color: #e1dcd5;
+  background-color: rgba(255, 253, 246, 0.6509803922);
   position: fixed;
   top: 0;
   left: 0;

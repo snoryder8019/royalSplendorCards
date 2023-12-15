@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const paypal = require('@paypal/checkout-server-sdk');
 const config = require('./config');
+const {getCardforPaypal, getUserforPaypal} = require('./dbFunctions')
 const { baseUrl } = require('../../config/config');
 // Helper function to create PayPal environment
 function environment() {
@@ -158,15 +159,38 @@ const returnPaypalSuccess = async (req, res) => {
 router.get('/return', async (req, res) => {
   await returnPaypalSuccess(req, res);
 });
-const getCheckoutAwaiting = async  (req, res) => {
-  const orderId = req.query.orderId;
+// const getCheckoutAwaiting = async  (req, res) => {
+//   const orderId = req.query.orderId;
   
-  if (req.session.orderDetails && req.session.orderDetails.id === orderId) {
-    res.render('checkout-awaiting', { orderId: orderId });
-  } else {
-    res.status(404).send('Order details not found. Please try again.');
+//   if (req.session.orderDetails && req.session.orderDetails.id === orderId) {
+//     res.render('checkout-awaiting', { orderId: orderId });
+//   } else {
+//     res.status(404).send('Order details not found. Please try again.');
+//   }
+// }
+const getCheckoutAwaiting = async (req, res) => {
+  const userId = req.query.userId;
+  const confirmationId = req.query.orderId;
+
+  if (!userId || !confirmationId) {
+    return res.status(404).send('Order details not found. Please try again.');
+  }
+
+  try {
+    const user = await getUserforPaypal(userId);
+    const card = await getCardforPaypal(confirmationId);
+
+    if (!user || !card) {
+      return res.status(404).send('User or Card details not found.');
+    }
+
+    res.render('checkout-awaiting', { user: user, card: card, confirmationId: confirmationId });
+  } catch (error) {
+    console.error('Error in getCheckoutAwaiting:', error);
+    res.status(500).send('An error occurred while fetching details.');
   }
 }
+
 
 
 //https://royal.w2marketing.biz/return?token=81S79030XA1366023&PayerID=WU3XH23UWEGVJ

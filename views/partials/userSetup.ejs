@@ -6,21 +6,20 @@
     
     <form action="/userDataUpload"method="post">
         <div class="userData">
-            <label>title</label><br><input type="text" name="title" id="title" placeholder="<%= user.title || 'add your Title' %>" value="<%= user.title || 'add your title' %>"><br>
-            <label>first name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
-            <label>last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
-            <label>chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
-            <label>home city</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
+            <label>Title</label><br><input type="text" name="title" id="title" placeholder="<%= user.title || 'add your Title' %>" value="<%= user.title || 'add your title' %>"><br>
+            <label>First name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
+            <label>Last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
+            <label>Chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
+            <label>Home city</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
             <input type="hidden" name="email" id="cardemail" value="<%= user.email %>">
-            <label>phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
+            <label>Phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
           
           
-            <label>birthday month</label>  <br><select name="birthday_month" id="birthday_month"><%- include('../forms/months')%></select><br>
+            <label>Birth month</label>  <br><select name="birthday_month" id="birthday_month"><%- include('../forms/months')%></select><br>
           
-            <label>birthday day</label>  <br> <select name="birthday_day" id="cardbirthday_day" value="<%= user.birthday_day ? user.birthday_day : 'add your birthday_day' %>"><%- include('../forms/days')%></select><br>
+            <label>Birth day</label>  <br> <select name="birthday_day" id="cardbirthday_day" value="<%= user.birthday_day ? user.birthday_day : 'add your birthday_day' %>"><%- include('../forms/days')%></select><br>
           
           
-            <label>age *not required*</label><br><input type="text" name="age" id="age" placeholder="<%= user.age || 'add your age *not required' %>" value="<%= user.age || 'What\'s age anyway?!' %>"><br>
             
             <!--CARD ID HELPS REDIRECT AT EP-->
             <input type="hidden" name="card_id" value="<%=card._id%>">
@@ -32,25 +31,27 @@
     <div class="userData">
         <%if(user.userImg){%>
             <h2>Step 2: Complete!</h2>
-                      
-                        <h4 style="margin-bottom: 1px;">You may replace your image with a different one if you'd like.</h4>
-                        <img style="width: 125px; " class="headshot" src="<%=user.userImg%>" alt="Headshot">
-                        <%}else{%>
-                            <h2>Step 2: Add your Headshot to view your custom cards.</h2>
-
+            
+            <h4 style="margin-bottom: 1px;">You may replace your image with a different one if you'd like.</h4>
+            <img style="width: 125px; " class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
+            <%}else{%>
+                <h2>Step 2: Add your Headshot to view your custom cards.</h2>
+                <p>Best practices when uploading your photo, use a headshot with a white background.</p>
+                
                 <%}%>
-                   <form action="/userImgUpload" method="post" enctype="multipart/form-data">
-                       <h4 style="margin-bottom: 1px;">Add or Update your headshot here</h4>
-                       <input type="hidden" name="_id" value="<%=user._id%>">
-                       <input type="hidden" name="card_id" value="<%=card._id%>">
-                       <input type="file" name="userImg"> 
-                       <button type="submit">Submit</button>
-                    </form>
-              </div>
-              
-              
-              <%}else{%>
-                <div class="userData"><h1> To Customize and Purchase your Cards,<a id="regLink"> Register</a> or <a id="loginLink"> Sign In</a></h1></div>
-                <p>Beautiful 2" by 3.5" two-sided premium calling cards. Great for sharing with friends, gatherings, and hoots.</p>
-                    <%}%>
+                <form action="/userImgUpload" method="post" enctype="multipart/form-data">
+                    <h4 style="margin-bottom: 1px;">Add or Update your headshot here</h4>
+                    <p>Best practices when uploading your photo, use a headshot with a white background.</p>
+                                <input type="hidden" name="_id" value="<%=user._id%>">
+                                <input type="hidden" name="card_id" value="<%=card._id%>">
+                                <input type="file" name="userImg"> 
+                                <button type="submit">Submit</button>
+                            </form>
+                        </div>
+                        
+                        
+                        <%}else{%>
+                            <div class="userData"><h1> To Customize and Purchase your Cards,<a id="regLink"> Register</a> or <a id="loginLink"> Sign In</a></h1></div>
+                            <p>Beautiful 2" by 3.5" two-sided premium calling cards. Great for sharing with friends, gatherings, and hoots.</p>
+                            <%}%>
           

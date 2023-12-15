@@ -11,7 +11,7 @@ const initiatePaypalOrder = async (req,res)=>{
     const db = getDb();
     const orders_paypal = db.collection(`orders_paypal`);
     const result = await orders_paypal.findOne({"id":paypalOrderId})
-    console.log('initiate pp')
+    console.log(`initiate pp: ${result}`)
     }
     catch(error){
         console.error(error)

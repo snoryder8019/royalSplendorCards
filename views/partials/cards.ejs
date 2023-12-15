@@ -54,7 +54,7 @@
               <img class="" src="<%= card.cardFront %>" alt="Card Front">              
               <%if(typeof user =="object" && user.userImg){%>                
                 <div id="headshot_<%= card._id %>" class="headshot">            
-                 <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="<%=user.userImg%>" alt="Headshot">
+                 <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
                </div>
           <%}else{%>
             <div id="headshot_<%= card._id %>" class="headshot">              

@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const paypal = require('@paypal/checkout-server-sdk');
+const {sendDynamicEmail} = require('../nodemailer/setup')
 const config = require('./config');
-const {getCardforPaypal, getUserforPaypal} = require('./dbFunctions')
+const { getDb } = require('../../plugins/mongo/mongo');
+const {getCardforPaypal, getUserforPaypal,saveOrUpdateOrderForPaypal } = require('./dbFunctions')
 const { baseUrl } = require('../../config/config');
 const {exporterRoute} = require('../puppeteer/setup');
 // Helper function to create PayPal environment
@@ -169,29 +171,67 @@ router.get('/return', async (req, res) => {
 //     res.status(404).send('Order details not found. Please try again.');
 //   }
 // }
-const getCheckoutAwaiting = async (req, res) => {
+
+
+
+const getCheckoutAwaiting = async (req, res, card) => {
+  console.log('getCheckoutAwaiting called');
   const userId = req.query.userId;
   const cardId = req.query.cardId;
+
   const confirmationId = req.query.orderId; // Assuming this is your PayPal order ID
+const user = req.user
+const userEmail = req.user.email  
+console.log(`Received query parameters - UserID: ${userId}, CardID: ${cardId}, OrderID: ${confirmationId}`);
 
   if (!userId || !confirmationId) {
+    console.log('Order details missing');
     return res.status(404).send('Order details not found. Please try again.');
   }
 
   try {
-    const user = await getUserforPaypal(userId);
-    // If your card ID is different from the PayPal order ID, you need to fetch it differently
-    const card = await getCardforPaypal(cardId);
+    console.log('Fetching user for PayPal');
+    const pplFuncUser = await getUserforPaypal(userId);
 
-    if (!user || !card) {
+    console.log('Fetching card for PayPal');
+    const pplFuncCard = await getCardforPaypal(cardId);
+
+    if (!pplFuncUser || !pplFuncCard) {
+      console.log('User or Card details not found');
       return res.status(404).send('User or Card details not found.');
     }
+const otherData = {
+  "userId":userId,
+  "cardId":cardId,
+  "userEmail":userEmail
 
-    // Call the exporterRoute function with the necessary data
-   // await exporterRoute(req, res, userId, cardId, user, card, confirmationId);
+}
+    console.log('Calling exporterRoute');
+   // const ppalFuncOrder = await postOrderForPaypal(userId,CardId,confirmationId)
+    await exporterRoute(req, res, userId, cardId,  confirmationId);
+await saveOrUpdateOrderForPaypal(confirmationId,otherData)
+// Example usage
+sendDynamicEmail(
+  'm.scott.wallace@gmail.com', 
+  'orderComplete', 
+  { firstName: user.firstName }, // User object
+  null, // Card object (optional)
+  'https://example.com/confirm' // Dynamic link
+);
+sendDynamicEmail(
+  'w2marketing.scott@gmail.com, w2marketing.candace@gmail.com', 
+  'orderNotify', 
+  { firstName: user.firstName }, // User object
+  null, // Card object (optional)
+  'https://example.com/confirm' // Dynamic link
+);
 
-    // Render the checkout-awaiting view with the necessary data
-    res.render('checkout-awaiting', { user, card, confirmationId });
+    console.log('Rendering checkout-awaiting view');
+    console.log(user)
+    console.log(card)
+    console.log(pplFuncCard)
+    res.render('checkout-awaiting', {user:user, card:pplFuncCard, orderId: confirmationId });
+  return;
   } catch (error) {
     console.error('Error in getCheckoutAwaiting:', error);
     res.status(500).send('An error occurred while fetching details.');

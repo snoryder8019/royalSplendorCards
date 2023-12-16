@@ -11,7 +11,7 @@
     <div id="main">
         <div class="card">
             <%=card.cardName%>
-            <div class="cardFrontFrame">
+            <div id="cardFrontFrame" class="cardFrontFrame">
               <%if(card.vertical=="false"){%>
                 <div class="cardImg">
                   <%}else{%>
@@ -53,15 +53,22 @@
                     
                          <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
                        </div>
+                       </div>
+                       </div>
                   <%}else{%>
                     <div id="headshot_<%= card._id %>" class="headshot">
                       
                            <img style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale %>);" class="headshot" src="/images/sampleFace.jpg" alt="Headshot">
                          </div>
+                        </div>
+                        </div>
+                        </div>
                  <%}%>
-              </div>
             </div>
-            <div class="cardBackFrame">
+            </div>
+            </div>
+            </div>
+            <div id="cardBackFrame" class="cardBackFrame">
               <%if(card.vertical=="false"){%>
                 <div class="cardImg">
                   <%}else{%>
@@ -87,4 +94,6 @@
             </div>
             
           </div>
-        </div></body>
+        </div>
+        <script src="/javascripts/loader.js"></script>
+      </body>

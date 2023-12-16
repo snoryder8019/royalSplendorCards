@@ -179,6 +179,7 @@ html {
   padding: 0;
 }
 body {
+  background-color: $primaryBackgroundColor;
   display: none;
   font-family: $primaryFontFamily;
 // background-image: url('../images/logoHat.png');
@@ -221,6 +222,9 @@ p{
   //padding: 2%;
   @media (min-width:$screenQueryReg) {
   //  @include regMedia()
+  width: 50%;
+  margin-left: -13%;
+  transform: translateX(75%);
     }
 }
 button {

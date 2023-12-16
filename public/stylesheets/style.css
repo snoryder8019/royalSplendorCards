@@ -68,6 +68,7 @@ html {
 }
 
 body {
+  background-color: rgba(255, 253, 246, 0.6509803922);
   display: none;
   font-family: "minonPro";
   margin: 0;
@@ -86,6 +87,14 @@ li {
 p {
   font-size: 1.2rem;
 }
+@media (min-width: 768px) {
+  p {
+    width: 50%;
+    margin-left: -13%;
+    transform: translateX(75%);
+  }
+}
+
 button {
   width: 84%;
   height: 42px;

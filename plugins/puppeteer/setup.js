@@ -9,7 +9,8 @@ var router = express.Router();
 const util = require('util');
 const generatePDF = async (url, elementId, outputPath) => {
     console.log(`Starting PDF generation for ${elementId} at ${url}`);
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  
     const page = await browser.newPage();
     await page.goto(url);
     console.log(`Page loaded: ${url}`);

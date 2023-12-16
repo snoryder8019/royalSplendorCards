@@ -12,7 +12,7 @@ const config =
     "title":"RHS - TRADING CARDS",
     "headline":"Red Hats Society ~ Trading Cards",
     "companyPaypal":process.env.PPAL_CID,
-    "baseShipping":"1.00",
+    "baseShipping":"9.00",
     "baseTransaction":"1.00"
 }
 module.exports = config

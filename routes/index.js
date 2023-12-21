@@ -9,14 +9,18 @@ const flash = require('express-flash');
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
 const { userImgUpload, userDataUpload } = require('./userFunctions/userFunctions');
-
+const gatherIp = async (req,res,next)=>{
+  let userIp = req.ip
+  console.log(`user's IP: ${userIp}`)
+  next()
+}
 // ... other app setup code ...
 router.post('/userImgUpload', upload, userImgUpload);
 router.post('/checkouts', checkouts);
 
 router.post('/userDataUpload', userDataUpload)
 /* GET home page. */
-router.get('/', async (req, res) => {
+router.get('/',gatherIp, async (req, res) => {
   let user = req.user;
  // Fetch all cards from the database
  const fonts = getFonts();

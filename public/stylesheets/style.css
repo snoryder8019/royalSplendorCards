@@ -581,7 +581,7 @@ input[type=submit]:hover {
   font-weight: 800;
 }
 
-#cardUploadDiv, #draftCards, #uploadFonts {
+#cardUploadDiv, #draftCards, #uploadFonts, #users, #orders {
   display: none;
 }
 
@@ -649,6 +649,15 @@ input[type=submit]:hover {
     margin-left: 25%;
     font-size: 1.8rem;
   }
+}
+
+.adminButtonsDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.adminButtons {
+  font-size: 0.9rem;
 }
 
 .userAdminDiv_cell {

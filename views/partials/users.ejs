@@ -1,0 +1,32 @@
+<div id="usersDiv">
+    <div class="userAdminDiv_cell">
+    <div class="cartScroll">
+    <%if(typeof users == 'object'&& users){%>
+      <div class="cartTableDiv">
+      <table class="cartTable">
+        You have users!!
+        **<a href="/admin">link to download csvs</a>
+      <br>  <h8>**actions and downloads coming soon</h8>
+        <thead>
+          <th>name</th>
+          <th>email</th>
+        <th>**actions</th>
+        </thead>
+        <tbody>
+          <%for(let i=0;i<users.length;i++){%>
+            <tr>
+        <td> <%=users[i].lastName%>,<%=users[i].firstName%></td>
+        <td> <%=users[i].email%></td>
+        <td> suspend~email~delete</td>
+   
+      </tr>
+      <%}%>
+    </tbody>
+    </table>
+  </div>
+      <%}else{%>
+        no users found
+        <%}%>
+      </div>
+    </div>
+  </div>

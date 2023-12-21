@@ -14,15 +14,19 @@
  ADMIN PAGE ~  <a href="/">go HOME</a> 
   </div>
   
-  <div>
-    <button id="toggleDraft" value="Toggle Draft Cards">Manage Cards</button>
-    <button id="toggleCard" value="add new card design">Add a Card</button>
-    <button id="toggleFont" value="Toggle Font Upload">Upload Fonts</button>
+  <div class="adminButtonsDiv">
+    <button class="adminButtons" id="toggleUsers" value="Toggle Users">Manage Users</button>
+    <button class="adminButtons" id="toggleDraft" value="Toggle Draft Cards">Manage Cards</button>
+    <button class="adminButtons" id="toggleCard" value="add new card design">Add a Card</button>
+    <button class="adminButtons" id="toggleFont" value="Toggle Font Upload">Upload Fonts</button>
+    <button class="adminButtons" id="toggleOrders" value="Toggle Orders">Manage Orders</button>
   </div>
 
 <div id="cardUploadDiv"><%- include('./partials/cardUploads')%></div>
 <div id="draftCards"><%- include('./partials/cardDrafts',{user:user,message:message})%> </div>
 <div id="uploadFonts"><%- include('./partials/fontUploads')%></div>
+<div id="users"><%- include('./partials/users',{users:users, message:message})%></div>
+<div id="orders"><%- include('./partials/orders',{users:users,ordersPaypal:ordersPaypal, message:message})%></div>
 
       <!--MENU IS CONSTANT FOOTER-->
      
@@ -30,38 +34,7 @@
       <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   
    
     </div>    
-    <div id="emails">
-      <div class="userAdminDiv_cell">
-      <div class="cartScroll">
-      <%if(typeof users == 'object'&& users){%>
-        <div class="cartTableDiv">
-        <table class="cartTable">
-          You have users!!
-          **<a href="/admin">link to download csvs</a>
-        <br>  <h8>**actions and downloads coming soon</h8>
-          <thead>
-            <th>name</th>
-            <th>email</th>
-          <th>**actions</th>
-          </thead>
-          <tbody>
-            <%for(let i=0;i<users.length;i++){%>
-              <tr>
-          <td> <%=users[i].lastName%>,<%=users[i].firstName%></td>
-          <td> <%=users[i].email%></td>
-          <td> suspend~email~delete</td>
-     
-        </tr>
-        <%}%>
-      </tbody>
-      </table>
-    </div>
-        <%}else{%>
-          no users found
-          <%}%>
-        </div>
-      </div>
-    </div>
+    
     <div class="colorsContainer" id="css-colors-container"></div>   
     <div id="filler"></div>
 

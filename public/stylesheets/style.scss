@@ -662,7 +662,7 @@ $avatarDimention:90px;
   font-weight: $menuInitialsWeight;
 }
 //MENU STUFF
-#cardUploadDiv, #draftCards, #uploadFonts {
+#cardUploadDiv, #draftCards, #uploadFonts,#users,#orders {
   display: none;
 }
 #draftCards input[type="color"]{
@@ -724,6 +724,13 @@ $avatarDimention:90px;
     margin-left: 25%;;
     font-size:$regularFontSize;
     }
+}
+.adminButtonsDiv{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.adminButtons{
+  font-size: .9rem;
 }
 .userAdminDiv_cell{
   max-height: 1000px;

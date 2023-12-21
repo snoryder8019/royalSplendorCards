@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const initiatePaypalOrder = require('../dbFunctions')
+const {initiatePaypalOrder,updatePaypalOrder} = require('../dbFunctions')
 
 
 const checkouts = async (req, res) => {
@@ -25,6 +25,7 @@ const checkouts = async (req, res) => {
         const payerEmail = req.body.resource.payer.email_address;
         console.log(`event received:\nOrderId: ${orderId}\nEventType: ${eventType}\nStatus: ${status}`);
         console.log(`id: ${payerId}, email: ${payerEmail} `)
+        updatePaypalOrder("paypalCompleted","true")
         
     }else{
     const orderId = req.body.id

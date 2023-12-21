@@ -66,6 +66,23 @@ const getCardforPaypal = async (cardId) => {
     }
 };
 
+const updatePaypalOrder = async (orderId, updateFields) => {
+    try {
+        const db = getDb();
+        const newId = new ObjectId(orderId);
+        const ordersPaypal = db.collection('orders_paypal');
 
+        const updateResult = await ordersPaypal.updateOne(
+            { "_id": newId },
+            { $set: updateFields }
+        );
 
-module.exports = {saveOrUpdateOrderForPaypal , getCardforPaypal, getUserforPaypal};
+        console.log(`Order updated: ${updateResult.modifiedCount} document(s)`);
+        return updateResult;
+    } catch (error) {
+        console.error(error);
+        throw error; // Rethrow the error for the caller to handle
+    }
+};
+
+module.exports = {saveOrUpdateOrderForPaypal , getCardforPaypal, getUserforPaypal,updatePaypalOrder};

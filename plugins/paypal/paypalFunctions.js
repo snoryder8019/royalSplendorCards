@@ -203,12 +203,19 @@ console.log(`Received query parameters - UserID: ${userId}, CardID: ${cardId}, O
 const otherData = {
   "userId":userId,
   "cardId":cardId,
-  "userEmail":userEmail
+  "userEmail":userEmail,
+  "paypalApproved":"false",
+  "sentToPrint":"false",
+  "paypalCompleted":"false",
+  "paypalCanceled":"false",
+  "trackingId":"",
+  "orderDate":new Date()
 
 }
     console.log('Calling exporterRoute');
    // const ppalFuncOrder = await postOrderForPaypal(userId,CardId,confirmationId)
-    await exporterRoute(req, res, userId, cardId,  confirmationId);
+   //THIS IS TH PDF SCRAPER BELOW!!!!!!!!!!!!!
+   // await exporterRoute(req, res, userId, cardId,  confirmationId);
 await saveOrUpdateOrderForPaypal(confirmationId,otherData)
 // Example usage
 sendDynamicEmail(
@@ -219,7 +226,7 @@ sendDynamicEmail(
   'https://example.com/confirm' // Dynamic link
 );
 sendDynamicEmail(
-  'w2marketing.scott@gmail.com, w2marketing.candace@gmail.com', 
+  'w2marketing.scott@gmail.com', 
   'orderNotify', 
   { firstName: user.firstName }, // User object
   null, // Card object (optional)

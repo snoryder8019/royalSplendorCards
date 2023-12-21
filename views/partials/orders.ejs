@@ -1,0 +1,12 @@
+
+<h2>Review Orders</h2>
+<%if(typeof ordersPaypal=='object'&& ordersPaypal){%>
+   there are orders
+   <%for(let i =0;i<ordersPaypal.length;i++){%>
+    <%=ordersPaypal[i]._id%>
+    
+    <%}%>
+
+    <%}else{%>
+no active orders        
+        <%}%>

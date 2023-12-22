@@ -69,11 +69,11 @@ const getCardforPaypal = async (cardId) => {
 const updatePaypalOrder = async (orderId, updateFields) => {
     try {
         const db = getDb();
-        const newId = new ObjectId(orderId);
+      //  const newId = new ObjectId(orderId);
         const ordersPaypal = db.collection('orders_paypal');
 
         const updateResult = await ordersPaypal.updateOne(
-            { "_id": newId },
+            { "customId": orderId },
             { $set: updateFields }
         );
 

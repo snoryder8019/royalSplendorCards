@@ -70,7 +70,8 @@ const checkouts = async (req, res) => {
 let updateFields = {
     "paypalCompleted": "true",
     "description":description,
-    "amount":amount
+    "amount":amount,
+    "paypalId":orderId
     // Ensure other fields are properly defined and not null
 };
 

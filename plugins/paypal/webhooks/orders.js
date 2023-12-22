@@ -36,7 +36,7 @@ const checkouts = async (req, res) => {
             const payerEmail = req.body.resource.payer.email_address;
             console.log(`Event received: OrderId: ${orderId}, EventType: ${eventType}, Status: ${status}`);
             console.log(`Payer ID: ${payerId}, Payer Email: ${payerEmail}`);
-        
+        let customId=null;
             if (purchaseUnits) {
                 purchaseUnits.forEach((unit, index) => {
                     const customId = unit.custom_id;

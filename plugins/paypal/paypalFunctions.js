@@ -183,9 +183,9 @@ const getCheckoutAwaiting = async (req, res, card) => {
   const confirmationId = req.query.orderId; // Assuming this is your PayPal order ID
 const user = req.user
 const userEmail = req.user.email  
-console.log(`Received query parameters - UserID: ${userId}, CardID: ${cardId}, OrderID: ${confirmationId}`);
+console.log(`Received query parameters - UserID: ${userId}, CardID: ${cardId}, OrderID: ${customId}`);
 
-  if (!userId || !confirmationId) {
+  if (!userId || !customId) {
     console.log('Order details missing');
     return res.status(404).send('Order details not found. Please try again.');
   }
@@ -220,7 +220,7 @@ const otherData = {
    // const ppalFuncOrder = await postOrderForPaypal(userId,CardId,confirmationId)
    //THIS IS TH PDF SCRAPER BELOW!!!!!!!!!!!!!
    // await exporterRoute(req, res, userId, cardId,  confirmationId);
-await saveOrUpdateOrderForPaypal(confirmationId,otherData)
+await saveOrUpdateOrderForPaypal(customId,otherData)
 // Example usage
 sendDynamicEmail(
   'm.scott.wallace@gmail.com', 

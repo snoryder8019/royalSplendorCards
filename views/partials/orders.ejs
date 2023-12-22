@@ -1,10 +1,16 @@
 
 <h2>Review Orders</h2>
-<%if(typeof ordersPaypal=='object'&& ordersPaypal){%>
+<%if(typeof ordersPaypal=='object'&& ordersPaypal ){%>
    there are orders
    <%for(let i =0;i<ordersPaypal.length;i++){%>
-    <%=ordersPaypal[i]._id%>
-    
+
+      <%if(ordersPaypal[i].paypalCompleted=="true"){%>
+        <div>
+           <%=ordersPaypal[i].customId%>
+           <%=ordersPaypal[i].%>
+        </div>
+      <%}%>
+
     <%}%>
 
     <%}else{%>

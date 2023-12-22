@@ -63,7 +63,9 @@ const checkouts = async (req, res) => {
             // Ensure this function is asynchronous and awaited
 // Example usage
 let updateFields = {
-    "paypalCompleted": "true"
+    "paypalCompleted": "true",
+    "Description":unit.description,
+    "Amount":unit.amount.value
     // Ensure other fields are properly defined and not null
 };
 

@@ -44,7 +44,6 @@ const checkouts = async (req, res) => {
                      customId = unit.custom_id;
                      description = unit.description;
        
-                    description=parts[0]
                      amount = unit.amount.value;
                     console.log(`Purchase Unit ${index + 1}: Custom ID: ${customId}`);
                     console.log(`Description: ${unit.description}`);

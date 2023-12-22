@@ -43,6 +43,7 @@ const checkouts = async (req, res) => {
                 purchaseUnits.forEach((unit, index) => {
                      customId = unit.custom_id;
                      description = unit.description;
+                     description = description.replace(/\s/g, '');
                      amount = unit.amount.value;
                     console.log(`Purchase Unit ${index + 1}: Custom ID: ${customId}`);
                     console.log(`Description: ${unit.description}`);

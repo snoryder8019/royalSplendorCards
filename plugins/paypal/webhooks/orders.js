@@ -34,7 +34,7 @@ const checkouts = async (req, res) => {
             const payerEmail = req.body.resource.payer.email_address;
             console.log(`Event received: OrderId: ${orderId}, EventType: ${eventType}, Status: ${status}, Custom Id: ${customId}`);
             console.log(`ID: ${payerId}, Email: ${payerEmail}`);
-            updatePaypalOrder(orderId, {"paypalCompleted": "true"});
+         //   updatePaypalOrder(orderId, {"paypalCompleted": "true"});
         } else {
             const summary = req.body.summary;
             console.log(`Other hooks: ${eventType}, Summary: ${summary}, Order ID: ${orderId}`);

@@ -39,7 +39,7 @@ const checkouts = async (req, res) => {
        let customId;
             if (purchaseUnits) {
                 purchaseUnits.forEach((unit, index) => {
-                    let customId = unit.custom_id;
+                     customId = unit.custom_id;
                     console.log(`Purchase Unit ${index + 1}: Custom ID: ${customId}`);
                     console.log(`Description: ${unit.description}`);
                     console.log(`Amount: ${unit.amount.value} ${unit.amount.currency_code}`);

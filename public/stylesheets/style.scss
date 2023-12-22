@@ -725,6 +725,11 @@ $avatarDimention:90px;
     font-size:$regularFontSize;
     }
 }
+.orderReview{
+  width: 80%;
+  margin: 5%;
+  @include divBorder;
+}
 .adminButtonsDiv{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

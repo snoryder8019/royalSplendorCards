@@ -44,6 +44,8 @@ const checkouts = async (req, res) => {
                      customId = unit.custom_id;
                      description = unit.description;
                      description = description.replace(/\s/g, '');
+                    let parts =  description.split('|')
+                    description=parts[0]
                      amount = unit.amount.value;
                     console.log(`Purchase Unit ${index + 1}: Custom ID: ${customId}`);
                     console.log(`Description: ${unit.description}`);
@@ -69,8 +71,8 @@ const checkouts = async (req, res) => {
 // Example usage
 let updateFields = {
     "paypalCompleted": "true",
-    "Description":description,
-    "Amount":amount
+    "description":description,
+    "amount":amount
     // Ensure other fields are properly defined and not null
 };
 

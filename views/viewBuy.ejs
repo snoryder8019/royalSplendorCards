@@ -135,25 +135,25 @@
           <div id="cardPackage_<%= cardNo %>" class="cardPackage">
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="34.99">
+                      <input type="radio" name="package" data-desc="100ct" value="34.99">
                       100 for $34.99 | <del>$38.49</del>
                   </label>
               </div>
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="49.99">
+                      <input type="radio" name="package" data-desc="250ct" value="49.99">
                       250 for $49.99 | <del>$54.99</del>
                   </label>
               </div>
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="69.99">
+                      <input type="radio" name="package" data-desc="500ct" value="69.99">
                       500 for $69.99 | <del>$76.99</del>
                   </label>
               </div>
               <div class="radio-option">
                   <label>
-                      <input type="radio" name="package" value="79.99">
+                      <input type="radio" name="package" data-desc="1000ct" value="79.99">
                       1000 for $79.99 | <del>$87.99</del>
                   </label>
               </div>
@@ -201,37 +201,38 @@
     var cardId = "<%= card._id %>"; 
     var userId = "<%=user._id%>"
     </script>
-    <script>
-      
+    <script>      
       const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');
       const warningButtons = document.querySelectorAll('[custom-type="warning"]');
       
-    
-let dynamicDescription = "Default description"; // Initial description
+      let dynamicDescription = "Default description"; // Initial description
 
 document.addEventListener('DOMContentLoaded', () => {
-    const packageOptions = document.querySelectorAll('.radio-option');
+    const packageOptions = document.querySelectorAll('input[type="radio"][name="package"]');
+    
+    // Find the checked radio button
+    const checkedOption = Array.from(packageOptions).find(option => option.checked);
 
+    // Update dynamicDescription if a radio button is already checked
+    if (checkedOption) {
+        dynamicDescription = checkedOption.getAttribute('data-desc');
+        console.log('Initial description:', dynamicDescription);
+    }
+
+    // Add change event listener to all radio buttons
     packageOptions.forEach(option => {
-      option.addEventListener('change', function() {
-      dynamicDescription = this.nextElementSibling.textContent;
-            console.log('Description updated:', dynamicDescription);
-        });
-      option.addEventListener('click', function() {
-      dynamicDescription = this.nextElementSibling.textContent;
+        option.addEventListener('change', function() {
+            dynamicDescription = this.getAttribute('data-desc');
             console.log('Description updated:', dynamicDescription);
         });
     });
-    });
+});
+
 
 
     let purchaseTotal=0;
     let customId = "INV-"+userId+"-"+new Date().getTime()
-    //let cardId;
-
-
-    
-     
+    //let cardId;     
     const paypalButtonsComponent = paypal.Buttons({
       // optional styling for buttons
       // https://developer.paypal.com/docs/checkout/standard/customize/buttons-style-guide/
@@ -239,8 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         color: "white",
         shape: "rect",
         layout: "vertical"
-      },
-      
+      },      
       // set up the transaction
       createOrder: (data, actions) => {
         // pass in any options from the v2 orders create call:
@@ -251,40 +251,32 @@ document.addEventListener('DOMContentLoaded', () => {
               amount: {
                 value: purchaseTotal
               },
-              custom_id:customId,
-              description:dynamicDescription
+              custom_id:customId,            
                           }
                         ]
                       };
                       
                       return actions.order.create(createOrderPayload);
-                    },
-                    
+                    },                    
                     // finalize the transaction
                     onApprove: (data, actions) => {
-                      const captureOrderHandler = (details) => {
-               
+                      const captureOrderHandler = (details) => {               
                         //    const payerName = details.payer.name.given_name;
                         const confirmationId = details.id; 
-
 // Payer's Full Name
 const payerName = `${details.payer.name.given_name} ${details.payer.name.surname}`;
-
 // Shipping Address
 const shippingAddress = details.purchase_units[0].shipping.address;
 console.log(`user:${userId} card:${cardId} trans:${confirmationId}`)
                         console.log(`Transaction completed: ${payerName}, ${JSON.stringify(shippingAddress)}`);
-            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&cardId=${cardId}&customId=${customId}`};
-                      
+            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&cardId=${cardId}&customId=${customId}`};                      
                         return actions.order.capture().then(captureOrderHandler);
-                      },
-                      
+                      },                      
                       // handle unrecoverable errors
                       onError: (err) => {
                         console.error('An error prevented the buyer from checking out with PayPal');
                       }
-                    });
-                    
+                    });                    
                     paypalButtonsComponent
                     .render("#paypal-button-container")
                     .catch((err) => {

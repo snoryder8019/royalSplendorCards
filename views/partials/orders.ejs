@@ -1,14 +1,26 @@
 
 <h2>Review Orders</h2>
 <%if(typeof ordersPaypal=='object'&& ordersPaypal ){%>
-   there are orders
+    <%let completedOrdersCount = ordersPaypal.filter(order => order.paypalCompleted === 'true').length;%>
+  <h2> You have <%=completedOrdersCount%> New Orders!! 🥳</h2>
    <%for(let i =0;i<ordersPaypal.length;i++){%>
 
       <%if(ordersPaypal[i].paypalCompleted=="true"){%>
-        <div>
-           <%=ordersPaypal[i].customId%>
-           <%=ordersPaypal[i].amount%>
-        </div>
+        <div class="orderReview">
+        <h5>Order Details for : <%=ordersPaypal[i].userEmail%></h5>
+        <div><%=ordersPaypal[i].customId%></div>
+        <div><%=ordersPaypal[i].amount%></div>
+        <div><%=ordersPaypal[i].description%></div>
+      
+      <form action="/editOrder" method="post">
+      <input type="hidden" name="order_id" value="<%=ordersPaypal[i]._id%>">
+      <button>edit</button>
+      </form>
+      <form action="/approveOrder" method="post">
+      <input type="hidden" name="order_id" value="<%=ordersPaypal[i]._id%>">
+      <button>approve</button>
+      </form>
+    </div>
       <%}%>
 
     <%}%>

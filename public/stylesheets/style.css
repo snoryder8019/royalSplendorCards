@@ -651,6 +651,15 @@ input[type=submit]:hover {
   }
 }
 
+.orderReview {
+  width: 80%;
+  margin: 5%;
+  border: 6px solid #932432;
+  border-radius: 50px;
+  background-color: rgba(255, 253, 246, 0.6509803922);
+  padding: 3%;
+}
+
 .adminButtonsDiv {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

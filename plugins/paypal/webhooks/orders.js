@@ -37,9 +37,13 @@ const checkouts = async (req, res) => {
             console.log(`Event received: OrderId: ${orderId}, EventType: ${eventType}, Status: ${status}`);
             console.log(`Payer ID: ${payerId}, Payer Email: ${payerEmail}`);
        let customId;
+       let description;
+       let amount;
             if (purchaseUnits) {
                 purchaseUnits.forEach((unit, index) => {
                      customId = unit.custom_id;
+                     description = unit.description;
+                     amount = unit.amount.value;
                     console.log(`Purchase Unit ${index + 1}: Custom ID: ${customId}`);
                     console.log(`Description: ${unit.description}`);
                     console.log(`Amount: ${unit.amount.value} ${unit.amount.currency_code}`);

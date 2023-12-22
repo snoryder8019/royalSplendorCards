@@ -207,7 +207,7 @@ const otherData = {
   "cardId":cardId,
   "userEmail":userEmail,
   "Description":"",
-  "Amount":
+  "Amount":"",
   "paypalApproved":"false",
   "sentToPrint":"false",
   "paypalCompleted":"false",

@@ -5,21 +5,21 @@ const { getDb } = require('../../plugins/mongo/mongo');
 const lib = require('../../routes/logFunctions/logFunctions');
 const { ObjectId } = require('mongodb');
 
-const saveOrUpdateOrderForPaypal = async (confirmationId, additionalData) => {
+const saveOrUpdateOrderForPaypal = async (customId, additionalData) => {
     try {
         const db = getDb();
         const ordersPaypal = db.collection('orders_paypal');
 
         // Check if an order with the given confirmationId already exists
-        const existingOrder = await ordersPaypal.findOne({ "confirmationId": confirmationId });
+        const existingOrder = await ordersPaypal.findOne({ "customId": customId });
         if (existingOrder) {
-            console.log(`Order already exists with confirmation ID: ${confirmationId}`);
+            console.log(`Order already exists with confirmation ID: ${customId}`);
             return existingOrder; // or handle as needed
         }
 
         // Build the new order object with additional data
         const newOrder = {
-            confirmationId: confirmationId,
+           customId:customId,
             ...additionalData // Spread in additional data that you will pass
         };
 

@@ -199,21 +199,26 @@
   <!-- Sample PayPal credentials (client-id) are included -->
   <script>
     var cardId = "<%= card._id %>"; 
-    let invoiceId = "INV-"+userId+new Date.getTime()
+    var userId = "<%=user._id%>"
     </script>
     <script>
       
       const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');
       const warningButtons = document.querySelectorAll('[custom-type="warning"]');
       
+    
 let dynamicDescription = "Default description"; // Initial description
 
 document.addEventListener('DOMContentLoaded', () => {
     const packageOptions = document.querySelectorAll('.radio-option');
 
     packageOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            dynamicDescription = this.nextElementSibling.textContent;
+      option.addEventListener('change', function() {
+      dynamicDescription = this.nextElementSibling.textContent;
+            console.log('Description updated:', dynamicDescription);
+        });
+      option.addEventListener('click', function() {
+      dynamicDescription = this.nextElementSibling.textContent;
             console.log('Description updated:', dynamicDescription);
         });
     });
@@ -221,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     let purchaseTotal=0;
-    //let userId;
+    let customId = "INV-"+userId+"-"+new Date().getTime()
     //let cardId;
 
 
@@ -246,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
               amount: {
                 value: purchaseTotal
               },
-              custom_id:invoiceId,
+              custom_id:customId,
               description:dynamicDescription
                           }
                         ]
@@ -269,7 +274,7 @@ const payerName = `${details.payer.name.given_name} ${details.payer.name.surname
 const shippingAddress = details.purchase_units[0].shipping.address;
 console.log(`user:${userId} card:${cardId} trans:${confirmationId}`)
                         console.log(`Transaction completed: ${payerName}, ${JSON.stringify(shippingAddress)}`);
-            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&cardId=${cardId}&orderId=${confirmationId}`};
+            window.location.href=`/viewBuy/checkout-awaiting/?userId=${userId}&cardId=${cardId}&customId=${customId}`};
                       
                         return actions.order.capture().then(captureOrderHandler);
                       },

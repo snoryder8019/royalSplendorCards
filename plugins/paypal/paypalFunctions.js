@@ -178,6 +178,7 @@ const getCheckoutAwaiting = async (req, res, card) => {
   console.log('getCheckoutAwaiting called');
   const userId = req.query.userId;
   const cardId = req.query.cardId;
+  const customId = req.query.customId;
 
   const confirmationId = req.query.orderId; // Assuming this is your PayPal order ID
 const user = req.user
@@ -201,7 +202,7 @@ console.log(`Received query parameters - UserID: ${userId}, CardID: ${cardId}, O
       return res.status(404).send('User or Card details not found.');
     }
 const otherData = {
-  "ppOrderId":"",
+  "customId":customId,
   "userId":userId,
   "cardId":cardId,
   "userEmail":userEmail,
@@ -240,7 +241,7 @@ sendDynamicEmail(
     console.log(user)
     console.log(card)
     console.log(pplFuncCard)
-    res.render('checkout-awaiting', {user:user, card:pplFuncCard, orderId: confirmationId });
+    res.render('checkout-awaiting', {user:user, card:pplFuncCard, orderId: customId });
   return;
   } catch (error) {
     console.error('Error in getCheckoutAwaiting:', error);

@@ -180,7 +180,6 @@
   </div>
   
   <div id="ppalSDK">
-    <%let invoiceId = "INV-"+userId+new Date.getTime()%>
     <%let baseShipping = config.baseShipping%>
     <%let baseTransaction = config.baseTransaction%>
     <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
@@ -200,12 +199,13 @@
   <!-- Sample PayPal credentials (client-id) are included -->
   <script>
     var cardId = "<%= card._id %>"; 
+    let invoiceId = "INV-"+userId+new Date.getTime()
     </script>
     <script>
-
-    const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');
-const warningButtons = document.querySelectorAll('[custom-type="warning"]');
-
+      
+      const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');
+      const warningButtons = document.querySelectorAll('[custom-type="warning"]');
+      
 let dynamicDescription = "Default description"; // Initial description
 
 document.addEventListener('DOMContentLoaded', () => {

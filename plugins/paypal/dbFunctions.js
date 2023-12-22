@@ -68,8 +68,12 @@ const getCardforPaypal = async (cardId) => {
 
 const updatePaypalOrder = async (orderId, updateFields) => {
     try {
+        // Check if updateFields is valid
+        if (!updateFields || Object.keys(updateFields).length === 0) {
+            throw new Error("updateFields is empty or invalid");
+        }
+
         const db = getDb();
-      //  const newId = new ObjectId(orderId);
         const ordersPaypal = db.collection('orders_paypal');
 
         const updateResult = await ordersPaypal.updateOne(
@@ -84,5 +88,6 @@ const updatePaypalOrder = async (orderId, updateFields) => {
         throw error; // Rethrow the error for the caller to handle
     }
 };
+
 
 module.exports = {saveOrUpdateOrderForPaypal , getCardforPaypal, getUserforPaypal,updatePaypalOrder};

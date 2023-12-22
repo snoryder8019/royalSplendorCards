@@ -61,7 +61,19 @@ const checkouts = async (req, res) => {
             }
             // Update PayPal order status or other post-processing
             // Ensure this function is asynchronous and awaited
-             await updatePaypalOrder({customId, "paypalCompleted": "true"});
+// Example usage
+let updateFields = {
+    "paypalCompleted": "true"
+    // Ensure other fields are properly defined and not null
+};
+
+// Make sure customId is not null
+if (customId) {
+    await updatePaypalOrder(customId, updateFields);
+} else {
+    console.error("customId is null or undefined");
+}
+
         } else {
             const summary = req.body.summary;
             console.log(`Other hooks: ${eventType}, Summary: ${summary}, Order ID: ${orderId}`);

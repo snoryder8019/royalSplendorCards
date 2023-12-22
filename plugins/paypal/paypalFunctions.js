@@ -201,9 +201,12 @@ console.log(`Received query parameters - UserID: ${userId}, CardID: ${cardId}, O
       return res.status(404).send('User or Card details not found.');
     }
 const otherData = {
+  "ppOrderId":"",
   "userId":userId,
   "cardId":cardId,
   "userEmail":userEmail,
+  "Description":"",
+  
   "paypalApproved":"false",
   "sentToPrint":"false",
   "paypalCompleted":"false",

@@ -61,7 +61,7 @@ const checkouts = async (req, res) => {
             }
             // Update PayPal order status or other post-processing
             // Ensure this function is asynchronous and awaited
-            // await updatePaypalOrder(orderId, {"paypalCompleted": "true"});
+             await updatePaypalOrder(orderId, {"paypalCompleted": "true"});
         } else {
             const summary = req.body.summary;
             console.log(`Other hooks: ${eventType}, Summary: ${summary}, Order ID: ${orderId}`);

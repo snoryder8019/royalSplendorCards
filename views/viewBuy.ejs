@@ -180,7 +180,7 @@
   </div>
   
   <div id="ppalSDK">
-    
+    <%let invoiceId = "INV-"+userId+new Date.getTime()%>
     <%let baseShipping = config.baseShipping%>
     <%let baseTransaction = config.baseTransaction%>
     <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
@@ -209,7 +209,7 @@ const warningButtons = document.querySelectorAll('[custom-type="warning"]');
 let dynamicDescription = "Default description"; // Initial description
 
 document.addEventListener('DOMContentLoaded', () => {
-    const packageOptions = document.querySelectorAll('.package-option');
+    const packageOptions = document.querySelectorAll('.radio-option');
 
     packageOptions.forEach(option => {
         option.addEventListener('change', function() {
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
               amount: {
                 value: purchaseTotal
               },
-              custom_id:userId,
+              custom_id:invoiceId,
               description:dynamicDescription
                           }
                         ]

@@ -8,43 +8,42 @@ const checkouts = async (req, res) => {
         const eventType = req.body.event_type;
         const orderId = req.body.id; // Order ID is common for all events
 
+        console.log(`Received event: ${eventType}, Order ID: ${orderId}`); // Initial log for debugging
+
         if (eventType == "CHECKOUT.ORDER.COMPLETED") {
             console.log(`Fire finalization`);
-            // Call your order finalization logic here
+            // Asynchronous finalization logic, if any, should be awaited
+            // await finalizeOrder(orderId); // Example
 
-            // Extract payer information
             const payerEmail = req.body.resource.payer.email_address;
             const payerId = req.body.resource.payer.payer_id;
             console.log(`Email: ${payerEmail}, ID: ${payerId}, Order ID: ${orderId}`);
 
-            // Extract purchase units information
             const purchaseUnits = req.body.resource.purchase_units;
             if (purchaseUnits) {
                 purchaseUnits.forEach((unit, index) => {
                     console.log(`Purchase Unit ${index + 1}:`);
                     console.log(`Description: ${unit.description}`);
                     console.log(`Amount: ${unit.amount.value} ${unit.amount.currency_code}`);
-                    // Add more fields as needed
+                    // Additional logging for more fields...
                 });
             }
         } else if (eventType == "CHECKOUT.ORDER.APPROVED") {
             const purchaseUnits = req.body.resource.purchase_units;
         
-            // Log basic order and payer information
             const status = req.body.resource.status;
             const payerId = req.body.resource.payer.payer_id;
             const payerEmail = req.body.resource.payer.email_address;
             console.log(`Event received: OrderId: ${orderId}, EventType: ${eventType}, Status: ${status}`);
             console.log(`Payer ID: ${payerId}, Payer Email: ${payerEmail}`);
         
-            // Iterate through each purchase unit to extract details
             if (purchaseUnits) {
                 purchaseUnits.forEach((unit, index) => {
                     const customId = unit.custom_id;
                     console.log(`Purchase Unit ${index + 1}: Custom ID: ${customId}`);
                     console.log(`Description: ${unit.description}`);
                     console.log(`Amount: ${unit.amount.value} ${unit.amount.currency_code}`);
-                    // Log item details if available
+                    
                     if (unit.items) {
                         unit.items.forEach((item, itemIndex) => {
                             console.log(`  Item ${itemIndex + 1}:`);
@@ -53,7 +52,7 @@ const checkouts = async (req, res) => {
                             console.log(`    Unit Price: ${item.unit_amount.value} ${item.unit_amount.currency_code}`);
                         });
                     }
-                    // Log shipping details if available
+                    
                     if (unit.shipping) {
                         console.log(`Shipping Address: ${unit.shipping.address.full_name}`);
                         console.log(`  Address: ${unit.shipping.address.address_line_1}, ${unit.shipping.address.admin_area_2}, ${unit.shipping.address.admin_area_1}, ${unit.shipping.address.postal_code}, ${unit.shipping.address.country_code}`);
@@ -61,9 +60,9 @@ const checkouts = async (req, res) => {
                 });
             }
             // Update PayPal order status or other post-processing
-            // updatePaypalOrder(orderId, {"paypalCompleted": "true"});
-        }
-        else {
+            // Ensure this function is asynchronous and awaited
+            // await updatePaypalOrder(orderId, {"paypalCompleted": "true"});
+        } else {
             const summary = req.body.summary;
             console.log(`Other hooks: ${eventType}, Summary: ${summary}, Order ID: ${orderId}`);
         }

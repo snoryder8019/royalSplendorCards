@@ -1,4 +1,5 @@
 // loader.js
+
 // UI and other scripts managed here for simplicity wherever needed
 const loadScript = (src) => {
   return new Promise((resolve, reject) => {
@@ -18,6 +19,7 @@ const scriptsToLoad = [
   '/javascripts/controllers/approvalFlow.js',
   '/javascripts/controllers/inputControl.js',
   '/javascripts/fetch/cartFetch.js',
+  '/javascripts/fetch/finalize.js',
   '/javascripts/fetch/paypalFetch.js',
   '/javascripts/warnings.js',
   '/javascripts/exportPDF.js'

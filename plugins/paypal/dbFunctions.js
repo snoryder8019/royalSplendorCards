@@ -65,6 +65,20 @@ const getCardforPaypal = async (cardId) => {
         throw error;
     }
 };
+const getOrderforPaypal = async (orderId)=>{
+    try{
+    const db = getDb();
+   // const newId = new ObjectId(orderId)
+    const orders = db.collection('orders_payapl');
+    const order = await orders.findOne({"customId": orderId}); // Assuming '_id' is the correct field
+    console.log(`User fetched: ${order}`);
+    return order;
+} catch (error) {
+    console.error(error);
+    throw error; // Rethrow the error for the caller to handle
+}
+}
+
 
 const updatePaypalOrder = async (orderId, updateFields) => {
     try {
@@ -90,4 +104,4 @@ const updatePaypalOrder = async (orderId, updateFields) => {
 };
 
 
-module.exports = {saveOrUpdateOrderForPaypal , getCardforPaypal, getUserforPaypal,updatePaypalOrder};
+module.exports = {getOrderforPaypal,saveOrUpdateOrderForPaypal , getCardforPaypal, getUserforPaypal,updatePaypalOrder};

@@ -72,7 +72,11 @@ const userImgUpload = async (req, res) => {
 
       // Use the file path directly
       const headshotPath = `${headshotDirectory}/${uploadedFile.filename}`;
-
+      const existingHeadshotPath = path.join(headshotDirectory, user.userImg || '');
+      if (fs.existsSync(existingHeadshotPath) && user.userImg) {
+        await fs.promises.unlink(existingHeadshotPath);
+        console.log('Existing headshot deleted.');
+      }
       // Trigger image resizing
       const resizedImagePath = await resizeAndCropImage(
         originalFilePath, // Original file path

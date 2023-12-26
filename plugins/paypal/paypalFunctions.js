@@ -205,15 +205,14 @@ const otherData = {
   "customId":customId,
   "userId":userId,
   "cardId":cardId,
-  "userEmail":userEmail,
-  "Description":"",
-  "Amount":"",
+  "userEmail":userEmail, 
   "paypalApproved":"false",
   "sentToPrint":"false",
   "paypalCompleted":"false",
   "paypalCanceled":"false",
   "trackingId":"",
   "orderDate":new Date()
+
 
 }
     console.log('Calling exporterRoute');

@@ -198,8 +198,10 @@
   </div>
   <!-- Sample PayPal credentials (client-id) are included -->
   <script>
+    <%if(typeof user =='object' && user){%>
     var cardId = "<%= card._id %>"; 
     var userId = "<%=user._id%>"
+    <%}%>
     </script>
     <script>      
       const cancelButtons = document.querySelectorAll('[custom-type="cancel"]');

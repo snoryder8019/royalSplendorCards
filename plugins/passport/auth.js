@@ -36,7 +36,7 @@ router.get('/auth/yahoo',
   passport.authenticate('yahoo'));
 
 router.get('/auth/yahoo/callback', 
-  passport.authenticate('yahoo', { failureRedirect: '/viewBuy' }),
+  passport.authenticate('yahoo', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('/');
   });

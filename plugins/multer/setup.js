@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 2000000 }, // 1MB
+  limits: { fileSize: 8000000 }, // 1MB
 }).fields([
   { name: 'cardFront', maxCount: 1 },
   { name: 'cardBack', maxCount: 1 },

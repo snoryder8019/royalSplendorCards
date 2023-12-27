@@ -29,28 +29,50 @@ const finalizeOrder =  async (req, res) => {
     }
 };
 
-const orderEditor = async (req,res)=>{
-   const userId0 = req.query.userId;
-   const cardId0 = req.query.cardId;
-   const orderId0 = req.query.orderId;
-const userId = new ObjectId(userId0)
-const cardId = new ObjectId(cardId0)
-const orderId = new ObjectId(orderId0)
-   try{
-    const db = getDb();
-    const cards = db.collection(`_cards`);
-    const users = db.collection(`users`);
-    const orders = db.collection(`orders_paypal`);
-    const card = await cards.findOne({"_id":cardId})
-    const user = await users.findOne({"_id":userId})
-    const order = await orders.findOne({"_id":orderId})
-    console.log(`user data: ${user.email}`)
-    console.log(`card data: ${card.cardName}`)
-   //  res.send(`you found orderEditor with ${userId} and ${cardId}`)
-res.render('orderEditor',{user:user,card:card,order:order})
-   }
-   catch(error){console.error(error)}
-}
+const orderEditor = async (req, res) => {
+    const { userId: userId0, cardId: cardId0, orderId: orderId0 } = req.query;
+  
+    // Convert to ObjectId safely
+    const toObjectId = (id) => {
+      try {
+        return new ObjectId(id);
+      } catch (error) {
+        return null;
+      }
+    };
+  
+    const userId = toObjectId(userId0);
+    const cardId = toObjectId(cardId0);
+    const orderId = toObjectId(orderId0);
+  
+    // Check if any IDs are invalid
+    if (!userId || !cardId || !orderId) {
+      return res.render('error', { error: 'Invalid ID provided' });
+    }
+  
+    try {
+      const db = getDb();
+      const cards = db.collection('_cards');
+      const users = db.collection('users');
+      const orders = db.collection('orders_paypal');
+  
+      const card = await cards.findOne({ "_id": cardId });
+      const user = await users.findOne({ "_id": userId });
+      const order = await orders.findOne({ "_id": orderId });
+  
+      if (!user || !card || !order) {
+        throw new Error('One or more items not found');
+      }
+  
+      console.log(`User data: ${user.email}`);
+      console.log(`Card data: ${card.cardName}`);
+  
+      res.render('orderEditor', { user, card, order });
+    } catch (error) {
+      console.error('Error in orderEditor:', error);
+      res.render('error', { error: error.message });
+    }
+  };
 
 module.exports = {finalizeOrder, orderEditor};
 

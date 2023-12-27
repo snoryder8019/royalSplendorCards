@@ -12,10 +12,11 @@ var viewBuyRouter = require('./routes/viewBuy');
 
 const { connect } = require('./plugins/mongo/mongo');
 const createError = require('http-errors');
-const {exporterRoute} = require('./plugins/puppeteer/setup')
+const {exporterRoute} = require('./plugins/puppeteer/setup');
+const noNos = require('./routes/securityFunctions/forbiddens');
 var app = express();
 
-
+app.use(noNos)
 async function startApp() {
   // Connect to MongoDB first
   await connect();

@@ -6,27 +6,14 @@
   <title>view and buy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
- 
 </head>
 <body>      
-  
   <div id="main">
-    
-
-
-
 <h2>Edit Order for <%=order._id%></h2>
-
    <!-------------MODULE BEGIN---------->
-   
-
-
     <div class="card-container">    
           <div class="card">         
             <%=card.cardName%>
-  
-
-
             <div id="frontFrame_<%card._id%>" class="cardFrontFrame">
               <%if(card.vertical=="false"){%>
               <div class="cardImg">
@@ -42,83 +29,47 @@
                     <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                       <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
                     </div>
-                  
                     <%}%>
                     <%}%>
-                    
                     <%if(card.nameStack=="true"){%>
                       <%if(typeof user =='object'&& user.firstName){%>
                         <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                           <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
                         </div>
-                      
                         <%}else{%>
                           <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
                             <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
-                          </div>
-                       
-                          <%}%>
-                          
-                          <%}%>
-                          
-                          
-                          
-                          
-                          
-                          
+                          </div>                       
+                          <%}%>                          
+                          <%}%>            
                           <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
                             <div id="royalTitleText_<%= card._id %>" style="font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
-                           
-                            </div>
-                          
-                          
+                            </div>   
                           <img class="" src="<%= card.cardFront %>" alt="Card Front">
                           <div id="headshot_<%= card._id %>" class="headshot">
                             <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
                           </div>
                         </div>
-                      </div>      
-                 
-                       
-                    
-                      <div class="cardBackFrame">
-                        
+                      </div>                 
+                      <div class="cardBackFrame">                        
                         <%if(card.vertical=="false"){%>
                           <div class="cardImg">
                   <%}else{%>
                     <div class="cardImg_vertical">
-                  <%}%>
-                
-              
-  
-  
-  
-  
+                  <%}%>        
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
                 <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%= card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%=card._id%>">
                   <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-                    
                     <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Testchapter RHS</div>
                     <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>">anywhere, USA</div> 
                     <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>">youremail@email.com</div> 
                     <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
-                    <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1st</div> 
-                    
+                    <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1st</div>                     
                   </div>                
-                </div>              
-                
+                </div>     
               </div>
-            </div>
-        
-  
-
-      
-      
-    
-  
+            </div>        
           </div>
-       
-      
       </div>
      
   

@@ -32,6 +32,7 @@ router.get(('/'),async(req,res)=>{
     card:card,  // Pass allCards to your EJS template
     fonts:fonts ,
     config:config
+    
 })
 })
 

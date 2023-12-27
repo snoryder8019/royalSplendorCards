@@ -2,7 +2,10 @@ const express = require('express');
 const { getDb } = require('../../plugins/mongo/mongo');
 const { ObjectId } = require('mongodb');
 
-const forbiddenTerms = ['/.env', 'forbidden2', 'forbidden3']; // Replace with your actual forbidden terms
+const forbiddenTerms = [
+    '/.env', 
+    '?DEBUG_SESSION', 
+    ]; // Replace with your actual forbidden terms
 
 // Function to create regex patterns
 function createRegexPatterns(terms) {

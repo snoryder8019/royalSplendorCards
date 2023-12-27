@@ -40,6 +40,7 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
       ordersPaypal:ordersPaypal 
   });
 });
+
 router.post('/publishCard',isAdmin,publishCard)
 router.post('/updateCard', upload, updateCard);
 router.post('/uploadFonts', isAdmin, upload, uploadFonts);

@@ -9,10 +9,12 @@ const config = require('./config/config');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var viewBuyRouter = require('./routes/viewBuy');
+
 const { connect } = require('./plugins/mongo/mongo');
 const createError = require('http-errors');
 const {exporterRoute} = require('./plugins/puppeteer/setup')
 var app = express();
+
 
 async function startApp() {
   // Connect to MongoDB first
@@ -24,6 +26,7 @@ async function startApp() {
   
   // Use auth routes
   app.use(authRoutes);
+
   
   global.config = config;
   
@@ -41,6 +44,8 @@ async function startApp() {
   const cors = require('cors');
   app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
+
+ 
   app.use('/', indexRouter);
   app.use('/admin', adminRouter);
   app.use('/viewBuy', viewBuyRouter);

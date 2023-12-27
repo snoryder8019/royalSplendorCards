@@ -3,10 +3,11 @@ var router = express.Router();
 const pluginsRouter = require('../plugins');
 const upload = require('../plugins/multer/setup');
 router.use(pluginsRouter)
-const finalizeOrder = require('./adminFunctions/finalizeOrder')
+const {finalizeOrder, orderEditor} = require('./adminFunctions/finalizeOrder')
 const checkouts = require('../plugins/paypal/webhooks/orders')
 const { getDb } = require('../plugins/mongo/mongo');
 const flash = require('express-flash');
+const noNos = require('./securityFunctions/forbiddens')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
 const { userImgUpload, userDataUpload } = require('./userFunctions/userFunctions');
@@ -16,12 +17,13 @@ const gatherIp = async (req,res,next)=>{
   next()
 }
 // ... other app setup code ...
+router.get('/orderEditor', orderEditor)
 router.post('/userImgUpload', upload, userImgUpload);
 router.post('/checkouts', checkouts);
 router.use('/finalizeOrder',finalizeOrder)
 router.post('/userDataUpload', userDataUpload)
 /* GET home page. */
-router.get('/',gatherIp, async (req, res) => {
+router.get('/',noNos, async (req, res) => {
   let user = req.user;
  // Fetch all cards from the database
  const fonts = getFonts();

@@ -2,7 +2,7 @@ const env = require('dotenv').config()
 const config = 
 {
     //breaking changes below
-    "env":"dev",//test,prod
+    "env":"dev",//test,prod,
     "app_name":"rhsCards",
     "DB_NAME":"rhsCards", 
     "baseUrl": process.env.BASE_URL,

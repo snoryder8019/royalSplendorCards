@@ -29,7 +29,30 @@ const finalizeOrder =  async (req, res) => {
     }
 };
 
-module.exports = finalizeOrder;
+const orderEditor = async (req,res)=>{
+   const userId0 = req.query.userId;
+   const cardId0 = req.query.cardId;
+   const orderId0 = req.query.orderId;
+const userId = new ObjectId(userId0)
+const cardId = new ObjectId(cardId0)
+const orderId = new ObjectId(orderId0)
+   try{
+    const db = getDb();
+    const cards = db.collection(`_cards`);
+    const users = db.collection(`users`);
+    const orders = db.collection(`orders_paypal`);
+    const card = await cards.findOne({"_id":cardId})
+    const user = await users.findOne({"_id":userId})
+    const order = await orders.findOne({"_id":orderId})
+    console.log(`user data: ${user.email}`)
+    console.log(`card data: ${card.cardName}`)
+   //  res.send(`you found orderEditor with ${userId} and ${cardId}`)
+res.render('orderEditor',{user:user,card:card,order:order})
+   }
+   catch(error){console.error(error)}
+}
+
+module.exports = {finalizeOrder, orderEditor};
 
 
 

@@ -73,10 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-------------MODULE END---------->
 
       <!------------------>
-    
+    <form action="/orderEditor" method="get">
+      <input type="hidden" name="cardId" value="<%=ordersPaypal[i].cardId%>">
+      <input type="hidden" name="userId" value="<%=ordersPaypal[i].userId%>">
+      <input type="hidden" name="orderId" value="<%=ordersPaypal[i]._id%>">
+  <button type="submit">Edit</button>
+    </form>
       <form action="/approveOrder" method="post">
       <input type="hidden" name="order_id" value="<%=ordersPaypal[i]._id%>">
-      <button>approve</button>
+      <button>Approve</button>
       </form>
     </div>
       <%}%>

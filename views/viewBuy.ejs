@@ -127,10 +127,12 @@
 
 <%if(typeof user == 'object' && user){%>
   <h2>Step 4: Approve and Purchase</h2>
-        <button custom-type="approve" id="approve">Approve Design</button>
-        <!----------->
-        <div id="orderForm">
-          <h2>Next: Select your quantity</h2>
+  <button custom-type="approve" id="approve">Approve Design</button>
+  <!----------->
+  <div id="orderForm">
+    <h4>**all cards go through a final alignment and approval process by us, before going to print. </h4>
+   
+    <h2>Next: Select your quantity</h2>
           <%let cardNo = card._id%>
           <div id="cardPackage_<%= cardNo %>" class="cardPackage">
               <div class="radio-option">
@@ -158,7 +160,6 @@
                   </label>
               </div>
           </div>
-          
           <button custom-type="approve" id="checkout">Complete Purchase</button>
           <button custom-type="cancel" id="approvalCancel">Cancel Selection</button>
       </div>

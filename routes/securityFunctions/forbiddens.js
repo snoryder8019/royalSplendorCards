@@ -3,8 +3,8 @@ const { getDb } = require('../../plugins/mongo/mongo');
 const { ObjectId } = require('mongodb');
 
 const forbiddenTerms = [
-    '/.env', 
-    '?DEBUG_SESSION', 
+    '.env', 
+    'DEBUG', 
     ]; // Replace with your actual forbidden terms
 
 // Function to create regex patterns

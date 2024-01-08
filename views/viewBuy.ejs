@@ -198,7 +198,7 @@
     <div id="paypal-button-container"></div>
     <button custom-type="cancel" id="paypalCancel">Cancel Purchase</button>
   </div>
-  <div id="footer"><%- include('./partials/footer')%></div>     
+    
   <!-- Sample PayPal credentials (client-id) are included -->
   <script>
     <%if(typeof user =='object' && user){%>
@@ -385,5 +385,6 @@ console.log(`user:${userId} card:${cardId} trans:${confirmationId}`)
   ppalDiv.addEventListener('animationend', handleAnimationEnd);
   
 </script>
+<div id="footer"><%- include('./partials/footer')%></div>  
 <script src="/javascripts/loader.js"></script>
 </body>

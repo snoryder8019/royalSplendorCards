@@ -884,7 +884,9 @@ color: $approveText;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   @media (min-width:768px) {
+    grid-template-columns: 1fr 2fr 1fr;
     margin-top: 50px;
+    padding: 0%;
   }
 }
 .footerDiv{
@@ -899,12 +901,29 @@ color: $approveText;
   width: 85px;
 }
 #footer{
+  
+  margin-top: 100px;
+  padding: 1%;
+  @media (max-width:768px) {
+    margin-top: 20px;
+    min-height: 155px;
+  }
+  min-height: 85px;
   color:white;
-  min-height: 155px;
   background-color: #932433;
   //background-color: white;
 
 }
 h6{
   padding: 2%,inherit;
+}
+.borderImg{
+  width: 98%;
+  margin: 0 1%;
+  height: 50px;
+  @media (min-width:768px) {
+    width: 80%;
+    margin: 0 18%;
+    
+  }
 }

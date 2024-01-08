@@ -29,6 +29,39 @@ async function createUser(newUser) {
     }
 }
 
+// router.post('/regUser', async (req, res) => {
+//     try {
+//         const newUser = await createUser({
+//             provider: 'local', 
+//             providerId: 'local' + Date.now(),
+//             firstName: req.body.firstName,
+//             lastName: req.body.lastName,
+//             email: req.body.email,    
+//             password: req.body.password,
+//             isAdmin: false,      
+//             createdAt: Date.now,
+//             cart:[]
+//         });
+
+//         if(newUser && newUser._id) {
+//             const token = generateTokenForUser({ userId: newUser._id.toString() });
+//             const confirmationLink = `${process.env.BASE_URL}/confirm/${token}`;
+
+//             await mailer.sendConfirmationEmail(newUser.email, {
+//                 firstName: newUser.firstName,
+//                 confirmationLink: confirmationLink
+//             });
+
+//             res.redirect('/');
+//         } else {
+//             res.redirect('/'); 
+//         }
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).send('Server Error');
+//     }
+// });
+
 router.post('/regUser', async (req, res) => {
     try {
         const newUser = await createUser({
@@ -39,21 +72,15 @@ router.post('/regUser', async (req, res) => {
             email: req.body.email,    
             password: req.body.password,
             isAdmin: false,      
-            createdAt: Date.now,
-            cart:[]
+            createdAt: Date.now(), // Make sure this is a call to Date.now()
+            cart: []
         });
 
-        if(newUser && newUser._id) {
-            const token = generateTokenForUser({ userId: newUser._id.toString() });
-            const confirmationLink = `${process.env.BASE_URL}/confirm/${token}`;
-
-            await mailer.sendConfirmationEmail(newUser.email, {
-                firstName: newUser.firstName,
-                confirmationLink: confirmationLink
-            });
-
+        if (newUser && newUser._id) {
+            // User registered successfully
             res.redirect('/');
         } else {
+            // Registration failed
             res.redirect('/'); 
         }
     } catch (err) {
@@ -61,6 +88,7 @@ router.post('/regUser', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
+
 
 router.get('/confirm/:token', async (req, res) => {
     const token = req.params.token;

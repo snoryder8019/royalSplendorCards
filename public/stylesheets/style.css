@@ -59,6 +59,14 @@
 .fontType::first-letter {
   font-size: 3rem;
   font-family: "sunday";
+  float: left;
+  line-height: 0;
+  margin-right: 8px; /* Adjust for spacing between the letter and the text */
+}
+
+.fontType::lin .fontType + p,
+.fontType + div {
+  margin-top: -0.5em; /* Negative margin to pull up the text. Adjust as needed */
 }
 
 html {

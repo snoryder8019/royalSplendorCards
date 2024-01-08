@@ -60,12 +60,12 @@
       <!----MENU IS CONSTANT FOOTER-->
     
     
-             
     </div>    
     <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
- 
-  <script src="/javascripts/loader.js"></script>
-  
+    
+    <div id="footer"><%- include('./partials/footer')%></div>        
+    <script src="/javascripts/loader.js"></script>
+    
   </body>
 
 </html>

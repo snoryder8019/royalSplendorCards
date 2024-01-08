@@ -76,7 +76,7 @@ html {
 }
 
 body {
-  background-color: rgba(255, 253, 246, 0.6509803922);
+  background: linear-gradient(to right, rgba(255, 253, 246, 0.6509803922), rgba(61, 0, 61, 0.055), rgba(61, 0, 61, 0.055), rgba(61, 0, 61, 0.055), rgba(61, 0, 61, 0.055), rgba(61, 0, 61, 0.055), rgba(255, 253, 246, 0.6509803922));
   display: none;
   font-family: "minonPro";
   margin: 0;
@@ -314,6 +314,7 @@ button {
   transition-timing-function: ease-out;
   transition-duration: 0.6s;
   padding: 20px;
+  background-color: white;
 }
 
 .cardHead::before {
@@ -816,8 +817,41 @@ button[custom-type=approve]:hover {
   transform-style: preserve-3d;
   transition-duration: 0.4s;
   transition-timing-function: ease-in-out;
-  background-color: rgba(61, 0, 61, 0.22);
+  background-color: rgba(61, 0, 61, 0.055);
   color: #450b5a;
+}
+
+.footerContainer {
+  padding: 1%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+@media (min-width: 768px) {
+  .footerContainer {
+    margin-top: 50px;
+  }
+}
+
+.footerDiv {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.footImg {
+  width: 85px;
+}
+
+#footer {
+  color: white;
+  min-height: 155px;
+  background-color: #932433;
+}
+
+h6 {
+  padding: 2%, inherit;
 }
 
 /*# sourceMappingURL=style.css.map */

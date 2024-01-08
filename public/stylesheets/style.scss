@@ -11,7 +11,7 @@ $screenQueryLarge:1260px;
 ////////////////
 //PURPLES
 $purple: #450b5a;
-$purpleShadow: rgba(61, 0, 61, 0.22);
+$purpleShadow: rgba(61, 0, 61, 0.055);
 //RED
 $red: #932432;
 $redShadow: rgba(234, 20, 20, 0.276);
@@ -188,7 +188,7 @@ html {
   padding: 0;
 }
 body {
-  background-color: $primaryBackgroundColor;
+  background: linear-gradient(to right,$primaryBackgroundColor,$purpleShadow,$purpleShadow,$purpleShadow,$purpleShadow,$purpleShadow,$primaryBackgroundColor);
   display: none;
   font-family: $primaryFontFamily;
 // background-image: url('../images/logoHat.png');
@@ -400,6 +400,7 @@ $cardDimention:308px;
  transition-timing-function: ease-out;
  transition-duration: .6s;
   padding: 20px;
+  background-color: white;
 }
 .cardHead::before{
 border-top: 5px solid $primaryBorderColor;
@@ -875,4 +876,35 @@ button[custom-type="approve"]:hover{
   transition-timing-function: ease-in-out;
 background-color: $approveBkgrd;
 color: $approveText;
+}
+
+
+.footerContainer{  
+  padding: 1%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media (min-width:768px) {
+    margin-top: 50px;
+  }
+}
+.footerDiv{
+  display: flex;
+  //border:1px solid red;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+}
+.footImg{
+  width: 85px;
+}
+#footer{
+  color:white;
+  min-height: 155px;
+  background-color: #932433;
+  //background-color: white;
+
+}
+h6{
+  padding: 2%,inherit;
 }

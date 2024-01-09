@@ -31,7 +31,7 @@ function createCardTemplate(card, user) {
           <div id="frontFrame_${card._id}" class="${cardImgClass}">
               ${realNameContent}
               <div id="royalTitle_${card._id}" style="position:absolute; top:${card.text2PositionY}px; left:${card.text2PositionX}px;" class="royalTitle">
-                  <div id="royalTitleText_${card._id}" style="font-size:${card.font2Size}px; color:${card.text1Color}" class="font_${card.fontName2}">${user.title}</div>
+                  <div id="royalTitleText_${card._id}" style="word-wrap: normal; max-width: 125px; font-size:${card.font2Size}px; color:${card.text1Color}" class="font_${card.fontName2}">${user.title}</div>
               </div>
               <img src="${card.cardFront}" alt="Card Front">
               <div id="headshot_${card._id}" class="headshot">

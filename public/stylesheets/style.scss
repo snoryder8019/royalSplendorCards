@@ -405,7 +405,7 @@ $cardDimention:308px;
 .cardHead::before{
 border-top: 5px solid $primaryBorderColor;
 }
-.card label, input[type="text"], input[type="password"] {
+.card label, input[type="text"], input[type="password"],input[type="email"]  {
   margin-top: 2px;
   width: 94%;
   margin-left: 2%;
@@ -421,8 +421,8 @@ border-top: 5px solid $primaryBorderColor;
   font-weight:800;
   font-family:$primaryFontFamily;
 }
-input[type="submit"], input[type="file"],input[type="email"] {
-  background-color: $secondaryBackgroundColor;
+input[type="submit"], input[type="file"]{
+  background-color: $primaryBackgroundColor;
   color: $secondaryFontColor;
   width: 94%;
   // padding: 10px 20px;

@@ -5,6 +5,9 @@ const { ObjectId } = require('mongodb');
 const forbiddenTerms = [
     '.env', 
     'DEBUG', 
+    'php',
+    'mysql',
+    '_php',
     ]; // Replace with your actual forbidden terms
 
 // Function to create regex patterns

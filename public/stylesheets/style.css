@@ -321,7 +321,7 @@ button {
   border-top: 5px solid black;
 }
 
-.card label, input[type=text], input[type=password] {
+.card label, input[type=text], input[type=password], input[type=email] {
   margin-top: 2px;
   width: 94%;
   margin-left: 2%;
@@ -338,8 +338,8 @@ button {
   font-family: "minonPro";
 }
 
-input[type=submit], input[type=file], input[type=email] {
-  background-color: #450b5a;
+input[type=submit], input[type=file] {
+  background-color: rgba(255, 253, 246, 0.6509803922);
   color: white;
   width: 94%;
   margin-left: 2%;

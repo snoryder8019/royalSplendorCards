@@ -43,7 +43,16 @@
         <img class="header"src="/images/banner_desk.jpg" alt="">
       </div>
     </div>
+<div id="messgae">
+  <% if (message.error) { %>
+    <div class="alert alert-danger"><%= message.error %></div>
+<% } %>
 
+<% if (message.success) { %>
+    <div class="alert alert-success"><%= message.success %></div>
+<% } %>
+
+</div>
   
   
     <div id="welcome"><%- include('./partials/welcome',{user:user,message:message})%></div>

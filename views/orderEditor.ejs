@@ -1,113 +1,190 @@
-
 <!DOCTYPE html>
-
+<html lang="en">
 <head> 
-  <link rel="stylesheet" href="/stylesheets/style.css">
-  <title>view and buy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>View and Buy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 <body>      
-  <div id="main">
-<h2>Edit Order for <%=order._id%></h2>
-   <!-------------MODULE BEGIN---------->
-    <div class="card-container">    
-          <div class="card">         
-            <%=card.cardName%>
-            <div id="frontFrame_<%card._id%>" class="cardFrontFrame">
-              <%if(card.vertical=="false"){%>
-              <div class="cardImg">
-                <%}else{%>
-                  <div class="cardImg_vertical">
-                <%}%>  
-                <%if(card.nameStack=="false"){%>
-                <%if(typeof user =='object'&& user.firstName){%>
-                  <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                    <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName+ " "+ user.lastName%></div>
-                  </div>
-                  <%}else{%>
-                    <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                      <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
-                    </div>
-                    <%}%>
-                    <%}%>
-                    <%if(card.nameStack=="true"){%>
-                      <%if(typeof user =='object'&& user.firstName){%>
-                        <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
-                          <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
+    <div id="main">
+        <h2>Edit Order for <%=order._id%></h2>
+        <!-------------MODULE BEGIN---------->
+        <div class="card-container">    
+            <div class="card">         
+                <%=card.cardName%>
+                <div id="frontFrame_<%card._id%>" class="cardFrontFrame">
+                    <% if(card.vertical == "false"){ %>
+                    <div class="cardImg">
+                    <% } else { %>
+                        <div class="cardImg_vertical">
+                    <% } %>
+                    <% if(card.nameStack == "false"){ %>
+                    <% if(typeof user =='object' && user.firstName){ %>
+                        <div id="realName_<%=card._id%>" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName" draggable="true">
+                            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName + " " + user.lastName%></div>
                         </div>
-                        <%}else{%>
-                          <div id="realName_<%=card._id%>"  style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName">
+                    <% } else { %>
+                        <div id="realName_<%=card._id%>" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName" draggable="true">
+                            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+                        </div>
+                    <% } %>
+                    <% } %>
+                    <% if(card.nameStack == "true"){ %>
+                    <% if(typeof user =='object' && user.firstName){ %>
+                        <div id="realName_<%=card._id%>" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName" draggable="true">
+                            <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
+                        </div>
+                    <% } else { %>
+                        <div id="realName_<%=card._id%>" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" id="realName_<%card._id%>" class ="realName" draggable="true">
                             <div id="realNameText_<%=card._id%>" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
-                          </div>                       
-                          <%}%>                          
-                          <%}%>            
-                          <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle">
-                            <div id="royalTitleText_<%= card._id %>" style="word-wrap: normal; max-width: 125px; font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
-                            </div>   
-                          <img class="" src="<%= card.cardFront %>" alt="Card Front">
-                          <div id="headshot_<%= card._id %>" class="headshot">
-                            <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
-                          </div>
                         </div>
-                      </div>                 
-                      <div class="cardBackFrame">                        
-                        <%if(card.vertical=="false"){%>
-                          <div class="cardImg">
-                  <%}else{%>
+                    <% } %>
+                    <% } %>            
+                    <div id="royalTitle_<%=card._id%>" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;" id="realName_<%card._id%>" class="royalTitle" draggable="true">
+                        <div id="royalTitleText_<%= card._id %>" style="word-wrap: normal; max-width: 125px; font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
+                    </div>   
+                    <img class="" src="<%= card.cardFront %>" alt="Card Front">
+                    <div id="headshot_<%= card._id %>" class="headshot">
+                        <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
+                    </div>
+                </div>
+            </div>                 
+            <div class="cardBackFrame">                        
+                <% if(card.vertical == "false"){ %>
+                    <div class="cardImg">
+                <% } else { %>
                     <div class="cardImg_vertical">
-                  <%}%>        
+                <% } %>        
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
-                <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%= card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%=card._id%>">
-                  <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-                    <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Testchapter RHS</div>
-                    <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>">anywhere, USA</div> 
-                    <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>">youremail@email.com</div> 
-                    <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
-                    <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1st</div>                     
-                  </div>                
+                <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%= card.text0Rotation + "deg"%>);" class="textBox" id="textBox_<%=card._id%>">
+                    <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                        <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Testchapter RHS</div>
+                        <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>">anywhere, USA</div> 
+                        <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>">youremail@email.com</div> 
+                        <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
+                        <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1st</div>                     
+                    </div>                
                 </div>     
-              </div>
-            </div>        
-          </div>
-      </div>
-     
-  
-     
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-------------MODULE END---------->
-
-      <!------------------>
-    <form action="/admin" method="get">
-  <button type="submit">Go Back</button>
-    </form>
-      <form action="/approveOrder" method="post">
-      <input type="hidden" name="order_id" value="<%=order._id%>">
-      <button>Approve</button>
-      </form>
+            </div>
+        </div>        
     </div>
+    <!-------------MODULE END---------->
+    <!------------------>
+    <form action="/admin" method="get">
+        <button type="submit">Go Back</button>
+    </form>
+    <!--form action="/approveOrder" method="post">
+        <input type="hidden" name="order_id" value="<%=order._id%>">
+        <button>Approve</button>
+    </form-->
+    <button onclick=" exportBackFrameToPDF(), exportFrontFrameToPDF()"></button>
+    </div>
+    <!---------------->
+    <div class="realname">
+        <button id="realNameFontSizeBtnPlus">+</button>
+        <button id="realNameFontSizeBtnMinus">-</button>
+    </div>
+    <div class="royalname">
+        <button id="royalTitleFontSizeBtnPlus">+</button>
+        <button id="royalTitleFontSizeBtnMinus">-</button>
+    </div>
+    <div class="data">
+        <button id="textBoxFontSizeBtnPlus">+</button>
+        <button id="textBoxFontSizeBtnMinus">-</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to handle dragging
+            function dragElement(element) {
+                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+              
+                // Extract card ID from element's ID (assuming ID format is "realName_cardId")
+                var cardId = element.id.split('_')[1];
+              
+                element.onmousedown = dragMouseDown;
+              
+                function dragMouseDown(e) {
+                  e = e || window.event;
+                  e.preventDefault();
+                  // Get the mouse cursor position at startup
+                  pos3 = e.clientX;
+                  pos4 = e.clientY;
+                  document.onmouseup = closeDragElement;
+                  document.onmousemove = elementDrag;
+                }
+              
+                function elementDrag(e) {
+                  e = e || window.event;
+                  e.preventDefault();
+                  // Calculate the new cursor position
+                  pos1 = pos3 - e.clientX;
+                  pos2 = pos4 - e.clientY;
+                  pos3 = e.clientX;
+                  pos4 = e.clientY;
+                  // Set the element's new position
+                  element.style.top = (element.offsetTop - pos2) + "px";
+                  element.style.left = (element.offsetLeft - pos1) + "px";
+                }
+              
+                function closeDragElement() {
+                  // Stop moving when mouse button is released
+                  document.onmouseup = null;
+                  document.onmousemove = null;
+              
+                  // Check if the element is 'realName' or 'royalTitle' and update corresponding inputs
+                  if (element.classList.contains('realName')) {
+                    document.getElementById('text1PositionX_' + cardId).value = element.style.left.replace('px', '');
+                    document.getElementById('text1PositionY_' + cardId).value = element.style.top.replace('px', '');
+                  } else if (element.classList.contains('royalTitle')) {
+                    document.getElementById('text2PositionX_' + cardId).value = element.style.left.replace('px', '');
+                    document.getElementById('text2PositionY_' + cardId).value = element.style.top.replace('px', '');
+                  }
+                }
+            }
+            
+            document.querySelectorAll('.realName, .royalTitle').forEach(dragElement);
 
-
-        <!---------------->
-
-     </div>
-     
-     <script src="/javascripts/loader.js"></script>
-    </body> 
+            // Function to adjust font size
+            function adjustFontSize(cardId, elementId, increase = true) {
+                let targetElement = document.getElementById(elementId + '_' + cardId);
+                let inputFieldId;
+            
+                if (elementId === 'realNameText') {
+                    inputFieldId = 'font1Size_';
+                } else if (elementId === 'royalTitleText') {
+                    inputFieldId = 'font2Size_';
+                }
+            
+                if (targetElement) {
+                    let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
+                    currentSize = increase ? currentSize + 1 : currentSize - 1;
+                    targetElement.style.fontSize = `${currentSize}px`;
+            
+                    // Update corresponding input field
+                    document.getElementById(inputFieldId + cardId).value = currentSize;
+                } else {
+                    console.error('Element not found:', elementId + '_' + cardId);
+                }
+            }
+            
+            // Event listeners for realName font size buttons
+            document.querySelectorAll('[id^="realNameFontSizeBtn"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardId = this.id.split('_')[1];
+                    adjustFontSize(cardId, 'realNameText', this.id.endsWith('Plus'));
+                });
+            });
+            
+            // Event listeners for royalTitle font size buttons
+            document.querySelectorAll('[id^="royalTitleFontSizeBtn"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const cardId = this.id.split('_')[1];
+                    adjustFontSize(cardId, 'royalTitleText', this.id.endsWith('Plus'));
+                });
+            });
+        });
+    </script>
+    <script src="/javascripts/loader.js"></script>
+</body>
+</html>

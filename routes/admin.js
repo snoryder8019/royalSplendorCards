@@ -33,7 +33,7 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
 
   res.render('admin', { 
       user: user, 
-      message: req.flash('message'),
+      message: req.flash(),
       allCards: allCards,  // Pass allCards to your EJS template
       fonts:fonts,
       users:users,

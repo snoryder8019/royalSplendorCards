@@ -20,10 +20,10 @@ app.use(noNos)
 async function startApp() {
   // Connect to MongoDB first
   await connect();
-  app.use(flash());
   // Initialize Passport
   const { setupPassport, authRoutes } = require('./plugins/passport');
   setupPassport(app, process);
+  app.use(flash());
   
   // Use auth routes
   app.use(authRoutes);

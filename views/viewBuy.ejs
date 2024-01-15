@@ -20,17 +20,8 @@
         <img class="header"src="/images/banner_desk.jpg" alt="">
       </div>
     </div>
-    <div id="messgae">
-      <% if (message.error) { %>
-        <div class="alert alert-danger"><%= message.error %></div>
-    <% } %>
-    
-    <% if (message.success) { %>
-        <div class="alert alert-success"><%= message.success %></div>
-    <% } %>
-    
-        
-    </div>
+    <div id="flashErrors"><%- include('./partials/flashErrors',{message:message})%></div>
+
     <div id="userSetup"><%- include('./partials/userSetup',{user:user,message:message})%></div>   
     <%if(typeof user=="object" && user){%>
       <input id="ppalUserId" type="hidden" name="userId" value="<%=user._id%>">

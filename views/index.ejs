@@ -6,8 +6,8 @@
 
     <title><%=config.title%></title>
 <!-----------------------------------------------|--------------------------->
-<!--------------match card fonts-----------------|-------- MOSTLY DONE----->
-<!----------add all cards avail------------------|---------MOSTLY DONE----->
+<!------------match card fonts-------------------|-------- DONE----->
+<!----------add all cards avail------------------|---------DONE----->
 <!---------add name to designs-------------------|-------------DONE------------->
 <!---------add positioining to name--------------|----------PRIORITY-------------->
 <!---change user data set including user name----|-------------DONE------------>
@@ -18,8 +18,8 @@
 <!-------register confirmation emailas-----------|-----------BACKBURNER-------------->
 <!---------password reset email------------------|-----------BACKBURNER------------>
 <!------YOUR FORMS ALL NEED RESPONSIVE REPAIR----|------------------------->
-<!------------BEGIN DESKTOP DESIGN---------------|-----------STARTED------>
-<!------------COMPLETE CART FLOW-----------------|--------NEEDS DEBUGGING-->
+<!------------BEGIN DESKTOP DESIGN---------------|-----------DONE------>
+<!------------COMPLETE CART FLOW-----------------|--------REVISED TO INLINE METHOD AND JS-->
 <!--------------IMPLEMENT PAYPAL-----------------|------------COMPLETE------>
 <!-----------WEBHOOK FROM PURCHASE---------------|----------BACKBURNER-------------->
 <!-----------------------------------------------|-------------------------->
@@ -43,20 +43,11 @@
         <img class="header"src="/images/banner_desk.jpg" alt="">
       </div>
     </div>
-<div id="messgae">
-  <% if (message.error) { %>
-    <div class="alert alert-danger"><%= message.error %></div>
-<% } %>
 
-<% if (message.success) { %>
-    <div class="alert alert-success"><%= message.success %></div>
-<% } %>
-
-</div>
   
   
     <div id="welcome"><%- include('./partials/welcome',{user:user,message:message})%></div>
- 
+ <div id="flashErrors"><%- include('./partials/flashErrors',{message:message})%></div>
     <div id="cards">  <%- include('./partials/cards',{user:user,message:message})%></div>
      <div id="login"><%- include('./partials/login',{user:user,message:message})%></div>   
      <div id="register"><%- include('./partials/register',{user:user,message:message})%></div>   

@@ -1,20 +1,22 @@
 <div class="flashMessage">
-    <% if (locals.error) { %>
-        <div class="alert alert-danger">
-          <%= error %>
+    <% if (message.info) { %>
+        <div class="alert-info">
+          <h2><%= message.info %></h2>
+    
         </div>
         <% } %>
         
-        <% if (locals.success) { %>
-          <div class="alert alert-success">
-            <%= success %>
+        <% if (message.success) { %>
+          <div class="alert-success">
+          <h2>  <%= message.success %></h2>
           </div>
           <% } %>
-          <% if (message) { %>
-            <div class="alert alert-success">
-              <%= message %>
+          <% if (message.error) { %>
+            <div class="alert-error">
+            
+           <h2>   <%= message.error%></h2>
+         
             </div>
             <% } %>
-
 
 </div>

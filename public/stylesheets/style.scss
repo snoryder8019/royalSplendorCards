@@ -255,8 +255,16 @@ button {
 
 // Keyframes
 @keyframes flash {
-  0%, 66%, 100% { opacity: 0; display: none; }
-  33% { opacity: 1; display: block; }
+  0% { opacity: 0; display: block;z-index: 1000; }
+  33% { opacity: 1; display: block;z-index: 1000; }
+  66% { opacity: 0; display: block;z-index: 1000; }
+  100% { opacity: 0; display: none;z-index: 1000; }
+}
+
+@keyframes slideout {
+  0%{opacity:1;z-index:1000;}
+  50%{opacity:1;z-index:1000;}
+  100%{opacity:0;transform: translateY(100px);z-index:1000;}
 }
 @keyframes slideUp {
   0% { transform: translateY(200%); opacity: 0; }
@@ -316,17 +324,58 @@ display: none;
 display: block;    
   }
 }
-// Flash Message
-.flashMessage {
+#flashErrors{
+  position: fixed;
+  z-index: -1000;
+  bottom:0%;
+  min-height: 100px;
+  width: 92%;
+  left:4%
+}
+.alert {
   @include transistionProps();
-  display: none;
-  background-color: $secondaryFontColor;
+ //display: none;
+ // background-color: $secondaryFontColor;
+  opacity: 0;
   padding: 4%;
   position: fixed;
-  bottom: 10%;
+  bottom: 0%;
   left: 0;
   width: 100%;
-  animation: flash 3s ease-in-out 4 1s;
+  border: 3px solid black;
+  // animation: flash 4s ease-in-out 4 1s;
+  &-error{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    opacity: 0;
+    background-color: rgb(255, 102, 0);
+    min-height: 100px;
+    animation: flash 4s ease-in-out 2 1s;
+    //  animation: flash 4s ease-in-out 4 1s;
+  }
+  &-info{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    opacity: 0;
+    background-color: white;
+    min-height: 100px;
+    //  animation: flash 4s ease-in-out 4 1s;
+    animation: slideout 3s ease-in-out 1 1s;
+  }
+  &-success{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    background-color: green;
+    text-align: center;
+    opacity: 0;
+    min-height: 100px;
+  animation: slideout 3s ease-in-out 1 1s;
+}
 }
 .cardPackage{
   margin-bottom: 4%;

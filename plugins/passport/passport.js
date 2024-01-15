@@ -40,6 +40,7 @@ passport.use(
         if (!user) {
           console.log('bad email');
           req.flash('error', 'Invalid email.');
+          console.log(req.flash('error'));
           return done(null, false);
         }
         
@@ -47,10 +48,12 @@ passport.use(
         if (!isMatch) {
           console.log('bad password');
           req.flash('error', 'Invalid password.');
+          console.log(req.flash('error'));
           return done(null, false);
         }
-
+        
         req.flash('success', 'Logged in successfully.');
+        console.log(req.flash('success'));
         return done(null, user);
       } catch (error) {
         done(error);

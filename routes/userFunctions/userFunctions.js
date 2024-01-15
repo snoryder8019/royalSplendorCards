@@ -41,11 +41,11 @@ async function userDataUpload(req, res) {
       }
     );
 
-    req.flash('message', 'User data updated successfully.');
+    req.flash('success', 'User data updated successfully.');
     res.redirect(`/viewBuy/?_id=${referredBy}`); // Redirect to the user setup page or any other appropriate page
   } catch (err) {
     console.error(err);
-    req.flash('message', 'An error occurred while updating user data.');
+    req.flash('error', 'An error occurred while updating user data.');
     res.redirect(`/viewBuy/?_id=${referredBy}`); // Redirect to the user setup page or any other appropriate page
   }
 }
@@ -105,10 +105,10 @@ const userImgUpload = async (req, res) => {
       console.log(result);
       console.log('Headshot updated successfully in the database.');
 
-      req.flash('message', 'Headshot updated successfully.');
+      req.flash('success', 'Headshot updated successfully.');
     } else {
       console.log('No file uploaded.');
-      req.flash('message', 'No file uploaded.');
+      req.flash('info', 'No file uploaded.');
     }
 
     if (referredBy) {
@@ -118,7 +118,7 @@ const userImgUpload = async (req, res) => {
     }
   } catch (err) {
     console.log('Error in user image upload:', err);
-    req.flash('message', 'An error occurred while updating the headshot.');
+    req.flash('error', 'An error occurred while updating the headshot.');
     if (referredBy) {
       res.redirect(`/viewBuy/?_id=${referredBy}`);
     } else {

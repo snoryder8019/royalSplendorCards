@@ -5,32 +5,6 @@ const bodyParser = require('body-parser');
 const config = require('../../config/config')
 
 router.use(bodyParser.urlencoded({ extended: true }));
-// Create a route to handle the login request
-// router.post('/auth/local', (req, res, next) => { 
-//   console.log("body "+req.body)
-//   passport.authenticate('local', (err, user, info) => {
-//       if (err) {
-//           req.flash('error', 'An error occurred.');
-//           return res.redirect('/');
-//       }
-//       if (!user) {
-//         console.log(info)
-//         req.flash('error', 'Invalid email or password.');
-//         return res.send(info,err,user);
-//       }      
-//       req.logIn(user, (err) => {
-//         if (err) {
-//             console.log('some other login error occured')         
-//             req.flash('error', 'An error occurred.');
-//             return res.redirect('/');
-//           }
-          
-//           req.flash('success', 'Successfully logged in!');
-//           console.log('loggin in holmes')
-//           return res.redirect('/');
-//       });
-//   })(req, res, next);
-// });
 
 router.get('/auth/yahoo',
   passport.authenticate('yahoo'));
@@ -42,15 +16,28 @@ router.get('/auth/yahoo/callback',
   });
 
 
-
-router.post('/auth/local',
-  passport.authenticate('local',{
-    successReturnToOrRedirect:'/',
-    failureRedirect: '/',
-    keepSessionInfo:true 
-   }
- ),  
-);
+  router.post('/auth/local', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        req.flash('error', 'Invalid credentials');
+        const redirectUrl = req.headers.referer || '/';
+        return res.redirect(redirectUrl);
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash('success', 'Successfully logged in');
+  
+        // Redirect to the referring URL or a default route
+        const redirectUrl = req.headers.referer || '/';
+        return res.redirect(redirectUrl);
+      });
+    })(req, res, next);
+  });
 //////////console.log('findOne(): ')
 router.get('/auth/google', 
 passport.authenticate('google',
@@ -70,18 +57,20 @@ passport.authenticate('google',
      function(req, res) {
        // Successful authentication, redirect home.
        res.redirect('/');
-     }
-   );
-   
-  router.get('/logout', function(req, res, next) {
-    const user=req.user
-    console.log(user)
-   
-    req.logout(function(err){
-      if(err){return next(err)}
-     }
-    )  
-       
+      }
+      );
+      
+      router.get('/logout', function(req, res, next) {
+        const user=req.user
+        console.log(user)
+        req.flash('info','logged out successfully')
+        
+        req.logout(function(err){
+          if(err){return next(err)}
+          req.flash('error','hmmm you didnt log out')
+        }
+        )  
+        
         return  res.redirect('/'); 
    }
  )      

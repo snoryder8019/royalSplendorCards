@@ -16,7 +16,7 @@ function isAdmin(req, res, next) {
   if (user && user.isAdmin) {
     next();
   } else {
-    req.flash('message', 'Unauthorized. Please log in as an admin.');
+    req.flash('error', 'Unauthorized. Please log in as an admin.');
     res.redirect('/');
   }
 }
@@ -79,13 +79,13 @@ const uploadCard = async (req, res) => {
     };
     await collection.insertOne(cardData);
 
-    req.flash('message', 'Card uploaded successfully.');
+    req.flash('success', 'Card uploaded successfully.');
     lib('new card made:', 'no errors', cardData, 'cards.txt');
     res.redirect('/admin');
   } catch (err) {
     console.error(err);
     lib('error making a card:', 'error from lib():' + err, cardData, 'cards.txt');
-    req.flash('message', 'An error occurred while uploading.');
+    req.flash('error', 'An error occurred while uploading.');
     res.redirect('/admin');
   }
 };
@@ -103,15 +103,15 @@ const publishCard = async (req, res) => {
     );
 
     if (updateResult.modifiedCount === 1) {
-      console.log('message', 'Card published successfully.');
+      console.log('success', 'Card published successfully.');
       res.redirect('/admin');
     } else {
-      console.log('message', 'Card not found or already published.');
+      console.log('error', 'Card not found or already published.');
       res.redirect('/admin');
     }
   } catch (err) {
     console.error(err);
-    req.flash('message', 'An error occurred while publishing.');
+    req.flash('error', 'An error occurred while publishing.');
     res.redirect('/admin');
   }
 };
@@ -130,17 +130,17 @@ const deleteCard = async (req, res) => {
 
     if (result.deletedCount === 1) {
       lib('card deleted:', 'no errors', { cardID, userName }, 'cards.txt');
-      req.flash('message', 'Card deleted successfully.');
+      req.flash('success', 'Card deleted successfully.');
       res.redirect('/admin');
     } else {
       lib('card not found:', 'no errors', { cardID, userName }, 'cards.txt');
-      req.flash('message', 'Card not found.');
+      req.flash('error', 'Card not found.');
       res.redirect('/admin');
     }
   } catch (err) {
     console.error(err);
     lib('error deleting a card:', 'error from lib():' + err, { cardID,userName }, 'cards.txt');
-    req.flash('message', 'An error occurred while deleting.');
+    req.flash('error', 'An error occurred while deleting.');
     res.redirect('/admin');
   }
 };
@@ -152,11 +152,11 @@ const uploadFonts = async (req, res) => {
 
     // You can save these paths to the database if needed
     
-    req.flash('message', 'Fonts uploaded successfully.');
+    req.flash('success', 'Fonts uploaded successfully.');
     res.redirect('/admin');
   } catch (err) {
     console.error(err);
-    req.flash('message', 'An error occurred while uploading fonts.');
+    req.flash('error', 'An error occurred while uploading fonts.');
     res.redirect('/admin');
   }
 };
@@ -175,7 +175,7 @@ const updateCard = async (req, res) => {
     // Fetch existing data
     const existingCard = await collection.findOne({ "_id": id });
     if (!existingCard) {
-      req.flash('message', 'Card not found.');
+      req.flash('error', 'Card not found.');
       return res.redirect('/admin');
     }
 
@@ -229,11 +229,11 @@ let fontName24 = req.body.fontName2.substring(0, 4);
     const update = await collection.updateOne({ "_id": id }, { $set: updatedCardData });
     console.log('Updated Card Data:', update);
 
-    req.flash('message', 'Card updated successfully.');
+    req.flash('success', 'Card updated successfully.');
     res.redirect('/admin');
   } catch (err) {
     console.error(err);
-    req.flash('message', 'An error occurred while updating.');
+    req.flash('error', 'An error occurred while updating.');
     res.redirect('/admin');
   }
 };

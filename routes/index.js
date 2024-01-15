@@ -30,10 +30,11 @@ router.get('/',noNos, async (req, res) => {
  const db = getDb();
  const collection = db.collection('_cards');
  const allCards = await collection.find({}).toArray();
- 
+ //const message= req.flash()
+// console.log(req.flash('message'))
  res.render('index', { 
      user: user, 
-     message: req.flash('message'),
+     message: req.flash(),
      allCards: allCards,  // Pass allCards to your EJS template
      fonts:fonts 
  });

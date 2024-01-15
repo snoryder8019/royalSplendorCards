@@ -28,7 +28,7 @@ router.get(('/'),async(req,res)=>{
 ////////////////////
     res.render('viewBuy',{
     user: user, 
-    message: req.flash('message'),
+    message: req.flash(),
     card:card,  // Pass allCards to your EJS template
     fonts:fonts ,
     config:config

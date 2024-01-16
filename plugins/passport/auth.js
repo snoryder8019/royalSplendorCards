@@ -17,6 +17,7 @@ router.get('/auth/yahoo/callback',
 
 
   router.post('/auth/local', (req, res, next) => {
+    
     passport.authenticate('local', (err, user, info) => {
       if (err) {
         return next(err);
@@ -39,16 +40,40 @@ router.get('/auth/yahoo/callback',
     })(req, res, next);
   });
 //////////console.log('findOne(): ')
-router.get('/auth/google', 
-passport.authenticate('google',
-  {scope:['profile','email','openid'], callbackURL: `${config.baseUrl}auth/google/callback`},
-  {failureRedirect:'/'}));
+router.get('/auth/google', (req, res, next) => {
+  req.session.redirectUrl = req.headers.referer || '/default-route';
+  console.log(req.session.redirectUrl)
+  passport.authenticate('google', {
+    scope: ['profile', 'email', 'openid'],
+    callbackURL: `${config.baseUrl}auth/google/callback`,
+    failureRedirect: '/',
+  })(req, res, next);
+});
 
-router.get('/auth/google/callback', 
-passport.authenticate('google',
-   {failureRedirect:'/'}),
-  (req,res)=>{
-   res.redirect('/')});
+router.get('/auth/google/callback', (req, res, next) => {
+  const redirectUrl = req.session.redirectUrl;
+  passport.authenticate('google', {
+    failureRedirect: '/',
+  }, (err, user) => {
+    if (err) {
+      return next(err);
+    }
+    if (user) {
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash('success', 'Successfully logged in');
+
+        // Redirect to the referring URL or a default route
+        return res.redirect(redirectUrl);
+      });
+    } else {
+      // Handle the case when user is not authenticated
+      return res.redirect('/');
+    }
+  })(req, res, next);
+});
 
    router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 

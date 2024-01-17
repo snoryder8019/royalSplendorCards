@@ -38,23 +38,14 @@ passport.use(
         const user = await users.findOne({ email });
 
         if (!user) {
-          console.log('bad email');
-          req.flash('error', 'Invalid email.');
-          console.log(req.flash('error'));
-          return done(null, false);
+        return done(null, false, {message:'Email not found'});
         }
         
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-          console.log('bad password');
-          req.flash('error', 'Invalid password.');
-          console.log(req.flash('error'));
-          return done(null, false);
-        }
-        
-        req.flash('success', 'Logged in successfully.');
-        console.log(req.flash('success'));
-        return done(null, user);
+        if (!isMatch) {        
+          return done(null, false, {message:'Bad Password'});
+        }  
+        return done(null, user, {message:'Logged in successfully'});
       } catch (error) {
         done(error);
       }

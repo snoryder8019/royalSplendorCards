@@ -59,11 +59,11 @@
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
                 <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%= card.text0Rotation + "deg"%>);" class="textBox" id="textBox_<%=card._id%>">
                     <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-                        <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Testchapter RHS</div>
-                        <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>">anywhere, USA</div> 
-                        <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>">youremail@email.com</div> 
-                        <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>">333-456-7890</div> 
-                        <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>">Januaray 1st</div>                     
+                        <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
+                        <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
+                        <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.email%></div> 
+                        <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.phone%></div> 
+                        <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>"><%= user.birthday_day + " " + user.birthday_month %></div>                     
                     </div>                
                 </div>     
             </div>
@@ -78,7 +78,7 @@
         <input type="hidden" name="order_id" value="<%=order._id%>">
         <button>Approve</button>
     </form-->
-    <button onclick=" exportBackFrameToPDF(), exportFrontFrameToPDF()"></button>
+    <button onclick=" exportBackFrameToPDF(<%=user.firstName+' '+user.lastName%>), exportFrontFrameToPDF(<%=user.firstName+' '+user.lastName%>)">Approve</button>
     </div>
     <!---------------->
     <div class="realname">
@@ -139,11 +139,14 @@
                   } else if (element.classList.contains('royalTitle')) {
                     document.getElementById('text2PositionX_' + cardId).value = element.style.left.replace('px', '');
                     document.getElementById('text2PositionY_' + cardId).value = element.style.top.replace('px', '');
-                  }
+                  }else  if (element.classList.contains('textBox')) {
+            document.getElementById('text0PositionX_' + cardId).value = element.style.left.replace('px', '');
+            document.getElementById('text0PositionY_' + cardId).value = element.style.top.replace('px', '');
+        }
                 }
             }
             
-            document.querySelectorAll('.realName, .royalTitle').forEach(dragElement);
+            document.querySelectorAll('.realName, .royalTitle, .texBox').forEach(dragElement);
 
             // Function to adjust font size
             function adjustFontSize(cardId, elementId, increase = true) {
@@ -154,7 +157,9 @@
                     inputFieldId = 'font1Size_';
                 } else if (elementId === 'royalTitleText') {
                     inputFieldId = 'font2Size_';
-                }
+                } else if (elementId === 'textTitles') {
+            inputFieldId = 'font0Size_';
+        }
             
                 if (targetElement) {
                     let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);

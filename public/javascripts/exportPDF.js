@@ -1,21 +1,21 @@
-function exportFrontFrameToPDF() {
+function exportFrontFrameToPDF(userName, orientation) {
     const element = document.querySelector('.cardFrontFrame');
     html2pdf(element, {
       margin: 10,
-      filename: 'front_frame.pdf',
+      filename: `card_back_${userName}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: `${orientation}` }
     });
 }
 
-function exportBackFrameToPDF() {
+function exportBackFrameToPDF(userName, orientation) {
     const element = document.querySelector('.cardBackFrame');
     html2pdf(element, {
       margin: 10,
-      filename: 'back_frame.pdf',
+      filename: `card_back_${userName}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: `${orientation}` }
     });
 }

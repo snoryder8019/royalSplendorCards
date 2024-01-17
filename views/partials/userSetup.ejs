@@ -7,17 +7,18 @@
     <form action="/userDataUpload"method="post">
         <div class="userData">
             <label>Title</label><br><input type="text" name="title" id="title" placeholder="<%= user.title || 'add your Title' %>" value="<%= user.title || 'add your title' %>"><br>
-            <label>First name</label><br><input type="text" name="firstName" id="firstName" placeholder="<%= user.firstName || 'add your First Name' %>" value="<%= user.firstName || 'add your first name' %>"><br>
-            <label>Last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
+            <label>First name</label><br>
+            <input type="text" name="firstName" id="firstName" placeholder="add your First Name" value="<%= user.firstName || 'add your first name' %>" onfocus="clearDefault(this, 'add your first name')" onblur="restoreDefault(this, 'add your first name')">            <label>Last name</label><br><input type="text" name="lastName" id="lastName" placeholder="<%= user.lastName || 'add your last Name' %>" value="<%= user.lastName || 'add your last name' %>"><br>
             <label>Chapter</label><br><input type="text" name="chapter" id="cardchapter" placeholder="<%= user.chapter || 'add your Chapter' %>" value="<%= user.chapter || 'add your Chapter' %>"><br>
             <label>Home city</label>  <br> <input type="text" name="address" id="cardaddress" placeholder="<%= user.address || 'add your address' %>" value="<%= user.address || 'add your address' %>"><br>
             <input type="hidden" name="email" id="cardemail" value="<%= user.email %>">
             <label>Phone</label>   <br>  <input type="text" name="phone" id="cardphone" value="<%= user.phone || 'add your phone' %>"><br>
           
           
-            <label>Birth month</label>  <br><select name="birthday_month" id="birthday_month"><%- include('../forms/months')%></select><br>
+            <label>Birth month</label> 
+             <br><select name="birthday_month" id="birthday_month"><%- include('../forms/months',{user:user})%></select><br>
           
-            <label>Birth day</label>  <br> <select name="birthday_day" id="cardbirthday_day" value="<%= user.birthday_day ? user.birthday_day : 'add your birthday_day' %>"><%- include('../forms/days')%></select><br>
+            <label>Birth day</label>  <br> <select name="birthday_day" id="cardbirthday_day" value="<%= user.birthday_day ? user.birthday_day : 'add your birthday_day' %>"><%- include('../forms/days',{user:user})%></select><br>
           
           
             

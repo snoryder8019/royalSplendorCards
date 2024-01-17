@@ -17,13 +17,13 @@ router.get('/auth/yahoo/callback',
 
 
   router.post('/auth/local', (req, res, next) => {
-    
     passport.authenticate('local', (err, user, info) => {
+      console.log(info.message)
       if (err) {
         return next(err);
       }
       if (!user) {
-        req.flash('error', 'Invalid credentials');
+        req.flash('error', info.message ||'Invalid credentials');
         const redirectUrl = req.headers.referer || '/';
         return res.redirect(redirectUrl);
       }
@@ -31,7 +31,7 @@ router.get('/auth/yahoo/callback',
         if (err) {
           return next(err);
         }
-        req.flash('success', 'Successfully logged in');
+        req.flash('success', info.message|| 'Successfully logged in');
   
         // Redirect to the referring URL or a default route
         const redirectUrl = req.headers.referer || '/';

@@ -25,3 +25,29 @@ function exportBackFrameToPDF(userName) {
       jsPDF: { unit: 'mm', format: [canvasWidth, canvasHeight] }
     }).save();
 }
+
+function exportUserDataToPDF(user, card, order) {
+  // Create an HTML representation of your data
+  const dataDiv = document.createElement('div');
+  dataDiv.className = 'userDataPDF';
+  dataDiv.innerHTML = `
+      <h3>User Data</h3><p>${JSON.stringify(user, null, 2)}</p>
+      <h3>Card Data</h3><p>${JSON.stringify(card, null, 2)}</p>
+      <h3>Order Data</h3><p>${JSON.stringify(order, null, 2)}</p>`;
+
+  // Optionally add the div to the document body
+  document.body.appendChild(dataDiv);
+
+  // Export to PDF
+  html2pdf().from(dataDiv).set({
+      margin: [10, 10, 10, 10],
+      filename: `user_card_order_data_${user.lastName}.pdf`,
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4' }
+  }).save().then(() => {
+      // Remove the element after saving
+      document.body.removeChild(dataDiv);
+  });
+}
+
+// HTML Button

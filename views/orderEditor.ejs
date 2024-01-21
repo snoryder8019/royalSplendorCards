@@ -78,8 +78,7 @@
         <input type="hidden" name="order_id" value="<%=order._id%>">
         <button>Approve</button>
     </form-->
-    <button onclick=" exportBackFrameToPDF('<%=user.lastName%>_back'), exportFrontFrameToPDF('<%=user.lastName%>_front')">Approve</button>
-    </div>
+    <button onclick="exportBackFrameToPDF('<%=user.lastName%>_back'); exportFrontFrameToPDF('<%=user.lastName%>_front'); exportUserDataToPDF(<%= JSON.stringify(user) %>, <%= JSON.stringify(card) %>, <%= JSON.stringify(order) %>)">Approve</button>
     <!---------------->
     <div class="fontsizeeditor">
     <div class="realname">

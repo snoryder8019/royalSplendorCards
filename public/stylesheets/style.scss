@@ -573,10 +573,10 @@ input[type="submit"]:hover {
   max-width: 100px; /* Adjust as needed */
 }
 .textTitles{
-max-width: 78%;
+//max-width: 92%;
 z-index: -1;
 display: grid;
-grid-template-columns: 2fr 1fr 3fr;
+grid-template-columns: 2fr 1fr 6fr;
 text-align: left;
 align-items: center;
 overflow-x:unset;
@@ -1009,5 +1009,29 @@ h6{
     width: 80%;
     margin: 0 18%;
     
+  }
+}
+#resetEmailInput{
+  display: none;
+  animation: slideUp .6s ease-out reverse 0 1s;
+  position:fixed;
+  z-index: 1000;
+  width:50%;
+  left:0;
+  top:0;
+  transform: translateX(35%) translateY(50%);
+  padding: 5%;
+  border: 3px solid $red;
+  background-color: $primaryBackgroundColor;
+
+}
+#resetPassButton{
+  display: none;
+  transform-style: preserve-3d;
+  transition-duration: .8s;
+}
+.fontsizeeditor{
+  & button{
+    width: 50px;
   }
 }

@@ -16,7 +16,8 @@ async function createUser(newUser) {
         console.log('This email is Taken');
         return { success: false, message: 'Email is already taken' }; // Return a custom message
     } else {
-        const result = await db.collection("users").insertOne(newUser);
+        const result = await db.collection("users").inse
+        rtOne(newUser);
         // Fetch the created user and return
         const createdUser = await db.collection("users").findOne({ _id: result.insertedId });
         
@@ -28,7 +29,6 @@ async function createUser(newUser) {
         return { success: true, user: createdUser }; // Return a success status and the created user
     }
 }
-
 router.post('/regUser', async (req, res) => {
     try {
         const createUserResult = await createUser({
@@ -53,7 +53,6 @@ router.post('/regUser', async (req, res) => {
                     req.flash('error', 'Login after registration failed.');
                     return res.status(500).send('Error logging in');
                 }
-
                 // Flash success message
                 req.flash('success', 'Registration successful! Logged in successfully.');
                 return res.redirect(redirectUrl);
@@ -69,7 +68,6 @@ router.post('/regUser', async (req, res) => {
         res.status(500).send('Server Error');
     }
 });
-
 
 router.get('/confirm/:token', async (req, res) => {
     const token = req.params.token;

@@ -1,21 +1,27 @@
-function exportFrontFrameToPDF(userName, orientation) {
+function exportFrontFrameToPDF(userName) {
     const element = document.querySelector('.cardFrontFrame');
-    html2pdf(element, {
-      margin: 10,
-      filename: `card_back_${userName}.pdf`,
+    const canvasWidth = element.offsetWidth;
+    const canvasHeight = element.offsetHeight;
+
+    html2pdf().from(element).set({
+      margin: [0, 0, 0, 0],
+      filename: `card_front_${userName}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: `${orientation}` }
-    });
+      html2canvas: { scale: 3, width: canvasWidth, height: canvasHeight },
+      jsPDF: { unit: 'mm', format: [canvasWidth, canvasHeight] }
+    }).save();
 }
 
-function exportBackFrameToPDF(userName, orientation) {
+function exportBackFrameToPDF(userName) {
     const element = document.querySelector('.cardBackFrame');
-    html2pdf(element, {
-      margin: 10,
+    const canvasWidth = element.offsetWidth;
+    const canvasHeight = element.offsetHeight;
+
+    html2pdf().from(element).set({
+      margin: [0, 0, 0, 0],
       filename: `card_back_${userName}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: `${orientation}` }
-    });
+      html2canvas: { scale: 3, width: canvasWidth, height: canvasHeight },
+      jsPDF: { unit: 'mm', format: [canvasWidth, canvasHeight] }
+    }).save();
 }

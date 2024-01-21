@@ -8,6 +8,7 @@ const checkouts = require('../plugins/paypal/webhooks/orders')
 const { getDb } = require('../plugins/mongo/mongo');
 const flash = require('express-flash');
 const noNos = require('./securityFunctions/forbiddens')
+const {resetPasswordRequest, resetRedirect} = require('../plugins/passport/passwordReset')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
 const { userImgUpload, userDataUpload } = require('./userFunctions/userFunctions');
@@ -22,6 +23,10 @@ router.post('/userImgUpload', upload, userImgUpload);
 router.post('/checkouts', checkouts);
 router.use('/finalizeOrder',finalizeOrder)
 router.post('/userDataUpload', userDataUpload)
+router.post('/reset-password-request', resetPasswordRequest)
+router.post('/reset-password', resetRedirect)
+
+
 /* GET home page. */
 router.get('/',noNos, async (req, res) => {
   let user = req.user;

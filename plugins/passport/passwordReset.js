@@ -27,14 +27,24 @@ const resetPasswordRequest = async (req, res) => {
         const user = await db.collection('users').findOne({ email: email });
         
         if (user) {
-            // Generate a reset token here if needed
+            // Generate a reset token here
             const resetToken = generateResetToken(); // Implement this function
+
+            // Save the reset token and set an expiration timestamp in the user document
+            const expirationTime = new Date();
+            expirationTime.setHours(expirationTime.getHours() + 1); // Token expires in 1 hour
+
+            await db.collection('users').updateOne(
+                { _id: user._id },
+                { $set: { resetToken: resetToken, resetTokenExpiration: expirationTime } }
+            );
+
             const dynamicLink = `${config.baseUrl}reset-password/${resetToken}`;
-            console.log(dynamicLink)
+            console.log(dynamicLink);
             await sendDynamicEmail(email, 'passwordReset', user, null, dynamicLink);
             return res.status(200).send('Password reset email sent successfully.');
         } else {
-            console.log('user not found')
+            console.log('User not found');
             return res.status(404).send('User not found.');
         }
     } catch (err) {
@@ -42,6 +52,7 @@ const resetPasswordRequest = async (req, res) => {
         return res.status(500).send('Server Error');
     }
 };
+
 // Function to handle password reset
 const resetPassword = async (req, res) => {
     try {
@@ -55,11 +66,13 @@ const resetPassword = async (req, res) => {
         if (user) {
             // Hash and update the new password
             const hash = await bcrypt.hash(newPassword, 10);
-            await db.collection('users').updateOne(
+           const response = await db.collection('users').updateOne(
                 { _id: user._id },
                 { $set: { password: hash }, $unset: { resetToken: '' } }
             );
-            return res.status(200).send('Password reset successfully.');
+            console.log(response)
+            req.flash('success','Password Reset! please login')
+            return res.redirect(config.baseUrl)
         } else {
             return res.status(404).send('Invalid or expired token.');
         }
@@ -69,6 +82,7 @@ const resetPassword = async (req, res) => {
     }
 };
 //reset redirect object needed to export
+//
 // Object for reset redirect logic (exported as an object)
 const resetRedirect = async (req, res) => {
 
@@ -82,5 +96,21 @@ const resetRedirect = async (req, res) => {
         }
     }
 
+// Create a module for handling the reset password GET request
+const handleResetPasswordGet = (req, res) => {
+    try {
+        // Retrieve the reset token from the request parameters
+        const resetToken = req.params.token;
 
-module.exports = { resetPasswordRequest, resetPassword, resetRedirect };
+        // You can now use the resetToken for validation or further processing
+        // For example, you can check if the token is valid and not expired
+
+        // Render the reset-password.ejs view and pass the resetToken as an object
+        res.render('reset-password', { resetToken }); // Adjust this based on your view setup
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send('Server Error');
+    }
+};
+
+module.exports = { resetPasswordRequest, resetPassword, resetRedirect, handleResetPasswordGet };

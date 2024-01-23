@@ -1,21 +1,81 @@
 // /plugins/nodemailer/styles/emailStyle0.js
 const emailStyle0 = `
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        color: #333;
-        margin: 0;
-        padding: 20px;
-    }
-    .container {
-        max-width: 600px;
-        margin: auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    /* Add more styles as needed */
+
+body {
+border:5px solid #9932432
+  display: block;
+  font-family: "minonPro";
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: rgb(26, 26, 164);
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+li {
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+@media (min-width: 768px) {
+  p {
+    width: 50%;
+    margin-left: -13%;
+    transform: translateX(75%);
+  }
+}
+
+button {
+  width: 84%;
+  height: 42px;
+  margin: 1%;
+  border-radius: 5px;
+  border: 5px solid #932432;
+  font-size: 1.4rem;
+  color: black;
+  font-family: "minonPro";
+}
+
+@media (min-width: 768px) {
+  button {
+    font-size: 0.5rem;
+    margin: 1%;
+    padding: 0;
+    font-size: 1.8rem;
+  }
+}
+
+.alert-error::before {
+  content: "❌"; /* Red X emoji */
+  font-size: 2rem;
+  padding: 2%;
+  margin-right: 10px;
+}
+
+.alert-info::before {
+  content: "ℹ️"; /* Information emoji */
+  font-size: 2rem;
+  padding: 2%;
+  margin-right: 10px;
+}
+
+.alert-success::before {
+  content: "✅"; /* Checkmark emoji */
+  font-size: 2rem;
+  padding: 2%;
+  margin-right: 10px;
+}
+
+
+
 `;
 
 module.exports = emailStyle0;

@@ -20,16 +20,15 @@
     
     <%}else{%>
         <h2>   Sign in options:  </h2>
-        <h6 style="margin: 0;padding: 0;transform: translateY(-50%);" id="loginCloseTiny"><a>Close this window</a></h6>
         <div class="loginForm">
             <p><span class="accent">Option #1:</span> email and password</p>
             
             <form action="/auth/local" method="post">
-            <p>*Notice to <u style="font-weight: 800;"> all first time users</u>: You must register with your favorite email to use option #1*</p> <a id="regLastLink">Register email here.</a> 
-        <br>
+                <p>*Notice to <u style="font-weight: 800;"> all first time users</u>: You must register with your favorite email to use option #1*</p> <a id="regLastLink">Register email here.</a> 
+                <br>
                 <label for="email"> Email:</label><br>
                 <input type="text" id="email" name="email" required>
-         <br>
+                <br>
                 <label for="password"> Password:</label><br>
                 <input type="password" id="password" name="password" required>
                 <script></script>
@@ -42,7 +41,7 @@
                 </div>
             </form>
             
-            <h5>forot your password? <span style="color:blue" onclick="showResetInput()" id="resetLink">reset password</span></h5>
+            <h5>forot your password? <span style="color:blue;cursor: pointer;" onclick="showResetInput()" id="resetLink">reset password</span></h5>
             <div id="resetEmailInput">  
                 <form id="resetPasswordForm">
                     <h2>Reset Password ℹ️</h2>
@@ -51,43 +50,42 @@
                     <input id="resetPassInput"name="email" type="email" required>
                     <button id="resetPassButton" type="submit">Request Password Reset</button>
                 </form>
+                
+                <button onclick="showResetInput()">close this window</button>
+            </div>
             
-<button onclick="showResetInput()">close this window</button>
-</div>
-          
-  <div id="loginMessage">
-    login message
-  </div>
-    </div>
-    
-   
-    
-    <div class="loginForm">
-    <p><span class="accent">Option #2:</span> Register and login with your Google account:</p>
+            
+        </div>
+        
+        
+        
+        <div class="loginForm">
+            <p><span class="accent">Option #2:</span> Register and login with your Google account:</p>
   
-    
-    <a href="./auth/google">
-        <div class="oneTouchLogin">  
-            <img class="oneTouchLogin" src="/images/google.png">   </div></a>
-    <!--a href="./auth/yahoo">
-        <div class="oneTouchLogin">  
-            <img class="oneTouchLogin" src="/images/icons/yahoo_icon.png">   </div></a-->
-    
+            
+            <a href="./auth/google">
+                <div class="oneTouchLogin">  
+                    <img class="oneTouchLogin" src="/images/google.png">   </div></a>
+                    <!--a href="./auth/yahoo">
+                        <div class="oneTouchLogin">  
+                            <img class="oneTouchLogin" src="/images/icons/yahoo_icon.png">   </div></a-->
+                            
  
-    </div>
-</div>
-    
-    <%}%>
-
-
-    <script>
+                        </div>
+                        <h6 style="margin: 0;padding: 0;transform: translateY(-50%);" id="loginCloseTiny"><a>❌ Close this window</a></h6>
+                    </div>
+                    
+                    <%}%>
+                    
+                    
+                    <script>
         const resetLink = document.getElementById('resetLink')
         const emailInput = document.getElementById('resetEmailInput')
         const resetPassButton = document.getElementById('resetPassButton')
         const resetPassInput = document.getElementById('resetPassInput')
-function loginMessage(el,message){
-   
-}
+        function loginMessage(el,message){
+            
+        }
         function showResetInput(){
             if(emailInput.style.display=='block'){
                 emailInput.style.display='none'
@@ -131,11 +129,11 @@ passHandler(); // Call the function to add the event listener
                     });
 
                     if (response.ok) {
-                      // showResetInput()
-
+                       showResetInput()
+                        alert('Please check your email for your secure password reset link.')
                         console.log('Password reset email sent successfully.');
                     } else {
-                        // Handle errors (e.g., user not found)
+                       alert('Hmmmm..somethings not right \n\n User email not found, double check your email is correct. \n\n *Have you registered this email before?\n You must register before logging in the first time*')
                         console.error('Error:', response.status, response.statusText);
                     }
                 } catch (error) {

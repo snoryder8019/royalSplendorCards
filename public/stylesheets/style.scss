@@ -214,6 +214,9 @@ a {
  // @include regMedia()
   }
 }
+a:hover, button{
+  cursor: pointer;
+}
 h2{
   font-size: $regularFontSize;
   @media (min-width:$screenQueryReg) {

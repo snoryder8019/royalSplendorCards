@@ -87,6 +87,10 @@ body {
 a {
   color: rgb(26, 26, 164);
 }
+a:hover, button {
+  cursor: pointer;
+}
+
 h2 {
   font-size: 1.8rem;
 }

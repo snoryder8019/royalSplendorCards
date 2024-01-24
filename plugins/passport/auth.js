@@ -23,7 +23,7 @@ router.get('/auth/yahoo/callback',
         return next(err);
       }
       if (!user) {
-        req.flash('error', info.message ||'Invalid credentials');
+        req.flash('error')[0];
         const redirectUrl = req.headers.referer || '/';
         return res.redirect(redirectUrl);
       }
@@ -31,7 +31,7 @@ router.get('/auth/yahoo/callback',
         if (err) {
           return next(err);
         }
-        req.flash('success', info.message|| 'Successfully logged in');
+        req.flash('success', info.message);
   
         // Redirect to the referring URL or a default route
         const redirectUrl = req.headers.referer || '/';

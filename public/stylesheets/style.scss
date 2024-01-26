@@ -472,7 +472,7 @@ display: block;
 margin: 0;
 padding: 0;
 }
-$cardDimention:308px;
+$cardDimention:375px;
 .card {
   align-items: center;
   min-width: $cardDimention;
@@ -559,12 +559,13 @@ input[type="submit"]:hover {
 }
 .cardImg  {
   position: relative;
-  width: 100%;
+  width: 375px;
+  height:225px;
   z-index: 2;
 }
 
 .cardImg img {
-  width: 99%;
+  width:375px ;
 }
 .cardImg_vertical img{
   width:55%;

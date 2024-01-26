@@ -416,8 +416,8 @@ button {
 
 .card {
   align-items: center;
-  min-width: 308px;
-  max-width: 308px;
+  min-width: 375px;
+  max-width: 375px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -494,21 +494,22 @@ input[type=submit]:hover {
 
 .cardFrontFrame {
   position: relative;
-  max-width: 308px;
+  max-width: 375px;
 }
 
 .cardBackFrame {
-  max-width: 308px;
+  max-width: 375px;
 }
 
 .cardImg {
   position: relative;
-  width: 100%;
+  width: 375px;
+  height: 225px;
   z-index: 2;
 }
 
 .cardImg img {
-  width: 99%;
+  width: 375px;
 }
 
 .cardImg_vertical img {

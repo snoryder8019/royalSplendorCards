@@ -453,14 +453,18 @@ button {
 }
 
 input[type=submit], input[type=file] {
-  background-color: #fffdf6;
+  background-color: #450b5a;
   color: white;
   width: 94%;
+  margin: 2%;
   margin-left: 2%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+  transform-style: preserve-3d;
+  transition-duration: 0.8s;
+  transition-timing-function: ease-out;
 }
 
 select {
@@ -483,7 +487,7 @@ input[type=file] {
 
 input[type=submit]:hover {
   margin: 2%;
-  background-color: black;
+  background-color: goldenrod;
 }
 
 .textControls button, .imgControls button {
@@ -619,7 +623,7 @@ input[type=submit]:hover {
   z-index: 0;
 }
 
-#login, #register {
+#login, #register, #tickets {
   overflow-y: auto;
   height: 100%;
   font-size: 1.2rem;
@@ -636,7 +640,7 @@ input[type=submit]:hover {
   animation: 2s 0s 1 slideUpLogin;
 }
 @media (min-width: 768px) {
-  #login, #register {
+  #login, #register, #tickets {
     width: 50%;
     left: 25%;
   }

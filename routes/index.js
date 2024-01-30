@@ -11,7 +11,7 @@ const noNos = require('./securityFunctions/forbiddens')
 const {resetPasswordRequest, resetPassword, handleResetPasswordGet} = require('../plugins/passport/passwordReset')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
-const { userImgUpload, userDataUpload } = require('./userFunctions/userFunctions');
+const { userImgUpload, userDataUpload, submitTicket } = require('./userFunctions/userFunctions');
 const gatherIp = async (req,res,next)=>{
   let userIp = req.ip
   console.log(`user's IP: ${userIp}`)
@@ -23,6 +23,7 @@ router.post('/userImgUpload', upload, userImgUpload);
 router.post('/checkouts', checkouts);
 router.use('/finalizeOrder',finalizeOrder)
 router.post('/userDataUpload', userDataUpload)
+router.post('/submitTicket', submitTicket);
 router.post('/reset-password-request', resetPasswordRequest)
 router.post('/passwordReset/:token', resetPassword)
 router.get('/reset-password/:token', handleResetPasswordGet);

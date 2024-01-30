@@ -29,7 +29,7 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
   const users = await collection2.find({}).toArray()
   const collection3= db.collection('orders_paypal')
   const ordersPaypal = await collection3.find({}).toArray()
-  console.log(users)
+  //console.log(users)
 
   res.render('admin', { 
       user: user, 

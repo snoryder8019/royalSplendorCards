@@ -4,6 +4,7 @@ const {initiatePaypalOrder,updatePaypalOrder} = require('../dbFunctions')
 
 
 const checkouts = async (req, res) => {
+    console.log('CHECKOUTSFUNCTION')
     try {
         const eventType = req.body.event_type;
         const orderId = req.body.id; // Order ID is common for all events
@@ -30,6 +31,7 @@ const checkouts = async (req, res) => {
             }
         } else if (eventType == "CHECKOUT.ORDER.APPROVED") {
             const purchaseUnits = req.body.resource.purchase_units;
+            let shippingAddress = null;
         
             const status = req.body.resource.status;
             const payerId = req.body.resource.payer.payer_id;
@@ -59,8 +61,17 @@ const checkouts = async (req, res) => {
                     }
                     
                     if (unit.shipping) {
-                        console.log(`Shipping Address: ${unit.shipping.address.full_name}`);
-                        console.log(`  Address: ${unit.shipping.address.address_line_1}, ${unit.shipping.address.admin_area_2}, ${unit.shipping.address.admin_area_1}, ${unit.shipping.address.postal_code}, ${unit.shipping.address.country_code}`);
+                        console.log('shipping!!!')
+                        const shipping = unit.shipping.address;
+                        shippingAddress = {
+                            addressLine1: shipping.address_line_1 || "",
+                            addressLine2: shipping.address_line_2 || "", // Add this if available
+                            city: shipping.admin_area_2 || "",
+                            state: shipping.admin_area_1 || "",
+                            postalCode: shipping.postal_code || "",
+                            countryCode: shipping.country_code || ""
+                        };
+                        console.log(`Shipping Address: ${JSON.stringify(shippingAddress)}`);
                     }
                 });
             }
@@ -71,7 +82,8 @@ let updateFields = {
     "paypalCompleted": "true",
     "description":description,
     "amount":amount,
-    "paypalId":orderId
+    "paypalId":orderId,
+    "shippingAddress": shippingAddress
     // Ensure other fields are properly defined and not null
 };
 

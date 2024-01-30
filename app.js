@@ -36,7 +36,7 @@ async function startApp() {
   app.set('view engine', 'ejs');
   app.set('trust proxy', true);
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(logger('dev'));
+ app.use(logger('dev'));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());

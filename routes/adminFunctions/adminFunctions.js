@@ -11,7 +11,7 @@ const orderEditor = require('./finalizeOrder')
 // isAdmin Middleware
 function isAdmin(req, res, next) {
   let user = req.user;
-  console.log('accessing admin routes: ' + user.displayName);
+  console.log('ADMIN ACCESS: accessing admin routes: ' + user.displayName);
 
   if (user && user.isAdmin) {
     next();
@@ -148,8 +148,8 @@ const uploadFonts = async (req, res) => {
   try {
     const uploadedFonts = req.files.fonts || [];
     const fontPaths = uploadedFonts.map(file => file.path.replace('public', ''));
-    console.log('uploading font(s):', JSON.stringify(uploadedFonts, null, 2));
-
+    //console.log('uploading font(s):', JSON.stringify(uploadedFonts, null, 2));
+    
     // You can save these paths to the database if needed
     
     req.flash('success', 'Fonts uploaded successfully.');
@@ -171,17 +171,17 @@ const updateCard = async (req, res) => {
     const collection = db.collection('_cards');
     const cardID = req.body.cardId;
     const id = new ObjectId(cardID);
-
+    
     // Fetch existing data
     const existingCard = await collection.findOne({ "_id": id });
     if (!existingCard) {
       req.flash('error', 'Card not found.');
       return res.redirect('/admin');
     }
-
+    
     // Initialize with existing data
     let updatedCardData = { ...existingCard };
-
+    
     // Check if new files are uploaded
     if (req.files.cardFrontFile) {
       updatedCardData.cardFront = removePublicFromPath(req.files.cardFrontFile[0].path);
@@ -189,8 +189,8 @@ const updateCard = async (req, res) => {
     if (req.files.cardBackFile) {
       updatedCardData.cardBack = removePublicFromPath(req.files.cardBackFile[0].path);
     }
-let fontName14 = req.body.fontName1.substring(0, 4);
-let fontName24 = req.body.fontName2.substring(0, 4);
+    let fontName14 = req.body.fontName1.substring(0, 4);
+    let fontName24 = req.body.fontName2.substring(0, 4);
     // Update other fields
     updatedCardData.fontName1 = fontName14;
     updatedCardData.fontName2 = fontName24;
@@ -198,12 +198,12 @@ let fontName24 = req.body.fontName2.substring(0, 4);
     updatedCardData.imgScale = req.body.imgScale;
     updatedCardData.imgPositionX = req.body.imgPositionX;
     updatedCardData.imgPositionY = req.body.imgPositionY;
-
+    
     updatedCardData.text0PositionX = req.body.text0PositionX;
     updatedCardData.text0PositionY = req.body.text0PositionY;
     updatedCardData.font0Size = req.body.font0Size; 
     updatedCardData.textColor = req.body.textColor;
-
+    
     updatedCardData.text1PositionX = req.body.text1PositionX;
     updatedCardData.text1PositionY = req.body.text1PositionY;
     updatedCardData.font1Size = req.body.font1Size; 
@@ -223,12 +223,15 @@ let fontName24 = req.body.fontName2.substring(0, 4);
     updatedCardData.font2Size = req.body.font2Size; 
     
     // Log the updated card data
-    console.log('Updated Card Data:', updatedCardData);
+    //console.log('Updated Card Data:', updatedCardData);
     
     // Update the document
     const update = await collection.updateOne({ "_id": id }, { $set: updatedCardData });
-    console.log('Updated Card Data:', update);
-
+    //console.log('Updated Card Data:', update);
+   
+    const userName = req.user.displayName
+    lib('card updated:', 'no errors from lib():', { cardID,userName }, 'cards.txt');
+    
     req.flash('success', 'Card updated successfully.');
     res.redirect('/admin');
   } catch (err) {
@@ -238,10 +241,14 @@ let fontName24 = req.body.fontName2.substring(0, 4);
   }
 };
 
+
+
+
+
 router.post('/updateCard', upload, updateCard);
 router.post('/publishCard', isAdmin, publishCard)
-  router.post('/uploadCard', upload, uploadCard);
-  router.post('/deleteCard', deleteCard);
+router.post('/uploadCard', upload, uploadCard);
+router.post('/deleteCard', deleteCard);
 
-  
+
 module.exports = { isAdmin, uploadCard, deleteCard, getFonts, uploadFonts, updateCard, publishCard };

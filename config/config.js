@@ -6,6 +6,7 @@ const config =
     "app_name":"rhsCards",
     "DB_NAME":"rhsCards", 
     "baseUrl": process.env.BASE_URL,
+    'ticketsEmail':"scott@w2marketing.biz",
     //end breakiung changes
     //**********
     //custom changes below

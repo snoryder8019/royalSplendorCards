@@ -14,7 +14,7 @@ const {createOrder, getOrderDetails, returnPaypalSuccess, getCheckoutAwaiting} =
 const config = require('../config/config')
 
 router.get(('/'),async(req,res)=>{
-    console.log(req.query._id)
+   // console.log(req.query._id)
     const fonts = getFonts();
     const db = getDb();
     const collection = db.collection('_cards');
@@ -42,7 +42,7 @@ router.get('/checkout-awaiting', getCheckoutAwaiting);
 router.post('/createOrder', createOrder);
 router.get('/order-details/:orderId', getOrderDetails); 
 router.get('/return', async (req, res) => {
-    console.log('return viewbuylayer')
+   // console.log('return viewbuylayer')
     await returnPaypalSuccess(req, res);
 });
 

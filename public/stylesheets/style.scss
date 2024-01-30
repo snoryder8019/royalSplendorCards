@@ -509,15 +509,19 @@ border-top: 5px solid $primaryBorderColor;
   font-family:$primaryFontFamily;
 }
 input[type="submit"], input[type="file"]{
-  background-color: $primaryBackgroundColor;
+  background-color: $secondaryBackgroundColor;
   color: $secondaryFontColor;
   width: 94%;
   // padding: 10px 20px;
+  margin: 2%;
   margin-left: 2%;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: $inputSubmitFontSize;
+  transform-style: preserve-3d;
+  transition-duration: .8s;
+  transition-timing-function: ease-out;
 }
 select{
   margin-top: 2px;
@@ -538,7 +542,7 @@ border:3px solid $red;
 }
 input[type="submit"]:hover {
   margin: 2%;
-  background-color: $primaryShadowColor;
+  background-color: goldenrod;
 }
 .textControls, .imgControls{
   button{
@@ -669,7 +673,7 @@ width: 30%;
 .loginBox{
   
 }
-#login, #register{
+#login, #register, #tickets{
   overflow-y: auto;
  height: 100%;
   font-size: $smallFontSize;

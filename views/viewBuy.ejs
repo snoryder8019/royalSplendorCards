@@ -25,9 +25,14 @@
     <div id="userSetup"><%- include('./partials/userSetup',{user:user,message:message})%></div>   
     <%if(typeof user=="object" && user){%>
       <input id="ppalUserId" type="hidden" name="userId" value="<%=user._id%>">
-  <h2>Step 3: Review Your Deisign</h2>
-  <p>Having trouble? <a href="mailto:nancy@royalSplendor.com"> Email Nancy Here</a></p>
+  
+  
+  
+      <h2>Step 3: Review Your Deisign</h2>
+
   <%}%>
+  
+  
   <div class="card">
     <h2>  <span class="span_branded"><%=card.cardName%></span></h2>
   <div class="cardFrontFrame">
@@ -127,6 +132,10 @@
 <!------------------->
 
 <%if(typeof user == 'object' && user){%>
+  <p>Having trouble with your account or your order?</p>
+    <button id="ticketsButton">request help</button>
+    <div id="tickets"><%- include('./partials/tickets',{user:user,card:card})%></div>
+  
   <h2>Step 4: Approve and Purchase</h2>
   <button custom-type="approve" id="approve">Approve Design</button>
   <!----------->

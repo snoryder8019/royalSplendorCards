@@ -81,6 +81,7 @@ const getOrderforPaypal = async (orderId)=>{
 
 
 const updatePaypalOrder = async (orderId, updateFields) => {
+    console.log('UPDATEPAYPALORDER')
     try {
         // Check if updateFields is valid
         if (!updateFields || Object.keys(updateFields).length === 0) {

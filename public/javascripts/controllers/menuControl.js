@@ -8,6 +8,11 @@ const regLink = document.getElementById('regLink');
 const regLastLink = document.getElementById('regLastLink');
 const loginClose = document.getElementById('loginClose');
 const loginCloseTiny = document.getElementById('loginCloseTiny');
+
+const ticketsButton = document.getElementById('ticketsButton');
+const ticketsCloseButton = document.getElementById('ticketsCloseButton');
+const tickets = document.getElementById('tickets');
+
 // Define a mapping of buttons to their corresponding elements
 const btnGrp = [
   { button: regClose, element: register },
@@ -16,7 +21,10 @@ const btnGrp = [
   { button: loginViewBuy, element: login },
   { button: regLink, element: register },
   { button: loginClose, element: login },
-  { button: loginCloseTiny, element: login }
+  { button: loginCloseTiny, element: login },
+  { button: ticketsButton, element: tickets },
+  { button: ticketsCloseButton, element: tickets }
+
 ];
 function btnGrouping(){ 
   btnGrp.forEach(pair => {

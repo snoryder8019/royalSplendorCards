@@ -8,6 +8,8 @@ const forbiddenTerms = [
     'php',
     'mysql',
     '_php',
+    '_profiler',
+    'manager'
     ]; // Replace with your actual forbidden terms
 
 // Function to create regex patterns

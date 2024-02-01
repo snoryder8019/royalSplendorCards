@@ -4,7 +4,7 @@ const path = require('path');
 const emailStyle0 = require('./styles/emailStyle0'); // Import style
 const config = require('../../config/config');
 // Define the URL of your header image
-const emailHeaderUrl = `${config.baseUrl}images/banner_cell.jpg`;
+const emailHeaderUrl = `${config.baseUrl}images/logoTransp.png`;
 
 // Transporter setup
 const transporter = nodemailer.createTransport({

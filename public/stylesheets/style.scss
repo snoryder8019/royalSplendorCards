@@ -673,7 +673,7 @@ width: 30%;
 .loginBox{
   
 }
-#login, #register, #tickets{
+#login, #register, #tickets, {
   overflow-y: auto;
  height: 100%;
   font-size: $smallFontSize;
@@ -764,7 +764,7 @@ $avatarDimention:90px;
   font-weight: $menuInitialsWeight;
 }
 //MENU STUFF
-#cardUploadDiv, #draftCards, #uploadFonts,#users,#orders {
+#cardUploadDiv, #draftCards, #uploadFonts,#users,#orders, #ordersToPrint ,#ticketsAdmin{
   display: none;
 }
 #draftCards input[type="color"]{

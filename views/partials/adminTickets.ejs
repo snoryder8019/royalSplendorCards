@@ -1,0 +1,98 @@
+<% if (tickets.length > 0) { %>
+    <div class="card-container">
+      <h2>Open Tickets</h2>
+      <ul>
+        <% tickets.forEach((ticket) => { %>
+          <% if (ticket.status === 'open') { %>
+            <div class="card">
+              <li>
+                <p>Ticket ID: <%= ticket._id %></p>
+                <p>userName: <%= ticket.userName %></p>
+                <p>userEmail: <%= ticket.userEmail %></p>
+                <p>userPhone: <%= ticket.userPhone %></p>
+                <p>Subject: <%= ticket.subject %></p>
+                <p>Description: <%= ticket.description %></p>
+                <p>Status: <%= ticket.status %></p>
+                <form action="/ticketUpdate" method="POST">
+                  <input type="hidden" name="ticketId" value="<%= ticket._id %>">
+                  <select name="status">
+                    <option value="open" selected>Open</option>
+                    <option value="closed">Closed</option>
+                  </select>
+                  <input type="text" name="devUpdate" placeholder="Add Dev Update">
+                  <button type="submit">Update Ticket</button>
+                </form>
+                <form action="/ticketDelete" method="POST">
+                  <input type="hidden" name="ticketId" value="<%= ticket._id %>">
+                  <button type="submit">Delete Ticket</button>
+                </form>
+                <% if (ticket.devUpdates && ticket.devUpdates.length > 0) { %>
+                  <h3>Dev Updates:</h3>
+                  <ul>
+                    <% ticket.devUpdates.forEach((update) => { %>
+                        <li>you said: <%= new Date(update.timestamp).toLocaleDateString('en-US') %> || <%= update.message %></li>                 
+                    <% }); %>
+                  </ul>
+                <% } %>
+              </li>
+            </div>
+          <% } %>
+        <% }); %>
+      </ul>
+    </div>
+  
+    <div class="card-container">
+      <h2>Closed Tickets</h2>
+      <ul>
+        <% tickets.forEach((ticket) => { %>
+          <% if (ticket.status === 'closed') { %>
+            <div class="card">
+              <li>
+                <p>Ticket ID: <%= ticket._id %></p>
+                <p>Status: <%= ticket.status %></p>
+                <h6 id="toggleDetails_<%= ticket._id %>" onclick="toggleDetails('<%= ticket._id %>')">see details..</h6>
+                <div id="seeDetails_<%= ticket._id %>">
+                  <p style="display: none;">userName: <%= ticket.userName %></p>
+                  <p style="display: none;">userEmail: <%= ticket.userEmail %></p>
+                  <p style="display: none;">userPhone: <%= ticket.userPhone %></p>
+                  <p style="display: none;">Subject: <%= ticket.subject %></p>
+                  <p style="display: none;">Description: <%= ticket.description %></p>
+                </div>
+                <form action="/ticketUpdate" method="POST">
+                  <input type="hidden" name="ticketId" value="<%= ticket._id %>">
+                  <select name="status">
+                    <option value="open">Open</option>
+                    <option value="closed" selected>Closed</option>
+                  </select>
+                  <input type="text" name="devUpdate" placeholder="Add Dev Update">
+                  <button type="submit">Update Ticket</button>
+                </form>
+                <form action="/ticketDelete" method="POST">
+                  <input type="hidden" name="ticketId" value="<%= ticket._id %>">
+                  <button type="submit">Delete Ticket</button>
+                </form>
+              </li>
+            </div>
+          <% } %>
+        <% }); %>
+      </ul>
+    </div>
+    
+    <script>
+      function toggleDetails(ticketId) {
+        var detailsDiv = document.getElementById('seeDetails_' + ticketId);
+        var toggleButton = document.getElementById('toggleDetails_' + ticketId);
+        if (detailsDiv.style.display === 'none') {
+          detailsDiv.style.display = 'block';
+          toggleButton.innerText = 'hide details';
+        } else {
+          detailsDiv.style.display = 'none';
+          toggleButton.innerText = 'see details..';
+        }
+      }
+    </script>
+    
+  <% } else { %>
+    <p>No tickets available.</p>
+  <% } %>
+  

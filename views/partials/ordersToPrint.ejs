@@ -1,15 +1,14 @@
 
-<h2>Review Orders</h2>
+<h2>Review To Print Orders</h2>
 
 <%if(typeof ordersPaypal=='object'&& ordersPaypal ){%>
-    <%let completedOrdersCount = ordersPaypal.filter(order => order.paypalCompleted === 'true'&&order.sentToPrint==='false').length;%>
-  <h4> You have <%=completedOrdersCount%> New Orders!! 🥳</h4>
+    <%let toPrintOrdersCount = ordersPaypal.filter(order => order.sentToPrint === 'true').length;%>
+  <h4> You have <%=toPrintOrdersCount%>  orders sent To Print!! 🥳</h4>
   
   
-  <div id="newOrdersDiv">
   <%for(let i =0;i<ordersPaypal.length;i++){%>
 
-      <%if(ordersPaypal[i].paypalCompleted=="true"&& ordersPaypal[i].sentToPrint=="false"){%>
+      <%if(ordersPaypal[i].paypalCompleted=="true"&& ordersPaypal[i].sentToPrint=="true"){%>
         
         <div class="orderReview">
         <h3>Order Details for : <%=ordersPaypal[i].userEmail%></h3>
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <%}else{%>
       no active orders        
       <%}%>
-    </div>
+  
 
         <!---------------->
 

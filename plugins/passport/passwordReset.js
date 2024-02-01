@@ -42,7 +42,7 @@ const resetPasswordRequest = async (req, res) => {
             const dynamicLink = `${config.baseUrl}reset-password/${resetToken}`;
             console.log(dynamicLink);
             await sendDynamicEmail(email, 'passwordReset', user, null, dynamicLink);
-            return res.status(200).send('Password reset email sent successfully.');
+            return res.render('registeredPassword',{pageType:"password"});
         } else {
             console.log('User not found');
             return res.status(404).send('User not found.');
@@ -72,7 +72,8 @@ const resetPassword = async (req, res) => {
             );
             console.log(response)
             req.flash('success','Password Reset! please login')
-            return res.redirect(config.baseUrl)
+          res.redirect('/')
+          
         } else {
             return res.status(404).send('Invalid or expired token.');
         }

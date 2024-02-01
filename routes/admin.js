@@ -29,6 +29,8 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
   const users = await collection2.find({}).toArray()
   const collection3= db.collection('orders_paypal')
   const ordersPaypal = await collection3.find({}).toArray()
+  const collection4= db.collection('tickets')
+  const tickets = await collection4.find({}).toArray()
   //console.log(users)
 
   res.render('admin', { 
@@ -37,7 +39,8 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
       allCards: allCards,  // Pass allCards to your EJS template
       fonts:fonts,
       users:users,
-      ordersPaypal:ordersPaypal 
+      ordersPaypal:ordersPaypal ,
+      tickets:tickets
   });
 });
 

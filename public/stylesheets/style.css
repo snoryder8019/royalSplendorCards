@@ -708,7 +708,7 @@ input[type=submit]:hover {
   font-weight: 800;
 }
 
-#cardUploadDiv, #draftCards, #uploadFonts, #users, #orders {
+#cardUploadDiv, #draftCards, #uploadFonts, #users, #orders, #ordersToPrint, #ticketsAdmin {
   display: none;
 }
 

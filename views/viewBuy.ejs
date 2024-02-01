@@ -139,6 +139,7 @@
   <h2>Step 4: Approve and Purchase</h2>
   <button custom-type="approve" id="approve">Approve Design</button>
   <!----------->
+  <%if(user.isConfirmed=="true"){%>
   <div id="orderForm">
     <h4>**all cards go through a final alignment and approval process by us, before going to print. </h4>
    
@@ -170,10 +171,21 @@
                   </label>
               </div>
           </div>
+
           <button custom-type="approve" id="checkout">Complete Purchase</button>
           <button custom-type="cancel" id="approvalCancel">Cancel Selection</button>
-      </div>
-      
+        
+        </div>
+     <%}else{%>
+      <div id="orderForm">
+        <h3>please confirm your email before you purchase</h3>
+        <form  method="post" action="/requestEmailConf">    
+          <input type="text"name="userId"value="<%=user._id%>">
+        <button>Confirm Email</button>
+      </form>
+            <button custom-type="cancel" id="approvalCancel">Cancel Selection</button>
+          </div>
+            <%}%>
       <%}else{%>
         <h2>Please Sign in to customize your card</h2>
         <p>Registered users can upload their images in place of Nancy's, and add their chapter name and other info. </p>

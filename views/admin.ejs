@@ -19,7 +19,9 @@
     <button class="adminButtons" id="toggleDraft" value="Toggle Draft Cards">Manage Cards</button>
     <button class="adminButtons" id="toggleCard" value="add new card design">Add a Card</button>
     <button class="adminButtons" id="toggleFont" value="Toggle Font Upload">Upload Fonts</button>
-    <button class="adminButtons" id="toggleOrders" value="Toggle Orders">Manage Orders</button>
+    <button class="adminButtons" id="toggleOrders" value="Toggle Orders">Manage New Orders</button>
+    <button class="adminButtons" id="toggleOrdersToPrint" value="Toggle Orders">Manage to Print Orders</button>
+    <button class="adminButtons" id="toggleTicketsAdmin" value="Toggle Tickets">Manage Tickets</button>
   </div>
 
 <div id="cardUploadDiv"><%- include('./partials/cardUploads')%></div>
@@ -27,6 +29,8 @@
 <div id="uploadFonts"><%- include('./partials/fontUploads')%></div>
 <div id="users"><%- include('./partials/users',{users:users, message:message})%></div>
 <div id="orders"><%- include('./partials/orders',{users:users,ordersPaypal:ordersPaypal, message:message})%></div>
+<div id="ordersToPrint"><%- include('./partials/ordersToPrint',{users:users,ordersPaypal:ordersPaypal, message:message})%></div>
+<div id="ticketsAdmin"><%- include('./partials/adminTickets',{users:users, message:message, tickets:tickets})%></div>
 
       <!--MENU IS CONSTANT FOOTER-->
      

@@ -215,15 +215,8 @@
   <div id="ppalSDK">
     <%let baseShipping = config.baseShipping%>
     <%let baseTransaction = config.baseTransaction%>
-    <%if(user.isAdmin){
-      <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="0" >
-      <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="0">
-
-    }else{%>
-      <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
-      <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="<%=baseTransaction%>">
-
-      <%}%>
+    <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
+    <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="<%=baseTransaction%>">
     
     <input id="ppalSDKTotal" type="hidden" name="ppalSDKTotal">
     <h3>Payment Summary:</h3>

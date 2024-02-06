@@ -1,6 +1,5 @@
 // /plugins/nodemailer/styles/emailStyle0.js
 const emailStyle0 = `
-
 body {
 border:5px solid #9932432
   display: block;
@@ -52,29 +51,6 @@ button {
     font-size: 1.8rem;
   }
 }
-
-.alert-error::before {
-  content: "❌"; /* Red X emoji */
-  font-size: 2rem;
-  padding: 2%;
-  margin-right: 10px;
-}
-
-.alert-info::before {
-  content: "ℹ️"; /* Information emoji */
-  font-size: 2rem;
-  padding: 2%;
-  margin-right: 10px;
-}
-
-.alert-success::before {
-  content: "✅"; /* Checkmark emoji */
-  font-size: 2rem;
-  padding: 2%;
-  margin-right: 10px;
-}
-
-
 
 `;
 

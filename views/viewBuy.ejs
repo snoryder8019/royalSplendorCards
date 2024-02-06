@@ -170,6 +170,14 @@
                       1000 for $79.99 | <del>$87.99</del>
                   </label>
               </div>
+              <%if(user.isAdmin =='true'){%>
+                <div class="radio-option">
+                  <label>
+                      <input type="radio" name="package" data-desc="1000ct" value="1">
+                      1000 for $79.99 | <del>$1.00</del>
+                  </label>
+              </div>
+                <%}%>
           </div>
 
           <button custom-type="approve" id="checkout">Complete Purchase</button>

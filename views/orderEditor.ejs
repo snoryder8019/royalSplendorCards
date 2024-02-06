@@ -75,6 +75,8 @@
     <!------------------>
     <form action="/admin" method="get">
         <button type="submit">Go Back</button>
+        <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
+
     </form>
     <!--form action="/approveOrder" method="post">
         <input type="hidden" name="order_id" value="<%=order._id%>">

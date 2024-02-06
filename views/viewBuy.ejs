@@ -135,7 +135,8 @@
   <p>Having trouble with your account or your order?</p>
     <button id="ticketsButton">request help</button>
     <div id="tickets"><%- include('./partials/tickets',{user:user,card:card})%></div>
-  
+    <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
+
   <h2>Step 4: Approve and Purchase</h2>
   <button custom-type="approve" id="approve">Approve Design</button>
   <!----------->
@@ -170,7 +171,7 @@
                       1000 for $79.99 | <del>$87.99</del>
                   </label>
               </div>
-              <%if(user.isAdmin =='true'){%>
+              <%if(user.isAdmin ==true){%>
                 <div class="radio-option">
                   <label>
                       <input type="radio" name="package" data-desc="1000ct" value="1">

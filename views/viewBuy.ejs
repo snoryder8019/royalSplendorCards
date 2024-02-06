@@ -173,7 +173,7 @@
               </div>
               <%if(user.isAdmin ==true){%>
                 <div class="radio-option">
-                  <label>
+                  <label style="color:rebeccapurple">
                       <input type="radio" name="package" data-desc="1000ct" value="1">
                       1000 for $79.99 |test| <del>$87.99</del>
                   </label>
@@ -215,8 +215,15 @@
   <div id="ppalSDK">
     <%let baseShipping = config.baseShipping%>
     <%let baseTransaction = config.baseTransaction%>
-    <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
-    <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="<%=baseTransaction%>">
+    <%if(user.isAdmin){%>
+      <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="0" >
+      <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="0">
+
+    <%}else{%>
+      <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="<%=baseShipping%>" >
+      <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="<%=baseTransaction%>">
+
+      <%}%>
     
     <input id="ppalSDKTotal" type="hidden" name="ppalSDKTotal">
     <h3>Payment Summary:</h3>

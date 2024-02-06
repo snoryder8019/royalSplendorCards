@@ -215,7 +215,7 @@
   <div id="ppalSDK">
     <%let baseShipping = config.baseShipping%>
     <%let baseTransaction = config.baseTransaction%>
-    <%if(typeof user='object' && user){%>
+    <%if(typeof user=='object' && user){%>
     <%if(user.isAdmin){%>
       <input id="ppalSDKShipping" type="hidden" name="ppalSDKShipping" value="0" >
       <input id="ppalSDKTransFee" type="hidden" name="ppalSDKTransFee" value="0">

@@ -764,7 +764,7 @@ $avatarDimention:90px;
   font-weight: $menuInitialsWeight;
 }
 //MENU STUFF
-#cardUploadDiv, #draftCards, #uploadFonts,#users,#orders, #ordersToPrint ,#ticketsAdmin{
+#cardUploadDiv, #draftCards, #uploadFonts,#users,#orders, #ordersToPrint ,#ticketsAdmin,#logs{
   display: none;
 }
 #draftCards input[type="color"]{
@@ -1043,3 +1043,4 @@ h6{
     width: 50px;
   }
 }
+

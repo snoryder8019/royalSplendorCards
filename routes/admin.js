@@ -35,10 +35,10 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
   //console.log(users)
 const logs = {}
 
-logs.passReset = await readLogFile(`/royalSplendorCards/logs/passReset.json`)
+logs.passReset = await readLogFile(`/srv/royalSplendorCards/logs/passReset.json`)
 const pRParsed = JSON.parse(logs.passReset)
 logs.passReset = pRParsed
-logs.errors = await readLogFile(`/royalSplendorCards/logs/errors.json`)
+logs.errors = await readLogFile(`/srv/royalSplendorCards/logs/errors.json`)
 const eRParsed = JSON.parse(logs.errors)
 logs.errors = eRParsed
 const system = {

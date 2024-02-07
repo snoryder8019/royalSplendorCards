@@ -34,11 +34,11 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
   const tickets = await collection4.find({}).toArray()
   //console.log(users)
 const logs = {}
-
-logs.passReset = await readLogFile(`/srv/royalSplendorCards/logs/passReset.json`)
+const thisPath = path.join(__dirname,'../logs')
+logs.passReset = await readLogFile(`${thisPath}/passReset.json`)
 const pRParsed = JSON.parse(logs.passReset)
 logs.passReset = pRParsed
-logs.errors = await readLogFile(`/srv/royalSplendorCards/logs/errors.json`)
+logs.errors = await readLogFile(`${thisPath}/errors.json`)
 const eRParsed = JSON.parse(logs.errors)
 logs.errors = eRParsed
 const system = {

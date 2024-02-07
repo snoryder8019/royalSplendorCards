@@ -22,6 +22,7 @@
     <button class="adminButtons" id="toggleOrders" value="Toggle Orders">Manage New Orders</button>
     <button class="adminButtons" id="toggleOrdersToPrint" value="Toggle Orders">Manage to Print Orders</button>
     <button class="adminButtons" id="toggleTicketsAdmin" value="Toggle Tickets">Manage Tickets</button>
+    <button class="adminButtons" id="toggleLogs" value="Toggle Logs">Manage Logs</button>
   </div>
 
 <div id="cardUploadDiv"><%- include('./partials/cardUploads')%></div>
@@ -31,6 +32,7 @@
 <div id="orders"><%- include('./partials/orders',{users:users,ordersPaypal:ordersPaypal, message:message})%></div>
 <div id="ordersToPrint"><%- include('./partials/ordersToPrint',{users:users,ordersPaypal:ordersPaypal, message:message})%></div>
 <div id="ticketsAdmin"><%- include('./partials/adminTickets',{users:users, message:message, tickets:tickets})%></div>
+<div id="logs"><%- include('./partials/logs',{logs:logs})%></div>
 
       <!--MENU IS CONSTANT FOOTER-->
      

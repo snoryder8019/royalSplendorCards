@@ -18,7 +18,7 @@ router.get('/auth/yahoo/callback',
 
   router.post('/auth/local', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-      console.log(info.message)
+ 
       if (err) {
         return next(err);
       }

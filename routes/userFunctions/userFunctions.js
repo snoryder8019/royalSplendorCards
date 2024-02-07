@@ -175,7 +175,7 @@ const submitTicket = async (req, res) => {
       };
       // Send email notification
       await sendDynamicEmail(adminEmail, 'ticketAdded', { firstName: user.FirstName },null,  dynamicLink,ticketInfo);
-      lib('ticket added','no errors from lib()',{ticketInfo},'tickets.txt')
+      lib('ticket added','no errors from lib()',{ticketInfo},'tickets.json','data')
     //  console.log("Ticket Submitted Successfully");
       req.flash('success', 'Ticket submitted successfully.');
     } else {

@@ -84,7 +84,7 @@ const uploadCard = async (req, res) => {
     res.redirect('/admin');
   } catch (err) {
     console.error(err);
-    lib('error making a card:', 'error from lib():' + err, cardData, 'cards.txt');
+    lib('error making a card:', 'error from lib():' + err, cardData, 'cards.json','data');
     req.flash('error', 'An error occurred while uploading.');
     res.redirect('/admin');
   }
@@ -139,7 +139,7 @@ const deleteCard = async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    lib('error deleting a card:', 'error from lib():' + err, { cardID,userName }, 'cards.txt');
+    lib('error deleting a card:', 'error from lib():' + err, { cardID,userName }, 'cards.json','data');
     req.flash('error', 'An error occurred while deleting.');
     res.redirect('/admin');
   }
@@ -230,7 +230,7 @@ const updateCard = async (req, res) => {
     //console.log('Updated Card Data:', update);
    
     const userName = req.user.displayName
-    lib('card updated:', 'no errors from lib():', { cardID,userName }, 'cards.txt');
+    lib('card updated:', 'no errors from lib():', { cardID,userName }, 'cards.json','data');
     
     req.flash('success', 'Card updated successfully.');
     res.redirect('/admin');

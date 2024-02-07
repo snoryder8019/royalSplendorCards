@@ -1,4 +1,12 @@
 {
-    "ignore": ["cardData.json"]
+    "ignore": [
+      "cardData.json",
+      "logs/errors.json",
+      "logs/confEmails.json",
+      "logs/passReset.json",       
+      "logs/cards.json",
+      "logs/tickets.json"
+
+    ]
   }
   

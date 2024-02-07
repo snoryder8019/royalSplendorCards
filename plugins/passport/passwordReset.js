@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const { generateTokenForUser } = require('../jwt/tokenGenerator');
 const {sendDynamicEmail} = require('../../plugins/nodemailer/setup');
 const crypto = require('crypto');
-
+const lib =require('../../routes/logFunctions/logFunctions')
 // Function to generate a random reset token
 const generateResetToken = () => {
     // Generate a random 32-character hexadecimal token
@@ -41,6 +41,12 @@ const resetPasswordRequest = async (req, res) => {
 
             const dynamicLink = `${config.baseUrl}reset-password/${resetToken}`;
             console.log(dynamicLink);
+            const libLog = {
+                "userEmail":user.email,
+                "sentEmail":email,
+                "dynamicLink": dynamicLink,    
+            }
+            lib('password reset req:',null, libLog, 'passReset.json', 'data')
             await sendDynamicEmail(email, 'passwordReset', user, null, dynamicLink);
             return res.render('registeredPassword',{pageType:"password"});
         } else {

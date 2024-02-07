@@ -6,10 +6,11 @@ const flash = require('express-flash');
 const { getDb } = require('../plugins/mongo/mongo');
 const path = require('path');
 const fs = require('fs');
+const os = require('os')
 const upload = require('../plugins/multer/setup')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard, publishCard} = require('./adminFunctions/adminFunctions')
 //THIS IS AN ADMIN PANEL REQUIRING A DB TAG OF isAdmin == "true"
-
+const {readLogFile} = require('../routes/systemFunctions/systemFunctions')
 const gatherIp = async (req,res,next)=>{
   let userIp = req.ip
   console.log(`user's IP: ${userIp}`)
@@ -32,7 +33,21 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
   const collection4= db.collection('tickets')
   const tickets = await collection4.find({}).toArray()
   //console.log(users)
+const logs = {}
 
+logs.passReset = await readLogFile(`/royalSplendorCards/logs/passReset.json`)
+const pRParsed = JSON.parse(logs.passReset)
+logs.passReset = pRParsed
+logs.errors = await readLogFile(`/royalSplendorCards/logs/errors.json`)
+const eRParsed = JSON.parse(logs.errors)
+logs.errors = eRParsed
+const system = {
+  totalmem: os.totalmem(),
+  freemem: os.freemem(),
+  cpus: os.cpus().length, // Number of CPUs
+  uptime: os.uptime() // System uptime in seconds
+};
+console.log(logs)
   res.render('admin', { 
       user: user, 
       message: req.flash(),
@@ -40,7 +55,9 @@ router.get('/',gatherIp, isAdmin, async (req, res) => {
       fonts:fonts,
       users:users,
       ordersPaypal:ordersPaypal ,
-      tickets:tickets
+      tickets:tickets,
+      logs:logs,
+      system:system
   });
 });
 

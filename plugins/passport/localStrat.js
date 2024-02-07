@@ -8,6 +8,7 @@ const mailer = require('../../plugins/nodemailer/setup');
 const { generateTokenForUser } = require('../jwt/tokenGenerator');
 const {sendDynamicEmail} = require('../../plugins/nodemailer/setup');
 const crypto = require('crypto');
+const lib =require('../../routes/logFunctions/logFunctions')
 
 // Function to generate a random reset token
 const generateResetToken = () => {
@@ -21,6 +22,12 @@ async function createUser(newUser) {
     if (emailCheck) {
         console.log(emailCheck);
         console.log('This email is Taken');
+        const libLog = {
+            "errorMessage":'DB returned email is taken',
+            "attempted email":newUser          
+
+        }
+        lib('login error: ', 'error: Email Taken', libLog,'errors.json','data')
         return { success: false, message: 'Email is already taken' }; // Return a custom message
     } else {
         const result = await db.collection("users").insertOne(newUser);
@@ -54,7 +61,13 @@ router.post('/requestEmailConf', async (req, res) => {
         );
 
         await sendDynamicEmail(registrarsEmail, emailType, user, null, dynamicLink, null);
+        const libLog = {
+            "userEmail":user,
+            "sentEmail":registrarsEmail,
+            "dynamicLink": dynamicLink,
 
+        }
+        lib('confirmation email sent: ',null,libLog,'confEmails.json','data')
         req.flash('success', 'Registration successful! Logged in successfully.');
         return res.render('registeredPassword', { pageType: "registration", user: user });
     } catch (err) {
@@ -90,7 +103,13 @@ router.post('/regUser', async (req, res) => {
             const user = {
                 firstName: req.body.firstName // Add other user-specific data as needed
             };
-
+            const libLog = {
+                "userEmail":user.email,
+                "sentEmail":registrarsEmail,
+                "dynamicLink": dynamicLink,
+    
+            }
+            lib('reg email sent: ',null,libLog,'regEmails.json','data')
             await sendDynamicEmail(registrarsEmail, emailType, user, null, dynamicLink, null);
 
             // Registration and login succeeded

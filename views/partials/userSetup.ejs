@@ -63,6 +63,7 @@
           
 
                             <script>
+                                const baseURL = config.baseUrl
                                 function rotateImage(degrees) {
   const headshotElement = document.querySelector('.headshot');
   let currentRotation = headshotElement.style.transform ? parseInt(headshotElement.style.transform.replace('rotate(', '').replace('deg)', '')) : 0;
@@ -87,7 +88,7 @@ async function saveRotation() {
     const rotateImageFile = document.getElementById('rotate-image-file').value;
 
     // Send the rotation value along with the filename to the backend
-    const response = await fetch('http://localhost:3000/saveRotation', {
+    const response = await fetch(`${baseURL}/saveRotation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

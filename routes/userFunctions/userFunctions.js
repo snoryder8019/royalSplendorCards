@@ -68,59 +68,61 @@ const userImgUpload = async (req, res) => {
     const uploadDirectory = path.join(__dirname, '../../public/images/uploads'); // Directory where files are initially uploaded
     const headshotDirectory = path.join(__dirname, '../../public/images/userHeadshots'); // Directory where final images will be stored
 
-    if (req.files && req.files.userImg) {
-      const uploadedFile = req.files.userImg[0];
-      const originalFilePath = path.join(uploadDirectory, uploadedFile.filename);
-
-      // Validate file type (allow only JPG, JPEG, and PNG)
-      const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-      if (!allowedFileTypes.includes(uploadedFile.mimetype)) {
-        if (!referredBy) {
-          req.flash('error', 'Can only use JPG, JPEG, or PNG.');
-          return res.redirect('/');
-        } else {
-          req.flash('error', 'Can only use JPG, JPEG, or PNG.');
-          return res.redirect(`/viewBuy/?_id=${referredBy}`);
-        }
-      }
-
-      // Use Sharp only if the file type is allowed
-      const headshotPath = `${headshotDirectory}/${uploadedFile.filename}`;
-      const existingHeadshotPath = path.join(headshotDirectory, user.userImg || '');
-      if (fs.existsSync(existingHeadshotPath) && user.userImg) {
-        await fs.promises.unlink(existingHeadshotPath);
-        console.log('Existing headshot deleted.');
-      }
-
-      // Trigger image resizing only if the file type is allowed
-      const resizedImagePath = await resizeAndCropImage(
-        originalFilePath, // Original file path
-        headshotDirectory, // Output directory for final image
-        uploadedFile.filename // Output filename
-      );
-
-      // Delete the original file from the uploads directory
-      fs.unlink(originalFilePath, (err) => {
-        if (err) {
-          console.error('Error deleting file:', err);
-          // Handle error
-        } else {
-          console.log('File deleted successfully');
-        }
-      });
-
-      // Update the user's headshot path in the database
-      const result = await collection.updateOne(
-        { _id: user._id },
-        { $set: { userImg: headshotPath.replace(/^.*[\\\/]/, '') } } // Storing only the filename in the database
-      );
-
-      console.log(`User updated headshot ${user.email}`);
-      req.flash('success', 'Headshot updated successfully.');
-    } else {
+    if (!req.files || !req.files.userImg || req.files.userImg.length === 0) {
       console.log('No file uploaded.');
       req.flash('info', 'No file uploaded.');
+      return res.redirect('/');
     }
+
+    const uploadedFile = req.files.userImg[0];
+
+    // Validate file type (allow only JPG, JPEG, and PNG)
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if (!allowedFileTypes.includes(uploadedFile.mimetype)) {
+      if (!referredBy) {
+        req.flash('error', 'Can only use JPG, JPEG, or PNG.');
+        return res.redirect('/');
+      } else {
+        req.flash('error', 'Can only use JPG, JPEG, or PNG.');
+        return res.redirect(`/viewBuy/?_id=${referredBy}`);
+      }
+    }
+
+    const originalFilePath = path.join(uploadDirectory, uploadedFile.filename);
+
+    // Use Sharp only if the file type is allowed
+    const headshotPath = `${headshotDirectory}/${uploadedFile.filename}`;
+    const existingHeadshotPath = path.join(headshotDirectory, user.userImg || '');
+    if (fs.existsSync(existingHeadshotPath) && user.userImg) {
+      await fs.promises.unlink(existingHeadshotPath);
+      console.log('Existing headshot deleted.');
+    }
+
+    // Trigger image resizing only if the file type is allowed
+    const resizedImagePath = await resizeAndCropImage(
+      originalFilePath, // Original file path
+      headshotDirectory, // Output directory for final image
+      uploadedFile.filename // Output filename
+    );
+
+    // Delete the original file from the uploads directory
+    fs.unlink(originalFilePath, (err) => {
+      if (err) {
+        console.error('Error deleting file:', err);
+        // Handle error
+      } else {
+        console.log('File deleted successfully');
+      }
+    });
+
+    // Update the user's headshot path in the database
+    const result = await collection.updateOne(
+      { _id: user._id },
+      { $set: { userImg: headshotPath.replace(/^.*[\\\/]/, '') } } // Storing only the filename in the database
+    );
+
+    console.log(`User updated headshot ${user.email}`);
+    req.flash('success', 'Headshot updated successfully.');
 
     if (referredBy) {
       res.redirect(`/viewBuy/?_id=${referredBy}`);
@@ -137,6 +139,7 @@ const userImgUpload = async (req, res) => {
     }
   }
 };
+
 
 const submitTicket = async (req, res) => {
   try {
@@ -211,7 +214,7 @@ async function saveRotation(req, res) {
 
     // Filepath of the image to be rotated
     const imagePath = path.join(headshotDirectory, file);
-
+console.log(imagePath)
     // Load the image using Sharp
     const imageBuffer = await sharp(imagePath).rotate(rotation).toBuffer();
 

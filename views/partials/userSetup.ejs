@@ -37,7 +37,7 @@
             <img style="width: 125px; " class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
         
             <br> <img id="rotate-left" src="/path/to/left-arrow.png" alt="↶" onclick="rotateImage(-90)">
-            <input type="hidden" id="rotate-image-file" value="<%=user.userImg%>">            <button style="font-size: 1rem; padding:1px;" onclick="saveRotation()">Save Rotation</button>
+            <input type="hidden" id="rotate-image-file" value="<%=user.userImg%>"><button style="font-size: 1rem; padding:1px;" onclick="saveRotation()">Save Rotation</button>
            <img id="rotate-right" src="/path/to/right-arrow.png" alt="↷" onclick="rotateImage(90)">
 
             <%}else{%>
@@ -63,7 +63,6 @@
           
 
                             <script>
-                                const baseURL = config.baseUrl
                                 function rotateImage(degrees) {
   const headshotElement = document.querySelector('.headshot');
   let currentRotation = headshotElement.style.transform ? parseInt(headshotElement.style.transform.replace('rotate(', '').replace('deg)', '')) : 0;
@@ -88,7 +87,7 @@ async function saveRotation() {
     const rotateImageFile = document.getElementById('rotate-image-file').value;
 
     // Send the rotation value along with the filename to the backend
-    const response = await fetch(`${baseURL}/saveRotation`, {
+    const response = await fetch(`http://localhost:3000/saveRotation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

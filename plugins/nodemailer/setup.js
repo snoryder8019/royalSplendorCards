@@ -8,10 +8,13 @@ const emailHeaderUrl = `${config.baseUrl}images/logoTransp.png`;
 
 // Transporter setup
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: config.emailService,
+    port:587,
+    secure: false,
+    //requireTLS: true,
     auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_PASS
+        user: process.env.NODEMAILER_USER,
+        pass: process.env.NODEMAILER_PASS
     }
 });
 

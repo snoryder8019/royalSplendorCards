@@ -80,7 +80,7 @@ const uploadCard = async (req, res) => {
     await collection.insertOne(cardData);
 
     req.flash('success', 'Card uploaded successfully.');
-    lib('new card made:', 'no errors', cardData, 'cards.txt');
+    lib('new card made:', 'no errors', cardData, 'cards.json','data');
     res.redirect('/admin');
   } catch (err) {
     console.error(err);
@@ -129,17 +129,17 @@ const deleteCard = async (req, res) => {
     const result = await collection.deleteOne({ "_id": id });
 
     if (result.deletedCount === 1) {
-      lib('card deleted:', 'no errors', { cardID, userName }, 'cards.txt');
+      lib('card deleted:', null, { cardID, userName }, 'cards.json','data');
       req.flash('success', 'Card deleted successfully.');
       res.redirect('/admin');
     } else {
-      lib('card not found:', 'no errors', { cardID, userName }, 'cards.txt');
+      lib('card not found:', 'error: card not found', { cardID, userName }, 'cards.data','data');
       req.flash('error', 'Card not found.');
       res.redirect('/admin');
     }
   } catch (err) {
     console.error(err);
-    lib('error deleting a card:', 'error from lib():' + err, { cardID,userName }, 'cards.json','data');
+    lib('error deleting a card:', 'error:' + err, { cardID,userName }, 'cards.json','data');
     req.flash('error', 'An error occurred while deleting.');
     res.redirect('/admin');
   }

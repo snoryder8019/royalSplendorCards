@@ -1,32 +1,87 @@
-<div id="usersDiv">
+<style>
+  @media (max-width: 600px) {
+    .cartTable th, .cartTable td {
+      font-size: 0.8rem; /* Adjust font size for smaller screens */
+    }
+    .cartTable th:nth-last-child(-n+2), .cartTable td:nth-last-child(-n+2) {
+      display: none; /* Hide less important columns on small screens */
+    }
+    .cartTableDiv {
+      overflow-x: auto; /* Enable horizontal scrolling for the table */
+    }
+  }
+  </style>
+  
+  <div id="usersDiv">
     <div class="userAdminDiv_cell">
-    <div class="cartScroll">
-    <%if(typeof users == 'object'&& users){%>
-      <div class="cartTableDiv">
-      <table class="cartTable">
-        You have users!!
-        **<a href="/admin">link to download csvs</a>
-      <br>  <h8>**actions and downloads coming soon</h8>
-        <thead>
-          <th>name</th>
-          <th>email</th>
-        <th>**actions</th>
-        </thead>
-        <tbody>
-          <%for(let i=0;i<users.length;i++){%>
-            <tr>
-        <td> <%=users[i].lastName%>,<%=users[i].firstName%></td>
-        <td> <%=users[i].email%></td>
-        <td> reset pass~suspend~email~delete</td>
-   
-      </tr>
-      <%}%>
-    </tbody>
-    </table>
-  </div>
-      <%}else{%>
-        no users found
-        <%}%>
+      <div class="cartScroll">
+        <% if (typeof users == 'object' && users) { %>
+          <div class="cartTableDiv">
+            <table class="cartTable">
+              <caption>You have users!! <a href="/admin">Link to download CSVs</a><br>Actions and downloads coming soon.</caption>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach(function(user) { %>
+                  <tr>
+                    <td><%= user.lastName %>, <%= user.firstName %></td>
+                    <td><%= user.email %></td>
+                    <td>Suspend ~ Email ~ Delete</td>
+                   
+                    <td><button class="adminPassReset" data-email="<%= user.email %>" data-userid="<%= user._id %>">Reset Password</button></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } else { %>
+          <p>No users found.</p>
+        <% } %>
       </div>
     </div>
   </div>
+  
+  <script>
+ document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.adminPassReset').forEach(button => {
+    button.addEventListener('click', function() {
+      adminPassReset(this);
+    });
+  });
+});
+
+async function adminPassReset(buttonElement) {
+  const email = buttonElement.getAttribute('data-email');
+  try {
+    const response = await fetch('/reset-password-request', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email }),
+    });
+
+    const result = await response.json();
+    console.log(result.message);
+
+    // Check if the response indicates success and update the button
+    if (result.message === 'Success') { // Adjust this condition based on your actual success response
+      buttonElement.innerHTML = '&#x2714;'; // Unicode for check mark
+      buttonElement.disabled = true; // Optional: disable the button to prevent repeated clicks
+    } else {
+      // Optionally, handle non-success responses
+      console.error('Password reset failed:', result.message);
+    }
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    // Optionally, update the UI to indicate the error
+  }
+}
+
+  </script>
+  

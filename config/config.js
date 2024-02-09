@@ -7,6 +7,7 @@ const config =
     "DB_NAME":"rhsCards", 
     "baseUrl": process.env.BASE_URL,
     'ticketsEmail':"scott@w2marketing.biz",
+    "emailService":"smtp.office365.com",
     //end breakiung changes
     //**********
     //custom changes below

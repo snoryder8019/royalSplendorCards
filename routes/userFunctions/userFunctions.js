@@ -9,7 +9,8 @@ const config = require('../../config/config'); // Import config if you're using 
 const lib = require('../logFunctions/logFunctions')
 const { ObjectId } = require('mongodb');
 const fs = require('fs')
-
+const fsp = require('fs').promises
+const sharp = require('sharp')
 // Function to handle user data upload
 async function userDataUpload(req, res) {
   try {
@@ -52,79 +53,87 @@ res.redirect(`/viewBuy/?_id=${referredBy}`); // Redirect to the user setup page 
 }
 // Function to handle user headshot upload
 const userImgUpload = async (req, res) => {
+  let referredBy; // Declare referredBy variable outside the try block
   try {
     console.log('Starting user image upload process.', req.file);
     const db = getDb();
     const user = req.user;
     const collection = db.collection('users');
-    
-    let referredBy; // Declare referredBy variable here
+
     if (req.body.card_id) {
       referredBy = req.body.card_id;
       console.log(`referred by: ${referredBy}`);
     }
-    
+
     const uploadDirectory = path.join(__dirname, '../../public/images/uploads'); // Directory where files are initially uploaded
     const headshotDirectory = path.join(__dirname, '../../public/images/userHeadshots'); // Directory where final images will be stored
-    
+
     if (req.files && req.files.userImg) {
       const uploadedFile = req.files.userImg[0];
       const originalFilePath = path.join(uploadDirectory, uploadedFile.filename);
-      
-      // Use the file path directly
+
+      // Validate file type (allow only JPG, JPEG, and PNG)
+      const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+      if (!allowedFileTypes.includes(uploadedFile.mimetype)) {
+        if (!referredBy) {
+          req.flash('error', 'Can only use JPG, JPEG, or PNG.');
+          return res.redirect('/');
+        } else {
+          req.flash('error', 'Can only use JPG, JPEG, or PNG.');
+          return res.redirect(`/viewBuy/?_id=${referredBy}`);
+        }
+      }
+
+      // Use Sharp only if the file type is allowed
       const headshotPath = `${headshotDirectory}/${uploadedFile.filename}`;
       const existingHeadshotPath = path.join(headshotDirectory, user.userImg || '');
       if (fs.existsSync(existingHeadshotPath) && user.userImg) {
         await fs.promises.unlink(existingHeadshotPath);
         console.log('Existing headshot deleted.');
       }
-      // Trigger image resizing
+
+      // Trigger image resizing only if the file type is allowed
       const resizedImagePath = await resizeAndCropImage(
         originalFilePath, // Original file path
         headshotDirectory, // Output directory for final image
         uploadedFile.filename // Output filename
-        );
-        
-        // Delete the original file from the uploads directory
-        fs.unlink(originalFilePath, (err) => {
-          if (err) {
-            console.error('Error deleting file:', err);
-            // Handle error
-          } else {
-            console.log('File deleted successfully');
-          }
-        });
-        
-        
-        
-        
-        // Update the user's headshot path in the database
-        const result = await collection.updateOne(
-          { _id: user._id },
-          { $set: { userImg: headshotPath.replace(/^.*[\\\/]/, '') } } // Storing only the filename in the database
-          );
-        //  console.log(result);
-        
-          console.log(`user updated headshot ${user.email}`)
-          
-          req.flash('success', 'Headshot updated successfully.');
+      );
+
+      // Delete the original file from the uploads directory
+      fs.unlink(originalFilePath, (err) => {
+        if (err) {
+          console.error('Error deleting file:', err);
+          // Handle error
         } else {
+          console.log('File deleted successfully');
+        }
+      });
+
+      // Update the user's headshot path in the database
+      const result = await collection.updateOne(
+        { _id: user._id },
+        { $set: { userImg: headshotPath.replace(/^.*[\\\/]/, '') } } // Storing only the filename in the database
+      );
+
+      console.log(`User updated headshot ${user.email}`);
+      req.flash('success', 'Headshot updated successfully.');
+    } else {
       console.log('No file uploaded.');
       req.flash('info', 'No file uploaded.');
     }
-    
+
     if (referredBy) {
       res.redirect(`/viewBuy/?_id=${referredBy}`);
     } else {
-      res.redirect('/'); // Handle the case when referredBy is not defined
+      res.redirect('/');
     }
   } catch (err) {
     console.log('Error in user image upload:', err);
     req.flash('error', 'An error occurred while updating the headshot.');
     if (referredBy) {
-      res.redirect(`/viewBuy/?_id=${referredBy}`);
+      res.redirect(`/`);
     } else {
-      res.redirect('/'); // Handle the error case when referredBy is not defined
+      res.redirect('/');
     }
   }
 };
@@ -193,11 +202,34 @@ const submitTicket = async (req, res) => {
 };
 
 
+async function saveRotation(req, res) {
+  try {
+    const { rotation, file } = req.body;
 
+    // Directory where final images will be stored
+    const headshotDirectory = path.join(__dirname, '../../public/images/userHeadshots/');
 
+    // Filepath of the image to be rotated
+    const imagePath = path.join(headshotDirectory, file);
+
+    // Load the image using Sharp
+    const imageBuffer = await sharp(imagePath).rotate(rotation).toBuffer();
+
+    // Remove the original image file
+   // await fs.unlink(imagePath);
+
+    // Save the rotated image back to the same file
+    await fsp.writeFile(imagePath, imageBuffer);
+
+    res.status(200).json({ message: 'Rotation saved successfully' });
+  } catch (error) {
+    console.error('Error saving rotation:', error);
+    res.status(500).json({ error: 'Failed to save rotation' });
+  }
+}
 
 router.post('/userImgUpload', upload, userImgUpload);
 
 router.post('/userDataUpload', userDataUpload)
 
-module.exports = { userDataUpload, userImgUpload, submitTicket };
+module.exports = { userDataUpload, userImgUpload, submitTicket ,saveRotation};

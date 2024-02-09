@@ -39,7 +39,7 @@
             <br> <img id="rotate-left" src="/path/to/left-arrow.png" alt="↶" onclick="rotateImage(-90)">
             <input type="hidden" id="rotate-image-file" value="<%=user.userImg%>"><button style="font-size: 1rem; padding:1px;" onclick="saveRotation()">Save Rotation</button>
            <img id="rotate-right" src="/path/to/right-arrow.png" alt="↷" onclick="rotateImage(90)">
-
+         <input type="hidden" id="baseURLObj" value="<%=config.baseUrl%>">
             <%}else{%>
                 <h2>Step 2: Add your Headshot to view your custom cards.</h2>
                 <p>Best practices when uploading your photo, use a headshot with a white background.</p>
@@ -73,6 +73,7 @@
 // Fetch the uploaded image from the backend when the page loads
 async function saveRotation() {
   try {
+    const baseURL = document.getElementById('baseURLObj').value 
     const headshotElement = document.querySelector('.headshot');
     const transformValue = headshotElement.style.transform;
     console.log('Transform value:', transformValue); // Log the transform value to check if it contains the rotation
@@ -87,7 +88,7 @@ async function saveRotation() {
     const rotateImageFile = document.getElementById('rotate-image-file').value;
 
     // Send the rotation value along with the filename to the backend
-    const response = await fetch(`http://localhost:3000/saveRotation`, {
+    const response = await fetch(`${baseURL}saveRotation`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

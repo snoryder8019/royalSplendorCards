@@ -12,7 +12,7 @@ function convertJPGtoPNG(jpgSrc) {
     download(pngSrc, 'converted_image.png');
   };
 }
-
+//
 function exportHighResolutionImage(selector, fileName) {
   const element = document.querySelector(selector);
   const canvas = document.createElement('canvas');
@@ -70,13 +70,26 @@ function exportBackFrameToPDF(userName) {
 }
 
 function exportUserDataToPDF(user, card, order) {
-  // Create an HTML representation of your data
+  // Create an HTML representation of your data with better formatting
   const dataDiv = document.createElement('div');
   dataDiv.className = 'userDataPDF';
-  dataDiv.innerHTML = `
-      <h3>User Data</h3><p>${JSON.stringify(user, null, 2)}</p>
-      <h3>Card Data</h3><p>${JSON.stringify(card, null, 2)}</p>
-      <h3>Order Data</h3><p>${JSON.stringify(order, null, 2)}</p>`;
+  let userDataHtml = `<h3>User Data</h3>`;
+  userDataHtml += `<p>Name: ${user.firstName} ${user.lastName}</p>`;
+  userDataHtml += `<p>Email: ${user.email}</p>`;
+  // Add more fields as needed
+
+  let cardDataHtml = `<h3>Card Data</h3>`;
+  cardDataHtml += `<p>Card ID: ${card.cardId}</p>`;
+  cardDataHtml += `<p>Card Name: ${card.cardName}</p>`;
+  // Add more fields as needed
+
+  let orderDataHtml = `<h3>Order Data</h3>`;
+  orderDataHtml += `<p>Order ID: ${order._id}</p>`;
+  orderDataHtml += `<p>Amount: ${order.amount}</p>`;
+  orderDataHtml += `<p>Description: ${order.description}</p>`;
+  // Add more fields as needed
+
+  dataDiv.innerHTML = userDataHtml + cardDataHtml + orderDataHtml;
 
   // Optionally add the div to the document body
   document.body.appendChild(dataDiv);
@@ -88,7 +101,7 @@ function exportUserDataToPDF(user, card, order) {
       margin: [10, 10, 10, 10],
       filename: `user_card_order_data_${user.lastName}.pdf`,
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'px', format: [1125, 675] } // Width and height in pixels
+      jsPDF: { unit: 'px', format: 'a4' } // Change to A4 format or keep the custom size
     })
     .save()
     .then(() => {
@@ -96,5 +109,6 @@ function exportUserDataToPDF(user, card, order) {
       document.body.removeChild(dataDiv);
     });
 }
+
 
 // HTML Button

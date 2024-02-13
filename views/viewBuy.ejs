@@ -133,8 +133,16 @@
 
 <%if(typeof user == 'object' && user){%>
   <p>Having trouble with your account or your order?</p>
-    <button id="ticketsButton">request help</button>
-    <div id="tickets"><%- include('./partials/tickets',{user:user,card:card})%></div>
+  <!------------------->
+  <%if(typeof tickets =='object'&&tickets){%>
+   
+    <div id="ticketsChat"><%- include('./partials/ticketsChat',{user:user,card:card,tickets:tickets})%></div>
+    <%}else{%>
+      <button id="ticketsButton">request help</button>
+      <div id="tickets"><%- include('./partials/tickets',{user:user,card:card,tickets:tickets})%></div>
+  <%}%>
+  <!------------------->
+   
     <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
 
   <h2>Step 4: Approve and Purchase</h2>

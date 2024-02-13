@@ -71,6 +71,35 @@
             </div>
         </div>        
     </div>
+    <div id="orderData">
+        <div id="orderMeta" style="display: none;">
+        <p><strong>Order ID:</strong> <%= order._id %></p>
+        <p><strong>Custom ID:</strong> <%= order.customId %></p>
+        <p><strong>Paypal Approved:</strong> <%= order.paypalApproved %></p>
+        <p><strong>Paypal Completed:</strong> <%= order.paypalCompleted %></p>
+        <p><strong>Sent To Print:</strong> <%= order.sentToPrint %></p>
+        <p><strong>Paypal Canceled:</strong> <%= order.paypalCanceled %></p>
+    </div>
+    
+    <p><strong>Paypal ID:</strong> <%= order.paypalId %></p>
+        <p><strong>User ID:</strong> <%= order.userId %></p>
+        <p><strong>Card ID:</strong> <%= order.cardId %></p>
+        <p><strong>User Email:</strong> <%= order.userEmail %></p>
+        <p><strong>Tracking ID:</strong> <%= order.trackingId %></p>
+        <p><strong>Order Date:</strong> <%= new Date(order.orderDate).toLocaleString() %></p>
+        <p><strong>Amount:</strong> <%= order.amount %></p>
+        <p><strong>Description:</strong> <%= order.description %></p>
+        <p><strong>Shipping Address:</strong></p>
+        <ul>
+          <li><strong>Address Line 1:</strong> <%= order.shippingAddress.addressLine1 %></li>
+          <li><strong>Address Line 2:</strong> <%= order.shippingAddress.addressLine2 %></li>
+          <li><strong>City:</strong> <%= order.shippingAddress.city %></li>
+          <li><strong>State:</strong> <%= order.shippingAddress.state %></li>
+          <li><strong>Postal Code:</strong> <%= order.shippingAddress.postalCode %></li>
+          <li><strong>Country Code:</strong> <%= order.shippingAddress.countryCode %></li>
+        </ul>
+      </div>
+      
     <!-------------MODULE END---------->
     <!------------------>
     <form action="/admin" method="get">

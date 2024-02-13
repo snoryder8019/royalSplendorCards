@@ -1,26 +1,58 @@
 const nodemailer = require('nodemailer');
+const axios = require('axios');
+const env = require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const emailStyle0 = require('./styles/emailStyle0'); // Import style
+const { getDb } = require('../mongo/mongo');
+const emailStyle0 = require('./styles/emailStyle0');
 const config = require('../../config/config');
-// Define the URL of your header image
+const querystring = require('querystring');
+
 const emailHeaderUrl = `${config.baseUrl}images/logoTransp.png`;
 
-// Transporter setup
-const transporter = nodemailer.createTransport({
-    host: config.emailService,
-    port:587,
-    secure: false,
-    //requireTLS: true,
-    auth: {
-        user: process.env.NODEMAILER_USER,
-        pass: process.env.NODEMAILER_PASS
+
+async function initializeTransporter(tokenName) {
+    const db = await getDb();
+    const collection = db.collection('tokens');
+   // console.log(collection)
+    // Find the token document by name
+    const tokenDoc = await collection.findOne({ name:"access_tokens"});
+
+    if (!tokenDoc || !tokenDoc.access_token) {
+        throw new Error('Valid token not found in database for the given name.');
     }
-});
+}
+    //console.log(tokenDoc.access_token,tokenDoc.refresh_token)
+//MICROSOFT  IMPLIMENTATIONS
+//     transporter = nodemailer.createTransport({
+//         host: config.emailService,
+//         port: 587,
+//         secure: false,
+//         auth: {
+//             type: 'OAuth2',
+//             user: process.env.NODEMAILER_USER,
+//             clientId: process.env.MS_CID,
+//             clientSecret: process.env.MS_SEC,
+//             refreshToken: tokenDoc.refresh_token,
+//             accessToken: tokenDoc.access_token,
+//             expires:tokenDoc.expires
+//             // The expires field might not be directly used by Nodemailer; you may need to handle token refresh manually.
+//         },
+//     });
+// }
+
+
+let transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    port:587,
+    auth:{user: process.env.GMAIL_USER,pass:process.env.GMAIL_PASS}
+})
+
+
 
 const sendDynamicEmail = async (to, emailType, user, card, dynamicLink, ticket) => {
-    // Define email subjects and templates based on type
-    const emailSettings = {
+    await initializeTransporter();
+    const settings = {
         confirmation: {
             subject: 'Confirm Your Email',
             templateName: 'confirmation.html'
@@ -30,7 +62,7 @@ const sendDynamicEmail = async (to, emailType, user, card, dynamicLink, ticket) 
             templateName: 'passwordReset.html'
         },
         orderComplete: {
-            subject: 'Your Red Hats Trading Cards',
+            subject: 'Your Order is Complete',
             templateName: 'orderComplete.html'
         },
         orderNotify: {
@@ -41,53 +73,58 @@ const sendDynamicEmail = async (to, emailType, user, card, dynamicLink, ticket) 
             subject: 'New Ticket Opened',
             templateName: 'newTicket.html'
         }
-    };
+    }[emailType];
+    if (!settings) throw new Error(`Unknown email type: ${emailType}`);
 
-    // Select settings based on email type
-    const settings = emailSettings[emailType];
-    if (!settings) {
-        throw new Error(`Unknown email type: ${emailType}`);
-    }
-
-    // Load and process the HTML template
     const templatePath = path.join(__dirname, 'templates', settings.templateName);
-    let htmlTemplate = fs.readFileSync(templatePath, 'utf8');
-
-    // Replace user-specific and dynamic link placeholders
-    htmlTemplate = htmlTemplate.replace('{firstName}', user.firstName);
-    htmlTemplate = htmlTemplate.replace('{dynamicLink}', dynamicLink);
-    htmlTemplate = htmlTemplate.replace('{emailheader}', emailHeaderUrl);
-    
-    // Handling card-specific placeholders
-    if (card) {
-        // Replace card-specific placeholders with actual data from 'card' object
-        // Example: htmlTemplate = htmlTemplate.replace('{cardName}', card.name);
-        // Add more replacement logic as per your card object structure
-    }
-    
-    // Handling ticket-specific placeholders for 'ticketAdded'
-    if (emailType === 'ticketAdded' && ticket) {
-        htmlTemplate = htmlTemplate.replace('{emailheader}', emailHeaderUrl);
-        htmlTemplate = htmlTemplate.replace('{userId}', ticket.userId);
-        htmlTemplate = htmlTemplate.replace('{userEmail}', ticket.userEmail);
-        htmlTemplate = htmlTemplate.replace('{userName}', ticket.userName);
-        htmlTemplate = htmlTemplate.replace('{userPhone}', ticket.userPhone);
-        htmlTemplate = htmlTemplate.replace('{subject}', ticket.subject);
-        htmlTemplate = htmlTemplate.replace('{description}', ticket.description);
-        htmlTemplate = htmlTemplate.replace('{status}', ticket.status);
-        htmlTemplate = htmlTemplate.replace('{createdAt}', ticket.createdAt);
-    }
+    let htmlTemplate = fs.readFileSync(templatePath, 'utf8')
+        .replace('{firstName}', user.firstName)
+        .replace('{dynamicLink}', dynamicLink)
+        .replace('{emailheader}', emailHeaderUrl);
 
     const mailOptions = {
         from: process.env.GMAIL_USER,
-        to: to,
+        to,
         subject: settings.subject,
         html: htmlTemplate
     };
-
     return transporter.sendMail(mailOptions);
 };
 
+const oauthCallbackHandler = async (req, res) => {
+    const requestBody = querystring.stringify({
+        client_id: process.env.MS_CID,
+        client_secret: process.env.MS_SEC_VALUE,
+        code: req.query.code,
+        redirect_uri: 'http://localhost:3000/oauth/callback',
+        grant_type: 'authorization_code'
+    });
+
+    try {
+        const response = await axios.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', requestBody, {
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        });
+        const {token_type,scope, access_token,refresh_token,  expiresIn } = response.data;
+        const db = await getDb();
+        await db.collection('tokens').updateOne({}, {
+            $set: {
+                "name":"access_tokens",
+                token_type,
+                scope,
+                access_token,
+               refresh_token,
+
+                expires: new Date(Date.now() + expiresIn * 1000)
+            }
+        }, { upsert: true });
+        res.send('Authorization successful. Tokens updated in the database.');
+    } catch (error) {
+        console.error('Error exchanging authorization code:', error);
+        res.status(500).send('Failed to exchange authorization code.');
+    }
+};
+
 module.exports = {
-sendDynamicEmail
+    sendDynamicEmail,
+    oauthCallbackHandler
 };

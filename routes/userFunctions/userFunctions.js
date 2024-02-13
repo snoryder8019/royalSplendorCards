@@ -140,38 +140,39 @@ const userImgUpload = async (req, res) => {
   }
 };
 
-
 const submitTicket = async (req, res) => {
   try {
-   // console.log("Submit Ticket: Starting");
-
     const db = getDb();
     const collection = db.collection('tickets');
-   // console.log("MongoDB Collection: ", collection.collectionName);
-    const user = req.user
+    const userCollection = db.collection('users');
+
+    const user = req.user;
     const userId = user._id;
     const { subject, description } = req.body;
 
-    console.log("User ID: ", userId);
-    console.log("Form Data - Subject: ", subject, " Description: ", description);
-
     const ticket = {
       userId: new ObjectId(userId),
-      userEmail:user.email,
-      userName:user.firstName,
-      userPhone:user.phone,
+      userEmail: user.email,
+      userName: user.firstName,
+      userPhone: user.phone,
       subject: subject,
       description: description,
+      devUpdates: { timestamp: new Date(), message: "Hi!, you can see your ticket updates here" },
       status: 'open',
       createdAt: new Date()
     };
 
-    //console.log("Ticket Object: ", ticket);
-
     const result = await collection.insertOne(ticket);
-   // console.log("MongoDB Insert Result: ", result);
 
     if (result.acknowledged === true) {
+      const ticketId = result.insertedId;
+
+      // Update user with ticket object
+      await userCollection.updateOne(
+        { _id: userId },
+        { $push: { tickets: ticket._id } }
+      );
+
       const adminEmail = config.ticketsEmail; // Replace with actual user email
       const userFirstName = user.firstName; // Replace with actual user first name
       const dynamicLink = config.baseUrl; // Customize this link
@@ -186,12 +187,11 @@ const submitTicket = async (req, res) => {
         createdAt: ticket.createdAt.toISOString()
       };
       // Send email notification
-      await sendDynamicEmail(adminEmail, 'ticketAdded', { firstName: user.FirstName },null,  dynamicLink,ticketInfo);
-      lib('ticket added','no errors from lib()',{ticketInfo},'tickets.json','data')
-    //  console.log("Ticket Submitted Successfully");
+      //await sendDynamicEmail(adminEmail, 'ticketAdded', { firstName: user.FirstName },null,  dynamicLink,ticketInfo);
+      lib('ticket added', 'no errors from lib()', { ticketInfo }, 'tickets.json', 'data');
       req.flash('success', 'Ticket submitted successfully.');
     } else {
-     console.log("Ticket Submission Error - No Document Inserted DB did not acknowledge receipt of ticket");
+      console.log("Ticket Submission Error - No Document Inserted DB did not acknowledge receipt of ticket");
       req.flash('error', 'Error submitting ticket no db acknowledgement.');
     }
   } catch (err) {
@@ -203,7 +203,6 @@ const submitTicket = async (req, res) => {
   console.log("Redirecting to: ", backURL);
   res.redirect(backURL);
 };
-
 
 async function saveRotation(req, res) {
   try {

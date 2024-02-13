@@ -21,8 +21,8 @@
       
       
     
-  <div id="preview_<%=ordersPaypal[i]._id%>"></div>
-  <button id="previewSubmit_<%= ordersPaypal[i]._id %>" class="preview-btn" data-cardId="<%= ordersPaypal[i].cardId %>" data-userId="<%= ordersPaypal[i].userId %>">Preview</button>
+  <div hidden id="preview_<%=ordersPaypal[i]._id%>"></div>
+  <button hidden id="previewSubmit_<%= ordersPaypal[i]._id %>" class="preview-btn" data-cardId="<%= ordersPaypal[i].cardId %>" data-userId="<%= ordersPaypal[i].userId %>">Preview</button>
    
    <%let customId= ordersPaypal[i].customId%>
    <!-------------MODULE BEGIN---------->
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <input type="hidden" name="cardId" value="<%=ordersPaypal[i].cardId%>">
       <input type="hidden" name="userId" value="<%=ordersPaypal[i].userId%>">
       <input type="hidden" name="orderId" value="<%=ordersPaypal[i]._id%>">
-  <button type="submit">Edit</button>
+  <button type="submit">Process Order</button>
     </form>
    
     </div>

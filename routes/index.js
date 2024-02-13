@@ -9,7 +9,7 @@ const checkouts = require('../plugins/paypal/webhooks/orders')
 const { getDb } = require('../plugins/mongo/mongo');
 const flash = require('express-flash');
 const noNos = require('./securityFunctions/forbiddens')
-const {ticketUpdate,ticketDelete} = require('./adminFunctions/ticketFunctions')
+const {ticketUpdate,ticketDelete, ticketData} = require('./adminFunctions/ticketFunctions')
 const {resetPasswordRequest, resetPassword, handleResetPasswordGet} = require('../plugins/passport/passwordReset')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
@@ -29,6 +29,7 @@ router.use('/finalizeOrder',finalizeOrder)
 router.post('/userDataUpload', userDataUpload)
 router.post('/saveRotation',saveRotation)
 router.post('/submitTicket', submitTicket);
+router.get('/ticketData',ticketData)
 router.post('/reset-password-request', resetPasswordRequest)
 router.post('/passwordReset/:token', resetPassword)
 router.get('/reset-password/:token', handleResetPasswordGet);

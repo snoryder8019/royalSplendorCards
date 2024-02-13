@@ -12,29 +12,35 @@ const { ObjectId } = require('mongodb');
 const {addToCart,deleteFromCart,fetchCart} = require('./cartFunctions/cartFunctions')
 const {createOrder, getOrderDetails, returnPaypalSuccess, getCheckoutAwaiting} = require('../plugins/paypal/paypalFunctions');
 const config = require('../config/config')
-
-router.get(('/'),async(req,res)=>{
-   // console.log(req.query._id)
+router.get('/', async (req, res) => {
     const fonts = getFonts();
     const db = getDb();
     const collection = db.collection('_cards');
-    const id=new ObjectId(req.query._id)
-    const card = await collection.findOne({"_id":id});
-   
-    const user = req.user
-    //await collection.updateOne({"_id": id}, {$inc: {"views": 1}});
-////////////////////
+    const ticketsCollection = db.collection('tickets');
 
-////////////////////
-    res.render('viewBuy',{
-    user: user, 
-    message: req.flash(),
-    card:card,  // Pass allCards to your EJS template
-    fonts:fonts ,
-    config:config
-    
-})
-})
+    // Check if user is logged in
+    const userId = req.user ? req.user._id : null;
+
+    // Find card by ID
+    const id = new ObjectId(req.query._id);
+    const card = await collection.findOne({ "_id": id });
+
+    // Find tickets for the current user if logged in
+    let userTickets = [];
+    if (userId) {
+        userTickets = await ticketsCollection.find({ userId: userId }).toArray();
+    }
+
+    res.render('viewBuy', {
+        user: req.user,
+        message: req.flash(),
+        card: card,
+        fonts: fonts,
+        config: config,
+        tickets: userTickets
+    });
+});
+
 
 //router.get('/orderDetails',getOrderDetails)
 //paypal EPs

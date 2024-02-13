@@ -66,17 +66,17 @@
                       
                       <%if(card.vertical=="false"){%>
                         <div class="cardImg">
-                <%}else{%>
-                  <div class="cardImg_vertical">
-                <%}%>
-              
+                          <%}else{%>
+                            <div class="cardImg_vertical">
+                              <%}%>
+                              
             
 
-
-
-
-              <img class="" src="<%= card.cardBack %>" alt="Card Back">
-              <div style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform:rotate(<%= card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%=card._id%>">
+                              
+                              
+                              
+                              <img class="" src="<%= card.cardBack %>" alt="Card Back">
+                              <div style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform:rotate(<%= card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%=card._id%>">
                 <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
                   
                   <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Testchapter RHS</div>
@@ -90,13 +90,16 @@
               
             </div>
           </div>
-          <input type="file" name="cardBackFile"><br>
-
+          
+          <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
+          <input type="file" name="cardBack"><br>
+          <input type="submit" value="Update Back Image">
+          </form>
           <form action="/admin/updateCard" method="post" enctype="multipart/form-data">
           <input type="hidden" name="cardId" value="<%= card._id %>">
           <input type="text" id="cardName_<%=card._id%>" name="cardName" value="<%=card.cardName%>">
-         <label for="vertical">is vertical</label>
-         <select type="text" id="vertical_<%=card._id%>" name="vertical">
+          <label for="vertical">is vertical</label>
+          <select type="text" id="vertical_<%=card._id%>" name="vertical">
           <option value="<%=card.vertical%>"><%=card.vertical%></option>
           <option value="true">true</option>
           <option value="false">false</option>

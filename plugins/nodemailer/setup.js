@@ -1,9 +1,11 @@
+// plugins/ndoemailer/setup.js
 const nodemailer = require('nodemailer');
 const axios = require('axios');
 const env = require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const { getDb } = require('../mongo/mongo');
+const { ObjectId } = require('mongodb');
 const emailStyle0 = require('./styles/emailStyle0');
 const config = require('../../config/config');
 const querystring = require('querystring');
@@ -72,6 +74,10 @@ const sendDynamicEmail = async (to, emailType, user, card, dynamicLink, ticket) 
         ticketAdded: {
             subject: 'New Ticket Opened',
             templateName: 'newTicket.html'
+        },
+        general: {
+            subject: 'RHS Trading Cards sent you a message',
+            templateName: 'generalBody.html'
         }
     }[emailType];
     if (!settings) throw new Error(`Unknown email type: ${emailType}`);
@@ -80,7 +86,8 @@ const sendDynamicEmail = async (to, emailType, user, card, dynamicLink, ticket) 
     let htmlTemplate = fs.readFileSync(templatePath, 'utf8')
         .replace('{firstName}', user.firstName)
         .replace('{dynamicLink}', dynamicLink)
-        .replace('{emailheader}', emailHeaderUrl);
+        .replace('{emailheader}', emailHeaderUrl)
+       // .replace('{dynamicBody}', emailBody);
 
     const mailOptions = {
         from: process.env.GMAIL_USER,
@@ -124,7 +131,48 @@ const oauthCallbackHandler = async (req, res) => {
     }
 };
 
+
+const emailOutGeneral = async (req, res) => {
+    try {
+        const { to, emailBody, username } = req.body;
+
+        // Read the email template
+        const templatePath = path.join(__dirname, 'templates', 'generalBody.html');
+        const htmlTemplate = fs.readFileSync(templatePath, 'utf8')
+            .replace('{dynamicBody}', emailBody)
+            .replace('{dynamicLink}', 'https://cards.royalsplendor.com')
+            .replace('{unsubscribeLink}', 'https://cards.royalsplendor.com/unsubscribe'); // Assuming you have an unsubscribe link
+
+        // Create nodemailer transporter
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail', // Update with your email service provider
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASS
+            }
+        });
+
+        // Set mail options
+        const mailOptions = {
+            from: process.env.GMAIL_USER, // Sender's email address
+            to: to, // Recipient's email address
+            subject: 'Message from RHS Trading Cards', // Email subject
+            html: htmlTemplate // Email content
+        };
+
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        // Send a response indicating that the email was sent successfully
+        res.status(200).send("Email sent successfully.");
+    } catch (error) {
+        console.error(`Error sending email: ${error}`);
+        res.status(500).send(`Error sending email: ${error}`);
+    }
+};
+
 module.exports = {
     sendDynamicEmail,
-    oauthCallbackHandler
+    oauthCallbackHandler,
+    emailOutGeneral
 };

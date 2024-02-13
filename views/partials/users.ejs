@@ -29,7 +29,7 @@
               <tbody>
                 <% users.forEach(function(user) { %>
                   <tr>
-                    <td><%= user.lastName %>, <%= user.firstName %></td>
+                    <td><a href="/userEditor?id=<%=user._id%>"> <%= user.lastName %>, <%= user.firstName %></a></td>
                     <td><%= user.email %></td>
                     <td>Suspend ~ Email ~ Delete</td>
                    

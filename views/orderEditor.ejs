@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>View and Buy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <head> 
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <title>View and Buy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
 <body>      
     <div id="main">
-        <h2>Edit Order for <%=order._id%></h2>
+        <h2>Process Order for <%=user.firstName%></h2>
+        <h3><a href="/getUserEditor?id=<%=user.id%>">edit <%-user.firstName%>'s info</a></h3>
+        <button onclick="exportBackFrameToPDF('<%=user.lastName%>_back'); exportFrontFrameToPDF('<%=user.lastName%>_front'); exportUserDataToPDF(<%= JSON.stringify(user) %>, <%= JSON.stringify(card) %>, <%= JSON.stringify(order) %>)">Approve and Download Assets</button>
+        <form action="/admin" method="get">
+            <button type="submit">Back to Admin</button>
+            <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
+    
+        </form>
         <!-------------MODULE BEGIN---------->
         <div class="card-container">    
             <div class="card">         
@@ -79,11 +86,11 @@
         <p><strong>Paypal Completed:</strong> <%= order.paypalCompleted %></p>
         <p><strong>Sent To Print:</strong> <%= order.sentToPrint %></p>
         <p><strong>Paypal Canceled:</strong> <%= order.paypalCanceled %></p>
+        <p><strong>Paypal ID:</strong> <%= order.paypalId %></p>
+            <p><strong>User ID:</strong> <%= order.userId %></p>
+            <p><strong>Card ID:</strong> <%= order.cardId %></p>
     </div>
     
-    <p><strong>Paypal ID:</strong> <%= order.paypalId %></p>
-        <p><strong>User ID:</strong> <%= order.userId %></p>
-        <p><strong>Card ID:</strong> <%= order.cardId %></p>
         <p><strong>User Email:</strong> <%= order.userEmail %></p>
         <p><strong>Tracking ID:</strong> <%= order.trackingId %></p>
         <p><strong>Order Date:</strong> <%= new Date(order.orderDate).toLocaleString() %></p>
@@ -102,16 +109,11 @@
       
     <!-------------MODULE END---------->
     <!------------------>
-    <form action="/admin" method="get">
-        <button type="submit">Go Back</button>
-        <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
-
-    </form>
+ 
     <!--form action="/approveOrder" method="post">
         <input type="hidden" name="order_id" value="<%=order._id%>">
         <button>Approve</button>
     </form-->
-    <button onclick="exportBackFrameToPDF('<%=user.lastName%>_back'); exportFrontFrameToPDF('<%=user.lastName%>_front'); exportUserDataToPDF(<%= JSON.stringify(user) %>, <%= JSON.stringify(card) %>, <%= JSON.stringify(order) %>)">Approve</button>
     <!---------------->
     <div class="fontsizeeditor">
     <div class="realname">

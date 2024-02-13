@@ -13,8 +13,10 @@ const {ticketUpdate,ticketDelete, ticketData} = require('./adminFunctions/ticket
 const {resetPasswordRequest, resetPassword, handleResetPasswordGet} = require('../plugins/passport/passwordReset')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
+const {getUserEditor,postUserEdit} = require('./adminFunctions/userControl')
 const { userImgUpload, userDataUpload, submitTicket, saveRotation } = require('./userFunctions/userFunctions');
-const {updateBanned}=require('./securityFunctions/updateBanned')
+const {updateBanned}=require('./securityFunctions/updateBanned');
+
 const gatherIp = async (req,res,next)=>{
   let userIp = req.ip
   console.log(`user's IP: ${userIp}`)
@@ -35,7 +37,10 @@ router.post('/passwordReset/:token', resetPassword)
 router.get('/reset-password/:token', handleResetPasswordGet);
 router.post('/ticketUpdate', ticketUpdate);
 router.post('/ticketDelete', ticketDelete);
-router.post('/updateBanned', updateBanned)
+router.post('/updateBanned', updateBanned);
+
+router.get('/userEditor',getUserEditor)
+router.post('/userEdit/:id',postUserEdit)
 
 //router.post('/ticketNotify', ticketNotify);
 

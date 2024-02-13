@@ -11,11 +11,10 @@
 <body>      
     <div id="main">
         <h2>Process Order for <%=user.firstName%></h2>
-        <h3><a href="/getUserEditor?id=<%=user.id%>">edit <%-user.firstName%>'s info</a></h3>
+        <h3><a href="/userEditor?id=<%=user._id%>">edit <%-user.firstName%>'s info</a></h3>
         <button onclick="exportBackFrameToPDF('<%=user.lastName%>_back'); exportFrontFrameToPDF('<%=user.lastName%>_front'); exportUserDataToPDF(<%= JSON.stringify(user) %>, <%= JSON.stringify(card) %>, <%= JSON.stringify(order) %>)">Approve and Download Assets</button>
         <form action="/admin" method="get">
             <button type="submit">Back to Admin</button>
-            <%if(typeof user =='object' && user.isAdmin){%> <div><h2>go to <a href="/admin">admin</a> panel </h2></div><%}%>
     
         </form>
         <!-------------MODULE BEGIN---------->

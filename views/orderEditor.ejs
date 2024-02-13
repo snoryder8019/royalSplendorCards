@@ -26,7 +26,7 @@
        
             <div class="card">         
                 <%=card.cardName%>
-                <div id="frontFrame" class="cardFrontFrame">
+                <div id="frontFrame_<%=card._id%>" class="cardFrontFrame">
                     <% if(card.vertical == "false"){ %>
                     <div class="cardImg">
                     <% } else { %>
@@ -63,14 +63,14 @@
                     </div>
                 </div>
             </div>                 
-            <div id="backFrame" class="cardBackFrame">                        
+            <div id="backFrame_<%=card._id%>" class="cardBackFrame">                        
                 <% if(card.vertical == "false"){ %>
                     <div class="cardImg">
                 <% } else { %>
                     <div class="cardImg_vertical">
                 <% } %>        
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
-                <div class="textBox" id="textBox"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);"  draggable="true">
+                <div class="textBox" id="textBox"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" >
                     <div id="textTitles" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
                         <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
                         <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
@@ -138,72 +138,73 @@
     </div>
 </div>
     <script>
-     document.addEventListener('DOMContentLoaded', () => {
-    // Function to handle dragging
-    function dragElement(element) {
-        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+//      document.addEventListener('DOMContentLoaded', () => {
+//     // Function to handle dragging
+//     function dragElement(element) {
+//         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-        element.addEventListener('mousedown', dragMouseDown);
+//         element.addEventListener('mousedown', dragMouseDown);
 
-        function dragMouseDown(e) {
-            e.preventDefault();
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.addEventListener('mouseup', closeDragElement);
-            document.addEventListener('mousemove', elementDrag);
-        }
+//         function dragMouseDown(e) {
+//             e.preventDefault();
+//             pos3 = e.clientX;
+//             pos4 = e.clientY;
+//             document.addEventListener('mouseup', closeDragElement);
+//             document.addEventListener('mousemove', elementDrag);
+//         }
 
-        function elementDrag(e) {
-            e.preventDefault();
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            if (element.classList.contains('textBox')) {
-                element.style.transform = `translate(${element.offsetLeft - pos1}px, ${element.offsetTop - pos2}px)`;
-            } else {
-                element.style.top = (element.offsetTop - pos2) + "px";
-                element.style.left = (element.offsetLeft - pos1) + "px";
-            }
-        }
+//         function elementDrag(e) {
+//             e.preventDefault();
+//             pos1 = pos3 - e.clientX;
+//             pos2 = pos4 - e.clientY;
+//             pos3 = e.clientX;
+//             pos4 = e.clientY;
+//             if (element.classList.contains('textBox')) {
+//                 element.style.transform = `translate(${element.offsetLeft - pos1}px, ${element.offsetTop - pos2}px)`;
+//             } else {
+//                 element.style.top = (element.offsetTop - pos2) + "px";
+//                 element.style.left = (element.offsetLeft - pos1) + "px";
+//             }
+//         }
 
-        function closeDragElement() {
-            document.removeEventListener('mouseup', closeDragElement);
-            document.removeEventListener('mousemove', elementDrag);
-        }
-    }
+//         function closeDragElement() {
+//             document.removeEventListener('mouseup', closeDragElement);
+//             document.removeEventListener('mousemove', elementDrag);
+//         }
+//     }
 
-    // Apply drag function to all draggable elements
-    document.querySelectorAll('.realName, .royalTitle, .textBox').forEach(dragElement);
-});
+//     // Apply drag function to all draggable elements
+//     document.querySelectorAll('.realName, .royalTitle, .textBox').forEach(dragElement);
+// });
 
-// Function to adjust font size
-function adjustFontSize(elementId, increase = true) {
-    let targetElement = document.getElementById(elementId);
-    if (targetElement) {
-        let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
-        currentSize = increase ? currentSize + 1 : currentSize - 1;
-        targetElement.style.fontSize = `${currentSize}px`;
-    } else {
-        console.error('Element not found:', elementId);
-    }
-}
+// // Function to adjust font size
+// function adjustFontSize(elementId, increase = true) {
+//     let targetElement = document.getElementById(elementId);
+//     if (targetElement) {
+//         let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
+//         currentSize = increase ? currentSize + 1 : currentSize - 1;
+//         targetElement.style.fontSize = `${currentSize}px`;
+//     } else {
+//         console.error('Element not found:', elementId);
+//     }
+// }
 
-// Event listeners for font size buttons
-document.querySelectorAll('[id$="FontSizeBtnPlus"], [id$="FontSizeBtnMinus"]').forEach(button => {
-    button.addEventListener('click', function() {
-        let elementId = this.id.split('FontSizeBtn')[0]; // Gets the prefix before 'FontSizeBtn'
-        if (elementId === 'realName' || elementId === 'royalTitle') {
-            elementId += 'Text'; // Append 'Text' for realName and royalTitle
-        }
-        adjustFontSize(elementId, this.id.includes('Plus'));
-    });
-});
+// // Event listeners for font size buttons
+// document.querySelectorAll('[id$="FontSizeBtnPlus"], [id$="FontSizeBtnMinus"]').forEach(button => {
+//     button.addEventListener('click', function() {
+//         let elementId = this.id.split('FontSizeBtn')[0]; // Gets the prefix before 'FontSizeBtn'
+//         if (elementId === 'realName' || elementId === 'royalTitle') {
+//             elementId += 'Text'; // Append 'Text' for realName and royalTitle
+//         }
+//         adjustFontSize(elementId, this.id.includes('Plus'));
+//     });
+// });
 
     
     </script>
     
     
     <script src="/javascripts/loader.js"></script>
+    <script src="/javascripts/nudge2.js"></script>
 </body>
 </html>

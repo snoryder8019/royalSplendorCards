@@ -42,10 +42,14 @@ function dragElement(element) {
       } else if (element.classList.contains('royalTitle')) {
         document.getElementById('text2PositionX_' + cardId).value = element.style.left.replace('px', '');
         document.getElementById('text2PositionY_' + cardId).value = element.style.top.replace('px', '');
+      
+      } else if (element.classList.contains('textBox')) {
+        document.getElementById('text0PositionX_' + cardId).value = element.style.left.replace('px', '');
+        document.getElementById('text0PositionY_' + cardId).value = element.style.top.replace('px', '');
       }
     }
   }
-  document.querySelectorAll('.realName, .royalTitle').forEach(dragElement);
+  document.querySelectorAll('.realName, .royalTitle,.textBox').forEach(dragElement);
 /// Function to adjust font size
 function adjustFontSize(cardId, elementId, increase = true) {
   let targetElement = document.getElementById(elementId + '_' + cardId);

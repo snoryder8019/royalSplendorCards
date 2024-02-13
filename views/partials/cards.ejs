@@ -74,7 +74,7 @@
               <%}%>
 
             <img class="" src="<%= card.cardBack %>" alt="Card Back">
-            <div style="position:absolute; transform: translateY(<%= card.text0PositionY %>px) translateX(<%= card.text0PositionX %>px)rotate(<%=card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%= card._id %>">
+            <div style="position:absolute;top:<%= card.text0PositionY %>px ; left:<%= card.text0PositionX %>px; transform: rotate(<%=card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%= card._id %>">
               <% if (typeof user && user) { %>
                 <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
                  

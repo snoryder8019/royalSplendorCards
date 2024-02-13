@@ -12,13 +12,18 @@
     <div id="main">
         <h2>Process Order for <%=user.firstName%></h2>
         <h3><a href="/userEditor?id=<%=user._id%>">edit <%-user.firstName%>'s info</a></h3>
-        <button onclick="exportBackFrameToPDF('<%=user.lastName%>_back'); exportFrontFrameToPDF('<%=user.lastName%>_front'); exportUserDataToPDF(<%= JSON.stringify(user) %>, <%= JSON.stringify(card) %>, <%= JSON.stringify(order) %>)">Approve and Download Assets</button>
-        <form action="/admin" method="get">
+        <button onclick="exportBackFrameToPDF('<%=user.lastName%>', document.getElementById('orientationDropdown').value); exportFrontFrameToPDF('<%=user.lastName%>', document.getElementById('orientationDropdown').value); exportUserDataToPDF('<%=user.lastName%>','vertical')">Approve and Download Assets</button>
             <button type="submit">Back to Admin</button>
     
         </form>
+        <select id="orientationDropdown">
+            <option value="vertical">Vertical</option>
+            <option value="horizontal">Horizontal</option>
+          </select>
+          
         <!-------------MODULE BEGIN---------->
         <div class="card-container">    
+       
             <div class="card">         
                 <%=card.cardName%>
                 <div id="frontFrame" class="cardFrontFrame">
@@ -77,7 +82,8 @@
             </div>
         </div>        
     </div>
-    <div id="orderData">
+    
+    <div class="orderData">
         <div id="orderMeta" style="display: none;">
         <p><strong>Order ID:</strong> <%= order._id %></p>
         <p><strong>Custom ID:</strong> <%= order.customId %></p>
@@ -132,69 +138,69 @@
     </div>
 </div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function to handle dragging
-            function dragElement(element) {
-                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    
-                element.onmousedown = dragMouseDown;
-    
-                function dragMouseDown(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // Get the mouse cursor position at startup
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    document.onmouseup = closeDragElement;
-                    document.onmousemove = elementDrag;
-                }
-    
-                function elementDrag(e) {
-                    e = e || window.event;
-                    e.preventDefault();
-                    // Calculate the new cursor position
-                    pos1 = pos3 - e.clientX;
-                    pos2 = pos4 - e.clientY;
-                    pos3 = e.clientX;
-                    pos4 = e.clientY;
-                    // Set the element's new position
-                    element.style.top = (element.offsetTop - pos2) + "px";
-                    element.style.left = (element.offsetLeft - pos1) + "px";
-                }
-    
-                function closeDragElement() {
-                    // Stop moving when mouse button is released
-                    document.onmouseup = null;
-                    document.onmousemove = null;
-                }
+     document.addEventListener('DOMContentLoaded', () => {
+    // Function to handle dragging
+    function dragElement(element) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+        element.addEventListener('mousedown', dragMouseDown);
+
+        function dragMouseDown(e) {
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.addEventListener('mouseup', closeDragElement);
+            document.addEventListener('mousemove', elementDrag);
+        }
+
+        function elementDrag(e) {
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            if (element.classList.contains('textBox')) {
+                element.style.transform = `translate(${element.offsetLeft - pos1}px, ${element.offsetTop - pos2}px)`;
+            } else {
+                element.style.top = (element.offsetTop - pos2) + "px";
+                element.style.left = (element.offsetLeft - pos1) + "px";
             }
+        }
+
+        function closeDragElement() {
+            document.removeEventListener('mouseup', closeDragElement);
+            document.removeEventListener('mousemove', elementDrag);
+        }
+    }
+
+    // Apply drag function to all draggable elements
+    document.querySelectorAll('.realName, .royalTitle, .textBox').forEach(dragElement);
+});
+
+// Function to adjust font size
+function adjustFontSize(elementId, increase = true) {
+    let targetElement = document.getElementById(elementId);
+    if (targetElement) {
+        let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
+        currentSize = increase ? currentSize + 1 : currentSize - 1;
+        targetElement.style.fontSize = `${currentSize}px`;
+    } else {
+        console.error('Element not found:', elementId);
+    }
+}
+
+// Event listeners for font size buttons
+document.querySelectorAll('[id$="FontSizeBtnPlus"], [id$="FontSizeBtnMinus"]').forEach(button => {
+    button.addEventListener('click', function() {
+        let elementId = this.id.split('FontSizeBtn')[0]; // Gets the prefix before 'FontSizeBtn'
+        if (elementId === 'realName' || elementId === 'royalTitle') {
+            elementId += 'Text'; // Append 'Text' for realName and royalTitle
+        }
+        adjustFontSize(elementId, this.id.includes('Plus'));
+    });
+});
+
     
-            // Apply drag function to all draggable elements
-            document.querySelectorAll('.realName, .royalTitle, .textBox').forEach(dragElement);
-    
-            // Function to adjust font size
-            function adjustFontSize(elementId, increase = true) {
-                let targetElement = document.getElementById(elementId);
-                if (targetElement) {
-                    let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
-                    currentSize = increase ? currentSize + 1 : currentSize - 1;
-                    targetElement.style.fontSize = `${currentSize}px`;
-                } else {
-                    console.error('Element not found:', elementId);
-                }
-            }
-    
-            // Event listeners for font size buttons
-            document.querySelectorAll('[id$="FontSizeBtnPlus"], [id$="FontSizeBtnMinus"]').forEach(button => {
-                button.addEventListener('click', function() {
-                    let elementId = this.id.split('FontSizeBtn')[0]; // Gets the prefix before 'FontSizeBtn'
-                    if (elementId === 'realName' || elementId === 'royalTitle') {
-                        elementId += 'Text'; // Append 'Text' for realName and royalTitle
-                    }
-                    adjustFontSize(elementId, this.id.includes('Plus'));
-                });
-            });
-        });
     </script>
     
     

@@ -35,10 +35,20 @@ function download(dataUrl, fileName) {
   document.body.removeChild(a);
 }
 
-function exportFrontFrameToPDF(userName) {
+function exportFrontFrameToPDF(userName, orientaion) {
   const element = document.querySelector('.cardFrontFrame');
-  const canvasWidth = 1125; // Width in pixels
-  const canvasHeight = 675; // Height in pixels
+  // if(orientaion="vertical"){
+  //   const canvasWidth = 675; // Width in pixels
+  //   const canvasHeight = 1125; // Height in pixels
+
+  // }
+  // if(orientaion="horizontal"){
+    //   const canvasWidth = 1125; // Width in pixels
+    //   const canvasHeight = 675; // Height in pixels
+    
+    // }
+          const canvasWidth = 1125; // Width in pixels
+      const canvasHeight = 675; // Height in pixels
 exportHighResolutionImage('.cardFrontFrame',`card_front_${userName}.png`)
   html2pdf()
     .from(element)
@@ -52,11 +62,11 @@ exportHighResolutionImage('.cardFrontFrame',`card_front_${userName}.png`)
     .save();
 }
 
-function exportBackFrameToPDF(userName) {
+function exportBackFrameToPDF(userName,orientation) {
   const element = document.querySelector('.cardBackFrame');
   const canvasWidth = 1125; // Width in pixels
   const canvasHeight = 675; // Height in pixels
-
+  exportHighResolutionImage('.cardBackFrame',`card_back_${userName}.png`)
   html2pdf()
     .from(element)
     .set({
@@ -68,47 +78,63 @@ function exportBackFrameToPDF(userName) {
     })
     .save();
 }
-
-function exportUserDataToPDF(user, card, order) {
-  // Create an HTML representation of your data with better formatting
-  const dataDiv = document.createElement('div');
-  dataDiv.className = 'userDataPDF';
-  let userDataHtml = `<h3>User Data</h3>`;
-  userDataHtml += `<p>Name: ${user.firstName} ${user.lastName}</p>`;
-  userDataHtml += `<p>Email: ${user.email}</p>`;
-  // Add more fields as needed
-
-  let cardDataHtml = `<h3>Card Data</h3>`;
-  cardDataHtml += `<p>Card ID: ${card.cardId}</p>`;
-  cardDataHtml += `<p>Card Name: ${card.cardName}</p>`;
-  // Add more fields as needed
-
-  let orderDataHtml = `<h3>Order Data</h3>`;
-  orderDataHtml += `<p>Order ID: ${order._id}</p>`;
-  orderDataHtml += `<p>Amount: ${order.amount}</p>`;
-  orderDataHtml += `<p>Description: ${order.description}</p>`;
-  // Add more fields as needed
-
-  dataDiv.innerHTML = userDataHtml + cardDataHtml + orderDataHtml;
-
-  // Optionally add the div to the document body
-  document.body.appendChild(dataDiv);
-
-  // Export to PDF
+function exportUserDataToPDF(userName,orientaion) {
+  const element = document.querySelector('.orderData');
+  const canvasWidth = 1125; // Width in pixels
+  const canvasHeight = 675; // Height in pixels
+ // exportHighResolutionImage('.orderData',`order_data_${userName}.png`)
   html2pdf()
-    .from(dataDiv)
+    .from(element)
     .set({
-      margin: [10, 10, 10, 10],
-      filename: `user_card_order_data_${user.lastName}.pdf`,
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'px', format: 'a4' } // Change to A4 format or keep the custom size
+      margin: [0, 0, 0, 0],
+      filename: `order_data_${userName}.pdf`,
+      //image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 1, width: canvasWidth, height: canvasHeight },
+      jsPDF: { unit: 'px', format: [canvasWidth, canvasHeight] }
     })
-    .save()
-    .then(() => {
-      // Remove the element after saving
-      document.body.removeChild(dataDiv);
-    });
+    .save();
 }
+
+// function exportUserDataToPDF(user, card, order) {
+//   // Create an HTML representation of your data with better formatting
+//   const dataDiv = document.createElement('div');
+//   dataDiv.className = 'userDataPDF';
+//   let userDataHtml = `<h3>User Data</h3>`;
+//   userDataHtml += `<p>Name: ${user.firstName} ${user.lastName}</p>`;
+//   userDataHtml += `<p>Email: ${user.email}</p>`;
+//   // Add more fields as needed
+
+//   let cardDataHtml = `<h3>Card Data</h3>`;
+//   cardDataHtml += `<p>Card ID: ${card.cardId}</p>`;
+//   cardDataHtml += `<p>Card Name: ${card.cardName}</p>`;
+//   // Add more fields as needed
+
+//   let orderDataHtml = `<h3>Order Data</h3>`;
+//   orderDataHtml += `<p>Order ID: ${order._id}</p>`;
+//   orderDataHtml += `<p>Amount: ${order.amount}</p>`;
+//   orderDataHtml += `<p>Description: ${order.description}</p>`;
+//   // Add more fields as needed
+
+//   dataDiv.innerHTML = userDataHtml + cardDataHtml + orderDataHtml;
+
+//   // Optionally add the div to the document body
+//   document.body.appendChild(dataDiv);
+
+//   // Export to PDF
+//   html2pdf()
+//     .from(dataDiv)
+//     .set({
+//       margin: [10, 10, 10, 10],
+//       filename: `order_data_${user.lastName}.pdf`,
+//       html2canvas: { scale: 1 },
+//       jsPDF: { unit: 'px', format: 'a4' } // Change to A4 format or keep the custom size
+//     })
+//     .save()
+//     .then(() => {
+//       // Remove the element after saving
+//       document.body.removeChild(dataDiv);
+//     });
+// }
 
 
 // HTML Button

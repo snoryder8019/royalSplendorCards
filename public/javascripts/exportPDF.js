@@ -13,13 +13,24 @@ function convertJPGtoPNG(jpgSrc) {
   };
 }
 //
-function exportHighResolutionImage(selector, fileName) {
+function exportHighResolutionImage(selector, fileName,orientation) {
+  let canvasWidth;
+  let canvasHeight;
+  if(orientation == "horizontal"){
+     canvasWidth = 1125; // Width in pixels canvasHeight = 675; // Height in pixels
+
+  }
+  if(orientation == "vertical"){
+   canvasHeight = 1125; // Width in pixels
+canvasWidth = 675; // Height in pixels
+
+  }
   const element = document.querySelector(selector);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   const scaleFactor = 300 / 96; // Convert screen resolution (96 DPI) to 300 DPI
-  canvas.width = 1125 * scaleFactor;
-  canvas.height = 675 * scaleFactor;
+  canvas.width = canvasWidth * scaleFactor;
+  canvas.height = canvasHeight * scaleFactor;
   ctx.scale(scaleFactor, scaleFactor);
   html2canvas(element, { canvas: canvas }).then(canvas => {
     download(canvas.toDataURL('image/png'), fileName);
@@ -35,38 +46,49 @@ function download(dataUrl, fileName) {
   document.body.removeChild(a);
 }
 
-function exportFrontFrameToPDF(userName, orientaion) {
+function exportFrontFrameToPDF(userName,orientation) {
   const element = document.querySelector('.cardFrontFrame');
-  // if(orientaion="vertical"){
-  //   const canvasWidth = 675; // Width in pixels
-  //   const canvasHeight = 1125; // Height in pixels
+  let canvasWidth;
+  let canvasHeight;
+  if(orientation == "horizontal"){
+     canvasWidth = 1125; // Width in pixels
+ canvasHeight = 675; // Height in pixels
 
-  // }
-  // if(orientaion="horizontal"){
-    //   const canvasWidth = 1125; // Width in pixels
-    //   const canvasHeight = 675; // Height in pixels
-    
-    // }
-          const canvasWidth = 1125; // Width in pixels
-      const canvasHeight = 675; // Height in pixels
-exportHighResolutionImage('.cardFrontFrame',`card_front_${userName}.png`)
+  }
+  if(orientation == "vertical"){
+    canvasWidth = 675; // Height in pixels
+     canvasHeight = 1125; // Width in pixels
+
+  }
+exportHighResolutionImage('.cardFrontFrame',`card_front_${userName}.png`,orientation)
   html2pdf()
     .from(element)
     .set({
       margin: [0, 0, 0, 0],
       filename: `card_front_${userName}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 1, width: canvasWidth, height: canvasHeight },
+      html2canvas: { scale: 2, width: canvasWidth, height: canvasHeight },
       jsPDF: { unit: 'px', format: [canvasWidth, canvasHeight] }
     })
     .save();
 }
-
+//
 function exportBackFrameToPDF(userName,orientation) {
+  console.log(orientation)
   const element = document.querySelector('.cardBackFrame');
-  const canvasWidth = 1125; // Width in pixels
-  const canvasHeight = 675; // Height in pixels
-  exportHighResolutionImage('.cardBackFrame',`card_back_${userName}.png`)
+  let canvasWidth;
+  let canvasHeight;
+  if(orientation == "horizontal"){
+     canvasWidth = 1125; // Width in pixels
+ canvasHeight = 675; // Height in pixels
+
+  }
+  if(orientation == "vertical"){
+    canvasWidth = 675; // Height in pixels
+     canvasHeight = 1125; // Width in pixels
+
+  }
+  exportHighResolutionImage('.cardBackFrame',`card_back_${userName}.png`,orientation)
   html2pdf()
     .from(element)
     .set({
@@ -78,7 +100,7 @@ function exportBackFrameToPDF(userName,orientation) {
     })
     .save();
 }
-function exportUserDataToPDF(userName,orientaion) {
+function exportUserDataToPDF(userName) {
   const element = document.querySelector('.orderData');
   const canvasWidth = 1125; // Width in pixels
   const canvasHeight = 675; // Height in pixels
@@ -89,52 +111,9 @@ function exportUserDataToPDF(userName,orientaion) {
       margin: [0, 0, 0, 0],
       filename: `order_data_${userName}.pdf`,
       //image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 1, width: canvasWidth, height: canvasHeight },
+      html2canvas: { scale: 2, width: canvasWidth, height: canvasHeight },
       jsPDF: { unit: 'px', format: [canvasWidth, canvasHeight] }
     })
     .save();
 }
 
-// function exportUserDataToPDF(user, card, order) {
-//   // Create an HTML representation of your data with better formatting
-//   const dataDiv = document.createElement('div');
-//   dataDiv.className = 'userDataPDF';
-//   let userDataHtml = `<h3>User Data</h3>`;
-//   userDataHtml += `<p>Name: ${user.firstName} ${user.lastName}</p>`;
-//   userDataHtml += `<p>Email: ${user.email}</p>`;
-//   // Add more fields as needed
-
-//   let cardDataHtml = `<h3>Card Data</h3>`;
-//   cardDataHtml += `<p>Card ID: ${card.cardId}</p>`;
-//   cardDataHtml += `<p>Card Name: ${card.cardName}</p>`;
-//   // Add more fields as needed
-
-//   let orderDataHtml = `<h3>Order Data</h3>`;
-//   orderDataHtml += `<p>Order ID: ${order._id}</p>`;
-//   orderDataHtml += `<p>Amount: ${order.amount}</p>`;
-//   orderDataHtml += `<p>Description: ${order.description}</p>`;
-//   // Add more fields as needed
-
-//   dataDiv.innerHTML = userDataHtml + cardDataHtml + orderDataHtml;
-
-//   // Optionally add the div to the document body
-//   document.body.appendChild(dataDiv);
-
-//   // Export to PDF
-//   html2pdf()
-//     .from(dataDiv)
-//     .set({
-//       margin: [10, 10, 10, 10],
-//       filename: `order_data_${user.lastName}.pdf`,
-//       html2canvas: { scale: 1 },
-//       jsPDF: { unit: 'px', format: 'a4' } // Change to A4 format or keep the custom size
-//     })
-//     .save()
-//     .then(() => {
-//       // Remove the element after saving
-//       document.body.removeChild(dataDiv);
-//     });
-// }
-
-
-// HTML Button

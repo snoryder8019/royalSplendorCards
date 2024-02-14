@@ -13,14 +13,15 @@
     <div id="main">
         <h2>Process Order for <%=user.firstName%></h2>
         <h3><a href="/userEditor?id=<%=user._id%>">edit <%-user.firstName%>'s info</a></h3>
-        <button onclick="exportBackFrameToPDF('<%=user.lastName%>', document.getElementById('orientationDropdown').value); exportFrontFrameToPDF('<%=user.lastName%>', document.getElementById('orientationDropdown').value); exportUserDataToPDF('<%=user.lastName%>','vertical')">Approve and Download Assets</button>
+        <button onclick="exportBackFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportFrontFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportUserDataToPDF('<%=user.lastName%>')">Approve and Download Assets</button>
             <button type="submit">Back to Admin</button>
     
         </form>
-        <select id="orientationDropdown">
-            <option value="vertical">Vertical</option>
-            <option value="horizontal">Horizontal</option>
-          </select>
+    
+        <select name="cardOrientation" class="orientation">
+            <option value="horizontal">horizontal</option>
+            <option value="vertical">vertical</option>
+        </select>
           
         <!-------------MODULE BEGIN---------->
         <div class="card-container">    
@@ -63,21 +64,21 @@
                         <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
                     </div>
                 </div>
-            </div>                 
+            </div>             
+
             <div id="backFrame_<%=card._id%>" class="cardBackFrame">                        
-                <% if(card.vertical == "false"){ %>
-                    <div class="cardImg">
-                <% } else { %>
-                    <div class="cardImg_vertical">
-                <% } %>        
+             
+                    <div style="width:90%" class="cardImg">
+              
+                   
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
-                <div class="textBox" id="textBox_<%=card._id%>"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" >
-                    <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-                        <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
-                        <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
-                        <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.email%></div> 
-                        <div class="font_<%=card.fontName1%>">Phone</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.phone%></div> 
-                        <div class="font_<%=card.fontName1%>">Birthday</div><div>:</div><div class="font_<%=card.fontName2%>"><%= user.birthday_day + " " + user.birthday_month %></div>                     
+                <div class="textBox" id="textBox_<%=card._id%>"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" draggable="true" >
+                    <div id="textTitles_<%=card._id%>" style= "width:140%;font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                        <div class="font_<%=card.fontName1%>">Chapter</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
+                        <div class="font_<%=card.fontName1%>">Address</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
+                        <div class="font_<%=card.fontName1%>">Email</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.email%></div> 
+                        <div class="font_<%=card.fontName1%>">Phone</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.phone%></div> 
+                        <div class="font_<%=card.fontName1+" "  %>">Birthday</div><div>: </div><div class="font_<%=card.fontName2%>"><%= user.birthday_day + " " + user.birthday_month %></div>                     
                     </div>                
                 </div>     
             </div>
@@ -180,7 +181,7 @@
     });
 </script>
 
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     
     <script src="/javascripts/loader.js"></script>
     <script src="/javascripts/nudge2.js"></script>

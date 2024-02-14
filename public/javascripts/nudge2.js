@@ -1,3 +1,4 @@
+//nudge2.js
 // Function to handle dragging
 function dragElement(element) {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -59,13 +60,15 @@ function adjustFontSize(cardId, elementId, increase = true) {
       inputFieldId = 'font1Size_';
   } else if (elementId === 'royalTitleText') {
       inputFieldId = 'font2Size_';
+  }else if(elementId ==='textTitles_') {
+     inputFieldId = 'font0Size'
   }
 
   if (targetElement) {
       let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
       currentSize = increase ? currentSize + 1 : currentSize - 1;
       targetElement.style.fontSize = `${currentSize}px`;
-
+console.log(targetElement)
       // Update corresponding input field
       document.getElementById(inputFieldId + cardId).value = currentSize;
   } else {
@@ -73,7 +76,7 @@ function adjustFontSize(cardId, elementId, increase = true) {
   }
 }
 
-
+//
 // Add event listeners to buttons
 // Event listeners for realName font size buttons
 document.querySelectorAll('[id^="increaseFont_"]').forEach(button => {
@@ -102,6 +105,24 @@ document.querySelectorAll('[id^="decreaseFontRoyal_"]').forEach(button => {
   button.addEventListener('click', function() {
       const cardId = this.id.split('_')[1];
       adjustFontSize(cardId, 'royalTitleText', false);
+  });
+});
+document.querySelectorAll('[id^="realNameFontSizeBtn_"]').forEach(button => {
+  button.addEventListener('click', function() {
+    const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, true);
+  });
+});
+document.querySelectorAll('[id^="royalTitleFontSizeBtn_"]').forEach(button => {
+  button.addEventListener('click', function() {
+    const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, true);
+  });
+});
+document.querySelectorAll('[id^="textBoxFontSizeBtn_"]').forEach(button => {
+  button.addEventListener('click', function() {
+    const cardId = this.id.split('_')[1];
+      adjustFontSize(cardId, true);
   });
 });
 

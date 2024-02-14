@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head> 
+<!--/views/orderEditor.ejs-->
         <link rel="stylesheet" href="/stylesheets/style.css">
         <title>View and Buy</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,8 +71,8 @@
                     <div class="cardImg_vertical">
                 <% } %>        
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
-                <div class="textBox" id="textBox"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" >
-                    <div id="textTitles" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                <div class="textBox" id="textBox_<%=card._id%>"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" >
+                    <div id="textTitles_<%=card._id%>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
                         <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
                         <div class="font_<%=card.fontName1%>">Address</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
                         <div class="font_<%=card.fontName1%>">Email</div><div>:</div><div class="font_<%=card.fontName2%>"><%=user.email%></div> 
@@ -123,85 +124,62 @@
     <div class="fontsizeeditor">
     <div class="realname">
         Real Name Font
-        <button id="realNameFontSizeBtnPlus">+</button>
-        <button id="realNameFontSizeBtnMinus">-</button>
+        <button id="realNameFontSizeBtnPlus_<%=card._id%>">+</button>
+        <button id="realNameFontSizeBtnMinus_<%=card._id%>">-</button>
     </div>
     <div class="royalname">
         Royal Name Font
-        <button id="royalTitleFontSizeBtnPlus">+</button>
-        <button id="royalTitleFontSizeBtnMinus">-</button>
+        <button id="royalTitleFontSizeBtnPlus_<%=card._id%>">+</button>
+        <button id="royalTitleFontSizeBtnMinus_<%=card._id%>">-</button>
     </div>
     <div class="data">
         Data Font
-        <button id="textBoxFontSizeBtnPlus">+</button>
-        <button id="textBoxFontSizeBtnMinus">-</button>
+        <button id="textBoxFontSizeBtnPlus_<%=card._id%>">+</button>
+        <button id="textBoxFontSizeBtnMinus_<%=card._id%>">-</button>
     </div>
 </div>
     <script>
-//      document.addEventListener('DOMContentLoaded', () => {
-//     // Function to handle dragging
-//     function dragElement(element) {
-//         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-//         element.addEventListener('mousedown', dragMouseDown);
+    // Real Name Font Size
+    document.getElementById("realNameFontSizeBtnPlus_<%=card._id%>").addEventListener("click", function() {
+        var realNameText = document.getElementById("realNameText");
+        var currentFontSize = parseFloat(window.getComputedStyle(realNameText, null).getPropertyValue('font-size'));
+        realNameText.style.fontSize = (currentFontSize + 1) + "px";
+    });
 
-//         function dragMouseDown(e) {
-//             e.preventDefault();
-//             pos3 = e.clientX;
-//             pos4 = e.clientY;
-//             document.addEventListener('mouseup', closeDragElement);
-//             document.addEventListener('mousemove', elementDrag);
-//         }
+    document.getElementById("realNameFontSizeBtnMinus_<%=card._id%>").addEventListener("click", function() {
+        var realNameText = document.getElementById("realNameText");
+        var currentFontSize = parseFloat(window.getComputedStyle(realNameText, null).getPropertyValue('font-size'));
+        realNameText.style.fontSize = (currentFontSize - 1) + "px";
+    });
 
-//         function elementDrag(e) {
-//             e.preventDefault();
-//             pos1 = pos3 - e.clientX;
-//             pos2 = pos4 - e.clientY;
-//             pos3 = e.clientX;
-//             pos4 = e.clientY;
-//             if (element.classList.contains('textBox')) {
-//                 element.style.transform = `translate(${element.offsetLeft - pos1}px, ${element.offsetTop - pos2}px)`;
-//             } else {
-//                 element.style.top = (element.offsetTop - pos2) + "px";
-//                 element.style.left = (element.offsetLeft - pos1) + "px";
-//             }
-//         }
+    // Royal Name Font Size
+    document.getElementById("royalTitleFontSizeBtnPlus_<%=card._id%>").addEventListener("click", function() {
+        var royalTitleText = document.getElementById("royalTitleText");
+        var currentFontSize = parseFloat(window.getComputedStyle(royalTitleText, null).getPropertyValue('font-size'));
+        royalTitleText.style.fontSize = (currentFontSize + 1) + "px";
+    });
 
-//         function closeDragElement() {
-//             document.removeEventListener('mouseup', closeDragElement);
-//             document.removeEventListener('mousemove', elementDrag);
-//         }
-//     }
+    document.getElementById("royalTitleFontSizeBtnMinus_<%=card._id%>").addEventListener("click", function() {
+        var royalTitleText = document.getElementById("royalTitleText");
+        var currentFontSize = parseFloat(window.getComputedStyle(royalTitleText, null).getPropertyValue('font-size'));
+        royalTitleText.style.fontSize = (currentFontSize - 1) + "px";
+    });
 
-//     // Apply drag function to all draggable elements
-//     document.querySelectorAll('.realName, .royalTitle, .textBox').forEach(dragElement);
-// });
+    // Data Font Size
+    document.getElementById("textBoxFontSizeBtnPlus_<%=card._id%>").addEventListener("click", function() {
+        var textTitles = document.getElementsByClassName("textTitles")[0];
+        var currentFontSize = parseFloat(window.getComputedStyle(textTitles, null).getPropertyValue('font-size'));
+        textTitles.style.fontSize = (currentFontSize + 1) + "px";
+    });
 
-// // Function to adjust font size
-// function adjustFontSize(elementId, increase = true) {
-//     let targetElement = document.getElementById(elementId);
-//     if (targetElement) {
-//         let currentSize = parseInt(window.getComputedStyle(targetElement).fontSize);
-//         currentSize = increase ? currentSize + 1 : currentSize - 1;
-//         targetElement.style.fontSize = `${currentSize}px`;
-//     } else {
-//         console.error('Element not found:', elementId);
-//     }
-// }
+    document.getElementById("textBoxFontSizeBtnMinus_<%=card._id%>").addEventListener("click", function() {
+        var textTitles = document.getElementsByClassName("textTitles")[0];
+        var currentFontSize = parseFloat(window.getComputedStyle(textTitles, null).getPropertyValue('font-size'));
+        textTitles.style.fontSize = (currentFontSize - 1) + "px";
+    });
+</script>
 
-// // Event listeners for font size buttons
-// document.querySelectorAll('[id$="FontSizeBtnPlus"], [id$="FontSizeBtnMinus"]').forEach(button => {
-//     button.addEventListener('click', function() {
-//         let elementId = this.id.split('FontSizeBtn')[0]; // Gets the prefix before 'FontSizeBtn'
-//         if (elementId === 'realName' || elementId === 'royalTitle') {
-//             elementId += 'Text'; // Append 'Text' for realName and royalTitle
-//         }
-//         adjustFontSize(elementId, this.id.includes('Plus'));
-//     });
-// });
-
-    
-    </script>
     
     
     <script src="/javascripts/loader.js"></script>

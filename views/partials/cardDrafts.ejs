@@ -7,7 +7,7 @@
 
           <%- include('controls_img.ejs', { cardId: card._id }) %>    
           
-          <div id="frontFrame_<%card._id%>" class="cardFrontFrame">
+          <div id="frontFrame_<%=card._id%>" class="cardFrontFrame">
             <%if(card.vertical=="false"){%>
             <div class="cardImg">
               <%}else{%>
@@ -69,14 +69,9 @@
                           <%}else{%>
                             <div class="cardImg_vertical">
                               <%}%>
-                              
-            
-
-                              
-                              
-                              
+                     
                               <img class="" src="<%= card.cardBack %>" alt="Card Back">
-                              <div style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform:rotate(<%= card.text0Rotation+"deg"%>);" class="textBox" id="textBox_<%=card._id%>">
+                              <div  class="textBox" id="textBox_<%=card._id%>" style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform:rotate(<%= card.text0Rotation+"deg"%>);">
                 <div id="textTitles_<%= card._id %>" style="font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
                   
                   <div class="font_<%=card.fontName1%>">Chapter</div><div>:</div><div class="font_<%=card.fontName2%>">Testchapter RHS</div>

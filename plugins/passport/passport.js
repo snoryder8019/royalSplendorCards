@@ -41,13 +41,13 @@ passport.use(
      
         if (!user) {
           lib('login error: ', 'error: Email Not Found',  `Login Error:'email not found' , attempted email :${email} `,'errors.json','data')
-          return done(null, false, {message:'Email not found'});
+          return done(null, false, {message:'Email not found, have you tried reigtering this email?'});
         }
         
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {        
           lib('login error: ', 'error: Password Does Not Match',  `Login Error:'bad password' , attempted email :${email} `,'errors.json','data')
-          return done(null, false, {message:'Bad Password'});
+          return done(null, false, {message:'Incorrect Password, Please Try Again'});
         }  
         return done(null, user, {message:'Logged in successfully'});
       } catch (error) {

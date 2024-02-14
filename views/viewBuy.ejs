@@ -134,7 +134,7 @@
 <%if(typeof user == 'object' && user){%>
   <p>Having trouble with your account or your order?</p>
   <!------------------->
-  <%if(typeof tickets =='object'&&tickets){%>
+  <%if(typeof tickets =='object'&&tickets.length>0){%>
    
     <div id="ticketsChat"><%- include('./partials/ticketsChat',{user:user,card:card,tickets:tickets})%></div>
     <%}else{%>

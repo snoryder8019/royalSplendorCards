@@ -12,75 +12,26 @@
         
         <div class="orderReview">
         <h3>Order Details for : <%=ordersPaypal[i].userEmail%></h3>
-        <div><%=ordersPaypal[i].customId%></div>
-        <div><%=ordersPaypal[i].orderDate.toDateString()%></div>
-        <div><%=ordersPaypal[i].amount%></div>
-        <div><%=ordersPaypal[i].description%></div>
+   
+        <div>Ordered On: <%=ordersPaypal[i].orderDate.toDateString()%></div>
+        <div>total paid: <%=ordersPaypal[i].amount%></div>
+        <div>quantity: <%=ordersPaypal[i].description%></div>
+        <div>tracking id: <%=ordersPaypal[i].trackingId%></div>
+        <div> sent to print: <%=ordersPaypal[i].sentToPrint%></div>
+        <div>paypal completed: <%=ordersPaypal[i].paypalCompleted%></div>
+        <div>paypal canceled: <%=ordersPaypal[i].paypalCanceled%></div>
+        <div>paypal canceled: <%=ordersPaypal[i].paypalCanceled%></div>
+
       <!--------I need to load these card fronts and back, but i need to reference---------->
       
       
-    
-  <div id="preview_<%=ordersPaypal[i]._id%>"></div>
-  <button id="previewSubmit_<%= ordersPaypal[i]._id %>" class="preview-btn" data-cardId="<%= ordersPaypal[i].cardId %>" data-userId="<%= ordersPaypal[i].userId %>">Preview</button>
-   
-   <%let customId= ordersPaypal[i].customId%>
-   <!-------------MODULE BEGIN---------->
-   <script type="module">
-     import { createCardTemplate } from '../javascripts/templates/finalizeCard.js';
-      let userId;
-      
-      export async function fetchAndRenderCard(cardId, userId, customId) {
-        try {
-          // Fetch data from your server
-          //////////////////////////
-          const response = await fetch(`/finalizeOrder?cardId=${cardId}&userId=${userId}&customId=${customId}`);
-          //console.log('Raw response:', await response.text());
-          
-          // Check if the response is valid
-          if (!response.ok) {
-            throw new Error('Network response was not ok.');
-          }
-          const { user, card, order } = await response.json();
-          
-          // Render the card using the fetched data
-          const previewElement = document.getElementById('preview_' + customId);
-          if (previewElement) {
-            const htmlContent = createCardTemplate(card,user);
-            previewElement.innerHTML = htmlContent;
-          } else {
-            console.error('Preview element not found');
-          }
-        } catch (err) {
-          console.error('Error fetching card data:', err);
-        }
-}
-
-// After the DOM has loaded, add event listeners to the buttons
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('[id^="previewSubmit_"]');
-  buttons.forEach(button => {
-    button.addEventListener('click', (event) => {
-      const parts = button.id.split('_');
-      const customId = parts[1]
-      const userId = button.getAttribute('data-userId')
-      const cardId = button.getAttribute('data-cardId')
-      ////////////////////////////
-      fetchAndRenderCard(cardId, userId, customId);
-     console.log(`\n${userId}\n\n${cardId}\n\n${customId}`) // <-- This line seems to be the problem
- });
-});
-});
-
-
-</script>
-<!-------------MODULE END---------->
 
       <!------------------>
     <form action="/orderEditor" method="get">
       <input type="hidden" name="cardId" value="<%=ordersPaypal[i].cardId%>">
       <input type="hidden" name="userId" value="<%=ordersPaypal[i].userId%>">
       <input type="hidden" name="orderId" value="<%=ordersPaypal[i]._id%>">
-  <button type="submit">Edit</button>
+  <button type="submit">Download Assets</button>
     </form>
    
     </div>
@@ -92,6 +43,4 @@ document.addEventListener('DOMContentLoaded', () => {
       <%}%>
   
 
-        <!---------------->
-
-     <script></script>
+  

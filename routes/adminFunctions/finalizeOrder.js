@@ -4,8 +4,34 @@ const { getDb } = require('../../plugins/mongo/mongo');
 const { ObjectId } = require('mongodb');
 const config = require('../../config/config'); // Import config if you're using it
 const {getOrderforPaypal, getCardforPaypal, getUserforPaypal } = require('../../plugins/paypal/dbFunctions');
-// Assuming getDb and ObjectId are defined and imported appropriately
-// ...
+
+
+const updateOrderPaypal = async (req, res) => {
+  try {
+      const orderId = req.body.orderId;
+      const orderIdd = new ObjectId(orderId);
+
+      const { sentToPrint, paypalCompleted, paypalCanceled, trackingId } = req.body;
+console.log(orderId)
+      const db = getDb();
+      const orders = db.collection('orders_paypal');
+
+      const result = await orders.updateOne(
+          { _id: orderIdd },
+          { $set: { sentToPrint, paypalCompleted, paypalCanceled, trackingId } }
+      );
+
+      if (result.matchedCount === 1) {
+          res.redirect('/admin'); // Redirect to /admin after successful update
+      } else {
+          res.status(404).send('Order not found');
+      }
+  } catch (error) {
+      console.error('Error updating order:', error);
+      res.status(500).send('Server error');
+  }
+};
+
 
 const finalizeOrder =  async (req, res) => {
     try {
@@ -74,7 +100,7 @@ const orderEditor = async (req, res) => {
     }
   };
 
-module.exports = {finalizeOrder, orderEditor};
+module.exports = {finalizeOrder, orderEditor, updateOrderPaypal};
 
 
 

@@ -4,7 +4,7 @@ const pluginsRouter = require('../plugins');
 const upload = require('../plugins/multer/setup');
 router.use(pluginsRouter)
 const system = require('./systemFunctions/systemFunctions')
-const {finalizeOrder, orderEditor} = require('./adminFunctions/finalizeOrder')
+const {finalizeOrder, orderEditor, updateOrderPaypal} = require('./adminFunctions/finalizeOrder')
 const checkouts = require('../plugins/paypal/webhooks/orders')
 const { getDb } = require('../plugins/mongo/mongo');
 const flash = require('express-flash');
@@ -24,6 +24,7 @@ const gatherIp = async (req,res,next)=>{
 }
 // ... other app setup code ...
 
+router.post('/updateOrderPaypal', updateOrderPaypal)
 router.get('/orderEditor', orderEditor)
 router.post('/userImgUpload', upload, userImgUpload);
 router.post('/checkouts', checkouts);

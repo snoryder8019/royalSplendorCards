@@ -16,7 +16,7 @@
         <button onclick="exportBackFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportFrontFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportUserDataToPDF('<%=user.lastName%>')">Approve and Download Assets</button>
             <button type="submit">Back to Admin</button>
     
-        </form>
+
     
         <select name="cardOrientation" class="orientation">
             <option value="horizontal">horizontal</option>
@@ -117,10 +117,6 @@
     <!-------------MODULE END---------->
     <!------------------>
  
-    <!--form action="/approveOrder" method="post">
-        <input type="hidden" name="order_id" value="<%=order._id%>">
-        <button>Approve</button>
-    </form-->
     <!---------------->
     <div class="fontsizeeditor">
     <div class="realname">
@@ -141,6 +137,45 @@
     <input type="range" min="0" max="200" value="100" class="slider" id="myRange">
     <div id="sliderValue">100%</div>
 </div>
+
+
+<div class="main">
+    <div class="card-container">
+        <h2>Update Order</h2>
+        <div class="card">
+            <form action="/updateOrderPaypal" method="post">
+                <input type="hidden"value="<%=order._id%>" name="orderId">
+                <h4>Sent to print</h4>
+                <input type="radio" name="sentToPrint" value="true" checked> True
+                <input type="radio" name="sentToPrint" value="false"> False
+                <h4>paypal Completed</h4>
+                <input type="radio" name="paypalCompleted" value="true" checked> True
+                <input type="radio" name="paypalCompleted" value="false"> False
+                <h4>paypalCanceled</h4>
+                <input type="radio" name="paypalCanceled" value="true"> True
+<input type="radio" name="paypalCanceled" value="false" checked> False
+<h4>input tracking id</h4>
+<input type="text" name="trackingId" value="">
+<button type="submit">submit changes</button>
+</form>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script>
 
 var slider = document.getElementById("myRange");

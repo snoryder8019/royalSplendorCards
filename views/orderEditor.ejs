@@ -138,8 +138,27 @@
         <button id="textBoxFontSizeBtnPlus_<%=card._id%>">+</button>
         <button id="textBoxFontSizeBtnMinus_<%=card._id%>">-</button>
     </div>
+    <input type="range" min="0" max="200" value="100" class="slider" id="myRange">
+    <div id="sliderValue">100%</div>
 </div>
     <script>
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("sliderValue");
+output.innerHTML = slider.value + "%";
+
+slider.oninput = function() {
+  output.innerHTML = this.value + "%";
+  var textBox = document.getElementById("textBox_<%=card._id%>");
+  textBox.style.width = this.value + "%";
+}
+
+
+
+
+
+
+
 
     // Real Name Font Size
     document.getElementById("realNameFontSizeBtnPlus_<%=card._id%>").addEventListener("click", function() {

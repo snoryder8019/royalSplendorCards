@@ -23,8 +23,38 @@ res.render('userEditor',{user:user})
         
     }
 }
-const postUserEdit = async(req,res)=>{
-}
+const postUserEdit = async (req, res) => {
+    try {
+        const db = getDb();
+        const collection = db.collection('users');
+        
+        const userId = req.body._id; // Assuming you're passing the user ID via a hidden input field in the form
+        const firstName = req.body.firstName;
+        const lastName = req.body.lastName;
+        const email = req.body.email;
+        const phone = req.body.phone;
+        const address = req.body.address;
+        const chapter = req.body.chapter;
+        const title = req.body.title;
+
+        await collection.updateOne(
+            { "_id":new ObjectId(userId) },
+            { $set: { 
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "phone": phone,
+                "address": address,
+                "chapter": chapter,
+                "title": title
+            }}
+        );
+
+        res.redirect('/admin'); // Redirect to admin page after successful edit
+    } catch (error) {
+        res.send(`Error: ${error}`);
+    }
+};
 
 
 

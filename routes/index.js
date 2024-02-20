@@ -40,6 +40,7 @@ router.post('/ticketUpdate', ticketUpdate);
 router.post('/ticketDelete', ticketDelete);
 router.post('/updateBanned', updateBanned);
 
+router.post('/postUserEdit',postUserEdit)
 router.get('/userEditor',getUserEditor)
 router.post('/userEdit/:id',postUserEdit)
 

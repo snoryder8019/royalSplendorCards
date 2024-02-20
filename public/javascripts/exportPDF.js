@@ -24,12 +24,15 @@ function exportHighResolutionImage(selector, fileName, orientation) {
   } else if (orientation == "vertical") {
     canvasHeight = 1125; // Width in pixels
     canvasWidth = 675; // Height in pixels
+  } else {
+    console.error("Invalid orientation. Please specify 'horizontal' or 'vertical'.");
+    return;
   }
 
   const element = document.querySelector(selector);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  const scaleFactor = 300 / 96 * screenResolution; // Convert screen resolution to scale factor
+  const scaleFactor = screenResolution; // No need to adjust the scale factor for PNGs
   canvas.width = canvasWidth * scaleFactor;
   canvas.height = canvasHeight * scaleFactor;
   ctx.scale(scaleFactor, scaleFactor);
@@ -60,9 +63,12 @@ function exportFrontFrameToPDF(userName, orientation) {
   } else if (orientation == "vertical") {
     canvasWidth = 675; // Width in pixels
     canvasHeight = 1125; // Height in pixels
+  } else {
+    console.error("Invalid orientation. Please specify 'horizontal' or 'vertical'.");
+    return;
   }
 
-  exportHighResolutionImage('.cardFrontFrame', `card_front_${userName}.png`, orientation);
+ // exportHighResolutionImage('.cardFrontFrame', `card_front_${userName}.png`, orientation);
 
   html2pdf()
     .from(element)
@@ -88,9 +94,12 @@ function exportBackFrameToPDF(userName, orientation) {
   } else if (orientation == "vertical") {
     canvasWidth = 675; // Width in pixels
     canvasHeight = 1125; // Height in pixels
+  } else {
+    console.error("Invalid orientation. Please specify 'horizontal' or 'vertical'.");
+    return;
   }
 
-  exportHighResolutionImage('.cardBackFrame', `card_back_${userName}.png`, orientation);
+ // exportHighResolutionImage('.cardBackFrame', `card_back_${userName}.png`, orientation);
 
   html2pdf()
     .from(element)
@@ -116,7 +125,7 @@ function exportUserDataToPDF(userName) {
       margin: [0, 0, 0, 0],
       filename: `order_data_${userName}.pdf`,
       //image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 * screenResolution, width: canvasWidth, height: canvasHeight },
+      html2canvas: { scale: screenResolution, width: canvasWidth, height: canvasHeight },
       jsPDF: { unit: 'px', format: [canvasWidth, canvasHeight] }
     })
     .save();

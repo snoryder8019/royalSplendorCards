@@ -11,16 +11,16 @@
       <%if(ordersPaypal[i].paypalCompleted=="true"&& ordersPaypal[i].sentToPrint=="true"){%>
         
         <div class="orderReview">
-        <h3>Order Details for : <%=ordersPaypal[i].userEmail%></h3>
+          <h3 style="margin-bottom: 10px;">Order Details for: <%= ordersPaypal[i].userEmail %></h3>
    
-        <div>Ordered On: <%=ordersPaypal[i].orderDate.toDateString()%></div>
-        <div>total paid: <%=ordersPaypal[i].amount%></div>
-        <div>quantity: <%=ordersPaypal[i].description%></div>
-        <div>tracking id: <%=ordersPaypal[i].trackingId%></div>
-        <div> sent to print: <%=ordersPaypal[i].sentToPrint%></div>
-        <div>paypal completed: <%=ordersPaypal[i].paypalCompleted%></div>
-        <div>paypal canceled: <%=ordersPaypal[i].paypalCanceled%></div>
-        <div>paypal canceled: <%=ordersPaypal[i].paypalCanceled%></div>
+          <div style="margin-bottom: 5px;">Ordered On: <%= new Date(ordersPaypal[i].orderDate).toDateString() %></div>
+          <div style="margin-bottom: 5px;">Total Paid: <%= ordersPaypal[i].amount %></div>
+          <div style="margin-bottom: 5px;">Quantity: <%= ordersPaypal[i].description %></div>
+          <div style="margin-bottom: 5px;">Tracking ID: <%= ordersPaypal[i].trackingId %></div>
+          <div style="margin-bottom: 5px;">Sent to Print: <%= ordersPaypal[i].sentToPrint ? 'Yes' : 'No' %></div>
+          <div style="margin-bottom: 5px;">Paypal Completed: <%= ordersPaypal[i].paypalCompleted ? 'Yes' : 'No' %></div>
+          <div style="margin-bottom: 5px;">Paypal Canceled: <%= ordersPaypal[i].paypalCanceled ? 'Yes' : 'No' %></div>
+          
 
       <!--------I need to load these card fronts and back, but i need to reference---------->
       

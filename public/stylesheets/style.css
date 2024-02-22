@@ -57,19 +57,36 @@
   font-family: "satisfy";
 }
 
+/* Define accent font family variable in CSS */
+#welcome {
+  font-family: "backlash";
+}
+
 .fontType::first-letter {
-  font-size: 3rem;
-  font-family: "sunday";
+  font-size: 3vw; /* Adjust based on viewport width */
+  font-family: "aquarelle";
   float: left;
-  line-height: 0;
-  margin-right: 8px; /* Adjust for spacing between the letter and the text */
+  line-height: 1;
 }
 
-.fontType::lin .fontType + p,
-.fontType + div {
-  margin-top: -0.5em; /* Negative margin to pull up the text. Adjust as needed */
+.fontType {
+  margin: 6% 10%;
+  text-align: left;
+  font-family: "backlash";
 }
 
+/* Adjustments for small screens */
+@media (max-width: 600px) {
+  .fontType::first-letter {
+    font-size: 12vw; /* Larger size for smaller screens */
+  }
+}
+/* Adjustments for large screens */
+@media (min-width: 1200px) {
+  .fontType::first-letter {
+    font-size: 4rem; /* Fixed size for larger screens */
+  }
+}
 html {
   text-align: center;
   margin: 0;
@@ -84,6 +101,10 @@ body {
   padding: 0;
 }
 
+#main {
+  margin: 0;
+  padding: 0;
+}
 a {
   color: rgb(26, 26, 164);
 }

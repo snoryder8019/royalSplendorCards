@@ -131,18 +131,42 @@ $labelFontSize:1.2rem;
   &_mont{font-family:$mont;}
   &_sati{font-family:$sati;}
 }
-.fontType::first-letter {
-  font-size: 3rem;
-  font-family: $accentFontFamily;
-  float: left;
-  line-height: 0;
-  margin-right: 8px; /* Adjust for spacing between the letter and the text */
-}
-.fontType::lin
 
-.fontType + p, .fontType + div {
-  margin-top: -0.5em; /* Negative margin to pull up the text. Adjust as needed */
+/* Define accent font family variable in CSS */
+
+#welcome{
+ // padding: 1%;
+ // margin: 2%;
+  font-family: $back;
+  
 }
+.fontType::first-letter {
+  font-size: 3vw; /* Adjust based on viewport width */
+  font-family:$aqua;
+  float: left;
+  line-height: 1;
+  //margin-right: 0.5em; /* Adjust for spacing, relative to font size */
+//  padding: 2%;
+}
+.fontType{
+  margin:6% 10%;
+  text-align: left;
+  font-family:$back ;
+}
+/* Adjustments for small screens */
+@media (max-width: 600px) {
+  .fontType::first-letter {
+    font-size: 12vw; /* Larger size for smaller screens */
+  }
+}
+
+/* Adjustments for large screens */
+@media (min-width: 1200px) {
+  .fontType::first-letter {
+    font-size: 4rem; /* Fixed size for larger screens */
+  }
+}
+
 
 
 // Mixins
@@ -201,9 +225,8 @@ body {
   padding: 0;
 }
 #main{
-//   transform-style: preserve-3d;
-// transition-timing-function: ease-in-out;
-// transition-duration: .4s;
+margin: 0;
+padding: 0;
   @media (min-width:$screenQueryReg) {
 
   }

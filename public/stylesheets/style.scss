@@ -152,6 +152,10 @@ $labelFontSize:1.2rem;
   margin:6% 10%;
   text-align: left;
   font-family:$back ;
+  @media (min-width:768px){
+    margin:0% -12%;
+
+  }
 }
 /* Adjustments for small screens */
 @media (max-width: 600px) {

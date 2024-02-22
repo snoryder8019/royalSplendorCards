@@ -74,6 +74,11 @@
   text-align: left;
   font-family: "backlash";
 }
+@media (min-width: 768px) {
+  .fontType {
+    margin: 0% -12%;
+  }
+}
 
 /* Adjustments for small screens */
 @media (max-width: 600px) {

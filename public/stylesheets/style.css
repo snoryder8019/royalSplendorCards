@@ -440,6 +440,37 @@ button {
   padding: 0;
 }
 
+.orderControls {
+  width: 200px;
+  position: fixed;
+  left: 6%;
+  top: 1%;
+}
+
+.orderData {
+  width: 200px;
+  position: fixed;
+  right: 6%;
+  top: 1%;
+}
+
+.cardExport {
+  align-items: center;
+  width: 1125px;
+  height: 1400px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 50%;
+  margin-top: 10%;
+  transform: translateX(-50%);
+  transform-style: preserve-3d;
+  transition-timing-function: ease-out;
+  transition-duration: 0.6s;
+  padding: 20px;
+  background-color: white;
+}
+
 .card {
   align-items: center;
   min-width: 375px;
@@ -524,11 +555,22 @@ input[type=submit]:hover {
 
 .cardFrontFrame {
   position: relative;
-  max-width: 375px;
+  width: 375px;
 }
 
 .cardBackFrame {
-  max-width: 375px;
+  width: 375px;
+}
+
+.cardFrontFrameExport {
+  position: relative;
+  width: 1125px;
+  height: 675px;
+}
+
+.cardBackFrameExport {
+  width: 1125px;
+  height: 675px;
 }
 
 .cardImg {
@@ -540,6 +582,17 @@ input[type=submit]:hover {
 
 .cardImg img {
   width: 375px;
+}
+
+.cardImgExport {
+  position: relative;
+  width: 1125px;
+  height: 225px;
+  z-index: 2;
+}
+
+.cardImgExport img {
+  width: 1125px;
 }
 
 .cardImg_vertical img {

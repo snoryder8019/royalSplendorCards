@@ -11,26 +11,16 @@
 </head>
 <body>      
     <div id="main">
-        <h2>Process Order for <%=user.firstName%></h2>
-        <h3><a href="/userEditor?id=<%=user._id%>">edit <%-user.firstName%>'s info</a></h3>
-        <button onclick="exportBackFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportFrontFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportUserDataToPDF('<%=user.lastName%>')">Approve and Download Assets</button>
-            <button type="submit">Back to Admin</button>
-    
-
-    
-        <select name="cardOrientation" class="orientation">
-            <option value="horizontal">horizontal</option>
-            <option value="vertical">vertical</option>
-        </select>
+ 
           
         <!-------------MODULE BEGIN---------->
-        <div class="card-container">    
+        <div class="card-container-export">    
        
-            <div class="card">         
+            <div class="cardExport">         
                 <%=card.cardName%>
-                <div id="frontFrame_<%=card._id%>" class="cardFrontFrame">
+                <div id="frontFrame_<%=card._id%>" class="cardFrontFrameExport">
                     <% if(card.vertical == "false"){ %>
-                    <div class="cardImg">
+                    <div class="cardImgExport">
                     <% } else { %>
                         <div class="cardImg_vertical">
                     <% } %>
@@ -66,9 +56,9 @@
                 </div>
             </div>             
 
-            <div id="backFrame_<%=card._id%>" class="cardBackFrame">                        
+            <div id="backFrame_<%=card._id%>" class="cardBackFrameExport">                        
              
-                    <div style="width:90%" class="cardImg">
+                    <div style="width:90%" class="cardImgExport">
               
                    
                 <img class="" src="<%= card.cardBack %>" alt="Card Back">
@@ -86,6 +76,8 @@
     </div>
     
     <div class="orderData">
+        <div class="orderInfo">
+                    <div class="card">
         <div id="orderMeta" style="display: none;">
         <p><strong>Order ID:</strong> <%= order._id %></p>
         <p><strong>Custom ID:</strong> <%= order.customId %></p>
@@ -113,12 +105,30 @@
           <li><strong>Country Code:</strong> <%= order.shippingAddress.countryCode %></li>
         </ul>
       </div>
-      
+      </div>
+      <div class="card">
+        <h2>Process Order for <%=user.firstName%></h2>
+        <h3><a href="/userEditor?id=<%=user._id%>">edit <%-user.firstName%>'s info</a></h3>
+        <button onclick="exportBackFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportFrontFrameToPDF('<%=user.lastName%>',document.querySelector('.orientation').value); exportUserDataToPDF('<%=user.lastName%>')">Approve and Download Assets</button>
+            <button type="submit">Back to Admin</button>
+    
+
+    
+        <select name="cardOrientation" class="orientation">
+            <option value="horizontal">horizontal</option>
+            <option value="vertical">vertical</option>
+        </select>
+    </div>
+</div>
     <!-------------MODULE END---------->
     <!------------------>
- 
+    
     <!---------------->
-    <div class="fontsizeeditor">
+    <div class="orderControls">
+        <div class="card">
+            <div class="headShotCtl">
+               <input type="range" id="scaleSliderImg" min="0.5" max="10" step="0.01" value="1">
+            </div>
     <div class="realname">
         Real Name Font
         <button id="realNameFontSizeBtnPlus_<%=card._id%>">+</button>
@@ -128,6 +138,7 @@
         Royal Name Font
         <button id="royalTitleFontSizeBtnPlus_<%=card._id%>">+</button>
         <button id="royalTitleFontSizeBtnMinus_<%=card._id%>">-</button>
+      <input type="range" id="widthSlider" min="100" max="1000" value="500" step="1">
     </div>
     <div class="data">
         Data Font
@@ -136,11 +147,8 @@
     </div>
     <input type="range" min="0" max="200" value="100" class="slider" id="myRange">
     <div id="sliderValue">100%</div>
-</div>
 
 
-<div class="main">
-    <div class="card-container">
         <h2>Update Order</h2>
         <div class="card">
             <form action="/updateOrderPaypal" method="post">
@@ -162,7 +170,9 @@
 
         </div>
     </div>
-</div>
+    </div>
+    </div>
+
 
 
 
@@ -234,7 +244,71 @@ slider.oninput = function() {
         textTitles.style.fontSize = (currentFontSize - 1) + "px";
     });
 </script>
+<script>
 
+document.addEventListener('DOMContentLoaded', function() {
+    const img = document.getElementById('headshotImg');
+    const slider = document.getElementById('scaleSliderImg'); // Updated ID reference
+
+    let isDragging = false;
+    let dragStartX, dragStartY;
+    let imgPosX = 0, imgPosY = 0; // Initial positions
+    let scale = slider.value; // Initial scale
+
+    // Update the transform style
+    const updateTransform = () => {
+        img.style.transform = `translate(${imgPosX}px, ${imgPosY}px) scale(${scale})`;
+    };
+
+    // Drag and Drop for the image
+    img.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        dragStartX = e.clientX - imgPosX;
+        dragStartY = e.clientY - imgPosY;
+        img.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            imgPosX = e.clientX - dragStartX;
+            imgPosY = e.clientY - dragStartY;
+            updateTransform();
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            img.style.cursor = 'grab';
+        }
+    });
+
+    // Slider control for scale
+    slider.addEventListener('input', function() {
+        scale = this.value;
+        updateTransform();
+    });
+});
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.getElementById('widthSlider');
+    const textElement = document.getElementById('royalTitleText');
+
+    // Function to update max-width
+    const updateMaxWidth = () => {
+        textElement.style.maxWidth = `${slider.value}px`;
+    };
+
+    // Update max-width based on the slider's initial position
+    updateMaxWidth();
+
+    // Event listener for slider changes
+    slider.addEventListener('input', updateMaxWidth);
+});
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     
     <script src="/javascripts/loader.js"></script>

@@ -52,7 +52,7 @@ function download(dataUrl, fileName) {
 }
 
 function exportFrontFrameToPDF(userName, orientation) {
-  const element = document.querySelector('.cardFrontFrame');
+  const element = document.querySelector('.cardFrontFrameExport');
   let canvasWidth;
   let canvasHeight;
   const screenResolution = window.devicePixelRatio || 1; // Get screen resolution
@@ -83,7 +83,7 @@ function exportFrontFrameToPDF(userName, orientation) {
 }
 
 function exportBackFrameToPDF(userName, orientation) {
-  const element = document.querySelector('.cardBackFrame');
+  const element = document.querySelector('.cardBackFrameExport');
   let canvasWidth;
   let canvasHeight;
   const screenResolution = window.devicePixelRatio || 1; // Get screen resolution
@@ -114,7 +114,7 @@ function exportBackFrameToPDF(userName, orientation) {
 }
 
 function exportUserDataToPDF(userName) {
-  const element = document.querySelector('.orderData');
+  const element = document.querySelector('.orderInfo');
   const canvasWidth = 1125; // Width in pixels
   const canvasHeight = 675; // Height in pixels
   const screenResolution = window.devicePixelRatio || 1; // Get screen resolution

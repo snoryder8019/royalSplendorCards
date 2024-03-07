@@ -500,6 +500,43 @@ margin: 0;
 padding: 0;
 }
 $cardDimention:375px;
+$exportWidth:1125px;
+$exportHeight:675px;
+$exportHeightCard:1400px;
+//
+.card-container-export{
+  //height: 1000px;
+}
+.orderControls {
+  width: 200px;
+  position: fixed;
+  left: 6%;
+  top: 1%;
+  }
+.orderData {
+  width: 200px;
+  position: fixed;
+  right: 6%;
+  top: 1%;
+  }
+
+.cardExport {
+  align-items: center;
+  width:$exportWidth ;
+  height:$exportHeightCard ;
+
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ margin-left:50%;
+  margin-top: 10%;
+ transform: translateX(-50%);
+ transform-style: preserve-3d;
+ transition-timing-function: ease-out;
+ transition-duration: .6s;
+  padding: 20px;
+  background-color: white;
+}
 .card {
   align-items: center;
   min-width: $cardDimention;
@@ -581,11 +618,23 @@ input[type="submit"]:hover {
 .cardFrontFrame {
   position: relative;
  // width: 100%;
-  max-width: $cardDimention;
+  width: $cardDimention;
 }
 .cardBackFrame{
  // width: 100%;
-  max-width: $cardDimention;
+  width: $cardDimention;
+
+}
+.cardFrontFrameExport{
+  position: relative;
+ // width: 100%;
+  width: $exportWidth;
+  height: $exportHeight;
+}
+.cardBackFrameExport{
+  // width: 100%;
+  width: $exportWidth;
+  height: $exportHeight;
 
 }
 .cardImg  {
@@ -597,6 +646,16 @@ input[type="submit"]:hover {
 
 .cardImg img {
   width:375px ;
+}
+.cardImgExport  {
+  position: relative;
+  width: $exportWidth;
+  height:225px;
+  z-index: 2;
+}
+
+.cardImgExport img {
+  width:$exportWidth;
 }
 .cardImg_vertical img{
   width:55%;

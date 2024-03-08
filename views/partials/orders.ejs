@@ -7,6 +7,7 @@
   
   
   <div id="newOrdersDiv">
+    <div class="card-container">
   <%for(let i =0;i<ordersPaypal.length;i++){%>
 
       <%if(ordersPaypal[i].paypalCompleted=="true"&& ordersPaypal[i].sentToPrint=="false"){%>
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       no active orders        
       <%}%>
     </div>
-
+  </div>
         <!---------------->
 
      <script></script>

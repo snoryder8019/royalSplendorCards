@@ -5,7 +5,7 @@
     <%let toPrintOrdersCount = ordersPaypal.filter(order => order.sentToPrint === 'true').length;%>
   <h4> You have <%=toPrintOrdersCount%>  orders sent To Print!! 🥳</h4>
   
-  
+  <div class="card-container">
   <%for(let i =0;i<ordersPaypal.length;i++){%>
 
       <%if(ordersPaypal[i].paypalCompleted=="true"&& ordersPaypal[i].sentToPrint=="true"){%>
@@ -62,6 +62,7 @@
     <%}else{%>
       no active orders        
       <%}%>
+    </div>
   
 
   

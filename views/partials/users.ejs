@@ -35,6 +35,8 @@
               <% users.forEach(function(user) { %>
               <tr>
                 <td><a href="/userEditor?id=<%=user._id%>"> <%= user.lastName %>, <%= user.firstName %></a></td>
+                <td><%=user.email%></td>
+                <td><%=user.isConfirmed%> with: <%= user.confirmedEmail%></td>
                 <td>Suspend ~ Delete</td>
                 <td><button class="emailOutgoing" data-email="<%= user.email %>" data-username="<%=user.firstName%>"
                     data-userid="<%= user._id %>">Email</button></td>

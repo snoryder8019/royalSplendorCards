@@ -33,6 +33,27 @@
       <input type="hidden" name="orderId" value="<%=ordersPaypal[i]._id%>">
   <button type="submit">Download Assets</button>
     </form>
+
+    <h2>Update Order</h2>
+    <div class="card">
+        <form action="/updateOrderPaypal" method="post">
+            <input type="hidden"value="<%=ordersPaypal[i]._id%>" name="orderId">
+            <h4>Sent to print</h4>
+            <input type="radio" name="sentToPrint" value="true" checked> True
+            <input type="radio" name="sentToPrint" value="false"> False
+            <h4>paypal Completed</h4>
+            <input type="radio" name="paypalCompleted" value="true" checked> True
+            <input type="radio" name="paypalCompleted" value="false"> False
+            <h4>paypalCanceled</h4>
+            <input type="radio" name="paypalCanceled" value="true"> True
+<input type="radio" name="paypalCanceled" value="false" checked> False
+<h4>input tracking id</h4>
+<input type="text" name="trackingId" value="">
+<button type="submit">submit changes</button>
+</form>
+
+
+    </div>
    
     </div>
       <%}%>

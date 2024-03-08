@@ -15,57 +15,63 @@
           
         <!-------------MODULE BEGIN---------->
         <div class="card-container-export">    
-       
+            
             <div class="cardExport">         
                 <%=card.cardName%>
+                <!---------------------FRONT FRAME EXPORT-------------------->
                 <div id="frontFrame_<%=card._id%>" class="cardFrontFrameExport">
                     <% if(card.vertical == "false"){ %>
-                    <div class="cardImgExport">
-                    <% } else { %>
-                        <div class="cardImg_vertical">
-                    <% } %>
+                        <div class="cardImgExport">
+                            <% } else { %>
+                                <div class="cardImgExport_vertical">
+                                    <% } %>
                     <% if(card.nameStack == "false"){ %>
-                    <% if(typeof user =='object' && user.firstName){ %>
-                        <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" class ="realName" draggable="true">
-                            <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName + " " + user.lastName%></div>
+                        <% if(typeof user =='object' && user.firstName){ %>
+                            <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" class ="realName" draggable="true">
+                                <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName + " " + user.lastName%></div>
                         </div>
-                    <% } else { %>
-                        <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" class ="realName" draggable="true">
-                            <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
-                        </div>
-                    <% } %>
+                        <% } else { %>
+                            <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" class ="realName" draggable="true">
+                                <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname lastname</div>
+                            </div>
+                            <% } %>
                     <% } %>
                     <% if(card.nameStack == "true"){ %>
                     <% if(typeof user =='object' && user.firstName){ %>
                         <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;"  class ="realName" draggable="true">
                             <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; "><%=user.firstName%><br><%=user.lastName%></div>
                         </div>
-                    <% } else { %>
-                        <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" class ="realName" draggable="true">
-                            <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
+                        <% } else { %>
+                            <div id="realName" style="position:absolute; top:<%= card.text1PositionY %>px; left:<%= card.text1PositionX %>px;" class ="realName" draggable="true">
+                                <div id="realNameText" class="font_<%=card.fontName1%>" style="font-size:<%= card.font1Size %>px;color:<%=card.text1Color%>; ">firstname <br>lastname</div>
+                            </div>
+                            <% } %>
+                            <% } %>            
+                            <div id="royalTitle" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;"  class="royalTitle" draggable="true">
+                                <div id="royalTitleText" style="word-wrap: normal; max-width: 125px; font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
+                            </div>   
+                            <img class="" src="<%= card.cardFront %>" alt="Card Front">
+                            <div id="headshot" class="headshot">
+                                <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
+                            </div>
                         </div>
-                    <% } %>
-                    <% } %>            
-                    <div id="royalTitle" style="position:absolute; top:<%= card.text2PositionY %>px; left:<%= card.text2PositionX %>px;"  class="royalTitle" draggable="true">
-                        <div id="royalTitleText" style="word-wrap: normal; max-width: 125px; font-size:<%= card.font2Size %>px; color:<%=card.text1Color%>" class="font_<%=card.fontName2%>"> <%=user.title%></div>
-                    </div>   
-                    <img class="" src="<%= card.cardFront %>" alt="Card Front">
-                    <div id="headshot" class="headshot">
-                        <img id="headshotImg" style="position:absolute; transform: translateY(<%= card.imgPositionY %>px) translateX(<%= card.imgPositionX %>px) scale(<%= card.imgScale%>);" class="headshot" src="/images/userHeadshots/<%=user.userImg%>" alt="Headshot">
-                    </div>
-                </div>
-            </div>             
-
-            <div id="backFrame_<%=card._id%>" class="cardBackFrameExport">                        
-             
-                    <div style="width:90%" class="cardImgExport">
-              
-                   
-                <img class="" src="<%= card.cardBack %>" alt="Card Back">
-                <div class="textBox" id="textBox_<%=card._id%>"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" draggable="true" >
-                    <div id="textTitles_<%=card._id%>" style= "width:200%;font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
-                        <div class="font_<%=card.fontName1%>">Chapter</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
-                        <div class="font_<%=card.fontName1%>">Address</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
+                    </div>             
+                    <!----------**************END FRONT FRAME EXPORT*****************------------------>
+                    
+                    
+                    
+                    
+                    <!-------------------BACK FRAME EXPORT-------------------->
+                    <div id="backFrame_<%=card._id%>" class="cardBackFrameExport">                        
+                        
+                        <div style="width:90%" class="cardImgExport">
+                            
+                            
+                        <img class="" src="<%= card.cardBack %>" alt="Card Back">
+                        <div class="textBox" id="textBox_<%=card._id%>"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" draggable="true" >
+                            <div id="textTitles_<%=card._id%>" style= "width:200%;font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
+                                <div class="font_<%=card.fontName1%>">Chapter</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
+                                <div class="font_<%=card.fontName1%>">Address</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.address%></div> 
                         <div class="font_<%=card.fontName1%>">Email</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.email%></div> 
                         <div class="font_<%=card.fontName1%>">Phone</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.phone%></div> 
                         <div class="font_<%=card.fontName1+" "  %>">Birthday</div><div>: </div><div class="font_<%=card.fontName2%>"><%= user.birthday_day + " " + user.birthday_month %></div>                     
@@ -73,12 +79,15 @@
                 </div>     
             </div>
         </div>        
+        <!----------**************END FRONT FRAME EXPORT*****************------------------>
     </div>
+    </div>
+    
     
     <div class="orderData">
         <div class="orderInfo">
-                    <div class="card">
-        <div id="orderMeta" style="display: none;">
+            <div class="card">
+                <div id="orderMeta" style="display: none;">
         <p><strong>Order ID:</strong> <%= order._id %></p>
         <p><strong>Custom ID:</strong> <%= order.customId %></p>
         <p><strong>Paypal Approved:</strong> <%= order.paypalApproved %></p>
@@ -86,9 +95,9 @@
         <p><strong>Sent To Print:</strong> <%= order.sentToPrint %></p>
         <p><strong>Paypal Canceled:</strong> <%= order.paypalCanceled %></p>
         <p><strong>Paypal ID:</strong> <%= order.paypalId %></p>
-            <p><strong>User ID:</strong> <%= order.userId %></p>
+        <p><strong>User ID:</strong> <%= order.userId %></p>
             <p><strong>Card ID:</strong> <%= order.cardId %></p>
-    </div>
+        </div>
     
         <p><strong>User Email:</strong> <%= order.userEmail %></p>
         <p><strong>Tracking ID:</strong> <%= order.trackingId %></p>
@@ -97,9 +106,9 @@
         <p><strong>Description:</strong> <%= order.description %></p>
         <p><strong>Shipping Address:</strong></p>
         <ul>
-          <li><strong>Address Line 1:</strong> <%= order.shippingAddress.addressLine1 %></li>
-          <li><strong>Address Line 2:</strong> <%= order.shippingAddress.addressLine2 %></li>
-          <li><strong>City:</strong> <%= order.shippingAddress.city %></li>
+            <li><strong>Address Line 1:</strong> <%= order.shippingAddress.addressLine1 %></li>
+            <li><strong>Address Line 2:</strong> <%= order.shippingAddress.addressLine2 %></li>
+            <li><strong>City:</strong> <%= order.shippingAddress.city %></li>
           <li><strong>State:</strong> <%= order.shippingAddress.state %></li>
           <li><strong>Postal Code:</strong> <%= order.shippingAddress.postalCode %></li>
           <li><strong>Country Code:</strong> <%= order.shippingAddress.countryCode %></li>

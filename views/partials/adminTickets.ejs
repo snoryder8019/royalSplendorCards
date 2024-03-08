@@ -1,19 +1,19 @@
 <% if (tickets.length > 0) { %>
+  <h2>Open Tickets</h2>
   <div class="card-container">
-    <h2>Open Tickets</h2>
-    <ul>
+    
       <% tickets.forEach((ticket) => { %>
         <% if (ticket.status === 'open' && !ticket.isDeleted) { %> <!-- Add condition for isDeleted -->
-          <div class="card-container">
-            <li>
+          <div class="ticket-container">
+           
               <!-- Ticket details -->
-              <p>Ticket ID: <%= ticket._id %></p>
-              <p>userName: <%= ticket.userName %></p>
-              <p>userEmail: <%= ticket.userEmail %></p>
-              <p>userPhone: <%= ticket.userPhone %></p>
-              <p>Subject: <%= ticket.subject %></p>
-              <p>Description: <%= ticket.description %></p>
-              <p>Status: <%= ticket.status %></p>
+              <h3>Ticket ID: <%= ticket._id %></h3>
+              <h3>userName: <%= ticket.userName %></h3>
+              <h3>userEmail: <%= ticket.userEmail %></h3>
+              <h3>userPhone: <%= ticket.userPhone %></h3>
+              <h3>Subject: <%= ticket.subject %></h3>
+              <h3>Description: <%= ticket.description %></h3>
+              <h3>Status: <%= ticket.status %></h3>
               <!-- Update form -->
               <form action="/ticketUpdate" method="POST">
                 <input type="hidden" name="ticketId" value="<%= ticket._id %>">
@@ -30,26 +30,26 @@
               <!-- Dev updates -->
               <% if (ticket.devUpdates && ticket.devUpdates.length > 0) { %>
                 <h3>Dev Updates:</h3>
-                <ul>
+             
                   <% ticket.devUpdates.forEach((update) => { %>
-                    <li><%=update.source%> : <%= new Date(update.timestamp).toLocaleDateString('en-US') %> || <%= update.message %></li>                 
+                    <h3><%=update.source%> : <%= new Date(update.timestamp).toLocaleDateString('en-US') %> || <%= update.message %></h3>                 
                   <% }); %>
-                </ul>
+              
               <% } %>
-            </li>
+           
           </div>
         <% } %>
       <% }); %>
-    </ul>
+  
   </div>
 
+  <h2 style="margin-top: 12%;">Closed Tickets</h2>
   <div class="card-container">
-    <h2>Closed Tickets</h2>
-    <ul>
+   
       <% tickets.forEach((ticket) => { %>
         <% if (ticket.status === 'closed' && !ticket.isDeleted) { %> <!-- Add condition for isDeleted -->
           <div class="card">
-            <li>
+        
               <!-- Ticket details -->
               <p>Ticket ID: <%= ticket._id %></p>
               <p>Status: <%= ticket.status %></p>
@@ -75,12 +75,11 @@
                 <button type="submit">Update Ticket</button>
               </form>
               <!-- Delete form -->
-          
-            </li>
+         
           </div>
         <% } %>
       <% }); %>
-    </ul>
+ 
   </div>
 
  

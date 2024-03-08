@@ -599,6 +599,14 @@ input[type=submit]:hover {
   width: 55%;
 }
 
+.cardImgExport_vertical {
+  width: 675px;
+}
+
+.cardImgExport_vertical img {
+  width: 675px;
+}
+
 .headshot {
   z-index: -1;
   max-width: 100px; /* Adjust as needed */
@@ -723,6 +731,17 @@ input[type=submit]:hover {
     width: 50%;
     left: 25%;
   }
+}
+
+.ticketItem {
+  width: 30%;
+  flex-direction: column;
+}
+
+.ticket-container {
+  border: 1px dotted black;
+  box-shadow: inset 2px 2px 5px rgb(218, 41, 41);
+  padding: 1%;
 }
 
 .oneTouchLogin {

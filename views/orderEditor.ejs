@@ -67,7 +67,7 @@
                         <div style="width:90%" class="cardImgExport">
                             
                             
-                        <img class="" src="<%= card.cardBack %>" alt="Card Back">
+                        <img class="imgBackExport" src="<%= card.cardBack %>" alt="Card Back">
                         <div class="textBox" id="textBox_<%=card._id%>"  style="position:absolute;top:<%= card.text0PositionY %>px;left:<%= card.text0PositionX %>px; transform: rotate(<%= card.text0Rotation + "deg"%>);" draggable="true" >
                             <div id="textTitles_<%=card._id%>" style= "width:200%;font-size:<%= card.font0Size %>px; color:<%=card.textColor%>" class="textTitles">
                                 <div class="font_<%=card.fontName1%>">Chapter</div><div>: </div><div class="font_<%=card.fontName2%>"><%=user.chapter%></div>
@@ -123,7 +123,7 @@
     
 
     
-        <select name="cardOrientation" class="orientation">
+        <select id="orientationDropdown" name="cardOrientation" class="orientation">
             <option value="horizontal">horizontal</option>
             <option value="vertical">vertical</option>
         </select>
@@ -189,11 +189,55 @@
 
 
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const orientationDropdown = document.getElementById('orientationDropdown'); // Assume you've added this id to your dropdown
+            const cardFrontFrames = document.querySelectorAll('.cardFrontFrameExport');
+            const cardBackFrames = document.querySelectorAll('.cardBackFrameExport');
+            const imgBackExport = document.querySelectorAll('.imgBackExport');
 
-
-
-
-
+        
+            // Function to update width and height based on orientation
+            const updateCardDimensions = (orientation) => {
+                // Define dimensions for vertical and horizontal orientations
+                const dimensions = {
+                    vertical: { width: 675, height: 1125 }, // Example dimensions for vertical cards
+                    horizontal: { width: 1125, height: 675 } // Example dimensions for horizontal cards
+                };
+        
+                // Apply the dimensions based on the current orientation
+                const { width, height } = dimensions[orientation];
+             
+                    imgBackExport.forEach(frame  => {
+                        frame.style.width=width+'px';
+                        frame.style.height=height+'px';
+                    });
+                // cardExport.forEach(frame => {
+                //     frame.style.width = width+'px';
+                //     frame.style.height = height*2+'px'
+                // });
+                cardFrontFrames.forEach(frame => {
+                    frame.style.width = width+'px';
+                    frame.style.height = height+'px';
+                });
+                cardBackFrames.forEach(frame => {
+                    frame.style.width = width+'px';
+                    frame.style.height = height+'px';
+                });
+            };
+        
+            // Event listener for changes on the dropdown
+            orientationDropdown.addEventListener('change', function() {
+                const selectedOrientation = this.value; // 'vertical' or 'horizontal'
+                updateCardDimensions(selectedOrientation);
+            });
+        
+            // Initialize with the current selection
+            const initialOrientation = orientationDropdown.value;
+            updateCardDimensions(initialOrientation);
+        });
+        </script>
+        
 
     <script>
 

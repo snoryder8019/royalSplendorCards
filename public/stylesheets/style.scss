@@ -662,6 +662,7 @@ input[type="submit"]:hover {
 }
 .cardImgExport_vertical{
   width:$exportHeight;
+  height:$exportWidth;
 }
 .cardImgExport_vertical img{
   width:$exportHeight;

@@ -56,8 +56,32 @@ const postUserEdit = async (req, res) => {
     }
 };
 
+const adminRegEmail = async (req, res) => {
+    try {
+        console.log('admin reg email')
+        const db = getDb();
+        const collection = db.collection('users');
+        const userId = new ObjectId(req.body.userId);
+
+        // Assume email is fetched here if needed
+        const userToUpdate = await collection.findOne({ "_id": userId });
+        if (!userToUpdate) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        await collection.updateOne(
+            { "_id": userId },
+            { $set: { "isConfirmed": true, "confirmedEmail": userToUpdate.email } }
+        );
+
+        res.json({ message: 'Success' });
+    } catch (error) {
+        console.error('Error confirming email:', error);
+        res.status(500).json({ message: 'Error', error: error.toString() });
+    }
+};
 
 
 
 
-module.exports= {getUserEditor, postUserEdit}
+module.exports= {getUserEditor, postUserEdit,adminRegEmail}

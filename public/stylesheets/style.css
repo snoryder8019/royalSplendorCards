@@ -1117,4 +1117,48 @@ h6 {
   width: 50px;
 }
 
+.fancyPricing {
+  width: 95%;
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  margin: 20px 2%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.fancyPricing th, .fancyPricing td {
+  padding: 15px;
+  text-align: left;
+  color: #fff;
+}
+.fancyPricing th {
+  background-color: #ac1f2f;
+  font-size: 18px;
+}
+.fancyPricing tbody {
+  background-color: #ac1f2f;
+}
+.fancyPricing tbody tr {
+  border-bottom: 1px solid #fff;
+}
+.fancyPricing tbody tr:last-child {
+  border-bottom: none;
+}
+.fancyPricing tbody tr:nth-child(odd) td {
+  background: linear-gradient(145deg, #9e202f, #ac2233);
+}
+.fancyPricing tbody tr td {
+  background: linear-gradient(145deg, #bd2537, #ac1f2f);
+  font-size: 16px;
+}
+
+.reducedPricing {
+  background: linear-gradient(145deg, #ff416c, #ff4b2b);
+  color: #fff;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #ff416c;
+  font-size: 0.6rem;
+}
+
 /*# sourceMappingURL=style.css.map */

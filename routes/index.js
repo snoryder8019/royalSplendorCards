@@ -13,7 +13,7 @@ const {ticketUpdate,ticketDelete, ticketData} = require('./adminFunctions/ticket
 const {resetPasswordRequest, resetPassword, handleResetPasswordGet} = require('../plugins/passport/passwordReset')
 const {isAdmin,uploadCard, deleteCard, getFonts, uploadFonts, updateCard} = require('./adminFunctions/adminFunctions')
 //const userFunctionsRouter = require('./routes/userFunctions/userFunctions'); // Adjust the path as needed
-const {getUserEditor,postUserEdit} = require('./adminFunctions/userControl')
+const {getUserEditor,postUserEdit,adminRegEmail} = require('./adminFunctions/userControl')
 const { userImgUpload, userDataUpload, submitTicket, saveRotation } = require('./userFunctions/userFunctions');
 const {updateBanned}=require('./securityFunctions/updateBanned');
 
@@ -40,6 +40,7 @@ router.post('/ticketUpdate', ticketUpdate);
 router.post('/ticketDelete', ticketDelete);
 router.post('/updateBanned', updateBanned);
 
+router.post('/admin-confirm-email',adminRegEmail)
 router.post('/postUserEdit',postUserEdit)
 router.get('/userEditor',getUserEditor)
 router.post('/userEdit/:id',postUserEdit)

@@ -1150,3 +1150,60 @@ h6{
   }
 }
 
+// Define color variables for easy modification
+$primaryColor: #ac1f2f;
+$gradientLeft: #bd2537;
+$gradientRight: #ac1f2f;
+$gradientOddLeft: #9e202f;
+$gradientOddRight: #ac2233;
+$reducedColorStart: #ff416c;
+$reducedColorEnd: #ff4b2b;
+$textColor: #fff;
+
+.fancyPricing {
+  width: 95%;
+
+  border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  margin: 20px 2%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  
+  th, td {
+    padding: 15px;
+    text-align: left;
+    color: $textColor;
+  }
+  
+  th {
+    background-color: $primaryColor;
+    font-size: 18px;
+  }
+  
+  tbody {
+    background-color: $primaryColor;
+    tr {
+      border-bottom: 1px solid $textColor;
+      &:last-child {
+        border-bottom: none;
+      }
+      &:nth-child(odd) td {
+        background: linear-gradient(145deg, $gradientOddLeft, $gradientOddRight);
+      }
+      td {
+        background: linear-gradient(145deg, $gradientLeft, $gradientRight);
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.reducedPricing {
+  background: linear-gradient(145deg, $reducedColorStart, $reducedColorEnd);
+  color: $textColor;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px; // Adjust the thickness here
+  text-decoration-color: $reducedColorStart;
+  font-size: .6rem;
+}

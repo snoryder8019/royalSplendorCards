@@ -37,7 +37,8 @@
                 <td><a href="/userEditor?id=<%=user._id%>"> <%= user.lastName %>, <%= user.firstName %></a></td>
                 <td><%=user.email%></td>
                 <td><%=user.isConfirmed%> with: <%= user.confirmedEmail%></td>
-                <td>Suspend ~ Delete</td>
+                <td>Suspend ~ Delete</td>             
+                <td><button class="userConfirm" data-email="<%= user.email %>" data-userid="<%= user._id %>">Confirm Email</button></td>
                 <td><button class="emailOutgoing" data-email="<%= user.email %>" data-username="<%=user.firstName%>"
                     data-userid="<%= user._id %>">Email</button></td>
                 <td><button class="adminPassReset" data-email="<%= user.email %>" data-userid="<%= user._id %>">Reset
@@ -130,4 +131,41 @@
       console.error('Error resetting password:', error);
     }
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Existing code...
+
+    document.querySelectorAll('.userConfirm').forEach(button => {
+      button.addEventListener('click', function () {
+        adminConfirmEmail(this);
+      });
+    });
+});
+
+async function adminConfirmEmail(buttonElement) {
+    const userId = buttonElement.getAttribute('data-userid');
+    console.log(userId)
+    try {
+      const response = await fetch('/admin-confirm-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userId
+        }),
+      });
+
+      const result = await response.json();
+      if (result.message === 'Success') {
+        buttonElement.innerHTML = '&#x2714;'; // Unicode for check mark
+        buttonElement.disabled = true; // Prevent further clicks
+      } else {
+        console.error('Confirmation failed:', result.message);
+      }
+    } catch (error) {
+      console.error('Error confirming email:', error);
+    }
+}
+
 </script>

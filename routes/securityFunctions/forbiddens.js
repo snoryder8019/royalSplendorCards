@@ -12,12 +12,12 @@ const forbiddenTerms = [
     'manager',
     'ab2g',
     'ab2h',
-    '?utm_campaign',
+    'utm_campaign',
     'files',
     'portal',
     '//',
     'cgi-bin',
-    
+
 
 
 

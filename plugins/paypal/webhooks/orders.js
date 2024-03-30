@@ -7,14 +7,12 @@ const checkouts = async (req, res) => {
     console.log('CHECKOUTSFUNCTION')
     try {
         const eventType = req.body.event_type;
-        const orderId = req.body.id; // Order ID is common for all events
+        const orderId = req.body.id; 
 
-        console.log(`Received event: ${eventType}, Order ID: ${orderId}`); // Initial log for debugging
+        console.log(`Received event: ${eventType}, Order ID: ${orderId}`); 
 
         if (eventType == "CHECKOUT.ORDER.COMPLETED") {
-            console.log(`Fire finalization`);
-            // Asynchronous finalization logic, if any, should be awaited
-            // await finalizeOrder(orderId); // Example
+            console.log(`Fire finalization`);    
 
             const payerEmail = req.body.resource.payer.email_address;
             const payerId = req.body.resource.payer.payer_id;
@@ -26,7 +24,7 @@ const checkouts = async (req, res) => {
                     console.log(`Purchase Unit ${index + 1}:`);
                     console.log(`Description: ${unit.description}`);
                     console.log(`Amount: ${unit.amount.value} ${unit.amount.currency_code}`);
-                    // Additional logging for more fields...
+         
                 });
             }
         } else if (eventType == "CHECKOUT.ORDER.APPROVED") {
@@ -76,18 +74,16 @@ const checkouts = async (req, res) => {
                 });
             }
             // Update PayPal order status or other post-processing
-            // Ensure this function is asynchronous and awaited
-// Example usage
+       
 let updateFields = {
     "paypalCompleted": "true",
     "description":description,
     "amount":amount,
     "paypalId":orderId,
     "shippingAddress": shippingAddress
-    // Ensure other fields are properly defined and not null
+  
 };
 
-// Make sure customId is not null
 if (customId) {
     await updatePaypalOrder(customId, updateFields);
 } else {

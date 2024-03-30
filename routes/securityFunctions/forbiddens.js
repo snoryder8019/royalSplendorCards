@@ -11,8 +11,18 @@ const forbiddenTerms = [
     '_profiler',
     'manager',
     'ab2g',
-    'ab2h'
-    ]; // Replace with your actual forbidden terms
+    'ab2h',
+    '?utm_campaign',
+    'files',
+    'portal',
+    '//',
+    'cgi-bin',
+    
+
+
+
+
+    ]; // SCOTT ADD TERMS HERE FOR NOW BUT GO DB IN FUTURE RELEASE
 
 // Function to create regex patterns
 function createRegexPatterns(terms) {

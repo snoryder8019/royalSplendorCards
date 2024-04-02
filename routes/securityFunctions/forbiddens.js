@@ -14,9 +14,7 @@ const forbiddenTerms = [
     'ab2h',
     'utm_campaign',
     'files',
-    'portal',
     
-    'cgi-bin',
 
 
 

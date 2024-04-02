@@ -15,7 +15,7 @@ const forbiddenTerms = [
     'utm_campaign',
     'files',
     'portal',
-    '//',
+    
     'cgi-bin',
 
 
